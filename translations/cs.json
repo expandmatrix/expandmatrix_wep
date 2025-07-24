@@ -1,0 +1,63 @@
+{
+  "meta": {
+    "title": "Expand Matrix - AI Služby pro Váš Business",
+    "description": "Profesionální AI služby, školení a custom systémy. Automatizujte své procesy s umělou inteligencí."
+  },
+  "nav": {
+    "home": "Domů",
+    "services": "Služby",
+    "training": "AI Školení",
+    "packages": "AI Balíčky",
+    "custom": "Custom Systémy"
+  },
+  "home": {
+    "title": "AI Služby pro Váš Business",
+    "subtitle": "Profesionální řešení umělé inteligence pro automatizaci a optimalizaci vašich procesů",
+    "trainingDesc": "Naučte se pracovat s AI nástroji efektivně",
+    "packagesDesc": "Připravené AI řešení pro rychlé nasazení",
+    "customDesc": "Systémy na míru podle vašich potřeb"
+  },
+  "services": {
+    "title": "Naše AI Služby",
+    "description": "Kompletní portfolio AI služeb pro moderní business",
+    "training": "AI Školení",
+    "packages": "AI Balíčky", 
+    "custom": "Custom AI Systémy",
+    "trainingDesc": "Komplexní školení pro efektivní využití AI nástrojů ve vašem businessu",
+    "packagesDesc": "Předpřipravené AI řešení pro rychlé nasazení a okamžité výsledky",
+    "customDesc": "Vývoj AI systémů přesně podle vašich specifických požadavků",
+    "meta": {
+      "title": "AI Služby - Expand Matrix",
+      "description": "Kompletní portfolio AI služeb: školení, balíčky a custom systémy pro váš business."
+    }
+  },
+  "training": {
+    "title": "AI Školení",
+    "description": "Komplexní vzdělávací programy zaměřené na praktické využití umělé inteligence v businessu.",
+    "whatYouLearn": "Co se naučíte",
+    "topics": [
+      "Základy umělé inteligence a strojového učení",
+      "Praktické využití ChatGPT a dalších AI nástrojů",
+      "Automatizace procesů pomocí AI",
+      "Tvorba AI promptů pro maximální efektivitu",
+      "Integrace AI do stávajících systémů"
+    ],
+    "benefits": "Výhody našeho školení",
+    "benefitsList": [
+      "Praktické hands-on přístupy",
+      "Reálné případové studie",
+      "Certifikace po dokončení",
+      "Pokračující podpora po školení",
+      "Přizpůsobení obsahu vašemu oboru"
+    ],
+    "meta": {
+      "title": "AI Školení - Expand Matrix",
+      "description": "Profesionální AI školení pro efektivní využití umělé inteligence ve vašem businessu."
+    }
+  },
+  "common": {
+    "learnMore": "Zjistit více",
+    "contact": "Kontakt",
+    "getStarted": "Začít"
+  }
+}
