@@ -7,7 +7,7 @@ export async function generateMetadata({
   params: Promise<{ lang: string }>;
 }): Promise<Metadata> {
   const { lang } = await params;
-  const locale = isValidLocale(lang) ? lang : 'en';
+  const locale = isValidLocale(lang) ? lang : 'cs';
   const dict = await getDictionary(locale);
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://expandmatrix.com';
@@ -15,7 +15,7 @@ export async function generateMetadata({
 
   return {
     title: dict.services?.meta?.title || 'Our Services - Expand Matrix',
-    description: dict.services?.meta?.description || 'Our AI services for automating your business.',
+    description: dict.services?.meta?.description || 'Our AI services for business automation.',
     keywords: dict.services?.meta?.keywords || 'AI services, process automation',
     alternates: {
       canonical: currentUrl,
@@ -26,7 +26,7 @@ export async function generateMetadata({
     },
     openGraph: {
       title: dict.services?.meta?.title || 'Our Services - Expand Matrix',
-      description: dict.services?.meta?.description || 'Our AI services for automating your business.',
+      description: dict.services?.meta?.description || 'Our AI services for business automation.',
       url: currentUrl,
       siteName: 'Expand Matrix',
       locale: 'en_US',
@@ -35,13 +35,13 @@ export async function generateMetadata({
   };
 }
 
-interface ServicesPageProps {
-  params: Promise<{ lang: string }>;
-}
-
-export default async function ServicesPage({ params }: ServicesPageProps) {
+export default async function ServicesPage({ 
+  params 
+}: { 
+  params: Promise<{ lang: string }> 
+}) {
   const { lang } = await params;
-  const locale = isValidLocale(lang) ? lang : 'en';
+  const locale = isValidLocale(lang) ? lang : 'cs';
   const dict = await getDictionary(locale);
 
   return (
@@ -51,10 +51,9 @@ export default async function ServicesPage({ params }: ServicesPageProps) {
           {dict.services?.title || 'Our Services'}
         </h1>
         <p className="text-xl text-text-secondary mb-12">
-          {dict.services?.description || 'Comprehensive AI solutions for automating your business'}
+          {dict.services?.description || 'Comprehensive AI solutions for business automation'}
         </p>
         
-        {/* Services content */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           <div className="p-6 bg-bg-secondary/30 rounded-2xl border border-accent-primary/20">
             <h3 className="text-xl font-bold text-text-primary mb-4">AI Automation</h3>
