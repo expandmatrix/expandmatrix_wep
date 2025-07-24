@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Experimental features
+  // Experimental features - odstraněna optimizeCss
   experimental: {
     typedRoutes: true,
-    optimizeCss: true,
+    // optimizeCss: true, // Toto způsobuje chybu s critters
   },
   
   // External packages for server components

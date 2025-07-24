@@ -1,18 +1,35 @@
 'use client';
 
-import { motion, useMotionValue, useTransform } from 'framer-motion';
-import { Linkedin, Mail, Code, Brain, Database, Zap, Globe, Shield } from 'lucide-react';
-import { useRef, useState } from 'react';
+import { motion, useMotionValue, useTransform, AnimatePresence } from 'framer-motion';
+import { Linkedin, Mail, Code, Brain, Database, Zap, Globe, Shield, Star, Cpu, Network } from 'lucide-react';
+import { useRef, useState, useCallback, useMemo } from 'react';
 
 interface AboutTeamProps {
   dict: any;
   lang: 'cs' | 'en';
 }
 
-export default function AboutTeam({ dict, lang }: AboutTeamProps) {
-  const [hoveredMember, setHoveredMember] = useState<number | null>(null);
+interface TeamMember {
+  name: string;
+  role: string;
+  bio: string;
+  specializations: Array<{
+    name: string;
+    level: number;
+    icon: any;
+  }>;
+  image: string;
+  linkedin: string;
+  email: string;
+  gradient: string;
+  accentColor: string;
+}
 
-  const team = [
+export default function AboutTeam({ dict, lang }: AboutTeamProps) {
+  const [activeCard, setActiveCard] = useState<number | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const team: TeamMember[] = useMemo(() => [
     {
       name: 'Martin Novák',
       role: lang === 'cs' ? 'CEO & AI Stratég' : 'CEO & AI Strategist',
@@ -27,7 +44,8 @@ export default function AboutTeam({ dict, lang }: AboutTeamProps) {
       image: '/team/martin.jpg',
       linkedin: '#',
       email: 'martin@expandmatrix.com',
-      gradient: 'from-blue-500 to-purple-600'
+      gradient: 'from-blue-500 via-purple-500 to-cyan-500',
+      accentColor: '#3B82F6'
     },
     {
       name: 'Jana Svobodová',
@@ -43,7 +61,8 @@ export default function AboutTeam({ dict, lang }: AboutTeamProps) {
       image: '/team/jana.jpg',
       linkedin: '#',
       email: 'jana@expandmatrix.com',
-      gradient: 'from-emerald-500 to-teal-600'
+      gradient: 'from-emerald-500 via-teal-500 to-green-400',
+      accentColor: '#10B981'
     },
     {
       name: 'Tomáš Procházka',
@@ -59,7 +78,8 @@ export default function AboutTeam({ dict, lang }: AboutTeamProps) {
       image: '/team/tomas.jpg',
       linkedin: '#',
       email: 'tomas@expandmatrix.com',
-      gradient: 'from-orange-500 to-red-600'
+      gradient: 'from-orange-500 via-red-500 to-pink-500',
+      accentColor: '#F97316'
     },
     {
       name: 'Petra Nováková',
@@ -75,167 +95,69 @@ export default function AboutTeam({ dict, lang }: AboutTeamProps) {
       image: '/team/petra.jpg',
       linkedin: '#',
       email: 'petra@expandmatrix.com',
-      gradient: 'from-pink-500 to-rose-600'
+      gradient: 'from-pink-500 via-rose-500 to-purple-500',
+      accentColor: '#EC4899'
     }
-  ];
+  ], [lang]);
 
-  const TeamMemberCard = ({ member, index }: { member: typeof team[0], index: number }) => {
-    const isHovered = hoveredMember === index;
-
-    return (
-      <div
-        onMouseEnter={() => setHoveredMember(index)}
-        onMouseLeave={() => setHoveredMember(null)}
-        className="group relative"
-        style={{
-          opacity: 1,
-          transform: 'translateY(0px)',
-          animation: `fadeInUp 0.6s ease-out ${index * 0.1}s both`
-        }}
-      >
-        <div
-          className={`relative bg-bg-secondary/30 backdrop-blur-xl rounded-3xl border overflow-hidden h-full transition-all duration-300 ${
-            isHovered 
-              ? 'border-accent-primary/40 scale-[1.02] shadow-lg shadow-accent-primary/20' 
-              : 'border-accent-primary/20'
-          }`}
-        >
-          {/* Glow effect only on hover */}
-          {isHovered && (
-            <div className="absolute inset-0 bg-gradient-to-br from-accent-primary/5 to-transparent rounded-3xl" />
-          )}
-
-          <div className="relative z-10 p-8">
-            {/* Avatar */}
-            <div className="relative mb-6">
-              <div
-                className={`w-24 h-24 mx-auto rounded-2xl bg-gradient-to-br ${member.gradient} p-1 transition-transform duration-300 ${
-                  isHovered ? 'scale-105' : ''
-                }`}
-              >
-                <div className="w-full h-full bg-bg-secondary rounded-xl flex items-center justify-center text-white text-2xl font-bold">
-                  {member.name.split(' ').map(n => n[0]).join('')}
-                </div>
-              </div>
-            </div>
-
-            {/* Name & Role */}
-            <div className="text-center mb-6">
-              <h3 className="text-2xl font-bold text-text-primary mb-2">
-                {member.name}
-              </h3>
-              <p className="text-accent-primary font-semibold mb-4">
-                {member.role}
-              </p>
-              <p className="text-text-secondary leading-relaxed text-sm">
-                {member.bio}
-              </p>
-            </div>
-
-            {/* Specializations */}
-            <div className="space-y-4 mb-6">
-              <h4 className="text-sm font-semibold text-text-primary opacity-80">
-                {lang === 'cs' ? 'Specializace' : 'Specializations'}
-              </h4>
-              {member.specializations.map((spec, specIndex) => (
-                <div key={specIndex} className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center">
-                      <spec.icon className="w-4 h-4 text-accent-primary mr-2" />
-                      <span className="text-text-secondary text-sm">{spec.name}</span>
-                    </div>
-                    <span className="text-accent-primary text-sm font-semibold">
-                      {spec.level}%
-                    </span>
-                  </div>
-                  <div className="w-full bg-bg-tertiary rounded-full h-2 overflow-hidden">
-                    <div
-                      className="h-full bg-gradient-to-r from-accent-primary to-accent-dark rounded-full transition-all duration-1000 ease-out"
-                      style={{
-                        width: `${spec.level}%`,
-                        transitionDelay: `${specIndex * 200}ms`
-                      }}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Contact Links */}
-            <div className="flex justify-center space-x-4">
-              <a
-                href={member.linkedin}
-                className="p-3 rounded-full bg-accent-primary/10 border border-accent-primary/20 text-accent-primary hover:bg-accent-primary hover:text-bg-primary transition-all duration-300 hover:scale-110"
-              >
-                <Linkedin className="w-5 h-5" />
-              </a>
-              <a
-                href={`mailto:${member.email}`}
-                className="p-3 rounded-full bg-accent-primary/10 border border-accent-primary/20 text-accent-primary hover:bg-accent-primary hover:text-bg-primary transition-all duration-300 hover:scale-110"
-              >
-                <Mail className="w-5 h-5" />
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  };
+  const handleCardHover = useCallback((index: number | null) => {
+    setActiveCard(index);
+  }, []);
 
   return (
-    <section className="relative py-32 px-4 sm:px-6 lg:px-8 overflow-hidden">
-      {/* Add CSS animation styles */}
-      <style jsx>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(50px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
+    <section className="relative py-32 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-b from-bg-primary via-bg-primary/95 to-bg-secondary/20">
+      {/* Futuristic Background Grid */}
+      <div className="absolute inset-0 opacity-30">
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(0,255,127,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,255,127,0.03)_1px,transparent_1px)] bg-[size:100px_100px]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,255,127,0.1)_0%,transparent_50%)]" />
+      </div>
 
-      {/* Animated Background */}
-      <div className="absolute inset-0">
-        {/* Floating Tech Elements */}
-        {[...Array(20)].map((_, i) => (
+      {/* Floating Particles */}
+      <div className="absolute inset-0 pointer-events-none">
+        {Array.from({ length: 15 }).map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-1 h-1 bg-accent-primary/40 rounded-full"
+            className="absolute w-2 h-2 bg-accent-primary/40 rounded-full"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
             }}
             animate={{
-              y: [0, -50, 0],
-              opacity: [0.2, 1, 0.2],
-              scale: [1, 2, 1],
+              y: [0, -100, 0],
+              opacity: [0, 1, 0],
+              scale: [0.5, 1.5, 0.5],
             }}
             transition={{
-              duration: 3 + Math.random() * 2,
+              duration: 8 + Math.random() * 4,
               repeat: Infinity,
-              delay: Math.random() * 2,
+              delay: Math.random() * 5,
               ease: "easeInOut"
             }}
           />
         ))}
       </div>
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        {/* Header */}
+      <div ref={containerRef} className="max-w-7xl mx-auto relative z-10">
+        {/* Header Section */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
+          viewport={{ once: true }}
           className="text-center mb-20"
         >
-          <h2 className="text-4xl md:text-6xl font-black text-text-primary mb-6">
+          <div className="inline-flex items-center px-6 py-3 rounded-full bg-accent-primary/10 border border-accent-primary/20 mb-8 backdrop-blur-sm">
+            <Cpu className="w-5 h-5 text-accent-primary mr-2" />
+            <span className="text-accent-primary font-medium">
+              {lang === 'cs' ? 'AI Experti' : 'AI Experts'}
+            </span>
+          </div>
+          
+          <h2 className="text-5xl md:text-7xl font-black text-text-primary mb-6 bg-gradient-to-r from-text-primary via-accent-primary to-text-primary bg-clip-text">
             {lang === 'cs' ? 'Náš tým expertů' : 'Our Expert Team'}
           </h2>
-          <p className="text-xl text-text-secondary max-w-3xl mx-auto">
+          
+          <p className="text-xl text-text-secondary max-w-3xl mx-auto leading-relaxed">
             {lang === 'cs'
               ? 'Spojili jsme síly nejlepších AI specialistů, vývojářů a strategů pro vytvoření výjimečných řešení'
               : 'We have brought together the best AI specialists, developers, and strategists to create exceptional solutions'
@@ -244,12 +166,281 @@ export default function AboutTeam({ dict, lang }: AboutTeamProps) {
         </motion.div>
 
         {/* Team Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8 lg:gap-12">
+        <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
           {team.map((member, index) => (
-            <TeamMemberCard key={index} member={member} index={index} />
+            <TeamCard
+              key={member.name}
+              member={member}
+              index={index}
+              isActive={activeCard === index}
+              onHover={handleCardHover}
+              lang={lang}
+            />
           ))}
         </div>
       </div>
     </section>
+  );
+}
+
+// Separate TeamCard component for better performance
+interface TeamCardProps {
+  member: TeamMember;
+  index: number;
+  isActive: boolean;
+  onHover: (index: number | null) => void;
+  lang: 'cs' | 'en';
+}
+
+function TeamCard({ member, index, isActive, onHover, lang }: TeamCardProps) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  // Subtle 3D rotation
+  const rotateX = useTransform(mouseY, [-200, 200], [5, -5]);
+  const rotateY = useTransform(mouseX, [-200, 200], [-5, 5]);
+
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    if (!cardRef.current) return;
+    
+    const rect = cardRef.current.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    
+    mouseX.set((e.clientX - centerX) * 0.1);
+    mouseY.set((e.clientY - centerY) * 0.1);
+  }, [mouseX, mouseY]);
+
+  const handleMouseLeave = useCallback(() => {
+    onHover(null);
+    mouseX.set(0);
+    mouseY.set(0);
+  }, [onHover, mouseX, mouseY]);
+
+  return (
+    <motion.div
+      ref={cardRef}
+      initial={{ opacity: 0, y: 100, scale: 0.8 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ 
+        duration: 0.8, 
+        delay: index * 0.2,
+        ease: [0.25, 0.46, 0.45, 0.94]
+      }}
+      viewport={{ once: true, margin: "-100px" }}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => onHover(index)}
+      onMouseLeave={handleMouseLeave}
+      className="group relative perspective-1000"
+    >
+      {/* Holographic Card Container */}
+      <motion.div
+        className="relative h-full"
+        style={{
+          rotateX: isActive ? rotateX : 0,
+          rotateY: isActive ? rotateY : 0,
+          transformStyle: "preserve-3d",
+        }}
+        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+      >
+        {/* Main Card */}
+        <div className={`
+          relative bg-gradient-to-br from-bg-secondary/40 via-bg-secondary/20 to-transparent 
+          backdrop-blur-2xl border rounded-3xl overflow-hidden h-full
+          transition-all duration-500 ease-out
+          ${isActive 
+            ? 'border-accent-primary/60 shadow-2xl shadow-accent-primary/20 scale-105' 
+            : 'border-accent-primary/20 hover:border-accent-primary/40'
+          }
+        `}>
+          
+          {/* Holographic Overlay */}
+          <div className={`
+            absolute inset-0 bg-gradient-to-br ${member.gradient} opacity-0 
+            transition-opacity duration-500 rounded-3xl
+            ${isActive ? 'opacity-10' : 'group-hover:opacity-5'}
+          `} />
+
+          {/* Animated Border Glow */}
+          <motion.div
+            className="absolute inset-0 rounded-3xl"
+            style={{
+              background: `conic-gradient(from 0deg, transparent, ${member.accentColor}40, transparent)`,
+              opacity: isActive ? 0.6 : 0,
+            }}
+            animate={isActive ? { rotate: 360 } : { rotate: 0 }}
+            transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+          />
+
+          {/* Inner Content */}
+          <div className="relative z-10 p-8 h-full flex flex-col">
+            
+            {/* Futuristic Avatar */}
+            <div className="relative mb-8 flex justify-center">
+              <div className="relative">
+                {/* Avatar Container */}
+                <motion.div
+                  className={`w-28 h-28 rounded-2xl bg-gradient-to-br ${member.gradient} p-1`}
+                  animate={{
+                    scale: isActive ? 1.1 : 1,
+                    boxShadow: isActive 
+                      ? `0 0 40px ${member.accentColor}60` 
+                      : '0 0 0 transparent'
+                  }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className="w-full h-full bg-bg-secondary rounded-xl flex items-center justify-center text-white text-3xl font-black">
+                    {member.name.split(' ').map(n => n[0]).join('')}
+                  </div>
+                </motion.div>
+
+                {/* Orbiting Elements */}
+                <AnimatePresence>
+                  {isActive && (
+                    <>
+                      {[0, 120, 240].map((rotation, i) => (
+                        <motion.div
+                          key={i}
+                          className="absolute top-1/2 left-1/2 w-3 h-3 -mt-1.5 -ml-1.5"
+                          initial={{ opacity: 0, scale: 0 }}
+                          animate={{ 
+                            opacity: 1, 
+                            scale: 1,
+                            rotate: rotation + 360
+                          }}
+                          exit={{ opacity: 0, scale: 0 }}
+                          transition={{ 
+                            duration: 0.5,
+                            rotate: { duration: 4, repeat: Infinity, ease: "linear" }
+                          }}
+                          style={{
+                            transformOrigin: '6px 50px',
+                          }}
+                        >
+                          <div 
+                            className="w-3 h-3 rounded-full"
+                            style={{ backgroundColor: member.accentColor }}
+                          />
+                        </motion.div>
+                      ))}
+                    </>
+                  )}
+                </AnimatePresence>
+              </div>
+            </div>
+
+            {/* Member Info */}
+            <div className="text-center mb-8 flex-grow">
+              <motion.h3 
+                className="text-2xl font-bold text-text-primary mb-3"
+                animate={{
+                  color: isActive ? member.accentColor : '#FFFFFF'
+                }}
+                transition={{ duration: 0.3 }}
+              >
+                {member.name}
+              </motion.h3>
+              
+              <div className="inline-block px-4 py-2 rounded-full bg-accent-primary/10 border border-accent-primary/20 mb-4">
+                <p className="text-accent-primary font-semibold text-sm">
+                  {member.role}
+                </p>
+              </div>
+              
+              <p className="text-text-secondary leading-relaxed text-sm">
+                {member.bio}
+              </p>
+            </div>
+
+            {/* Skills Matrix */}
+            <div className="space-y-4 mb-8">
+              <div className="flex items-center justify-between">
+                <h4 className="text-sm font-bold text-text-primary flex items-center">
+                  <Network className="w-4 h-4 mr-2 text-accent-primary" />
+                  {lang === 'cs' ? 'Specializace' : 'Specializations'}
+                </h4>
+                <Star className="w-4 h-4 text-accent-primary" />
+              </div>
+              
+              {member.specializations.map((spec, specIndex) => (
+                <motion.div 
+                  key={spec.name} 
+                  className="space-y-2"
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ delay: specIndex * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center">
+                      <spec.icon className="w-4 h-4 text-accent-primary mr-3" />
+                      <span className="text-text-secondary text-sm font-medium">
+                        {spec.name}
+                      </span>
+                    </div>
+                    <span className="text-accent-primary text-sm font-bold">
+                      {spec.level}%
+                    </span>
+                  </div>
+                  
+                  <div className="relative w-full bg-bg-tertiary/50 rounded-full h-2 overflow-hidden">
+                    <motion.div
+                      className="h-full rounded-full relative"
+                      style={{
+                        background: `linear-gradient(90deg, ${member.accentColor}, ${member.accentColor}80)`,
+                      }}
+                      initial={{ width: 0 }}
+                      whileInView={{ width: `${spec.level}%` }}
+                      transition={{ 
+                        duration: 1.5, 
+                        delay: specIndex * 0.2,
+                        ease: [0.25, 0.46, 0.45, 0.94]
+                      }}
+                      viewport={{ once: true }}
+                    >
+                      {/* Animated Glow */}
+                      <motion.div
+                        className="absolute inset-0 rounded-full"
+                        style={{
+                          boxShadow: isActive ? `0 0 10px ${member.accentColor}80` : 'none'
+                        }}
+                        transition={{ duration: 0.3 }}
+                      />
+                    </motion.div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Contact Actions */}
+            <div className="flex justify-center space-x-4">
+              {[
+                { icon: Linkedin, href: member.linkedin, label: 'LinkedIn' },
+                { icon: Mail, href: `mailto:${member.email}`, label: 'Email' }
+              ].map(({ icon: Icon, href, label }) => (
+                <motion.a
+                  key={label}
+                  href={href}
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="relative p-3 rounded-xl bg-accent-primary/10 border border-accent-primary/20 text-accent-primary group/btn overflow-hidden"
+                >
+                  {/* Button Glow Effect */}
+                  <motion.div
+                    className="absolute inset-0 bg-accent-primary/20 rounded-xl"
+                    initial={{ scale: 0, opacity: 0 }}
+                    whileHover={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: 0.2 }}
+                  />
+                  
+                  <Icon className="w-5 h-5 relative z-10 group-hover/btn:text-white transition-colors" />
+                </motion.a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
   );
 }
