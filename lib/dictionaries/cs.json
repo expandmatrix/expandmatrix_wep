@@ -1,0 +1,76 @@
+{
+  "nav": {
+    "home": "Domů",
+    "about": "O nás",
+    "services": "Služby",
+    "vps": "VPS Hosting",
+    "contact": "Kontakt"
+  },
+  "home": {
+    "title": "Expand Matrix - AI Automatizace pro váš business",
+    "subtitle": "Transformujeme procesy pomocí umělé inteligence",
+    "description": "Jsme futuristická AI agentura specializující se na automatizaci business procesů. Pomáháme firmám ušetřit až 80% času pomocí nejmodernějších AI technologií.",
+    "cta": "Začít zdarma"
+  },
+  "about": {
+    "title": "O Expand Matrix",
+    "description": "Jsme tým AI expertů, kteří pomáhají firmám automatizovat procesy a dosahovat lepších výsledků pomocí umělé inteligence.",
+    "meta": {
+      "title": "O nás - Expand Matrix | AI Automatizace & Expertní tým",
+      "description": "Poznajte tým AI expertů za Expand Matrix. Specializujeme se na automatizaci procesů, snižování nákladů a digitální transformaci pomocí umělé inteligence.",
+      "keywords": "AI tým, umělá inteligence experti, automatizace procesů, AI agentura tým, digitální transformace specialisté"
+    }
+  },
+  "services": {
+    "title": "Naše služby",
+    "description": "Komplexní AI řešení pro automatizaci vašeho businessu",
+    "meta": {
+      "title": "Služby - Expand Matrix | AI Automatizace & Konzultace",
+      "description": "Objevte naše AI služby: automatizace procesů, chatboty, analýza dat, konzultace a implementace umělé inteligence pro váš business.",
+      "keywords": "AI služby, automatizace procesů, AI chatboty, analýza dat, AI konzultace, implementace AI"
+    }
+  },
+  "contact": {
+    "title": "Kontakt",
+    "description": "Spojte se s námi a začněte svou AI transformaci",
+    "meta": {
+      "title": "Kontakt - Expand Matrix | Konzultace AI Automatizace",
+      "description": "Kontaktujte naše AI experty pro bezplatnou konzultaci. Pomůžeme vám automatizovat procesy a zvýšit efektivitu vašeho businessu.",
+      "keywords": "AI konzultace, kontakt AI agentura, automatizace procesů konzultace, AI experti kontakt"
+    }
+  },
+  "footer": {
+    "copyright": "© 2024 Expand Matrix. Všechna práva vyhrazena.",
+    "description": "Futuristická AI agentura pro automatizaci vašeho businessu."
+  },
+  "metadata": {
+    "title": "Expand Matrix - AI Automatizace pro Váš Business",
+    "siteName": "Expand Matrix",
+    "description": "Futuristická AI agentura, která pomáhá firmám automatizovat procesy, snižovat náklady a růst rychleji než kdy předtím.",
+    "keywords": "AI automatizace, umělá inteligence, business automatizace, AI agentura, digitální transformace"
+  },
+  "vps": {
+    "metadata": {
+      "title": "VPS Hosting - Vysokovýkonné servery | Expand Matrix",
+      "description": "Vysokovýkonné VPS servery pro vaše AI aplikace a web projekty. Rychlé SSD úložiště, plná kontrola a špičková bezpečnost."
+    },
+    "hero": {
+      "title": "VPS Hosting",
+      "description": "Vysokovýkonné VPS servery pro vaše AI aplikace a web projekty. Rychlé SSD úložiště, plná kontrola a špičková bezpečnost. Všechny servery jsou připraveny během 15 minut."
+    },
+    "backup": {
+      "title": "BEZPEČNOST DAT",
+      "description": "Denní automatické zálohování vašich dat"
+    },
+    "packages": {
+      "popular": "Nejpopulárnější",
+      "specifications": "Specifikace:",
+      "orderNow": "Objednat",
+      "pricing": {
+        "dayWithVAT": "den s DPH",
+        "withoutVAT": "bez DPH",
+        "monthly": "měsíčně"
+      }
+    }
+  }
+}

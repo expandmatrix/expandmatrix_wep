@@ -1,0 +1,117 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom animations */
+@keyframes pulse-glow {
+  0%, 100% { 
+    box-shadow: 0 0 20px rgba(0, 255, 127, 0.5);
+  }
+  50% { 
+    box-shadow: 0 0 40px rgba(0, 255, 127, 0.8), 0 0 60px rgba(0, 255, 127, 0.3);
+  }
+}
+
+@keyframes float {
+  0%, 100% { 
+    transform: translateY(0px);
+  }
+  50% { 
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes collision-flash {
+  0% { 
+    background-color: rgba(0, 255, 127, 0.1);
+    transform: scale(1);
+  }
+  50% { 
+    background-color: rgba(0, 255, 127, 0.3);
+    transform: scale(1.1);
+  }
+  100% { 
+    background-color: rgba(0, 255, 127, 0.1);
+    transform: scale(1);
+  }
+}
+
+/* Utility classes */
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.animate-collision-flash {
+  animation: collision-flash 0.3s ease-out;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333333;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00ff7f;
+}
+
+/* Selection styling */
+::selection {
+  background-color: rgba(0, 255, 127, 0.3);
+  color: #ffffff;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Focus styles */
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid #00ff7f;
+  outline-offset: 2px;
+}
+
+/* Performance optimizations */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Backdrop blur fallback */
+@supports not (backdrop-filter: blur(20px)) {
+  .backdrop-blur-sm {
+    background-color: rgba(26, 26, 26, 0.8);
+  }
+  .backdrop-blur-xl {
+    background-color: rgba(26, 26, 26, 0.9);
+  }
+}

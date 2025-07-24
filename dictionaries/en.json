@@ -1,0 +1,55 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "contact": "Contact"
+  },
+  "home": {
+    "title": "Expand Matrix - AI Automation for your business",
+    "subtitle": "We transform processes using artificial intelligence",
+    "description": "We are a futuristic AI agency specializing in business process automation. We help companies save up to 80% of time using cutting-edge AI technologies.",
+    "cta": "Get Started Free"
+  },
+  "about": {
+    "title": "About Expand Matrix",
+    "description": "We are a team of AI experts who help companies automate processes and achieve better results using artificial intelligence.",
+    "meta": {
+      "title": "About Us - Expand Matrix | AI Automation & Expert Team",
+      "description": "Meet the AI expert team behind Expand Matrix. We specialize in process automation, cost reduction, and digital transformation using artificial intelligence.",
+      "keywords": "AI team, artificial intelligence experts, process automation, AI agency team, digital transformation specialists"
+    },
+    "mission": {
+      "title": "Our Mission",
+      "description": "We believe artificial intelligence has the power to transform how businesses operate. Our goal is to democratize access to AI technologies and help every company harness their potential for growth and innovation."
+    }
+  },
+  "services": {
+    "title": "Our Services",
+    "description": "Comprehensive AI solutions for automating your business",
+    "meta": {
+      "title": "Services - Expand Matrix | AI Automation & Consulting",
+      "description": "Discover our AI services: process automation, chatbots, data analysis, consulting and artificial intelligence implementation for your business.",
+      "keywords": "AI services, process automation, AI chatbots, data analysis, AI consulting, AI implementation"
+    }
+  },
+  "contact": {
+    "title": "Contact",
+    "description": "Get in touch and start your AI transformation",
+    "meta": {
+      "title": "Contact - Expand Matrix | AI Automation Consultation",
+      "description": "Contact our AI experts for a free consultation. We'll help you automate processes and increase your business efficiency.",
+      "keywords": "AI consultation, AI agency contact, process automation consultation, AI experts contact"
+    }
+  },
+  "footer": {
+    "copyright": "© 2024 Expand Matrix. All rights reserved.",
+    "description": "Futuristic AI agency for automating your business."
+  },
+  "metadata": {
+    "title": "Expand Matrix - AI Automation for Your Business",
+    "siteName": "Expand Matrix",
+    "description": "Futuristic AI agency that helps companies automate processes, reduce costs, and grow faster than ever before.",
+    "keywords": "AI automation, artificial intelligence, business automation, AI agency, digital transformation"
+  }
+}
