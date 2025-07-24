@@ -56,10 +56,10 @@ export default async function AboutPage({ params }: AboutPageProps) {
         
         <div className="mt-8 p-8 bg-bg-secondary/30 rounded-2xl border border-accent-primary/20">
           <h2 className="text-2xl font-bold text-text-primary mb-4">
-            {dict.about?.mission?.title || 'Naše mise'}
+            {(dict.about as any)?.mission?.title || 'Naše mise'}
           </h2>
           <p className="text-text-secondary">
-            {dict.about?.mission?.description || 'Věříme v sílu umělé inteligence.'}
+            {(dict.about as any)?.mission?.description || 'Věříme v sílu umělé inteligence.'}
           </p>
         </div>
       </div>

@@ -4,8 +4,10 @@ const nextConfig = {
   experimental: {
     typedRoutes: true,
     optimizeCss: true,
-    serverComponentsExternalPackages: ['sharp'],
   },
+  
+  // External packages for server components
+  serverExternalPackages: ['sharp'],
   
   // Enhanced headers for security and performance
   async headers() {
