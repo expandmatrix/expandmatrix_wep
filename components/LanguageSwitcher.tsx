@@ -5,6 +5,7 @@ import { useState, useTransition } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Globe, ChevronDown } from 'lucide-react';
 import { getCanonicalPath, type Locale } from '@/lib/urlMappings';
+import { type Route } from 'next';
 
 const languages = [
   { code: 'cs', name: 'Čeština', flag: '🇨🇿', nativeName: 'Čeština' },
@@ -22,16 +23,16 @@ export default function LanguageSwitcher() {
   const currentLanguage = languages.find(lang => lang.code === currentLang) || languages[0];
   
   // Create localized path for language switch using URL mappings
-  const getLocalizedPath = (newLang: Locale) => {
+  const getLocalizedPath = (newLang: Locale): Route => {
     const currentPath = pathname.replace(`/${currentLang}`, '') || '/';
     const targetPath = getCanonicalPath(currentPath, newLang);
     
     if (targetPath) {
-      return `/${newLang}${targetPath === '/' ? '' : targetPath}`;
+      return `/${newLang}${targetPath === '/' ? '' : targetPath}` as Route;
     }
     
     // Fallback to homepage if no mapping found
-    return `/${newLang}`;
+    return `/${newLang}` as Route;
   };
 
   const handleLanguageChange = (newLang: Locale) => {
