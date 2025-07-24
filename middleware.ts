@@ -1,59 +1,21 @@
-import { NextRequest, NextResponse } from 'next/server'
-
-const locales = ['cs', 'en']
-const defaultLocale = 'cs'
-
-function getLocale(request: NextRequest): string {
-  // Check cookie first
-  const cookieLocale = request.cookies.get('NEXT_LOCALE')?.value
-  if (cookieLocale && locales.includes(cookieLocale)) {
-    return cookieLocale
-  }
-
-  // Check Accept-Language header
-  const acceptLanguage = request.headers.get('accept-language')
-  if (acceptLanguage) {
-    const browserLocale = acceptLanguage
-      .split(',')[0]
-      .split('-')[0]
-      .toLowerCase()
-    
-    if (locales.includes(browserLocale)) {
-      return browserLocale
-    }
-  }
-
-  return defaultLocale
-}
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
 
 export function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl
-
-  // Skip middleware for static files and API routes
-  if (
-    pathname.startsWith('/_next') ||
-    pathname.startsWith('/api') ||
-    pathname.includes('.')
-  ) {
-    return
-  }
-
-  // Check if pathname has locale
-  const pathnameHasLocale = locales.some(
-    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
+  const pathname = request.nextUrl.pathname
+  
+  // Check if pathname already has a locale
+  const pathnameHasLocale = ['/cs', '/en'].some(
+    (locale) => pathname.startsWith(`${locale}/`) || pathname === locale
   )
 
   if (pathnameHasLocale) return
 
-  // Redirect root to default locale
-  if (pathname === '/') {
-    const locale = getLocale(request)
-    return NextResponse.redirect(new URL(`/${locale}`, request.url))
-  }
-
-  // Redirect other paths to default locale
-  const locale = getLocale(request)
-  return NextResponse.redirect(new URL(`/${locale}${pathname}`, request.url))
+  // Redirect to Czech as default
+  const locale = 'cs'
+  return NextResponse.redirect(
+    new URL(`/${locale}${pathname}`, request.url)
+  )
 }
 
 export const config = {
