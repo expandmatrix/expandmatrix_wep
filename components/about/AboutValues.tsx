@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
   Brain, 
@@ -15,7 +16,6 @@ import {
   Lock,
   TrendingUp
 } from 'lucide-react';
-import { useState } from 'react';
 
 interface AboutValuesProps {
   dict: any;

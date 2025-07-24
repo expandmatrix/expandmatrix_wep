@@ -1,25 +1,22 @@
+'use client';
+
 import Link from 'next/link';
-import { Home, ArrowLeft } from 'lucide-react';
+import { Home, ArrowLeft, Search } from 'lucide-react';
 
 export default function NotFound() {
   return (
     <div className="min-h-screen bg-bg-primary flex items-center justify-center px-4">
-      <div className="max-w-md w-full text-center">
-        {/* 404 Animation */}
+      <div className="text-center max-w-md">
         <div className="mb-8">
-          <h1 className="text-8xl font-black text-accent-primary mb-4">404</h1>
-          <div className="w-24 h-1 bg-gradient-to-r from-accent-primary to-accent-dark mx-auto rounded-full" />
+          <h1 className="text-6xl font-bold text-accent-primary mb-4">404</h1>
+          <h2 className="text-2xl font-semibold text-text-primary mb-2">
+            Stránka nenalezena
+          </h2>
+          <p className="text-text-secondary">
+            Omlouváme se, ale stránka kterou hledáte neexistuje.
+          </p>
         </div>
 
-        {/* Error Message */}
-        <h2 className="text-2xl font-bold text-text-primary mb-4">
-          Stránka nebyla nalezena
-        </h2>
-        <p className="text-text-secondary mb-8">
-          Omlouváme se, ale stránka kterou hledáte neexistuje nebo byla přesunuta.
-        </p>
-
-        {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link
             href="/cs"
@@ -37,11 +34,6 @@ export default function NotFound() {
             <span>Zpět</span>
           </button>
         </div>
-
-        {/* Help Text */}
-        <p className="text-sm text-text-secondary mt-8">
-          Pokud si myslíte, že se jedná o chybu, kontaktujte nás prosím.
-        </p>
       </div>
     </div>
   );
