@@ -8,14 +8,10 @@
     "web": "Webové stránky"
   },
   "home": {
-    "title": "ExpandMatrix",
+    "title": "ExpandMatrix - AI a webové řešení",
     "subtitle": "Rozšiřte své možnosti s AI",
     "description": "Specializujeme se na vývoj webových aplikací, VPS servery a AI řešení pro moderní podnikání.",
-    "cta": "Začít projekt",
-    "meta": {
-      "title": "ExpandMatrix - AI a webové řešení",
-      "description": "Specializujeme se na vývoj webových aplikací, VPS servery a AI řešení pro moderní podnikání."
-    }
+    "cta": "Začít projekt"
   },
   "about": {
     "title": "O nás",
@@ -25,8 +21,9 @@
       "description": "Věříme v sílu umělé inteligence a moderních technologií pro transformaci podnikání."
     },
     "meta": {
-      "title": "O nás - ExpandMatrix",
-      "description": "Poznejte náš tým a naši misi v oblasti AI a webových technologií."
+      "title": "O nás - Expand Matrix",
+      "description": "Poznejte tým AI expertů za Expand Matrix a objevte naši misi transformovat podnikání prostřednictvím umělé inteligence.",
+      "keywords": "AI tým, experti na umělou inteligenci, specialisté na automatizaci, tým Expand Matrix"
     }
   },
   "services": {
@@ -34,7 +31,8 @@
     "description": "Kompletní řešení pro váš digitální úspěch",
     "meta": {
       "title": "Služby - ExpandMatrix",
-      "description": "Webové aplikace, VPS servery a AI řešení pro moderní podnikání."
+      "description": "Webové aplikace, VPS servery a AI řešení pro moderní podnikání.",
+      "keywords": "webové aplikace, VPS servery, AI řešení, automatizace"
     }
   },
   "contact": {
@@ -42,7 +40,8 @@
     "description": "Spojte se s námi",
     "meta": {
       "title": "Kontakt - ExpandMatrix",
-      "description": "Kontaktujte nás pro konzultaci vašeho projektu."
+      "description": "Kontaktujte nás pro konzultaci vašeho projektu.",
+      "keywords": "kontakt, konzultace, AI projekt"
     }
   },
   "vps": {
@@ -50,7 +49,8 @@
     "description": "Výkonné a spolehlivé VPS řešení",
     "meta": {
       "title": "VPS Servery - ExpandMatrix",
-      "description": "Výkonné VPS servery s rychlým SSD úložištěm a 24/7 podporou."
+      "description": "Výkonné VPS servery s rychlým SSD úložištěm a 24/7 podporou.",
+      "keywords": "VPS servery, SSD úložiště, 24/7 podpora"
     }
   },
   "footer": {

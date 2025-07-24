@@ -8,14 +8,10 @@
     "web": "Websites"
   },
   "home": {
-    "title": "ExpandMatrix",
+    "title": "ExpandMatrix - AI and web solutions",
     "subtitle": "Expand your possibilities with AI",
     "description": "We specialize in web application development, VPS servers and AI solutions for modern business.",
-    "cta": "Start project",
-    "meta": {
-      "title": "ExpandMatrix - AI and web solutions",
-      "description": "We specialize in web application development, VPS servers and AI solutions for modern business."
-    }
+    "cta": "Start project"
   },
   "about": {
     "title": "About us",
@@ -25,8 +21,9 @@
       "description": "We believe in the power of artificial intelligence and modern technologies to transform business."
     },
     "meta": {
-      "title": "About us - ExpandMatrix",
-      "description": "Meet our team and our mission in AI and web technologies."
+      "title": "About Us - Expand Matrix",
+      "description": "Meet the AI expert team behind Expand Matrix and discover our mission to transform businesses through artificial intelligence.",
+      "keywords": "AI team, artificial intelligence experts, automation specialists, Expand Matrix team"
     }
   },
   "services": {
@@ -34,7 +31,8 @@
     "description": "Complete solutions for your digital success",
     "meta": {
       "title": "Services - ExpandMatrix",
-      "description": "Web applications, VPS servers and AI solutions for modern business."
+      "description": "Web applications, VPS servers and AI solutions for modern business.",
+      "keywords": "web applications, VPS servers, AI solutions, automation"
     }
   },
   "contact": {
@@ -42,7 +40,8 @@
     "description": "Get in touch with us",
     "meta": {
       "title": "Contact - ExpandMatrix",
-      "description": "Contact us for consultation of your project."
+      "description": "Contact us for consultation of your project.",
+      "keywords": "contact, consultation, AI project"
     }
   },
   "vps": {
@@ -50,7 +49,8 @@
     "description": "Powerful and reliable VPS solutions",
     "meta": {
       "title": "VPS Servers - ExpandMatrix",
-      "description": "Powerful VPS servers with fast SSD storage and 24/7 support."
+      "description": "Powerful VPS servers with fast SSD storage and 24/7 support.",
+      "keywords": "VPS servers, SSD storage, 24/7 support"
     }
   },
   "footer": {
