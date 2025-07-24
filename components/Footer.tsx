@@ -1,12 +1,11 @@
 import { getDictionary, type Locale } from '@/lib/getDictionary';
 
 interface FooterProps {
+  dict: any;
   lang: Locale;
 }
 
-export default async function Footer({ lang }: FooterProps) {
-  const dict = await getDictionary(lang);
-
+export default function Footer({ dict, lang }: FooterProps) {
   return (
     <footer className="bg-gray-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
