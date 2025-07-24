@@ -1,28 +1,51 @@
 'use client';
 
-import { Dictionary } from '@/lib/getDictionary';
+import { Suspense } from 'react';
+import Hero from './Hero';
+import PartnersSection from './PartnersSection';
+import Stats from './Stats';
+import Services from './Services';
+import Testimonials from './Testimonials';
+import FinalCTA from './FinalCTA';
+import type { Locale } from '@/lib/getDictionary';
 
 interface HomeClientProps {
-  dict: Dictionary;
-  lang: string;
+  dict: any;
+  lang: Locale;
 }
 
 export default function HomeClient({ dict, lang }: HomeClientProps) {
   return (
-    <div className="min-h-screen bg-bg-primary">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-text-primary mb-6">
-            {dict.home?.title || 'ExpandMatrix'}
-          </h1>
-          <p className="text-xl text-text-secondary mb-8 max-w-3xl mx-auto">
-            {dict.home?.description || 'We specialize in web development and AI solutions'}
-          </p>
-          <button className="bg-accent-primary text-white px-8 py-3 rounded-lg font-semibold hover:bg-accent-primary/90 transition-colors">
-            {dict.home?.cta || 'Get Started'}
-          </button>
-        </div>
-      </div>
-    </div>
+    <>
+      {/* Hero sekce */}
+      <Suspense fallback={<div className="h-screen bg-bg-primary" />}>
+        <Hero dict={dict} lang={lang} />
+      </Suspense>
+
+      {/* Partners sekce */}
+      <Suspense fallback={<div className="h-32 bg-bg-primary" />}>
+        <PartnersSection dict={dict} lang={lang} />
+      </Suspense>
+
+      {/* Stats sekce */}
+      <Suspense fallback={<div className="h-64 bg-bg-primary" />}>
+        <Stats dict={dict} lang={lang} />
+      </Suspense>
+
+      {/* Services sekce */}
+      <Suspense fallback={<div className="h-96 bg-bg-primary" />}>
+        <Services dict={dict} lang={lang} />
+      </Suspense>
+
+      {/* Testimonials sekce */}
+      <Suspense fallback={<div className="h-96 bg-bg-primary" />}>
+        <Testimonials dict={dict} lang={lang} />
+      </Suspense>
+
+      {/* Final CTA sekce */}
+      <Suspense fallback={<div className="h-64 bg-bg-primary" />}>
+        <FinalCTA dict={dict} lang={lang} />
+      </Suspense>
+    </>
   );
 }
