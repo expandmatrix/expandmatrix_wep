@@ -35,11 +35,11 @@ export async function generateMetadata({
   };
 }
 
-interface ServicesPageProps {
-  params: Promise<{ lang: string }>;
-}
-
-export default async function ServicesPage({ params }: ServicesPageProps) {
+export default async function ServicesPage({ 
+  params 
+}: { 
+  params: Promise<{ lang: string }> 
+}) {
   const { lang } = await params;
   const locale = isValidLocale(lang) ? lang : 'cs';
   const dict = await getDictionary(locale);
@@ -54,7 +54,6 @@ export default async function ServicesPage({ params }: ServicesPageProps) {
           {dict.services?.description || 'Komplexní AI řešení pro automatizaci vašeho businessu'}
         </p>
         
-        {/* Services content */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           <div className="p-6 bg-bg-secondary/30 rounded-2xl border border-accent-primary/20">
             <h3 className="text-xl font-bold text-text-primary mb-4">AI Automatizace</h3>
