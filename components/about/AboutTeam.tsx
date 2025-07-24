@@ -80,90 +80,43 @@ export default function AboutTeam({ dict, lang }: AboutTeamProps) {
   ];
 
   const TeamMemberCard = ({ member, index }: { member: typeof team[0], index: number }) => {
-    const cardRef = useRef<HTMLDivElement>(null);
-    const mouseX = useMotionValue(0);
-    const mouseY = useMotionValue(0);
-    
-    const rotateX = useTransform(mouseY, [-300, 300], [15, -15]);
-    const rotateY = useTransform(mouseX, [-300, 300], [-15, 15]);
-
-    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-      if (!cardRef.current) return;
-      
-      const rect = cardRef.current.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      
-      mouseX.set(e.clientX - centerX);
-      mouseY.set(e.clientY - centerY);
-    };
+    const isHovered = hoveredMember === index;
 
     return (
-      <motion.div
-        ref={cardRef}
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: index * 0.1 }}
-        onMouseMove={handleMouseMove}
+      <div
         onMouseEnter={() => setHoveredMember(index)}
-        onMouseLeave={() => {
-          setHoveredMember(null);
-          mouseX.set(0);
-          mouseY.set(0);
+        onMouseLeave={() => setHoveredMember(null)}
+        className="group relative"
+        style={{
+          opacity: 1,
+          transform: 'translateY(0px)',
+          animation: `fadeInUp 0.6s ease-out ${index * 0.1}s both`
         }}
-        className="group perspective-1000"
       >
-        <motion.div
-          className="relative bg-bg-secondary/30 backdrop-blur-xl rounded-3xl border border-accent-primary/20 overflow-hidden h-full"
-          style={{
-            rotateX: hoveredMember === index ? rotateX : 0,
-            rotateY: hoveredMember === index ? rotateY : 0,
-            transformStyle: "preserve-3d",
-          }}
-          whileHover={{
-            scale: 1.02,
-            borderColor: 'rgba(0, 255, 127, 0.4)',
-          }}
-          transition={{ duration: 0.3 }}
+        <div
+          className={`relative bg-bg-secondary/30 backdrop-blur-xl rounded-3xl border overflow-hidden h-full transition-all duration-300 ${
+            isHovered 
+              ? 'border-accent-primary/40 scale-[1.02] shadow-lg shadow-accent-primary/20' 
+              : 'border-accent-primary/20'
+          }`}
         >
-          {/* Holographic Background */}
-          <div className={`absolute inset-0 bg-gradient-to-br ${member.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
-          
-          {/* Glow Effect */}
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-br from-accent-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            animate={hoveredMember === index ? {
-              background: [
-                'radial-gradient(circle at 50% 50%, rgba(0,255,127,0.1) 0%, transparent 70%)',
-                'radial-gradient(circle at 30% 30%, rgba(0,255,127,0.15) 0%, transparent 70%)',
-                'radial-gradient(circle at 70% 70%, rgba(0,255,127,0.1) 0%, transparent 70%)',
-                'radial-gradient(circle at 50% 50%, rgba(0,255,127,0.1) 0%, transparent 70%)',
-              ]
-            } : {}}
-            transition={{ duration: 3, repeat: Infinity }}
-          />
+          {/* Glow effect only on hover */}
+          {isHovered && (
+            <div className="absolute inset-0 bg-gradient-to-br from-accent-primary/5 to-transparent rounded-3xl" />
+          )}
 
           <div className="relative z-10 p-8">
-            {/* Avatar with Glow */}
+            {/* Avatar */}
             <div className="relative mb-6">
-              <motion.div
-                className={`w-24 h-24 mx-auto rounded-2xl bg-gradient-to-br ${member.gradient} p-1 group-hover:shadow-2xl transition-shadow duration-300`}
-                whileHover={{ scale: 1.1 }}
+              <div
+                className={`w-24 h-24 mx-auto rounded-2xl bg-gradient-to-br ${member.gradient} p-1 transition-transform duration-300 ${
+                  isHovered ? 'scale-105' : ''
+                }`}
               >
                 <div className="w-full h-full bg-bg-secondary rounded-xl flex items-center justify-center text-white text-2xl font-bold">
                   {member.name.split(' ').map(n => n[0]).join('')}
                 </div>
-              </motion.div>
-              
-              {/* Floating Ring */}
-              <motion.div
-                className="absolute inset-0 w-24 h-24 mx-auto border-2 border-accent-primary/30 rounded-2xl"
-                animate={hoveredMember === index ? {
-                  rotate: [0, 360],
-                  scale: [1, 1.2, 1],
-                } : {}}
-                transition={{ duration: 3, repeat: Infinity }}
-              />
+              </div>
             </div>
 
             {/* Name & Role */}
@@ -179,7 +132,7 @@ export default function AboutTeam({ dict, lang }: AboutTeamProps) {
               </p>
             </div>
 
-            {/* Specializations with Animated Bars */}
+            {/* Specializations */}
             <div className="space-y-4 mb-6">
               <h4 className="text-sm font-semibold text-text-primary opacity-80">
                 {lang === 'cs' ? 'Specializace' : 'Specializations'}
@@ -196,11 +149,12 @@ export default function AboutTeam({ dict, lang }: AboutTeamProps) {
                     </span>
                   </div>
                   <div className="w-full bg-bg-tertiary rounded-full h-2 overflow-hidden">
-                    <motion.div
-                      className="h-full bg-gradient-to-r from-accent-primary to-accent-dark rounded-full"
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${spec.level}%` }}
-                      transition={{ duration: 1, delay: specIndex * 0.2 }}
+                    <div
+                      className="h-full bg-gradient-to-r from-accent-primary to-accent-dark rounded-full transition-all duration-1000 ease-out"
+                      style={{
+                        width: `${spec.level}%`,
+                        transitionDelay: `${specIndex * 200}ms`
+                      }}
                     />
                   </div>
                 </div>
@@ -209,31 +163,41 @@ export default function AboutTeam({ dict, lang }: AboutTeamProps) {
 
             {/* Contact Links */}
             <div className="flex justify-center space-x-4">
-              <motion.a
+              <a
                 href={member.linkedin}
-                whileHover={{ scale: 1.2, rotate: 5 }}
-                whileTap={{ scale: 0.9 }}
-                className="p-3 rounded-full bg-accent-primary/10 border border-accent-primary/20 text-accent-primary hover:bg-accent-primary hover:text-bg-primary transition-colors"
+                className="p-3 rounded-full bg-accent-primary/10 border border-accent-primary/20 text-accent-primary hover:bg-accent-primary hover:text-bg-primary transition-all duration-300 hover:scale-110"
               >
                 <Linkedin className="w-5 h-5" />
-              </motion.a>
-              <motion.a
+              </a>
+              <a
                 href={`mailto:${member.email}`}
-                whileHover={{ scale: 1.2, rotate: -5 }}
-                whileTap={{ scale: 0.9 }}
-                className="p-3 rounded-full bg-accent-primary/10 border border-accent-primary/20 text-accent-primary hover:bg-accent-primary hover:text-bg-primary transition-colors"
+                className="p-3 rounded-full bg-accent-primary/10 border border-accent-primary/20 text-accent-primary hover:bg-accent-primary hover:text-bg-primary transition-all duration-300 hover:scale-110"
               >
                 <Mail className="w-5 h-5" />
-              </motion.a>
+              </a>
             </div>
           </div>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
     );
   };
 
   return (
     <section className="relative py-32 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      {/* Add CSS animation styles */}
+      <style jsx>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(50px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
+
       {/* Animated Background */}
       <div className="absolute inset-0">
         {/* Floating Tech Elements */}

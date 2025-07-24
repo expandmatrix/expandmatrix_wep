@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname, useRouter } from 'next/navigation';
-import { useState, useTransition } from 'react';
+import { useState, useTransition, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Globe, ChevronDown } from 'lucide-react';
 import { getCanonicalPath, type Locale } from '@/lib/urlMappings';
@@ -17,10 +17,27 @@ export default function LanguageSwitcher() {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
+  const [mounted, setMounted] = useState(false);
+  
+  // Prevent hydration mismatch
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   
   // Get current language from URL
   const currentLang = pathname.split('/')[1] as Locale || 'cs';
   const currentLanguage = languages.find(lang => lang.code === currentLang) || languages[0];
+  
+  // Don't render until mounted to prevent hydration issues
+  if (!mounted) {
+    return (
+      <div className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-bg-secondary/50 border border-accent-primary/20 text-text-primary">
+        <Globe className="w-4 h-4" />
+        <span className="text-sm font-medium">CS</span>
+        <ChevronDown className="w-4 h-4" />
+      </div>
+    );
+  }
   
   // Create localized path for language switch using URL mappings
   const getLocalizedPath = (newLang: Locale): Route => {
