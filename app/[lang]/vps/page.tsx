@@ -19,8 +19,8 @@ export async function generateMetadata({
   const currentUrl = `${baseUrl}/${locale}/vps`;
 
   return {
-    title: dict.vps?.metadata?.title || 'VPS Hosting - Expand Matrix',
-    description: dict.vps?.metadata?.description || 'Vysokovýkonné VPS servery pro vaše AI aplikace a web projekty.',
+    title: dict.vps?.meta?.title || 'VPS Hosting - Expand Matrix',
+    description: dict.vps?.meta?.description || 'Vysokovýkonné VPS servery pro vaše AI aplikace a web projekty.',
     alternates: {
       canonical: currentUrl,
       languages: {
@@ -29,8 +29,8 @@ export async function generateMetadata({
       },
     },
     openGraph: {
-      title: dict.vps?.metadata?.title || 'VPS Hosting - Expand Matrix',
-      description: dict.vps?.metadata?.description || 'Vysokovýkonné VPS servery pro vaše AI aplikace a web projekty.',
+      title: dict.vps?.meta?.title || 'VPS Hosting - Expand Matrix',
+      description: dict.vps?.meta?.description || 'Vysokovýkonné VPS servery pro vaše AI aplikace a web projekty.',
       url: currentUrl,
       siteName: 'Expand Matrix',
       images: [`${baseUrl}/og-vps.jpg`],

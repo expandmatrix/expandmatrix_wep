@@ -70,19 +70,19 @@ export function middleware(request: NextRequest) {
     const currentLocale = pathname.split('/')[1] as Locale;
     const pathWithoutLocale = pathname.replace(`/${currentLocale}`, '') || '/';
     
-    // STRICT URL VALIDATION - This is the key part!
+    // Check if path is valid for current language
     if (!isValidPathForLanguage(pathWithoutLocale, currentLocale)) {
-      // Check if we should redirect to correct language version
       const redirectPath = getRedirectPath(pathWithoutLocale, currentLocale);
       
       if (redirectPath) {
-        // 301 Redirect to correct language-specific URL
+        // 301 Redirect for SEO
         const redirectUrl = new URL(`/${currentLocale}${redirectPath}${search}`, request.url);
         const response = NextResponse.redirect(redirectUrl, 301);
         
-        // Set locale cookie
+        // Add SEO headers
+        response.headers.set('Cache-Control', 'public, max-age=31536000, immutable');
         response.cookies.set('NEXT_LOCALE', currentLocale, {
-          maxAge: 365 * 24 * 60 * 60, // 1 year
+          maxAge: 365 * 24 * 60 * 60,
           httpOnly: false,
           secure: process.env.NODE_ENV === 'production',
           sameSite: 'lax'
@@ -90,15 +90,16 @@ export function middleware(request: NextRequest) {
         
         return response;
       } else {
-        // Return 404 for completely invalid paths
+        // Return proper 404
         return new NextResponse(null, { status: 404 });
       }
     }
     
-    // Valid path - set locale cookie for future visits
+    // Valid path - set headers for SEO
     const response = NextResponse.next();
+    response.headers.set('Content-Language', currentLocale);
     response.cookies.set('NEXT_LOCALE', currentLocale, {
-      maxAge: 365 * 24 * 60 * 60, // 1 year
+      maxAge: 365 * 24 * 60 * 60,
       httpOnly: false,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax'
@@ -110,11 +111,9 @@ export function middleware(request: NextRequest) {
   const locale = getLocale(request);
   const newUrl = new URL(`/${locale}${pathname}${search}`, request.url);
   
-  const response = NextResponse.redirect(newUrl);
-  
-  // Set locale cookie
+  const response = NextResponse.redirect(newUrl, 302);
   response.cookies.set('NEXT_LOCALE', locale, {
-    maxAge: 365 * 24 * 60 * 60, // 1 year
+    maxAge: 365 * 24 * 60 * 60,
     httpOnly: false,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'lax'
@@ -125,12 +124,6 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    // Match all pathnames except for
-    // - api routes
-    // - _next/static (static files)
-    // - _next/image (image optimization files)
-    // - favicon.ico (favicon file)
-    // - public files (public folder)
-    '/((?!api|_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|manifest.json|.*\\.).*)',
+    '/((?!_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|manifest.json).*)',
   ],
 };

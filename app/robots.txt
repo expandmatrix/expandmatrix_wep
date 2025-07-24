@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://expandmatrix.com/sitemap.xml
+
+# Block admin areas
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/

@@ -28,7 +28,7 @@ export default function Footer({ dict, lang }: FooterProps) {
                 </a>
               </li>
               <li>
-                <a href={`/${lang}/about`} className="text-gray-300 hover:text-white transition-colors">
+                <a href={lang === 'cs' ? `/${lang}/o-nas` : `/${lang}/about-us`} className="text-gray-300 hover:text-white transition-colors">
                   {dict.nav.about}
                 </a>
               </li>

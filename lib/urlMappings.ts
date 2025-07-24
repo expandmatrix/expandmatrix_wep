@@ -12,9 +12,9 @@ export const URL_MAPPINGS = {
   en: {
     '/': '/',
     '/about-us': '/about-us',
-    '/our-services': '/our-services',
+    '/services': '/services',
     '/vps': '/vps',
-    '/contact-us': '/contact-us',
+    '/contact': '/contact',
   }
 } as const;
 
@@ -23,14 +23,14 @@ export const CROSS_LANGUAGE_MAPPINGS = {
   // Czech URLs that should redirect when accessed in English context
   'en': {
     '/o-nas': '/about-us',
-    '/sluzby': '/our-services',
-    '/kontakt': '/contact-us',
+    '/sluzby': '/services',
+    '/kontakt': '/contact',
   },
   // English URLs that should redirect when accessed in Czech context
   'cs': {
     '/about-us': '/o-nas',
-    '/our-services': '/sluzby',
-    '/contact-us': '/kontakt',
+    '/services': '/sluzby',
+    '/contact': '/kontakt',
   }
 } as const;
 

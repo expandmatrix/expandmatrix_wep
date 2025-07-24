@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { type Route } from 'next';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Zap, Menu, X } from 'lucide-react';
 import { type Locale } from '@/lib/getDictionary';
@@ -143,7 +144,7 @@ export default function Header({ dict, lang }: HeaderProps) {
                 className="relative"
               >
                 <Link
-                  href={item.href}
+                  href={item.href as Route}
                   className="relative block px-5 py-3 text-text-secondary font-medium text-sm tracking-wide transition-colors duration-300 group"
                   onMouseEnter={() => setActiveItem(item.name)}
                   onMouseLeave={() => setActiveItem(null)}

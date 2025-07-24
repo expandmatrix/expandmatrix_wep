@@ -109,8 +109,31 @@ export default async function RootLayout({
   const locale = isValidLocale(lang) ? lang : 'cs';
   const dict = await getDictionary(locale);
 
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Expand Matrix",
+    "url": `https://expandmatrix.com/${locale}`,
+    "logo": "https://expandmatrix.com/logo.png",
+    "description": dict.home?.description,
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "CZ"
+    },
+    "sameAs": [
+      "https://linkedin.com/company/expandmatrix",
+      "https://twitter.com/expandmatrix"
+    ]
+  };
+
   return (
     <html lang={locale} className={inter.variable}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
+      </head>
       <body className={`${inter.className} antialiased bg-bg-primary text-text-primary`}>
         <Header dict={dict} lang={locale} />
         <main className="min-h-screen">

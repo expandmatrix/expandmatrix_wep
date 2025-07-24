@@ -1,26 +1,31 @@
-import type { Locale } from './getDictionary';
+import { type Route } from 'next';
 
 interface NavigationItem {
   name: string;
-  href: string;
+  href: Route;
 }
 
-export function getLocalizedNavigation(lang: Locale): NavigationItem[] {
-  if (lang === 'cs') {
-    return [
-      { name: 'Domů', href: '/cs' },
-      { name: 'O nás', href: '/cs/o-nas' },
-      { name: 'Služby', href: '/cs/sluzby' },
-      { name: 'VPS Hosting', href: '/cs/vps' },
-      { name: 'Kontakt', href: '/cs/kontakt' },
-    ];
-  }
-
+export function getLocalizedNavigation(lang: string): NavigationItem[] {
   return [
-    { name: 'Home', href: '/en' },
-    { name: 'About', href: '/en/about-us' },
-    { name: 'Services', href: '/en/our-services' },
-    { name: 'VPS Hosting', href: '/en/vps' },
-    { name: 'Contact', href: '/en/contact-us' },
+    {
+      name: lang === 'cs' ? 'Domů' : 'Home',
+      href: `/${lang}` as Route,
+    },
+    {
+      name: lang === 'cs' ? 'Služby' : 'Services', 
+      href: `/${lang}/services` as Route,
+    },
+    {
+      name: lang === 'cs' ? 'VPS' : 'VPS',
+      href: `/${lang}/vps` as Route,
+    },
+    {
+      name: lang === 'cs' ? 'O nás' : 'About',
+      href: (lang === 'cs' ? `/${lang}/o-nas` : `/${lang}/about-us`) as Route,
+    },
+    {
+      name: lang === 'cs' ? 'Kontakt' : 'Contact',
+      href: `/${lang}/contact` as Route,
+    },
   ];
 }

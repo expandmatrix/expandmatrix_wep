@@ -12,40 +12,31 @@ export async function generateMetadata({
   const dict = await getDictionary(locale);
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://expandmatrix.com';
-  const currentUrl = `${baseUrl}/${locale}/o-nas`;
 
   return {
     title: dict.about?.meta?.title || 'O nás - Expand Matrix',
     description: dict.about?.meta?.description || 'Poznajte tým AI expertů za Expand Matrix a objevte naši misi transformovat firmy pomocí umělé inteligence.',
     keywords: dict.about?.meta?.keywords || 'AI tým, umělá inteligence experti, automatizační specialisté, Expand Matrix tým',
     alternates: {
-      canonical: currentUrl,
+      canonical: `${baseUrl}/cs/o-nas`,
       languages: {
         'cs': `${baseUrl}/cs/o-nas`,
         'en': `${baseUrl}/en/about-us`,
+        'x-default': `${baseUrl}/cs/o-nas`,
       },
     },
     openGraph: {
       title: dict.about?.meta?.title || 'O nás - Expand Matrix',
-      description: dict.about?.meta?.description || 'Poznajte tým AI expertů za Expand Matrix.',
-      url: currentUrl,
+      description: dict.about?.meta?.description,
+      url: `${baseUrl}/cs/o-nas`,
       siteName: 'Expand Matrix',
       locale: 'cs_CZ',
       type: 'website',
-      images: [
-        {
-          url: `${baseUrl}/og-about.jpg`,
-          width: 1200,
-          height: 630,
-          alt: 'Expand Matrix Tým',
-        },
-      ],
     },
     twitter: {
       card: 'summary_large_image',
-      title: dict.about?.meta?.title || 'O nás - Expand Matrix',
-      description: dict.about?.meta?.description || 'Poznajte tým AI expertů za Expand Matrix.',
-      images: [`${baseUrl}/og-about.jpg`],
+      title: dict.about?.meta?.title,
+      description: dict.about?.meta?.description,
     },
   };
 }
