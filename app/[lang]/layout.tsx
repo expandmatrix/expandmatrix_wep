@@ -32,11 +32,11 @@ export async function generateMetadata({
 
   return {
     title: {
-      default: dict.metadata?.title || 'Expand Matrix - AI Automatizace pro Váš Business',
+      default: dict.home?.title || 'Expand Matrix - AI Automatizace pro Váš Business',
       template: '%s | Expand Matrix'
     },
-    description: dict.metadata?.description || 'Futuristická AI agentura, která pomáhá firmám automatizovat procesy.',
-    keywords: dict.metadata?.keywords || 'AI automatizace, umělá inteligence, business automatizace',
+    description: dict.home?.description || 'Futuristická AI agentura, která pomáhá firmám automatizovat procesy.',
+    keywords: 'AI automatizace, umělá inteligence, business automatizace',
     authors: [{ name: 'Expand Matrix' }],
     creator: 'Expand Matrix',
     publisher: 'Expand Matrix',
@@ -54,10 +54,10 @@ export async function generateMetadata({
       },
     },
     openGraph: {
-      title: dict.metadata?.title || 'Expand Matrix - AI Automatizace pro Váš Business',
-      description: dict.metadata?.description || 'Futuristická AI agentura, která pomáhá firmám automatizovat procesy.',
+      title: dict.home?.title || 'Expand Matrix - AI Automatizace pro Váš Business',
+      description: dict.home?.description || 'Futuristická AI agentura, která pomáhá firmám automatizovat procesy.',
       url: currentUrl,
-      siteName: dict.metadata?.siteName || 'Expand Matrix',
+      siteName: 'Expand Matrix',
       locale: locale === 'cs' ? 'cs_CZ' : 'en_US',
       type: 'website',
       images: [
@@ -65,14 +65,14 @@ export async function generateMetadata({
           url: `${baseUrl}/og-image.jpg`,
           width: 1200,
           height: 630,
-          alt: dict.metadata?.title || 'Expand Matrix',
+          alt: dict.home?.title || 'Expand Matrix',
         },
       ],
     },
     twitter: {
       card: 'summary_large_image',
-      title: dict.metadata?.title || 'Expand Matrix - AI Automatizace pro Váš Business',
-      description: dict.metadata?.description || 'Futuristická AI agentura, která pomáhá firmám automatizovat procesy.',
+      title: dict.home?.title || 'Expand Matrix - AI Automatizace pro Váš Business',
+      description: dict.home?.description || 'Futuristická AI agentura, která pomáhá firmám automatizovat procesy.',
       images: [`${baseUrl}/og-image.jpg`],
       creator: '@expandmatrix',
     },
