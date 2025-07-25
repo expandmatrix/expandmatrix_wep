@@ -195,7 +195,7 @@ export default function AboutValues({ dict, lang }: AboutValuesProps) {
           </p>
         </motion.div>
 
-        {/* Values Grid */}
+        {/* Values Grid - Enhanced for consistent rendering */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {values.map((value, index) => (
             <motion.div
@@ -203,28 +203,40 @@ export default function AboutValues({ dict, lang }: AboutValuesProps) {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
+              viewport={{ once: true, margin: "-50px" }}
               className="group perspective-1000"
             >
               <motion.div
                 className="relative h-80 cursor-pointer"
                 whileHover={{ scale: 1.05 }}
                 onClick={() => setFlippedCard(flippedCard === index ? null : index)}
+                style={{
+                  willChange: 'transform',
+                  transform: 'translate3d(0, 0, 0)',
+                }}
               >
-                {/* Card Container */}
+                {/* Card Container - Fixed 3D transforms */}
                 <motion.div
                   className="relative w-full h-full preserve-3d"
                   animate={{ rotateY: flippedCard === index ? 180 : 0 }}
-                  transition={{ duration: 0.6 }}
+                  transition={{ 
+                    duration: 0.6,
+                    ease: [0.25, 0.46, 0.45, 0.94]
+                  }}
+                  style={{
+                    transformStyle: 'preserve-3d',
+                    willChange: 'transform',
+                  }}
                 >
-                  {/* Front Side */}
+                  {/* Front Side - Enhanced */}
                   <div className="absolute inset-0 w-full h-full backface-hidden">
-                    <div className="relative bg-bg-secondary/30 backdrop-blur-xl rounded-3xl p-6 border border-accent-primary/20 group-hover:border-accent-primary/40 transition-all duration-300 h-full flex flex-col">
-                      <div className="absolute inset-0 bg-gradient-to-br from-accent-primary/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="relative card-glass-enhanced rounded-3xl p-6 border border-accent-primary/20 h-full flex flex-col gpu-accelerated">
+                      <div className={`absolute inset-0 bg-gradient-to-br ${value.color} opacity-5 group-hover:opacity-10 transition-opacity duration-300 rounded-3xl`} />
                       
                       <div className="relative z-10 flex-1 flex flex-col">
-                        {/* Icon */}
-                        <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${value.color} p-4 mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                          <value.icon className="w-8 h-8 text-white" />
+                        {/* Icon - Enhanced rendering */}
+                        <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${value.color} p-4 mb-6 group-hover:scale-110 transition-transform duration-300 gpu-accelerated flex items-center justify-center`}>
+                          <value.icon className="w-8 h-8 text-white" strokeWidth={2} />
                         </div>
                         
                         {/* Title */}
@@ -242,6 +254,10 @@ export default function AboutValues({ dict, lang }: AboutValuesProps) {
                           <motion.div
                             className="px-4 py-2 rounded-full bg-accent-primary/10 border border-accent-primary/20 text-accent-primary text-sm font-medium"
                             whileHover={{ scale: 1.05 }}
+                            style={{
+                              willChange: 'transform',
+                              transform: 'translate3d(0, 0, 0)',
+                            }}
                           >
                             {lang === 'cs' ? 'Klikněte pro více' : 'Click for more'}
                           </motion.div>
@@ -250,9 +266,9 @@ export default function AboutValues({ dict, lang }: AboutValuesProps) {
                     </div>
                   </div>
 
-                  {/* Back Side */}
+                  {/* Back Side - Enhanced */}
                   <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180">
-                    <div className="relative bg-bg-secondary/40 backdrop-blur-xl rounded-3xl p-6 border border-accent-primary/40 h-full flex flex-col">
+                    <div className="relative card-glass-enhanced rounded-3xl p-6 border border-accent-primary/40 h-full flex flex-col gpu-accelerated">
                       <div className={`absolute inset-0 bg-gradient-to-br ${value.color} opacity-10 rounded-3xl`} />
                       
                       <div className="relative z-10 flex-1 flex flex-col">
@@ -261,7 +277,7 @@ export default function AboutValues({ dict, lang }: AboutValuesProps) {
                           {value.fullDesc}
                         </p>
                         
-                        {/* Features */}
+                        {/* Features - Enhanced */}
                         <div className="space-y-3">
                           {value.features.map((feature, featureIndex) => (
                             <motion.div 
@@ -269,9 +285,13 @@ export default function AboutValues({ dict, lang }: AboutValuesProps) {
                               className="flex items-center"
                               initial={{ opacity: 0, x: -20 }}
                               animate={flippedCard === index ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-                              transition={{ duration: 0.3, delay: featureIndex * 0.1 }}
+                              transition={{ 
+                                duration: 0.3, 
+                                delay: featureIndex * 0.1,
+                                ease: [0.25, 0.46, 0.45, 0.94]
+                              }}
                             >
-                              <CheckCircle className="w-4 h-4 text-accent-primary mr-3 flex-shrink-0" />
+                              <CheckCircle className="w-4 h-4 text-accent-primary mr-3 flex-shrink-0" strokeWidth={2} />
                               <span className="text-text-primary font-medium text-sm">{feature}</span>
                             </motion.div>
                           ))}

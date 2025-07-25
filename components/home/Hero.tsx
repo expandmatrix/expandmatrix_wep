@@ -175,17 +175,21 @@ export default function Hero({ dict, lang }: HeroProps) {
         </svg>
       </div>
 
-      {/* Floating Tech Icons */}
+      {/* Floating Tech Icons - Optimized */}
       <div className="absolute inset-0 pointer-events-none">
         <motion.div
           className="absolute top-1/4 left-1/4 text-accent-primary/20"
           animate={{
             rotate: 360,
-            scale: [1, 1.2, 1],
+            scale: [1, 1.1, 1],
           }}
           transition={{
-            rotate: { duration: 20, repeat: Infinity, ease: "linear" },
-            scale: { duration: 4, repeat: Infinity, ease: "easeInOut" }
+            rotate: { duration: 25, repeat: Infinity, ease: "linear" },
+            scale: { duration: 8, repeat: Infinity, ease: [0.4, 0, 0.6, 1] }
+          }}
+          style={{
+            willChange: 'transform',
+            transform: 'translate3d(0, 0, 0)',
           }}
         >
           <Brain className="w-12 h-12" />
@@ -195,11 +199,15 @@ export default function Hero({ dict, lang }: HeroProps) {
           className="absolute top-1/3 right-1/4 text-accent-primary/20"
           animate={{
             rotate: -360,
-            y: [0, -20, 0],
+            y: [0, -15, 0],
           }}
           transition={{
-            rotate: { duration: 25, repeat: Infinity, ease: "linear" },
-            y: { duration: 5, repeat: Infinity, ease: "easeInOut" }
+            rotate: { duration: 30, repeat: Infinity, ease: "linear" },
+            y: { duration: 10, repeat: Infinity, ease: [0.4, 0, 0.6, 1] }
+          }}
+          style={{
+            willChange: 'transform',
+            transform: 'translate3d(0, 0, 0)',
           }}
         >
           <Code className="w-10 h-10" />
@@ -209,12 +217,16 @@ export default function Hero({ dict, lang }: HeroProps) {
           className="absolute bottom-1/3 left-1/3 text-accent-primary/20"
           animate={{
             rotate: [0, 180, 360],
-            scale: [1, 1.3, 1],
+            scale: [1, 1.2, 1],
           }}
           transition={{
-            duration: 15,
+            duration: 20,
             repeat: Infinity,
-            ease: "easeInOut"
+            ease: [0.4, 0, 0.6, 1]
+          }}
+          style={{
+            willChange: 'transform',
+            transform: 'translate3d(0, 0, 0)',
           }}
         >
           <Zap className="w-8 h-8" />
@@ -224,11 +236,15 @@ export default function Hero({ dict, lang }: HeroProps) {
           className="absolute bottom-1/4 right-1/3 text-accent-primary/20"
           animate={{
             rotate: 360,
-            x: [0, 15, 0],
+            x: [0, 12, 0],
           }}
           transition={{
-            rotate: { duration: 18, repeat: Infinity, ease: "linear" },
-            x: { duration: 6, repeat: Infinity, ease: "easeInOut" }
+            rotate: { duration: 22, repeat: Infinity, ease: "linear" },
+            x: { duration: 12, repeat: Infinity, ease: [0.4, 0, 0.6, 1] }
+          }}
+          style={{
+            willChange: 'transform',
+            transform: 'translate3d(0, 0, 0)',
           }}
         >
           <Sparkles className="w-9 h-9" />
@@ -239,7 +255,7 @@ export default function Hero({ dict, lang }: HeroProps) {
       <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
         {/* Main Title */}
         <motion.h1 
-          key={`title-${lang}`} // Force re-render on language change
+          key={`title-${lang}`}
           initial={{ opacity: 0, y: 50, scale: 0.9 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ 
@@ -250,12 +266,26 @@ export default function Hero({ dict, lang }: HeroProps) {
           className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-text-primary mb-8 leading-tight"
           style={{
             textShadow: '0 0 40px rgba(0,255,127,0.3)',
+            willChange: 'transform',
+            transform: 'translate3d(0, 0, 0)', // Force hardware acceleration
           }}
         >
           <motion.span
             className="inline-block"
-            animate={{ y: [0, -5, 0] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            animate={{ 
+              y: [0, -8, 0],
+            }}
+            transition={{ 
+              duration: 6,
+              repeat: Infinity, 
+              ease: [0.4, 0, 0.6, 1], // Custom cubic-bezier for smoother motion
+              repeatType: "loop"
+            }}
+            style={{
+              willChange: 'transform',
+              transform: 'translate3d(0, 0, 0)',
+              backfaceVisibility: 'hidden', // Prevent flickering
+            }}
           >
             {renderTitle()}
           </motion.span>
@@ -353,21 +383,61 @@ export default function Hero({ dict, lang }: HeroProps) {
               key={`${key}-${lang}`} // Force re-render on language change
               className="text-center"
               animate={{
-                y: [0, -10, 0],
+                y: [0, -12, 0],
               }}
               transition={{
-                duration: 3 + index,
+                duration: 4 + index * 0.5,
                 repeat: Infinity,
-                delay: index * 0.5,
-                ease: "easeInOut"
+                delay: index * 0.8,
+                ease: [0.4, 0, 0.6, 1], // Smooth cubic-bezier easing
+                repeatType: "loop"
+              }}
+              style={{
+                willChange: 'transform',
+                transform: 'translate3d(0, 0, 0)',
+                backfaceVisibility: 'hidden',
               }}
             >
-              <div className="text-2xl font-bold text-accent-primary mb-1">
+              <motion.div 
+                className="text-2xl font-bold text-accent-primary mb-1"
+                style={{
+                  willChange: 'transform',
+                  transform: 'translate3d(0, 0, 0)',
+                }}
+                animate={{
+                  textShadow: [
+                    "0 0 10px rgba(0,255,127,0.3)",
+                    "0 0 20px rgba(0,255,127,0.5)",
+                    "0 0 10px rgba(0,255,127,0.3)"
+                  ]
+                }}
+                transition={{
+                  duration: 3 + index * 0.3,
+                  repeat: Infinity,
+                  delay: index * 0.5,
+                  ease: [0.4, 0, 0.6, 1]
+                }}
+              >
                 {stat.value}
-              </div>
-              <div className="text-sm opacity-70">
+              </motion.div>
+              <motion.div 
+                className="text-sm opacity-70"
+                style={{
+                  willChange: 'transform',
+                  transform: 'translate3d(0, 0, 0)',
+                }}
+                animate={{
+                  opacity: [0.7, 0.9, 0.7],
+                }}
+                transition={{
+                  duration: 5 + index * 0.4,
+                  repeat: Infinity,
+                  delay: index * 0.6,
+                  ease: [0.4, 0, 0.6, 1]
+                }}
+              >
                 {stat.label}
-              </div>
+              </motion.div>
             </motion.div>
           ))}
         </motion.div>

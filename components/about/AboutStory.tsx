@@ -13,10 +13,12 @@ export default function AboutStory({ dict, lang }: AboutStoryProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "end start"]
+    offset: ["start center", "end center"]
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
+  // Smooth timeline progress animation
+  const timelineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  const timelineOpacity = useTransform(scrollYProgress, [0, 0.1, 0.9, 1], [0, 1, 1, 0.8]);
 
   const milestones = [
     {
@@ -139,36 +141,54 @@ export default function AboutStory({ dict, lang }: AboutStoryProps) {
           </p>
         </motion.div>
 
-        {/* Timeline */}
+        {/* Timeline - Optimized */}
         <div className="relative">
-          {/* Central Timeline Line */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-accent-primary via-accent-primary/50 to-transparent rounded-full" />
+          {/* Central Timeline Line - Static */}
+          <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-accent-primary/30 via-accent-primary/20 to-transparent rounded-full" />
           
-          {/* Timeline Progress */}
+          {/* Timeline Progress - Scroll-based Animation */}
           <motion.div
-            className="absolute left-1/2 transform -translate-x-1/2 w-1 bg-accent-primary rounded-full origin-top"
+            className="absolute left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-accent-primary via-accent-primary to-accent-primary/80 rounded-full origin-top timeline-progress"
             style={{
-              height: useTransform(scrollYProgress, [0, 1], ["0%", "100%"])
+              height: timelineHeight,
+              opacity: timelineOpacity,
+              willChange: 'height',
+              transform: 'translate3d(-50%, 0, 0)',
+              backfaceVisibility: 'hidden',
             }}
           />
 
-          {/* Milestones */}
+          {/* Milestones - Enhanced */}
           <div className="space-y-24">
             {milestones.map((milestone, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, x: index % 2 === 0 ? -100 : 100 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: index * 0.1 }}
+                transition={{ 
+                  duration: 0.8, 
+                  delay: index * 0.1,
+                  ease: [0.25, 0.46, 0.45, 0.94]
+                }}
+                viewport={{ once: true, margin: "-100px" }}
                 className={`relative flex items-center ${
                   index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'
                 }`}
               >
-                {/* Content Card */}
+                {/* Content Card - Enhanced */}
                 <div className={`w-5/12 ${index % 2 === 0 ? 'pr-8' : 'pl-8'}`}>
                   <motion.div
-                    whileHover={{ scale: 1.05, rotateY: 5 }}
-                    className="relative bg-bg-secondary/80 backdrop-blur-xl rounded-3xl p-8 border border-accent-primary/20 group overflow-hidden"
+                    whileHover={{ 
+                      scale: 1.05, 
+                      rotateY: index % 2 === 0 ? 5 : -5,
+                      z: 50
+                    }}
+                    className="relative card-glass-enhanced rounded-3xl p-8 group overflow-hidden gpu-accelerated"
+                    style={{
+                      willChange: 'transform',
+                      transform: 'translate3d(0, 0, 0)',
+                      backfaceVisibility: 'hidden',
+                    }}
                   >
                     {/* Card Background Gradient */}
                     <div className={`absolute inset-0 bg-gradient-to-br ${milestone.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-3xl`} />
@@ -178,6 +198,10 @@ export default function AboutStory({ dict, lang }: AboutStoryProps) {
                       <motion.div
                         className="inline-flex items-center px-4 py-2 rounded-full bg-accent-primary/10 border border-accent-primary/20 mb-4"
                         whileHover={{ scale: 1.1 }}
+                        style={{
+                          willChange: 'transform',
+                          transform: 'translate3d(0, 0, 0)',
+                        }}
                       >
                         <span className="text-accent-primary font-bold text-lg">
                           {milestone.year}
@@ -205,14 +229,27 @@ export default function AboutStory({ dict, lang }: AboutStoryProps) {
                   </motion.div>
                 </div>
 
-                {/* Central Icon */}
+                {/* Central Icon - Enhanced */}
                 <div className="absolute left-1/2 transform -translate-x-1/2 z-20">
                   <motion.div
                     initial={{ scale: 0, rotate: -180 }}
                     whileInView={{ scale: 1, rotate: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                    whileHover={{ scale: 1.2, rotate: 360 }}
-                    className={`w-16 h-16 rounded-full bg-gradient-to-br ${milestone.color} p-4 border-4 border-bg-primary shadow-2xl`}
+                    transition={{ 
+                      duration: 0.6, 
+                      delay: index * 0.1,
+                      ease: [0.25, 0.46, 0.45, 0.94]
+                    }}
+                    whileHover={{ 
+                      scale: 1.2, 
+                      rotate: 360,
+                      boxShadow: `0 0 30px ${milestone.color.includes('blue') ? '#3B82F6' : milestone.color.includes('green') ? '#10B981' : milestone.color.includes('orange') ? '#F59E0B' : milestone.color.includes('accent') ? '#00FF7F' : '#F59E0B'}40`
+                    }}
+                    className={`w-16 h-16 rounded-full bg-gradient-to-br ${milestone.color} p-4 border-4 border-bg-primary shadow-2xl gpu-accelerated`}
+                    style={{
+                      willChange: 'transform',
+                      transform: 'translate3d(0, 0, 0)',
+                      backfaceVisibility: 'hidden',
+                    }}
                   >
                     <milestone.icon className="w-full h-full text-white" />
                   </motion.div>

@@ -282,3 +282,140 @@ h1 {
   font-weight: 900;
   font-family: 'Roboto', sans-serif;
 }
+
+/* Optimized animations for better performance */
+@keyframes gentle-float-optimized {
+  0%, 100% { 
+    transform: translate3d(0, 0px, 0);
+  }
+  50% { 
+    transform: translate3d(0, -8px, 0);
+  }
+}
+
+/* Performance-optimized floating animation */
+.float-optimized {
+  animation: gentle-float-optimized 6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+}
+
+/* Optimized floating stats animations */
+@keyframes stat-float-optimized {
+  0%, 100% { 
+    transform: translate3d(0, 0px, 0);
+  }
+  50% { 
+    transform: translate3d(0, -12px, 0);
+  }
+}
+
+@keyframes stat-glow-pulse {
+  0%, 100% {
+    text-shadow: 0 0 10px rgba(0,255,127,0.3);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(0,255,127,0.5);
+  }
+}
+
+/* Performance-optimized stat animations */
+.stat-float-optimized {
+  animation: stat-float-optimized 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+}
+
+.stat-glow-optimized {
+  animation: stat-glow-pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  will-change: text-shadow;
+}
+
+/* Staggered animation delays for natural movement */
+.stat-delay-1 {
+  animation-delay: 0.8s;
+}
+
+.stat-delay-2 {
+  animation-delay: 1.6s;
+}
+
+.stat-delay-3 {
+  animation-delay: 2.4s;
+}
+
+/* 3D Card Flip Animations - Fixed for consistent rendering */
+.perspective-1000 {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* Timeline Progress Line Optimization */
+.timeline-progress {
+  will-change: height;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+}
+
+/* Card Glass Effect - Enhanced for consistent rendering */
+.card-glass-enhanced {
+  background: rgba(26, 26, 26, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 255, 127, 0.2);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .float-optimized,
+  .stat-float-optimized,
+  .stat-glow-optimized,
+  .animate-float,
+  .gentle-float {
+    animation: none;
+    transform: none;
+  }
+  
+  /* Keep only opacity animations for accessibility */
+  .motion-safe-only {
+    animation: fadeIn 0.8s ease-out;
+  }
+  
+  .preserve-3d {
+    transform: none;
+  }
+}
+
+/* Hardware acceleration utilities */
+.gpu-accelerated {
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+}
+
+/* Hardware acceleration for stats container */
+.stats-container-optimized {
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+}
