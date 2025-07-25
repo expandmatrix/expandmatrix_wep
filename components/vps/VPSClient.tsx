@@ -552,10 +552,10 @@ function VPSFinalCTA({ lang }: { lang: Locale }) {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           ref={containerRef}
-          initial={{ opacity: 0, y: 60 }}
+          initial={{ opacity: 0.4, y: 4 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
-          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+          viewport={{ once: true, margin: "-100px" }}
           onMouseMove={handleMouseMove}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
@@ -572,10 +572,10 @@ function VPSFinalCTA({ lang }: { lang: Locale }) {
               rotateY,
             }}
             whileHover={{
-              scale: 1.02,
+              scale: 1.01,
               borderColor: 'rgba(0, 255, 127, 0.4)',
             }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.4 }}
           >
             {/* Animated Background Layers */}
             <div className="absolute inset-0">

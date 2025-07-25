@@ -38,21 +38,21 @@ export default function Partners({ dict, lang }: PartnersProps) {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0 }}
+          initial={{ opacity: 0.4 }}
           whileInView={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.2 }}
-          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          viewport={{ once: true, margin: "-80px" }}
           className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center"
         >
           {partners.map((partner, index) => (
             <motion.div
               key={partner.name}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0.4, y: 4 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "-80px" }}
               whileHover={{ 
-                scale: 1.1,
+                scale: 1.05,
                 filter: 'drop-shadow(0 0 20px rgba(0, 255, 127, 0.5))'
               }}
               className="flex items-center justify-center p-6 rounded-lg bg-bg-primary/50 backdrop-blur-sm border border-border-color/30 hover:border-accent-primary/50 transition-all duration-300"

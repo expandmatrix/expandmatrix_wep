@@ -119,20 +119,20 @@ function StatCard({ stat, index, isInView }: { stat: StatItem; index: number; is
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 80, scale: 0.8 }}
+      initial={{ opacity: 0.4, y: 6, scale: 0.98 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ 
-        duration: 0.8, 
-        delay: index * 0.2,
+        duration: 0.7, 
+        delay: index * 0.15,
         ease: [0.25, 0.46, 0.45, 0.94]
       }}
-      viewport={{ once: true }}
+      viewport={{ once: true, margin: "-80px" }}
       className="group relative"
     >
       {/* Floating Animation Container */}
       <motion.div
         animate={{ 
-          y: [0, -8, 0],
+          y: [0, -6, 0],
         }}
         transition={{ 
           duration: 4,

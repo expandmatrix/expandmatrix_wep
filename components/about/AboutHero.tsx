@@ -21,6 +21,7 @@ export default function AboutHero({ dict, lang }: AboutHeroProps) {
           <motion.div
             className="inline-flex items-center px-6 py-3 rounded-full bg-accent-primary/10 border border-accent-primary/20 mb-8"
             whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.2 }}
           >
             <Sparkles className="w-5 h-5 text-accent-primary mr-2" />
             <span className="text-accent-primary font-medium">
@@ -28,24 +29,40 @@ export default function AboutHero({ dict, lang }: AboutHeroProps) {
             </span>
           </motion.div>
 
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-text-primary mb-6 leading-tight">
-            <span className="block">
-              {lang === 'cs' ? 'Transformujeme' : 'Transforming'}
-            </span>
-            <span className="block bg-gradient-to-r from-accent-primary to-accent-dark bg-clip-text text-transparent">
-              {lang === 'cs' ? 'Budoucnost' : 'The Future'}
-            </span>
-            <span className="block">
-              {lang === 'cs' ? 'S AI' : 'With AI'}
-            </span>
-          </h1>
+          <motion.h1 
+            className="text-5xl md:text-7xl font-black text-text-primary mb-8 leading-tight"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            {lang === 'cs' ? (
+              <>
+                Automatizujeme{' '}
+                <span className="text-accent-primary bg-gradient-to-r from-accent-primary to-accent-secondary bg-clip-text text-transparent">
+                  budoucnost
+                </span>
+              </>
+            ) : (
+              <>
+                We automate{' '}
+                <span className="text-accent-primary bg-gradient-to-r from-accent-primary to-accent-secondary bg-clip-text text-transparent">
+                  the future
+                </span>
+              </>
+            )}
+          </motion.h1>
 
-          <p className="text-xl md:text-2xl text-text-secondary max-w-4xl mx-auto leading-relaxed">
+          <motion.p 
+            className="text-xl md:text-2xl text-text-secondary max-w-4xl mx-auto leading-relaxed"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
             {lang === 'cs' 
               ? 'Jsme tým AI expertů, kteří pomáhají firmám automatizovat procesy, snižovat náklady a dosahovat lepších výsledků pomocí umělé inteligence.'
               : 'We are a team of AI experts who help companies automate processes, reduce costs, and achieve better results using artificial intelligence.'
             }
-          </p>
+          </motion.p>
         </motion.div>
       </div>
     </section>

@@ -200,15 +200,15 @@ export default function AboutValues({ dict, lang }: AboutValuesProps) {
           {values.map((value, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0.4, y: 4 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true, margin: "-50px" }}
+              viewport={{ once: true, margin: "-80px" }}
               className="group perspective-1000"
             >
               <motion.div
                 className="relative h-80 cursor-pointer"
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.02 }}
                 onClick={() => setFlippedCard(flippedCard === index ? null : index)}
                 style={{
                   willChange: 'transform',

@@ -5,15 +5,23 @@ export const URL_MAPPINGS = {
   cs: {
     '/': '/',
     '/o-nas': '/o-nas',
-    '/sluzby': '/sluzby', 
+    '/sluzby': '/sluzby',
+    '/sluzby/ai-balicky': '/sluzby/ai-balicky',
+    '/sluzby/ai-skoleni': '/sluzby/ai-skoleni',
+    '/sluzby/ai-systemy-na-miru': '/sluzby/ai-systemy-na-miru',
     '/vps': '/vps',
+    '/portfolio': '/portfolio',
     '/kontakt': '/kontakt',
   },
   en: {
     '/': '/',
     '/about-us': '/about-us',
     '/services': '/services',
+    '/services/ai-packages': '/services/ai-packages',
+    '/services/ai-training': '/services/ai-training',
+    '/services/custom-ai-systems': '/services/custom-ai-systems',
     '/vps': '/vps',
+    '/portfolio': '/portfolio',
     '/contact': '/contact',
   }
 } as const;
@@ -24,12 +32,18 @@ export const CROSS_LANGUAGE_MAPPINGS = {
   'en': {
     '/o-nas': '/about-us',
     '/sluzby': '/services',
+    '/sluzby/ai-balicky': '/services/ai-packages',
+    '/sluzby/ai-skoleni': '/services/ai-training',
+    '/sluzby/ai-systemy-na-miru': '/services/custom-ai-systems',
     '/kontakt': '/contact',
   },
   // English URLs that should redirect when accessed in Czech context
   'cs': {
     '/about-us': '/o-nas',
     '/services': '/sluzby',
+    '/services/ai-packages': '/sluzby/ai-balicky',
+    '/services/ai-training': '/sluzby/ai-skoleni',
+    '/services/custom-ai-systems': '/sluzby/ai-systemy-na-miru',
     '/contact': '/kontakt',
   }
 } as const;

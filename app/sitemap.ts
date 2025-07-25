@@ -9,8 +9,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/o-nas',
     '/sluzby', 
     '/vps',
+    '/portfolio',
     '/kontakt'
   ];
+  
 
   const sitemap: MetadataRoute.Sitemap = [];
 

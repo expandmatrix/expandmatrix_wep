@@ -2,7 +2,7 @@
 
 import { motion, useMotionValue, useTransform, AnimatePresence } from 'framer-motion';
 import { Linkedin, Mail, Code, Brain, Database, Zap, Globe, Shield, Star, Cpu, Network } from 'lucide-react';
-import { useRef, useState, useCallback, useMemo } from 'react';
+import { useRef, useState, useCallback } from 'react';
 
 interface AboutTeamProps {
   dict: any;
@@ -29,92 +29,78 @@ export default function AboutTeam({ dict, lang }: AboutTeamProps) {
   const [activeCard, setActiveCard] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const team: TeamMember[] = useMemo(() => [
+  const teamMembers: TeamMember[] = [
     {
-      name: 'Martin Novák',
-      role: lang === 'cs' ? 'CEO & AI Stratég' : 'CEO & AI Strategist',
+      name: 'Alex Johnson',
+      role: lang === 'cs' ? 'AI Architekt' : 'AI Architect',
       bio: lang === 'cs' 
-        ? 'Více než 10 let zkušeností v oblasti AI a strojového učení. Vedl týmy v Google a Microsoft.'
-        : 'Over 10 years of experience in AI and machine learning. Led teams at Google and Microsoft.',
+        ? 'Specialista na návrh a implementaci pokročilých AI systémů s 8+ lety zkušeností.'
+        : 'Specialist in designing and implementing advanced AI systems with 8+ years of experience.',
       specializations: [
-        { name: 'AI Strategy', level: 95, icon: Brain },
-        { name: 'Leadership', level: 90, icon: Globe },
-        { name: 'Innovation', level: 88, icon: Zap }
+        { name: 'Machine Learning', level: 95, icon: Brain },
+        { name: 'Deep Learning', level: 90, icon: Network },
+        { name: 'AI Strategy', level: 88, icon: Star }
       ],
-      image: '/team/martin.jpg',
+      image: '/team/alex.jpg',
       linkedin: '#',
-      email: 'martin@expandmatrix.com',
-      gradient: 'from-blue-500 via-purple-500 to-cyan-500',
+      email: 'alex@expandmatrix.com',
+      gradient: 'from-blue-500 to-purple-600',
       accentColor: '#3B82F6'
     },
     {
-      name: 'Jana Svobodová',
-      role: lang === 'cs' ? 'CTO & Lead Developer' : 'CTO & Lead Developer',
+      name: 'Sarah Chen',
+      role: lang === 'cs' ? 'Data Scientist' : 'Data Scientist',
       bio: lang === 'cs'
-        ? 'Expertka na deep learning a neural networks. Absolventka MIT s fokusem na AI research.'
-        : 'Expert in deep learning and neural networks. MIT graduate with focus on AI research.',
+        ? 'Expertka na analýzu dat a vytváření prediktivních modelů pro business intelligence.'
+        : 'Expert in data analysis and creating predictive models for business intelligence.',
       specializations: [
-        { name: 'Deep Learning', level: 98, icon: Brain },
-        { name: 'Python/TensorFlow', level: 95, icon: Code },
-        { name: 'Architecture', level: 92, icon: Database }
+        { name: 'Data Analysis', level: 92, icon: Database },
+        { name: 'Python/R', level: 89, icon: Code },
+        { name: 'Statistics', level: 87, icon: Cpu }
       ],
-      image: '/team/jana.jpg',
+      image: '/team/sarah.jpg',
       linkedin: '#',
-      email: 'jana@expandmatrix.com',
-      gradient: 'from-emerald-500 via-teal-500 to-green-400',
+      email: 'sarah@expandmatrix.com',
+      gradient: 'from-green-500 to-teal-600',
       accentColor: '#10B981'
     },
     {
-      name: 'Tomáš Procházka',
-      role: lang === 'cs' ? 'Senior AI Engineer' : 'Senior AI Engineer',
+      name: 'Marcus Weber',
+      role: lang === 'cs' ? 'Automation Engineer' : 'Automation Engineer',
       bio: lang === 'cs'
-        ? 'Specialista na computer vision a NLP. Autor několika patentů v oblasti AI.'
-        : 'Specialist in computer vision and NLP. Author of several AI patents.',
+        ? 'Specialista na automatizaci business procesů a integraci AI řešení do existujících systémů.'
+        : 'Specialist in business process automation and AI solution integration into existing systems.',
       specializations: [
-        { name: 'Computer Vision', level: 94, icon: Brain },
-        { name: 'NLP', level: 91, icon: Code },
-        { name: 'Research', level: 89, icon: Zap }
+        { name: 'Process Automation', level: 94, icon: Zap },
+        { name: 'System Integration', level: 91, icon: Globe },
+        { name: 'Security', level: 85, icon: Shield }
       ],
-      image: '/team/tomas.jpg',
+      image: '/team/marcus.jpg',
       linkedin: '#',
-      email: 'tomas@expandmatrix.com',
-      gradient: 'from-orange-500 via-red-500 to-pink-500',
-      accentColor: '#F97316'
-    },
-    {
-      name: 'Petra Nováková',
-      role: lang === 'cs' ? 'AI Security Expert' : 'AI Security Expert',
-      bio: lang === 'cs'
-        ? 'Zabezpečuje etické a bezpečné nasazení AI řešení. Certifikovaná v AI governance.'
-        : 'Ensures ethical and secure deployment of AI solutions. Certified in AI governance.',
-      specializations: [
-        { name: 'AI Security', level: 96, icon: Shield },
-        { name: 'Ethics', level: 93, icon: Brain },
-        { name: 'Compliance', level: 90, icon: Globe }
-      ],
-      image: '/team/petra.jpg',
-      linkedin: '#',
-      email: 'petra@expandmatrix.com',
-      gradient: 'from-pink-500 via-rose-500 to-purple-500',
-      accentColor: '#EC4899'
+      email: 'marcus@expandmatrix.com',
+      gradient: 'from-orange-500 to-red-600',
+      accentColor: '#F59E0B'
     }
-  ], [lang]);
-
-  const handleCardHover = useCallback((index: number | null) => {
-    setActiveCard(index);
-  }, []);
+  ];
 
   return (
-    <section className="relative py-32 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-b from-bg-primary via-bg-primary/95 to-bg-secondary/20">
-      {/* Futuristic Background Grid */}
-      <div className="absolute inset-0 opacity-30">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(0,255,127,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,255,127,0.03)_1px,transparent_1px)] bg-[size:100px_100px]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,255,127,0.1)_0%,transparent_50%)]" />
-      </div>
+    <section className="py-32 bg-gradient-to-br from-bg-primary to-bg-secondary/20 relative overflow-hidden">
+      {/* Background */}
+      <div className="absolute inset-0">
+        <motion.div 
+          className="absolute inset-0 opacity-20"
+          animate={{
+            background: [
+              'radial-gradient(circle at 30% 20%, rgba(0,255,127,0.1) 0%, transparent 50%)',
+              'radial-gradient(circle at 70% 80%, rgba(0,255,127,0.1) 0%, transparent 50%)',
+              'radial-gradient(circle at 30% 20%, rgba(0,255,127,0.1) 0%, transparent 50%)'
+            ]
+          }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        />
 
-      {/* Floating Particles */}
-      <div className="absolute inset-0 pointer-events-none">
-        {Array.from({ length: 15 }).map((_, i) => (
+        {/* Floating Particles */}
+        {Array.from({ length: 12 }).map((_, i) => (
           <motion.div
             key={i}
             className="absolute w-2 h-2 bg-accent-primary/40 rounded-full"
@@ -137,7 +123,7 @@ export default function AboutTeam({ dict, lang }: AboutTeamProps) {
         ))}
       </div>
 
-      <div ref={containerRef} className="max-w-7xl mx-auto relative z-10">
+      <div ref={containerRef} className="max-w-7xl mx-auto relative z-10 px-4 sm:px-6 lg:px-8">
         {/* Header Section */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -152,28 +138,31 @@ export default function AboutTeam({ dict, lang }: AboutTeamProps) {
               {lang === 'cs' ? 'AI Experti' : 'AI Experts'}
             </span>
           </div>
-          
-          <h2 className="text-5xl md:text-7xl font-black text-text-primary mb-6 bg-gradient-to-r from-text-primary via-accent-primary to-text-primary bg-clip-text">
-            {lang === 'cs' ? 'Náš tým expertů' : 'Our Expert Team'}
+
+          <h2 className="text-4xl md:text-6xl font-black text-text-primary mb-6">
+            {lang === 'cs' ? 'Náš ' : 'Our '}
+            <span className="text-accent-primary bg-gradient-to-r from-accent-primary to-accent-secondary bg-clip-text text-transparent">
+              {lang === 'cs' ? 'Tým' : 'Team'}
+            </span>
           </h2>
-          
-          <p className="text-xl text-text-secondary max-w-3xl mx-auto leading-relaxed">
+
+          <p className="text-xl text-text-secondary max-w-3xl mx-auto">
             {lang === 'cs'
-              ? 'Spojili jsme síly nejlepších AI specialistů, vývojářů a strategů pro vytvoření výjimečných řešení'
-              : 'We have brought together the best AI specialists, developers, and strategists to create exceptional solutions'
+              ? 'Poznejte experty, kteří stojí za našimi inovativními AI řešeními'
+              : 'Meet the experts behind our innovative AI solutions'
             }
           </p>
         </motion.div>
 
         {/* Team Grid */}
-        <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
-          {team.map((member, index) => (
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {teamMembers.map((member, index) => (
             <TeamCard
               key={member.name}
               member={member}
               index={index}
               isActive={activeCard === index}
-              onHover={handleCardHover}
+              onHover={setActiveCard}
               lang={lang}
             />
           ))}
@@ -183,7 +172,6 @@ export default function AboutTeam({ dict, lang }: AboutTeamProps) {
   );
 }
 
-// Separate TeamCard component for better performance
 interface TeamCardProps {
   member: TeamMember;
   index: number;
@@ -197,7 +185,6 @@ function TeamCard({ member, index, isActive, onHover, lang }: TeamCardProps) {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  // Subtle 3D rotation
   const rotateX = useTransform(mouseY, [-200, 200], [5, -5]);
   const rotateY = useTransform(mouseX, [-200, 200], [-5, 5]);
 
@@ -232,9 +219,9 @@ function TeamCard({ member, index, isActive, onHover, lang }: TeamCardProps) {
       onMouseMove={handleMouseMove}
       onMouseEnter={() => onHover(index)}
       onMouseLeave={handleMouseLeave}
-      className="group relative perspective-1000"
+      className="group relative"
+      style={{ perspective: 1000 }}
     >
-      {/* Holographic Card Container */}
       <motion.div
         className="relative h-full"
         style={{
@@ -242,92 +229,65 @@ function TeamCard({ member, index, isActive, onHover, lang }: TeamCardProps) {
           rotateY: isActive ? rotateY : 0,
           transformStyle: "preserve-3d",
         }}
-        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        transition={{ duration: 0.2 }}
       >
-        {/* Main Card */}
-        <div className={`
-          relative bg-gradient-to-br from-bg-secondary/40 via-bg-secondary/20 to-transparent 
-          backdrop-blur-2xl border rounded-3xl overflow-hidden h-full
-          transition-all duration-500 ease-out
-          ${isActive 
-            ? 'border-accent-primary/60 shadow-2xl shadow-accent-primary/20 scale-105' 
-            : 'border-accent-primary/20 hover:border-accent-primary/40'
-          }
-        `}>
-          
-          {/* Holographic Overlay */}
-          <div className={`
-            absolute inset-0 bg-gradient-to-br ${member.gradient} opacity-0 
-            transition-opacity duration-500 rounded-3xl
-            ${isActive ? 'opacity-10' : 'group-hover:opacity-5'}
-          `} />
-
-          {/* Animated Border Glow */}
+        <div className="relative bg-gradient-to-br from-bg-secondary/80 to-bg-secondary/40 backdrop-blur-xl border border-accent-primary/20 rounded-3xl p-8 h-full flex flex-col overflow-hidden">
+          {/* Holographic overlay */}
           <motion.div
-            className="absolute inset-0 rounded-3xl"
-            style={{
-              background: `conic-gradient(from 0deg, transparent, ${member.accentColor}40, transparent)`,
-              opacity: isActive ? 0.6 : 0,
-            }}
-            animate={isActive ? { rotate: 360 } : { rotate: 0 }}
-            transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+            className="absolute inset-0 bg-gradient-to-br from-accent-primary/5 via-transparent to-accent-primary/10 rounded-3xl opacity-0 group-hover:opacity-100"
+            transition={{ duration: 0.3 }}
           />
-
-          {/* Inner Content */}
-          <div className="relative z-10 p-8 h-full flex flex-col">
-            
-            {/* Futuristic Avatar */}
+          
+          <div className="relative z-10 flex flex-col h-full">
+            {/* Avatar */}
             <div className="relative mb-8 flex justify-center">
-              <div className="relative">
-                {/* Avatar Container */}
-                <motion.div
-                  className={`w-28 h-28 rounded-2xl bg-gradient-to-br ${member.gradient} p-1`}
-                  animate={{
-                    scale: isActive ? 1.1 : 1,
-                    boxShadow: isActive 
-                      ? `0 0 40px ${member.accentColor}60` 
-                      : '0 0 0 transparent'
-                  }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <div className="w-full h-full bg-bg-secondary rounded-xl flex items-center justify-center text-white text-3xl font-black">
-                    {member.name.split(' ').map(n => n[0]).join('')}
-                  </div>
-                </motion.div>
+              <motion.div
+                className={`w-28 h-28 rounded-2xl bg-gradient-to-br ${member.gradient} p-1`}
+                animate={{
+                  scale: isActive ? 1.1 : 1,
+                  boxShadow: isActive 
+                    ? `0 0 40px ${member.accentColor}60` 
+                    : '0 0 0 transparent'
+                }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className="w-full h-full bg-bg-secondary rounded-xl flex items-center justify-center text-white text-3xl font-black">
+                  {member.name.split(' ').map(n => n[0]).join('')}
+                </div>
+              </motion.div>
 
-                {/* Orbiting Elements */}
-                <AnimatePresence>
-                  {isActive && (
-                    <>
-                      {[0, 120, 240].map((rotation, i) => (
-                        <motion.div
-                          key={i}
-                          className="absolute top-1/2 left-1/2 w-3 h-3 -mt-1.5 -ml-1.5"
-                          initial={{ opacity: 0, scale: 0 }}
-                          animate={{ 
-                            opacity: 1, 
-                            scale: 1,
-                            rotate: rotation + 360
-                          }}
-                          exit={{ opacity: 0, scale: 0 }}
-                          transition={{ 
-                            duration: 0.5,
-                            rotate: { duration: 4, repeat: Infinity, ease: "linear" }
-                          }}
-                          style={{
-                            transformOrigin: '6px 50px',
-                          }}
-                        >
-                          <div 
-                            className="w-3 h-3 rounded-full"
-                            style={{ backgroundColor: member.accentColor }}
-                          />
-                        </motion.div>
-                      ))}
-                    </>
-                  )}
-                </AnimatePresence>
-              </div>
+              {/* Orbiting Elements */}
+              <AnimatePresence>
+                {isActive && (
+                  <>
+                    {[0, 120, 240].map((rotation, i) => (
+                      <motion.div
+                        key={i}
+                        className="absolute top-1/2 left-1/2 w-3 h-3 -mt-1.5 -ml-1.5"
+                        initial={{ opacity: 0, scale: 0 }}
+                        animate={{ 
+                          opacity: 1, 
+                          scale: 1,
+                          rotate: rotation + 360
+                        }}
+                        exit={{ opacity: 0, scale: 0 }}
+                        transition={{ 
+                          duration: 0.5,
+                          rotate: { duration: 4, repeat: Infinity, ease: "linear" }
+                        }}
+                        style={{
+                          transformOrigin: '6px 50px',
+                        }}
+                      >
+                        <div 
+                          className="w-3 h-3 rounded-full"
+                          style={{ backgroundColor: member.accentColor }}
+                        />
+                      </motion.div>
+                    ))}
+                  </>
+                )}
+              </AnimatePresence>
             </div>
 
             {/* Member Info */}
@@ -353,40 +313,21 @@ function TeamCard({ member, index, isActive, onHover, lang }: TeamCardProps) {
               </p>
             </div>
 
-            {/* Skills Matrix */}
-            <div className="space-y-4 mb-8">
-              <div className="flex items-center justify-between">
-                <h4 className="text-sm font-bold text-text-primary flex items-center">
-                  <Network className="w-4 h-4 mr-2 text-accent-primary" />
-                  {lang === 'cs' ? 'Specializace' : 'Specializations'}
-                </h4>
-                <Star className="w-4 h-4 text-accent-primary" />
-              </div>
-              
+            {/* Specializations */}
+            <div className="space-y-4 mb-6">
               {member.specializations.map((spec, specIndex) => (
-                <motion.div 
-                  key={spec.name} 
-                  className="space-y-2"
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: specIndex * 0.1 }}
-                  viewport={{ once: true }}
-                >
+                <motion.div key={spec.name} className="space-y-2">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center">
-                      <spec.icon className="w-4 h-4 text-accent-primary mr-3" />
-                      <span className="text-text-secondary text-sm font-medium">
-                        {spec.name}
-                      </span>
+                      <spec.icon className="w-4 h-4 mr-2" style={{ color: member.accentColor }} />
+                      <span className="text-text-primary text-sm font-medium">{spec.name}</span>
                     </div>
-                    <span className="text-accent-primary text-sm font-bold">
-                      {spec.level}%
-                    </span>
+                    <span className="text-text-secondary text-xs">{spec.level}%</span>
                   </div>
                   
                   <div className="relative w-full bg-bg-tertiary/50 rounded-full h-2 overflow-hidden">
                     <motion.div
-                      className="h-full rounded-full relative"
+                      className="h-full rounded-full"
                       style={{
                         background: `linear-gradient(90deg, ${member.accentColor}, ${member.accentColor}80)`,
                       }}
@@ -399,7 +340,6 @@ function TeamCard({ member, index, isActive, onHover, lang }: TeamCardProps) {
                       }}
                       viewport={{ once: true }}
                     >
-                      {/* Animated Glow */}
                       <motion.div
                         className="absolute inset-0 rounded-full"
                         style={{
@@ -413,30 +353,24 @@ function TeamCard({ member, index, isActive, onHover, lang }: TeamCardProps) {
               ))}
             </div>
 
-            {/* Contact Actions */}
+            {/* Contact Links */}
             <div className="flex justify-center space-x-4">
-              {[
-                { icon: Linkedin, href: member.linkedin, label: 'LinkedIn' },
-                { icon: Mail, href: `mailto:${member.email}`, label: 'Email' }
-              ].map(({ icon: Icon, href, label }) => (
-                <motion.a
-                  key={label}
-                  href={href}
-                  whileHover={{ scale: 1.1, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="relative p-3 rounded-xl bg-accent-primary/10 border border-accent-primary/20 text-accent-primary group/btn overflow-hidden"
-                >
-                  {/* Button Glow Effect */}
-                  <motion.div
-                    className="absolute inset-0 bg-accent-primary/20 rounded-xl"
-                    initial={{ scale: 0, opacity: 0 }}
-                    whileHover={{ scale: 1, opacity: 1 }}
-                    transition={{ duration: 0.2 }}
-                  />
-                  
-                  <Icon className="w-5 h-5 relative z-10 group-hover/btn:text-white transition-colors" />
-                </motion.a>
-              ))}
+              <motion.a
+                href={member.linkedin}
+                whileHover={{ scale: 1.1, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                className="w-10 h-10 rounded-full bg-accent-primary/10 border border-accent-primary/20 flex items-center justify-center text-accent-primary hover:bg-accent-primary/20 transition-colors duration-200"
+              >
+                <Linkedin className="w-5 h-5" />
+              </motion.a>
+              <motion.a
+                href={`mailto:${member.email}`}
+                whileHover={{ scale: 1.1, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                className="w-10 h-10 rounded-full bg-accent-primary/10 border border-accent-primary/20 flex items-center justify-center text-accent-primary hover:bg-accent-primary/20 transition-colors duration-200"
+              >
+                <Mail className="w-5 h-5" />
+              </motion.a>
             </div>
           </div>
         </div>

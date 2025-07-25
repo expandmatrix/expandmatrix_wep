@@ -7,16 +7,13 @@
   .btn-primary {
     @apply px-8 py-4 bg-accent-primary text-bg-primary font-semibold text-base rounded-full;
     @apply transition-all duration-300 ease-out;
-    @apply shadow-lg hover:shadow-xl;
     @apply border-0 cursor-pointer;
     @apply transform hover:scale-105 active:scale-95;
-    box-shadow: 0 4px 20px rgba(0, 255, 127, 0.3), 0 0 0 1px rgba(0, 255, 127, 0.1);
     backdrop-filter: blur(20px);
   }
   
   .btn-primary:hover {
     @apply bg-accent-dark;
-    box-shadow: 0 8px 30px rgba(0, 255, 127, 0.4), 0 0 0 1px rgba(0, 255, 127, 0.2);
   }
 
   .btn-secondary {
@@ -26,14 +23,18 @@
     @apply transform hover:scale-105 active:scale-95;
   }
 
-  .card-glass {
-    @apply bg-bg-secondary border border-border-color rounded-2xl;
-    backdrop-filter: blur(20px);
-    background: rgba(26, 26, 26, 0.8);
+  .btn-tertiary {
+    @apply px-6 py-3 bg-bg-secondary text-text-primary font-medium text-sm rounded-full;
+    @apply border border-border-color transition-all duration-300 ease-out;
+    @apply hover:border-accent-primary hover:text-accent-primary;
+    @apply transform hover:scale-105 active:scale-95;
   }
 
-  .text-gradient {
-    @apply bg-gradient-to-r from-accent-primary to-accent-dark bg-clip-text text-transparent;
+  .btn-ghost {
+    @apply px-6 py-3 bg-transparent text-text-secondary font-medium text-sm rounded-full;
+    @apply transition-all duration-300 ease-out;
+    @apply hover:bg-bg-secondary hover:text-text-primary;
+    @apply transform hover:scale-105 active:scale-95;
   }
 }
 
@@ -174,6 +175,16 @@ input:focus-visible,
 textarea:focus-visible {
   outline: 2px solid rgba(0, 255, 127, 0.5);
   outline-offset: 2px;
+  border-radius: 9999px;
+}
+
+/* Ensure all interactive elements have rounded focus */
+.btn-primary:focus-visible,
+.btn-secondary:focus-visible,
+.btn-tertiary:focus-visible,
+.btn-ghost:focus-visible {
+  outline: 2px solid rgba(0, 255, 127, 0.6);
+  outline-offset: 3px;
   border-radius: 9999px;
 }
 

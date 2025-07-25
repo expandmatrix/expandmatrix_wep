@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { type Route } from 'next';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Zap, Menu, X } from 'lucide-react';
+import { Zap, Menu, X, ChevronDown } from 'lucide-react';
 import { type Locale } from '@/lib/getDictionary';
 import { getLocalizedNavigation } from '@/lib/navigation';
 import LanguageSwitcher from './LanguageSwitcher';
@@ -18,6 +18,7 @@ interface HeaderProps {
 export default function Header({ dict, lang }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeItem, setActiveItem] = useState<string | null>(null);
+  const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
   const navigation = getLocalizedNavigation(lang);
 
   // Handle scroll effect
@@ -33,6 +34,7 @@ export default function Header({ dict, lang }: HeaderProps) {
   // Clean up hover state when component unmounts or navigation changes
   useEffect(() => {
     setActiveItem(null);
+    setActiveSubmenu(null);
   }, [lang]);
 
   return (
@@ -133,53 +135,40 @@ export default function Header({ dict, lang }: HeaderProps) {
             </Link>
           </motion.div>
 
-          {/* Desktop Navigation - FIXED HOVER EFFECTS */}
+          {/* Desktop Navigation with Submenu */}
           <div className="hidden lg:flex items-center space-x-2">
             {navigation.map((item, index) => (
               <motion.div
-                key={`${item.name}-${lang}`} // Ensure unique key per language
+                key={`${item.name}-${lang}`}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 * index, duration: 0.5 }}
                 className="relative"
+                onMouseEnter={() => {
+                  setActiveItem(item.name);
+                  if (item.submenu) {
+                    setActiveSubmenu(item.name);
+                  }
+                }}
+                onMouseLeave={() => {
+                  setActiveItem(null);
+                  setActiveSubmenu(null);
+                }}
               >
                 <Link
                   href={item.href as Route}
-                  className="relative block px-5 py-3 text-text-secondary font-medium text-sm tracking-wide transition-colors duration-300 group"
-                  onMouseEnter={() => setActiveItem(item.name)}
-                  onMouseLeave={() => setActiveItem(null)}
+                  className="relative flex items-center px-5 py-3 text-text-secondary font-medium text-sm tracking-wide transition-colors duration-300 group"
                 >
                   {/* Glassmorphism Hover Background */}
                   <motion.div
                     className="absolute inset-0 bg-gradient-to-r from-accent-primary/10 via-accent-primary/15 to-accent-primary/10 rounded-xl backdrop-blur-sm border border-accent-primary/20"
-                    initial={{ 
-                      scale: 0.8, 
-                      opacity: 0,
-                      y: 10
-                    }}
+                    initial={{ scale: 0.8, opacity: 0, y: 10 }}
                     animate={{ 
                       scale: activeItem === item.name ? 1 : 0.8,
                       opacity: activeItem === item.name ? 1 : 0,
                       y: activeItem === item.name ? 0 : 10
                     }}
-                    transition={{ 
-                      duration: 0.3,
-                      ease: [0.25, 0.46, 0.45, 0.94]
-                    }}
-                  />
-
-                  {/* Animated Glow Effect */}
-                  <motion.div
-                    className="absolute inset-0 bg-accent-primary/5 rounded-xl blur-md"
-                    initial={{ scale: 0, opacity: 0 }}
-                    animate={{ 
-                      scale: activeItem === item.name ? 1.2 : 0,
-                      opacity: activeItem === item.name ? 1 : 0
-                    }}
-                    transition={{ 
-                      duration: 0.4,
-                      ease: "easeOut"
-                    }}
+                    transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
                   />
 
                   {/* Text Content */}
@@ -192,86 +181,85 @@ export default function Header({ dict, lang }: HeaderProps) {
                     transition={{ duration: 0.2 }}
                   >
                     <span>{item.name}</span>
-                    
-                    {/* Animated Indicator Dot */}
-                    <motion.div
-                      className="w-1.5 h-1.5 bg-accent-primary rounded-full"
-                      initial={{ scale: 0, opacity: 0 }}
-                      animate={{ 
-                        scale: activeItem === item.name ? 1 : 0,
-                        opacity: activeItem === item.name ? 1 : 0,
-                        rotate: activeItem === item.name ? 360 : 0
-                      }}
-                      transition={{ 
-                        duration: 0.3,
-                        ease: "easeOut"
-                      }}
-                    />
+                    {item.submenu && (
+                      <motion.div
+                        animate={{
+                          rotate: activeSubmenu === item.name ? 180 : 0
+                        }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <ChevronDown className="w-4 h-4" />
+                      </motion.div>
+                    )}
                   </motion.span>
 
                   {/* Bottom Accent Line */}
                   <motion.div
                     className="absolute bottom-0 left-1/2 h-0.5 bg-gradient-to-r from-accent-primary via-accent-dark to-accent-primary rounded-full"
-                    initial={{ 
-                      width: 0,
-                      x: '-50%',
-                      opacity: 0
-                    }}
+                    initial={{ width: 0, x: '-50%', opacity: 0 }}
                     animate={{
                       width: activeItem === item.name ? '90%' : 0,
                       opacity: activeItem === item.name ? 1 : 0,
                       boxShadow: activeItem === item.name ? '0 0 10px rgba(0, 255, 127, 0.5)' : '0 0 0px rgba(0, 255, 127, 0)'
                     }}
-                    transition={{ 
-                      duration: 0.4, 
-                      ease: [0.25, 0.46, 0.45, 0.94]
-                    }}
-                  />
-
-                  {/* Top Accent Line */}
-                  <motion.div
-                    className="absolute top-0 left-1/2 h-px bg-gradient-to-r from-transparent via-accent-primary to-transparent"
-                    initial={{ 
-                      width: 0,
-                      x: '-50%',
-                      opacity: 0
-                    }}
-                    animate={{
-                      width: activeItem === item.name ? '70%' : 0,
-                      opacity: activeItem === item.name ? 0.6 : 0
-                    }}
-                    transition={{ 
-                      duration: 0.3, 
-                      delay: activeItem === item.name ? 0.1 : 0,
-                      ease: "easeOut"
-                    }}
-                  />
-
-                  {/* Side Glow Effects */}
-                  <motion.div
-                    className="absolute left-0 top-1/2 w-px h-0 bg-accent-primary/60 -translate-y-1/2"
-                    animate={{
-                      height: activeItem === item.name ? '60%' : 0,
-                      opacity: activeItem === item.name ? 1 : 0
-                    }}
-                    transition={{ 
-                      duration: 0.3,
-                      delay: activeItem === item.name ? 0.15 : 0
-                    }}
-                  />
-                  
-                  <motion.div
-                    className="absolute right-0 top-1/2 w-px h-0 bg-accent-primary/60 -translate-y-1/2"
-                    animate={{
-                      height: activeItem === item.name ? '60%' : 0,
-                      opacity: activeItem === item.name ? 1 : 0
-                    }}
-                    transition={{ 
-                      duration: 0.3,
-                      delay: activeItem === item.name ? 0.15 : 0
-                    }}
+                    transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
                   />
                 </Link>
+
+                {/* Submenu Dropdown */}
+                <AnimatePresence>
+                  {item.submenu && activeSubmenu === item.name && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                      transition={{ duration: 0.2, ease: "easeOut" }}
+                      className="absolute top-full left-0 mt-2 w-64 bg-bg-primary/90 backdrop-blur-2xl border border-accent-primary/20 rounded-2xl shadow-2xl shadow-accent-primary/10 overflow-hidden"
+                    >
+                      {/* Submenu background glow */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-accent-primary/5 to-transparent" />
+                      
+                      <div className="relative z-10 py-2">
+                        {item.submenu.map((subItem, subIndex) => (
+                          <motion.div
+                            key={subItem.name}
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: subIndex * 0.05, duration: 0.3 }}
+                          >
+                            <Link
+                              href={subItem.href as Route}
+                              className="group flex items-center px-6 py-4 text-text-secondary hover:text-accent-primary hover:bg-accent-primary/10 transition-all duration-300 relative"
+                            >
+                              {/* Hover indicator */}
+                              <motion.div
+                                className="absolute left-0 top-0 bottom-0 w-1 bg-accent-primary rounded-r-full"
+                                initial={{ scaleY: 0 }}
+                                whileHover={{ scaleY: 1 }}
+                                transition={{ duration: 0.2 }}
+                              />
+                              
+                              <span className="font-medium text-sm group-hover:translate-x-1 transition-transform duration-300">
+                                {subItem.name}
+                              </span>
+                              
+                              {/* Animated arrow */}
+                              <motion.div
+                                className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                                whileHover={{ x: 3 }}
+                              >
+                                <div className="w-1.5 h-1.5 bg-accent-primary rounded-full" />
+                              </motion.div>
+                            </Link>
+                          </motion.div>
+                        ))}
+                      </div>
+
+                      {/* Bottom glow */}
+                      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent-primary/50 to-transparent" />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </motion.div>
             ))}
           </div>

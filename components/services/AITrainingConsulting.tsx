@@ -1,8 +1,6 @@
-'use client';
-
-import { motion } from 'framer-motion';
-import { GraduationCap, Users, BookOpen, Target, CheckCircle } from 'lucide-react';
-import type { Locale } from '@/lib/getDictionary';
+import Link from 'next/link';
+import { GraduationCap, Users, BookOpen, ArrowRight } from 'lucide-react';
+import { type Locale } from '@/lib/getDictionary';
 
 interface AITrainingConsultingProps {
   dict: any;
@@ -10,140 +8,110 @@ interface AITrainingConsultingProps {
 }
 
 export default function AITrainingConsulting({ dict, lang }: AITrainingConsultingProps) {
-  const services = [
+  const features = lang === 'cs' ? [
     {
-      icon: <GraduationCap className="w-12 h-12" />,
-      title: lang === 'cs' ? 'AI Školení' : 'AI Training',
-      description: lang === 'cs' ? 'Komplexní školení vašeho týmu v oblasti AI technologií' : 'Comprehensive training of your team in AI technologies',
-      features: lang === 'cs' ? [
-        'Základy umělé inteligence',
-        'Praktické workshopy',
-        'Certifikace týmu',
-        'Pokračující podpora'
-      ] : [
-        'AI fundamentals',
-        'Practical workshops',
-        'Team certification',
-        'Ongoing support'
-      ]
+      icon: GraduationCap,
+      title: 'Certifikované kurzy',
+      description: 'Získejte oficiální certifikace v oblasti AI a strojového učení'
     },
     {
-      icon: <Users className="w-12 h-12" />,
-      title: lang === 'cs' ? 'AI Konzultace' : 'AI Consulting',
-      description: lang === 'cs' ? 'Strategické poradenství pro implementaci AI ve vaší firmě' : 'Strategic consulting for AI implementation in your company',
-      features: lang === 'cs' ? [
-        'AI strategie',
-        'Analýza procesů',
-        'ROI kalkulace',
-        'Implementační plán'
-      ] : [
-        'AI strategy',
-        'Process analysis',
-        'ROI calculation',
-        'Implementation plan'
-      ]
+      icon: Users,
+      title: 'Firemní školení',
+      description: 'Připravte celý tým na práci s AI technologiemi'
     },
     {
-      icon: <BookOpen className="w-12 h-12" />,
-      title: lang === 'cs' ? 'Vzdělávací programy' : 'Educational Programs',
-      description: lang === 'cs' ? 'Dlouhodobé vzdělávací programy pro rozvoj AI kompetencí' : 'Long-term educational programs for AI competency development',
-      features: lang === 'cs' ? [
-        '3-6 měsíční programy',
-        'Mentoring',
-        'Praktické projekty',
-        'Kariérní rozvoj'
-      ] : [
-        '3-6 month programs',
-        'Mentoring',
-        'Practical projects',
-        'Career development'
-      ]
+      icon: BookOpen,
+      title: 'Praktické workshopy',
+      description: 'Hands-on přístup k učení s reálnými projekty'
+    }
+  ] : [
+    {
+      icon: GraduationCap,
+      title: 'Certified Courses',
+      description: 'Get official certifications in AI and machine learning'
+    },
+    {
+      icon: Users,
+      title: 'Corporate Training',
+      description: 'Prepare your entire team to work with AI technologies'
+    },
+    {
+      icon: BookOpen,
+      title: 'Practical Workshops',
+      description: 'Hands-on approach to learning with real projects'
     }
   ];
 
   return (
-    <section className="py-32 bg-bg-primary relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          viewport={{ once: true }}
-          className="text-center mb-20"
-        >
-          <h2 className="text-4xl md:text-6xl font-black mb-6 text-text-primary">
-            {lang === 'cs' ? (
-              <>
-                AI školení &{' '}
-                <span className="text-accent-primary relative">
-                  konzultace
-                </span>
-              </>
-            ) : (
-              <>
-                AI Training &{' '}
-                <span className="text-accent-primary relative">
-                  Consulting
-                </span>
-              </>
-            )}
-          </h2>
-          <p className="text-xl text-text-secondary max-w-3xl mx-auto">
-            {lang === 'cs' 
-              ? 'Připravte svůj tým na budoucnost s našimi odbornými školeními a konzultacemi'
-              : 'Prepare your team for the future with our expert training and consulting services'
-            }
-          </p>
-        </motion.div>
+    <section className="py-20 bg-bg-primary">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div>
+            <h2 className="text-4xl md:text-5xl font-black text-text-primary mb-6">
+              {lang === 'cs' ? 'AI Školení & Konzultace' : 'AI Training & Consulting'}
+            </h2>
+            <p className="text-xl text-text-secondary mb-8">
+              {lang === 'cs'
+                ? 'Připravte svůj tým na budoucnost s našimi komplexními AI školeními a certifikačními programy.'
+                : 'Prepare your team for the future with our comprehensive AI training and certification programs.'
+              }
+            </p>
 
-        <div className="grid lg:grid-cols-3 gap-8">
-          {services.map((service, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 60 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: index * 0.2 }}
-              viewport={{ once: true }}
-              className="group p-8 bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-xl border border-white/[0.08] rounded-3xl hover:border-accent-primary/30 transition-all duration-700 hover:scale-[1.02]"
+            <div className="space-y-6 mb-10">
+              {features.map((feature, index) => (
+                <div key={index} className="flex items-start space-x-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-accent-primary/10 rounded-lg flex items-center justify-center">
+                    <feature.icon className="w-6 h-6 text-accent-primary" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-text-primary mb-2">
+                      {feature.title}
+                    </h3>
+                    <p className="text-text-secondary">
+                      {feature.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <Link
+              href={`/${lang}/${lang === 'cs' ? 'sluzby/ai-skoleni' : 'services/ai-training'}`}
+              className="group inline-flex items-center px-10 py-5 bg-accent-primary text-bg-primary font-bold text-lg rounded-full transition-all duration-500 hover:bg-accent-primary/90 hover:scale-105 hover:shadow-[0_0_50px_rgba(0,255,127,0.4)]"
             >
-              <div className="text-accent-primary mb-6 group-hover:scale-110 transition-transform duration-300">
-                {service.icon}
-              </div>
-              
-              <h3 className="text-2xl font-bold text-text-primary mb-4 group-hover:text-accent-primary transition-colors duration-300">
-                {service.title}
-              </h3>
-              
-              <p className="text-text-secondary mb-6 leading-relaxed">
-                {service.description}
-              </p>
-
-              <ul className="space-y-3">
-                {service.features.map((feature, featureIndex) => (
-                  <li key={featureIndex} className="flex items-center text-text-secondary">
-                    <CheckCircle className="w-5 h-5 text-accent-primary mr-3 flex-shrink-0" />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          ))}
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center mt-16"
-        >
-          <div className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-accent-primary/10 to-accent-primary/5 border border-accent-primary/20 rounded-full backdrop-blur-sm">
-            <Target className="w-5 h-5 text-accent-primary mr-3" />
-            <span className="text-accent-primary font-semibold">
-              {lang === 'cs' ? 'Individuální přístup ke každému klientovi' : 'Individual approach to each client'}
-            </span>
+              <span>
+                {lang === 'cs' ? 'Zjistit více o školení' : 'Learn more about Training'}
+              </span>
+              <ArrowRight className="w-6 h-6 ml-3 group-hover:translate-x-2 transition-transform duration-300" />
+            </Link>
           </div>
-        </motion.div>
+
+          <div className="relative">
+            <div className="absolute inset-0 bg-gradient-to-br from-accent-primary/20 to-accent-primary/5 rounded-3xl blur-3xl"></div>
+            <div className="relative bg-bg-secondary border border-accent-primary/20 rounded-3xl p-8">
+              <div className="text-center">
+                <GraduationCap className="w-20 h-20 text-accent-primary mx-auto mb-6" />
+                <h3 className="text-2xl font-bold text-text-primary mb-4">
+                  {lang === 'cs' ? 'Začněte ještě dnes' : 'Start Today'}
+                </h3>
+                <p className="text-text-secondary mb-6">
+                  {lang === 'cs'
+                    ? 'Získejte konkurenční výhodu s našimi AI školeními'
+                    : 'Gain competitive advantage with our AI training'
+                  }
+                </p>
+                <div className="bg-accent-primary/10 rounded-2xl p-6">
+                  <div className="text-3xl font-black text-accent-primary mb-2">
+                    {lang === 'cs' ? '95%' : '95%'}
+                  </div>
+                  <div className="text-sm text-text-secondary">
+                    {lang === 'cs' ? 'Úspěšnost absolventů' : 'Graduate Success Rate'}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

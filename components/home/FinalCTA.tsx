@@ -79,10 +79,10 @@ export default function FinalCTA({ dict, lang }: FinalCTAProps) {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           ref={containerRef}
-          initial={{ opacity: 0, y: 60 }}
+          initial={{ opacity: 0.4, y: 4 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
-          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+          viewport={{ once: true, margin: "-100px" }}
           onMouseMove={handleMouseMove}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
@@ -99,10 +99,10 @@ export default function FinalCTA({ dict, lang }: FinalCTAProps) {
               rotateY,
             }}
             whileHover={{
-              scale: 1.02,
+              scale: 1.01,
               borderColor: 'rgba(0, 255, 127, 0.4)',
             }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.4 }}
           >
             {/* Animated Background Layers */}
             <div className="absolute inset-0">
@@ -237,34 +237,20 @@ export default function FinalCTA({ dict, lang }: FinalCTAProps) {
 
               {/* CTA Buttons */}
               <motion.div
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0.3, y: 4 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-                viewport={{ once: true }}
+                transition={{ duration: 0.7, delay: 0.3 }}
+                viewport={{ once: true, margin: "-80px" }}
                 className="flex flex-col sm:flex-row gap-6 justify-center items-center"
               >
                 {/* Primary CTA */}
                 <motion.button
-                  whileHover={{ 
-                    scale: 1.05,
-                    boxShadow: '0 20px 40px rgba(0, 255, 127, 0.3)',
-                  }}
+                  onHoverStart={() => setIsHovered(true)}
+                  onHoverEnd={() => setIsHovered(false)}
+                  whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="group relative bg-accent-primary text-bg-primary font-bold text-lg px-12 py-5 rounded-full transition-all duration-300 overflow-hidden"
                 >
-                  {/* Button Background Animation */}
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-accent-primary via-accent-dark to-accent-primary"
-                    animate={{
-                      x: ['-100%', '100%'],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
-                  />
-                  
                   <span className="relative z-10 flex items-center">
                     {lang === 'cs' ? 'Začít hned teď' : 'Get Started Now'}
                     <motion.div

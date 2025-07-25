@@ -1,8 +1,9 @@
 'use client';
 
 import { motion, useMotionValue, useTransform } from 'framer-motion';
-import { useRef, useEffect, useState } from 'react';
-import { ArrowRight, Sparkles, Zap, Code, Brain } from 'lucide-react';
+import { ArrowRight, Brain, Code, Zap } from 'lucide-react';
+import Link from 'next/link';
+import { useEffect, useRef, useState } from 'react';
 import type { Locale } from '@/lib/getDictionary';
 
 interface HeroProps {
@@ -11,86 +12,76 @@ interface HeroProps {
 }
 
 export default function Hero({ dict, lang }: HeroProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const containerRef = useRef<HTMLElement>(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-
-  // Enhanced parallax effects
-  const parallaxX = useTransform(mouseX, [-500, 500], [-30, 30]);
-  const parallaxY = useTransform(mouseY, [-500, 500], [-20, 20]);
-  const glowX = useTransform(mouseX, [-500, 500], [-100, 100]);
-  const glowY = useTransform(mouseY, [-500, 500], [-50, 50]);
-
-  useEffect(() => {
-    setIsLoaded(true);
-  }, []);
+  
+  const parallaxX = useTransform(mouseX, [-1, 1], [-20, 20]);
+  const parallaxY = useTransform(mouseY, [-1, 1], [-20, 20]);
+  const glowX = useTransform(mouseX, [-1, 1], [200, 800]);
+  const glowY = useTransform(mouseY, [-1, 1], [200, 600]);
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!containerRef.current) return;
+    
     const rect = containerRef.current.getBoundingClientRect();
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    mouseX.set(e.clientX - rect.left - centerX);
-    mouseY.set(e.clientY - rect.top - centerY);
+    const x = (e.clientX - rect.left - rect.width / 2) / (rect.width / 2);
+    const y = (e.clientY - rect.top - rect.height / 2) / (rect.height / 2);
+    
+    mouseX.set(x);
+    mouseY.set(y);
+    setMousePosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
   };
 
-  // Enhanced title rendering with proper internationalization
-  const renderTitle = () => {
-    const title = dict?.hero?.title || (lang === 'cs' ? 'Automatizujte svůj business a ušetřete až 80% času' : 'Automate your business and save up to 80% of time');
-    const highlightText = dict?.hero?.highlight || (lang === 'cs' ? '80% času' : '80% of time');
-    
-    // Split title by highlight text
-    const parts = title.split(highlightText);
-    
-    if (parts.length === 2) {
-      return (
-        <>
-          {parts[0]}
-          <span className="neon-text relative inline-block">
-            {highlightText}
-            <motion.div 
-              className="absolute -inset-2 bg-accent-primary/20 blur-2xl rounded-lg"
-              animate={{ 
-                opacity: [0.5, 1, 0.5],
-                scale: [1, 1.1, 1]
-              }}
-              transition={{ duration: 2, repeat: Infinity }}
-            />
-          </span>
-          {parts[1]}
-        </>
-      );
-    }
-    
-    return title;
-  };
-
-  // Get localized content with fallbacks
-  const getLocalizedContent = () => {
-    return {
-      title: dict?.hero?.title || (lang === 'cs' ? 'Automatizujte svůj business a ušetřete až 80% času' : 'Automate your business and save up to 80% of time'),
-      subtitle: dict?.hero?.subtitle || (lang === 'cs' ? 'Jsme futuristická AI agentura, která pomáhá firmám automatizovat procesy, snižovat náklady a růst rychleji než kdy předtím.' : 'We are a futuristic AI agency that helps companies automate processes, reduce costs, and grow faster than ever before.'),
-      primaryCTA: dict?.hero?.primaryCTA || (lang === 'cs' ? 'Začít zdarma' : 'Get Started Free'),
-      secondaryCTA: dict?.hero?.secondaryCTA || (lang === 'cs' ? 'Zjistit více' : 'Learn More'),
+  const content = {
+    cs: {
+      badge: 'AI Řešení Budoucnosti',
+      title: 'Automatizujeme až 80% Vašich Procesů',
+      subtitle: 'Transformujeme vaše podnikání pomocí pokročilých AI technologií. Specializujeme se na custom AI systémy, chatboty a automatizaci workflow. Zvyšte efektivitu, snižte náklady a získejte konkurenční výhodu.',
+      primaryCTA: 'Začít s AI automatizací',
+      secondaryCTA: 'Zjistit více o službách',
       stats: {
-        projects: {
-          value: '500+',
-          label: dict?.hero?.stats?.projects || (lang === 'cs' ? 'Projektů' : 'Projects')
-        },
-        success: {
-          value: '98%',
-          label: dict?.hero?.stats?.success || (lang === 'cs' ? 'Úspěšnost' : 'Success Rate')
-        },
-        support: {
-          value: '24/7',
-          label: dict?.hero?.stats?.support || (lang === 'cs' ? 'Podpora' : 'Support')
-        }
+        projects: { number: '50+', label: 'Automatizovaných procesů' },
+        clients: { number: '30+', label: 'Spokojených klientů' },
+        automation: { number: '80%', label: 'Úspora času' }
       }
-    };
+    },
+    en: {
+      badge: 'AI Solutions of the Future',
+      title: 'We Automate Up to 80% of Your Processes',
+      subtitle: 'Transform your business with advanced AI technologies. We specialize in custom AI systems, chatbots, and workflow automation. Increase efficiency, reduce costs, and gain competitive advantage.',
+      primaryCTA: 'Start AI Automation',
+      secondaryCTA: 'Learn About Services',
+      stats: {
+        projects: { number: '50+', label: 'Automated processes' },
+        clients: { number: '30+', label: 'Satisfied clients' },
+        automation: { number: '80%', label: 'Time saved' }
+      }
+    }
   };
 
-  const content = getLocalizedContent();
+  const currentContent = content[lang];
+
+  const renderTitle = () => {
+    const words = currentContent.title.split(' ');
+    return words.map((word, index) => (
+      <motion.span
+        key={`${word}-${lang}-${index}`}
+        className={index === 1 ? 'text-accent-primary' : ''}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ 
+          duration: 0.6, 
+          delay: 0.3 + index * 0.1,
+          ease: "easeOut"
+        }}
+      >
+        {word}{index < words.length - 1 ? ' ' : ''}
+      </motion.span>
+    ));
+  };
 
   return (
     <section 
@@ -154,120 +145,87 @@ export default function Hero({ dict, lang }: HeroProps) {
           }}
         />
 
-        {/* Animated Circuit Lines */}
-        <svg className="absolute inset-0 w-full h-full opacity-10" viewBox="0 0 1000 1000">
-          <motion.path
-            d="M100,200 Q300,100 500,200 T900,200"
-            stroke="url(#circuitGradient)"
-            strokeWidth="2"
-            fill="none"
-            initial={{ pathLength: 0 }}
-            animate={{ pathLength: 1 }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <defs>
-            <linearGradient id="circuitGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="rgba(0,255,127,0)" />
-              <stop offset="50%" stopColor="rgba(0,255,127,0.8)" />
-              <stop offset="100%" stopColor="rgba(0,255,127,0)" />
-            </linearGradient>
-          </defs>
-        </svg>
-      </div>
+        {/* Floating Tech Icons - Optimized */}
+        <div className="absolute inset-0 pointer-events-none">
+          <motion.div
+            className="absolute top-1/4 left-1/4 text-accent-primary/20"
+            animate={{
+              rotate: 360,
+              scale: [1, 1.1, 1],
+            }}
+            transition={{
+              rotate: { duration: 25, repeat: Infinity, ease: "linear" },
+              scale: { duration: 8, repeat: Infinity, ease: [0.4, 0, 0.6, 1] }
+            }}
+            style={{
+              willChange: 'transform',
+              transform: 'translate3d(0, 0, 0)',
+            }}
+          >
+            <Brain className="w-12 h-12" />
+          </motion.div>
 
-      {/* Floating Tech Icons - Optimized */}
-      <div className="absolute inset-0 pointer-events-none">
-        <motion.div
-          className="absolute top-1/4 left-1/4 text-accent-primary/20"
-          animate={{
-            rotate: 360,
-            scale: [1, 1.1, 1],
-          }}
-          transition={{
-            rotate: { duration: 25, repeat: Infinity, ease: "linear" },
-            scale: { duration: 8, repeat: Infinity, ease: [0.4, 0, 0.6, 1] }
-          }}
-          style={{
-            willChange: 'transform',
-            transform: 'translate3d(0, 0, 0)',
-          }}
-        >
-          <Brain className="w-12 h-12" />
-        </motion.div>
+          <motion.div
+            className="absolute top-1/3 right-1/4 text-accent-primary/20"
+            animate={{
+              rotate: -360,
+              y: [0, -15, 0],
+            }}
+            transition={{
+              rotate: { duration: 30, repeat: Infinity, ease: "linear" },
+              y: { duration: 10, repeat: Infinity, ease: [0.4, 0, 0.6, 1] }
+            }}
+            style={{
+              willChange: 'transform',
+              transform: 'translate3d(0, 0, 0)',
+            }}
+          >
+            <Code className="w-10 h-10" />
+          </motion.div>
 
-        <motion.div
-          className="absolute top-1/3 right-1/4 text-accent-primary/20"
-          animate={{
-            rotate: -360,
-            y: [0, -15, 0],
-          }}
-          transition={{
-            rotate: { duration: 30, repeat: Infinity, ease: "linear" },
-            y: { duration: 10, repeat: Infinity, ease: [0.4, 0, 0.6, 1] }
-          }}
-          style={{
-            willChange: 'transform',
-            transform: 'translate3d(0, 0, 0)',
-          }}
-        >
-          <Code className="w-10 h-10" />
-        </motion.div>
-
-        <motion.div
-          className="absolute bottom-1/3 left-1/3 text-accent-primary/20"
-          animate={{
-            rotate: [0, 180, 360],
-            scale: [1, 1.2, 1],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: [0.4, 0, 0.6, 1]
-          }}
-          style={{
-            willChange: 'transform',
-            transform: 'translate3d(0, 0, 0)',
-          }}
-        >
-          <Zap className="w-8 h-8" />
-        </motion.div>
-
-        <motion.div
-          className="absolute bottom-1/4 right-1/3 text-accent-primary/20"
-          animate={{
-            rotate: 360,
-            x: [0, 12, 0],
-          }}
-          transition={{
-            rotate: { duration: 22, repeat: Infinity, ease: "linear" },
-            x: { duration: 12, repeat: Infinity, ease: [0.4, 0, 0.6, 1] }
-          }}
-          style={{
-            willChange: 'transform',
-            transform: 'translate3d(0, 0, 0)',
-          }}
-        >
-          <Sparkles className="w-9 h-9" />
-        </motion.div>
+          <motion.div
+            className="absolute bottom-1/3 left-1/3 text-accent-primary/20"
+            animate={{
+              rotate: [0, 180, 360],
+              scale: [1, 1.2, 1],
+            }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              ease: [0.4, 0, 0.6, 1]
+            }}
+            style={{
+              willChange: 'transform',
+              transform: 'translate3d(0, 0, 0)',
+            }}
+          >
+            <Zap className="w-8 h-8" />
+          </motion.div>
+        </div>
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        {/* Badge */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="inline-flex items-center px-6 py-3 mb-8 bg-gradient-to-r from-accent-primary/10 to-accent-primary/5 border border-accent-primary/20 rounded-full backdrop-blur-sm"
+        >
+          <div className="w-2 h-2 bg-accent-primary rounded-full mr-3 animate-pulse" />
+          <span className="text-accent-primary font-semibold text-sm">
+            {currentContent.badge}
+          </span>
+        </motion.div>
+
         {/* Main Title */}
         <motion.h1 
-          key={`title-${lang}`}
-          initial={{ opacity: 0, y: 50, scale: 0.9 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ 
-            duration: 1.2, 
-            ease: [0.25, 0.46, 0.45, 0.94],
-            delay: 0.2 
-          }}
-          className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-text-primary mb-8 leading-tight"
+          className="text-6xl md:text-8xl lg:text-9xl font-black mb-8 text-text-primary leading-tight"
           style={{
-            textShadow: '0 0 40px rgba(0,255,127,0.3)',
             willChange: 'transform',
-            transform: 'translate3d(0, 0, 0)', // Force hardware acceleration
+            transform: 'translate3d(0, 0, 0)',
+            backfaceVisibility: 'hidden',
           }}
         >
           <motion.span
@@ -278,13 +236,13 @@ export default function Hero({ dict, lang }: HeroProps) {
             transition={{ 
               duration: 6,
               repeat: Infinity, 
-              ease: [0.4, 0, 0.6, 1], // Custom cubic-bezier for smoother motion
+              ease: [0.4, 0, 0.6, 1],
               repeatType: "loop"
             }}
             style={{
               willChange: 'transform',
               transform: 'translate3d(0, 0, 0)',
-              backfaceVisibility: 'hidden', // Prevent flickering
+              backfaceVisibility: 'hidden',
             }}
           >
             {renderTitle()}
@@ -293,60 +251,39 @@ export default function Hero({ dict, lang }: HeroProps) {
 
         {/* Subtitle */}
         <motion.p 
-          key={`subtitle-${lang}`} // Force re-render on language change
-          initial={{ opacity: 0, y: 30 }}
+          key={`subtitle-${lang}`}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.6, ease: "easeOut" }}
+          transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
           className="text-xl md:text-2xl lg:text-3xl text-text-secondary mb-12 max-w-4xl mx-auto leading-relaxed font-light"
         >
-          {content.subtitle}
+          {currentContent.subtitle}
         </motion.p>
 
         {/* CTA Buttons */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 1, ease: "easeOut" }}
-          className="flex flex-col sm:flex-row gap-6 justify-center items-center"
+          transition={{ duration: 0.6, delay: 0.8, ease: "easeOut" }}
+          className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16"
         >
           {/* Primary CTA */}
-          <motion.button
-            whileHover={{ 
-              scale: 1.05,
-              boxShadow: '0 20px 40px rgba(0, 255, 127, 0.4)',
-            }}
-            whileTap={{ scale: 0.95 }}
-            className="group relative bg-accent-primary text-bg-primary font-bold text-lg px-10 py-5 rounded-full transition-all duration-300 overflow-hidden backdrop-blur-xl border border-accent-primary/20"
+          <Link
+            href={`/${lang}/contact`}
+            className="group relative bg-accent-primary text-bg-primary font-bold text-xl px-12 py-6 rounded-full transition-all duration-500 hover:bg-accent-primary/90 hover:scale-105 hover:shadow-[0_0_50px_rgba(0,255,127,0.4)] overflow-hidden"
           >
             <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-accent-primary via-accent-dark to-accent-primary opacity-0 group-hover:opacity-100"
-              animate={{
-                x: ['-100%', '100%'],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
+              className="absolute inset-0 bg-gradient-to-r from-accent-primary via-accent-primary to-accent-dark"
+              initial={{ x: '-100%' }}
+              whileHover={{ x: '100%' }}
+              transition={{ duration: 0.6 }}
             />
             
             <span className="relative z-10 flex items-center">
-              {content.primaryCTA}
-              <motion.div
-                className="ml-3"
-                animate={{
-                  x: [0, 5, 0],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              >
-                <ArrowRight className="w-6 h-6" />
-              </motion.div>
+              {currentContent.primaryCTA}
+              <ArrowRight className="w-6 h-6 ml-3 group-hover:translate-x-2 transition-transform duration-300" />
             </span>
-          </motion.button>
+          </Link>
 
           {/* Secondary CTA */}
           <motion.button
@@ -366,21 +303,21 @@ export default function Hero({ dict, lang }: HeroProps) {
             />
             
             <span className="relative z-10 group-hover:text-accent-primary transition-colors duration-300">
-              {content.secondaryCTA}
+              {currentContent.secondaryCTA}
             </span>
           </motion.button>
         </motion.div>
 
         {/* Floating Stats */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 1.4, ease: "easeOut" }}
+          transition={{ duration: 0.6, delay: 1.4, ease: "easeOut" }}
           className="mt-16 flex flex-wrap justify-center gap-8 text-text-secondary"
         >
-          {Object.entries(content.stats).map(([key, stat], index) => (
+          {Object.entries(currentContent.stats).map(([key, stat], index) => (
             <motion.div
-              key={`${key}-${lang}`} // Force re-render on language change
+              key={`${key}-${lang}`}
               className="text-center"
               animate={{
                 y: [0, -12, 0],
@@ -389,7 +326,7 @@ export default function Hero({ dict, lang }: HeroProps) {
                 duration: 4 + index * 0.5,
                 repeat: Infinity,
                 delay: index * 0.8,
-                ease: [0.4, 0, 0.6, 1], // Smooth cubic-bezier easing
+                ease: [0.4, 0, 0.6, 1],
                 repeatType: "loop"
               }}
               style={{
@@ -398,53 +335,16 @@ export default function Hero({ dict, lang }: HeroProps) {
                 backfaceVisibility: 'hidden',
               }}
             >
-              <motion.div 
-                className="text-2xl font-bold text-accent-primary mb-1"
-                style={{
-                  willChange: 'transform',
-                  transform: 'translate3d(0, 0, 0)',
-                }}
-                animate={{
-                  textShadow: [
-                    "0 0 10px rgba(0,255,127,0.3)",
-                    "0 0 20px rgba(0,255,127,0.5)",
-                    "0 0 10px rgba(0,255,127,0.3)"
-                  ]
-                }}
-                transition={{
-                  duration: 3 + index * 0.3,
-                  repeat: Infinity,
-                  delay: index * 0.5,
-                  ease: [0.4, 0, 0.6, 1]
-                }}
-              >
-                {stat.value}
-              </motion.div>
-              <motion.div 
-                className="text-sm opacity-70"
-                style={{
-                  willChange: 'transform',
-                  transform: 'translate3d(0, 0, 0)',
-                }}
-                animate={{
-                  opacity: [0.7, 0.9, 0.7],
-                }}
-                transition={{
-                  duration: 5 + index * 0.4,
-                  repeat: Infinity,
-                  delay: index * 0.6,
-                  ease: [0.4, 0, 0.6, 1]
-                }}
-              >
+              <div className="text-3xl md:text-4xl font-black text-accent-primary mb-2">
+                {stat.number}
+              </div>
+              <div className="text-sm font-medium opacity-80">
                 {stat.label}
-              </motion.div>
+              </div>
             </motion.div>
           ))}
         </motion.div>
       </div>
-
-      {/* Bottom Gradient Fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-bg-primary to-transparent" />
     </section>
   );
 }

@@ -113,14 +113,14 @@ interface ServiceCardProps {
 function ServiceCard({ service, index }: ServiceCardProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 60, scale: 0.9 }}
+      initial={{ opacity: 0.4, y: 6, scale: 0.98 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ 
-        duration: 0.8, 
-        delay: index * 0.15,
+        duration: 0.7, 
+        delay: index * 0.12,
         ease: [0.25, 0.46, 0.45, 0.94]
       }}
-      viewport={{ once: true }}
+      viewport={{ once: true, margin: "-80px" }}
       className="group relative"
     >
       {/* Card container with Apple-style glass morphism */}
