@@ -13,110 +13,93 @@ export default function AboutStory({ dict, lang }: AboutStoryProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start center", "end center"]
+    offset: ["start end", "end start"]
   });
 
-  // Smooth timeline progress animation
-  const timelineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  // Smooth timeline progress animation with better range
+  const timelineHeight = useTransform(scrollYProgress, [0.1, 0.9], ["0%", "100%"]);
   const timelineOpacity = useTransform(scrollYProgress, [0, 0.1, 0.9, 1], [0, 1, 1, 0.8]);
 
   const milestones = [
     {
-      year: '2019',
-      icon: Rocket,
+      year: '2020',
       title: lang === 'cs' ? 'Založení společnosti' : 'Company Founded',
       description: lang === 'cs' 
-        ? 'Expand Matrix vznikla s vizí demokratizovat AI technologie pro všechny firmy.'
-        : 'Expand Matrix was founded with a vision to democratize AI technologies for all businesses.',
+        ? 'Začali jsme s vizí automatizovat business procesy pomocí AI technologií.'
+        : 'We started with a vision to automate business processes using AI technologies.',
       achievement: lang === 'cs' ? 'První AI řešení' : 'First AI Solution',
-      color: 'from-blue-400 to-cyan-400'
-    },
-    {
-      year: '2020',
-      icon: Users,
-      title: lang === 'cs' ? 'Rozšíření týmu' : 'Team Expansion',
-      description: lang === 'cs'
-        ? 'Přilákali jsme špičkové AI experty z Google, Microsoft a dalších tech gigantů.'
-        : 'We attracted top AI experts from Google, Microsoft and other tech giants.',
-      achievement: lang === 'cs' ? '15+ expertů' : '15+ Experts',
-      color: 'from-purple-400 to-pink-400'
+      icon: Rocket,
+      color: 'from-blue-500 to-blue-600'
     },
     {
       year: '2021',
-      icon: Target,
-      title: lang === 'cs' ? 'První velké úspěchy' : 'First Major Success',
+      title: lang === 'cs' ? 'Růst týmu' : 'Team Growth',
       description: lang === 'cs'
-        ? 'Dosáhli jsme 100+ úspěšných projektů a získali první mezinárodní ocenění.'
-        : 'We achieved 100+ successful projects and won our first international award.',
-      achievement: lang === 'cs' ? '100+ projektů' : '100+ Projects',
-      color: 'from-green-400 to-emerald-400'
+        ? 'Rozšířili jsme tým o experty v oblasti AI a machine learning.'
+        : 'We expanded our team with AI and machine learning experts.',
+      achievement: lang === 'cs' ? '10+ projektů' : '10+ Projects',
+      icon: Users,
+      color: 'from-green-500 to-green-600'
     },
     {
       year: '2022',
-      icon: Globe,
-      title: lang === 'cs' ? 'Mezinárodní expanze' : 'International Expansion',
+      title: lang === 'cs' ? 'Technologický průlom' : 'Technology Breakthrough',
       description: lang === 'cs'
-        ? 'Rozšířili jsme se do 5 zemí a etablovali jako vedoucí AI agentura v regionu.'
-        : 'We expanded to 5 countries and established ourselves as the leading AI agency in the region.',
-      achievement: lang === 'cs' ? '5 zemí' : '5 Countries',
-      color: 'from-orange-400 to-red-400'
+        ? 'Vyvinuli jsme proprietární AI platformu pro automatizaci business procesů.'
+        : 'We developed a proprietary AI platform for business process automation.',
+      achievement: lang === 'cs' ? '50+ klientů' : '50+ Clients',
+      icon: Target,
+      color: 'from-orange-500 to-orange-600'
     },
     {
       year: '2023',
-      icon: Award,
-      title: lang === 'cs' ? 'Průlomové inovace' : 'Breakthrough Innovations',
+      title: lang === 'cs' ? 'Mezinárodní expanze' : 'International Expansion',
       description: lang === 'cs'
-        ? 'Vyvinuli jsme proprietární AI platformu a dosáhli 500+ spokojených klientů.'
-        : 'We developed our proprietary AI platform and reached 500+ satisfied clients.',
-      achievement: lang === 'cs' ? '500+ klientů' : '500+ Clients',
+        ? 'Rozšířili jsme naše služby na mezinárodní trhy a získali prestižní ocenění.'
+        : 'We expanded our services to international markets and received prestigious awards.',
+      achievement: lang === 'cs' ? '100+ projektů' : '100+ Projects',
+      icon: Globe,
       color: 'from-accent-primary to-accent-dark'
-    },
-    {
-      year: '2024',
-      icon: Star,
-      title: lang === 'cs' ? 'Budoucnost AI' : 'Future of AI',
-      description: lang === 'cs'
-        ? 'Pokračujeme v inovacích a formujeme budoucnost AI automatizace.'
-        : 'We continue innovating and shaping the future of AI automation.',
-      achievement: lang === 'cs' ? 'Nekonečné možnosti' : 'Infinite Possibilities',
-      color: 'from-yellow-400 to-amber-400'
     }
   ];
 
   return (
     <section ref={containerRef} className="relative py-32 px-4 sm:px-6 lg:px-8 overflow-hidden">
-      {/* Animated Background */}
+      {/* Optimized Background */}
       <div className="absolute inset-0">
         <motion.div 
           className="absolute inset-0 opacity-20"
           animate={{
             background: [
-              'radial-gradient(circle at 20% 50%, rgba(0,255,127,0.1) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(0,255,127,0.05) 0%, transparent 50%)',
-              'radial-gradient(circle at 80% 50%, rgba(0,255,127,0.1) 0%, transparent 50%), radial-gradient(circle at 20% 50%, rgba(0,255,127,0.05) 0%, transparent 50%)',
+              'radial-gradient(circle at 25% 25%, rgba(0,255,127,0.15) 0%, transparent 50%)',
+              'radial-gradient(circle at 75% 75%, rgba(0,255,127,0.15) 0%, transparent 50%)',
+              'radial-gradient(circle at 25% 25%, rgba(0,255,127,0.15) 0%, transparent 50%)'
             ]
           }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         />
         
-        {/* Floating Particles */}
-        {[...Array(15)].map((_, i) => (
+        {/* Reduced floating particles for better performance */}
+        {[...Array(6)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-2 h-2 bg-accent-primary/30 rounded-full"
+            className="absolute w-2 h-2 bg-accent-primary/20 rounded-full"
             style={{
-              left: `${10 + (i * 6) % 80}%`,
-              top: `${20 + (i * 8) % 60}%`,
+              left: `${15 + (i * 14) % 70}%`,
+              top: `${20 + (i * 12) % 60}%`,
+              willChange: 'transform',
+              transform: 'translate3d(0, 0, 0)',
             }}
             animate={{
-              y: [0, -40, 0],
-              opacity: [0.3, 1, 0.3],
-              scale: [1, 1.5, 1],
+              y: [0, -20, 0],
+              opacity: [0.2, 0.6, 0.2],
+              scale: [1, 1.3, 1],
             }}
             transition={{
-              duration: 4 + i * 0.3,
+              duration: 6 + i * 0.5,
               repeat: Infinity,
-              delay: i * 0.2,
-              ease: "easeInOut"
+              delay: i * 0.4,
+              ease: [0.4, 0, 0.6, 1]
             }}
           />
         ))}
@@ -127,21 +110,25 @@ export default function AboutStory({ dict, lang }: AboutStoryProps) {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+          viewport={{ once: true }}
           className="text-center mb-20"
         >
-          <h2 className="text-4xl md:text-6xl font-black text-text-primary mb-6">
-            {lang === 'cs' ? 'Naše cesta' : 'Our Journey'}
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-text-primary mb-6">
+            {lang === 'cs' ? 'Naše ' : 'Our '}
+            <span className="text-accent-primary">
+              {lang === 'cs' ? 'Cesta' : 'Journey'}
+            </span>
           </h2>
           <p className="text-xl text-text-secondary max-w-3xl mx-auto">
-            {lang === 'cs'
-              ? 'Od malého startupu k vedoucí AI agentuře - objevte klíčové milníky naší transformace'
-              : 'From a small startup to a leading AI agency - discover the key milestones of our transformation'
+            {lang === 'cs' 
+              ? 'Sledujte naši cestu od malého startupu k přednímu poskytovateli AI řešení'
+              : 'Follow our journey from a small startup to a leading AI solutions provider'
             }
           </p>
         </motion.div>
 
-        {/* Timeline - Optimized */}
+        {/* Timeline - Optimized with better scroll tracking */}
         <div className="relative">
           {/* Central Timeline Line - Static */}
           <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-accent-primary/30 via-accent-primary/20 to-transparent rounded-full" />
@@ -266,35 +253,26 @@ export default function AboutStory({ dict, lang }: AboutStoryProps) {
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="mt-32 relative"
+          transition={{ duration: 0.8, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+          viewport={{ once: true }}
+          className="mt-32 text-center"
         >
-          <div className="relative bg-gradient-to-br from-bg-secondary/80 via-bg-secondary/60 to-bg-secondary/40 backdrop-blur-2xl rounded-3xl p-12 border border-accent-primary/20 overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-accent-primary/10 to-transparent rounded-3xl" />
+          <div className="relative card-glass-enhanced rounded-3xl p-12 max-w-4xl mx-auto">
+            <div className="absolute inset-0 bg-gradient-to-br from-accent-primary/10 via-transparent to-accent-primary/5 rounded-3xl" />
             
-            <div className="relative z-10 text-center">
-              <motion.div
-                animate={{
-                  rotate: [0, 360],
-                }}
-                transition={{
-                  duration: 20,
-                  repeat: Infinity,
-                  ease: "linear"
-                }}
-                className="w-20 h-20 mx-auto mb-8"
-              >
-                <Zap className="w-full h-full text-accent-primary" />
-              </motion.div>
+            <div className="relative z-10">
+              <div className="w-20 h-20 mx-auto mb-8 rounded-full bg-gradient-to-br from-accent-primary to-accent-dark p-5">
+                <Star className="w-full h-full text-white" />
+              </div>
               
               <h3 className="text-3xl font-bold text-text-primary mb-6">
-                {lang === 'cs' ? 'Naše vize do budoucna' : 'Our Vision for the Future'}
+                {lang === 'cs' ? 'Naše Vize' : 'Our Vision'}
               </h3>
               
-              <p className="text-xl text-text-secondary leading-relaxed max-w-3xl mx-auto">
-                {lang === 'cs'
-                  ? 'Pokračujeme v inovacích a vytváříme AI řešení, která nejen automatizují procesy, ale skutečně transformují způsob, jakým firmy fungují. Naším cílem je být průkopníky v éře inteligentní automatizace.'
-                  : 'We continue to innovate and create AI solutions that not only automate processes, but truly transform the way businesses operate. Our goal is to be pioneers in the era of intelligent automation.'
+              <p className="text-xl text-text-secondary leading-relaxed">
+                {lang === 'cs' 
+                  ? 'Pokračujeme v inovacích a vytváříme budoucnost automatizace business procesů pomocí nejmodernějších AI technologií.'
+                  : 'We continue to innovate and shape the future of business process automation using cutting-edge AI technologies.'
                 }
               </p>
             </div>
