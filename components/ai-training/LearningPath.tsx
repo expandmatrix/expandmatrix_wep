@@ -103,11 +103,9 @@ export default function LearningPath({ dict, lang }: LearningPathProps) {
           className="text-center"
         >
           <motion.button
-            whileHover={{ 
-              scale: 1.05,
-            }}
-            whileTap={{ scale: 0.98 }}
-            className="inline-flex items-center px-10 py-5 bg-gradient-to-r from-accent-primary to-accent-secondary text-bg-primary font-bold text-lg rounded-full transition-all duration-500"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="btn-cta-large inline-flex items-center"
           >
             {lang === 'cs' ? 'Začít svou cestu' : 'Start Your Journey'}
             <ArrowRight className="w-6 h-6 ml-3" />

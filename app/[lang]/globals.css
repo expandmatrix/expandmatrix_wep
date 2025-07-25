@@ -36,6 +36,20 @@
     @apply hover:bg-bg-secondary hover:text-text-primary;
     @apply transform hover:scale-105 active:scale-95;
   }
+
+  .btn-cta-large {
+    @apply px-12 py-6 bg-accent-primary text-bg-primary font-bold text-xl rounded-full;
+    @apply transition-all duration-500 ease-out;
+    @apply hover:bg-accent-primary/90 hover:scale-105;
+    @apply transform active:scale-95;
+  }
+
+  .btn-cta-secondary {
+    @apply px-10 py-5 bg-transparent border-2 border-accent-primary/30 text-text-primary font-semibold text-lg rounded-full;
+    @apply transition-all duration-300 ease-out backdrop-blur-xl;
+    @apply hover:bg-accent-primary/10 hover:scale-105 hover:border-accent-primary/60;
+    @apply transform active:scale-95;
+  }
 }
 
 /* Base styles */
@@ -429,4 +443,49 @@ h1 {
   will-change: transform;
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
+}
+
+/* Remove all button shadows globally */
+button, 
+.btn-primary, 
+.btn-secondary, 
+.btn-tertiary, 
+.btn-ghost,
+a[class*="bg-gradient"],
+a[class*="bg-accent"],
+*[class*="bg-gradient"] {
+  box-shadow: none !important;
+}
+
+button:hover, 
+.btn-primary:hover, 
+.btn-secondary:hover, 
+.btn-tertiary:hover, 
+.btn-ghost:hover,
+a[class*="bg-gradient"]:hover,
+a[class*="bg-accent"]:hover,
+*[class*="bg-gradient"]:hover {
+  box-shadow: none !important;
+}
+
+button:focus,
+.btn-primary:focus,
+.btn-secondary:focus,
+.btn-tertiary:focus,
+.btn-ghost:focus,
+a[class*="bg-gradient"]:focus,
+a[class*="bg-accent"]:focus,
+*[class*="bg-gradient"]:focus {
+  box-shadow: none !important;
+}
+
+button:active,
+.btn-primary:active,
+.btn-secondary:active,
+.btn-tertiary:active,
+.btn-ghost:active,
+a[class*="bg-gradient"]:active,
+a[class*="bg-accent"]:active,
+*[class*="bg-gradient"]:active {
+  box-shadow: none !important;
 }

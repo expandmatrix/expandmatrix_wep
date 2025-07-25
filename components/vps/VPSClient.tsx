@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import { 
   Server, 
@@ -290,7 +290,7 @@ function BackupToggleSection({
   );
 }
 
-// VPS Packages Grid
+// Enhanced VPS Packages Grid with error boundary
 function VPSPackagesGrid({ 
   lang, 
   packages, 
@@ -300,13 +300,38 @@ function VPSPackagesGrid({
   packages: VPSPackage[]; 
   backupEnabled: boolean;
 }) {
+  const [loadingError, setLoadingError] = useState(false);
+
+  // Validate packages data
+  useEffect(() => {
+    if (!packages || packages.length === 0) {
+      setLoadingError(true);
+    } else {
+      setLoadingError(false);
+    }
+  }, [packages]);
+
+  if (loadingError) {
+    return (
+      <section className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <div className="text-text-secondary">
+              {lang === 'cs' ? 'Načítání VPS balíčků...' : 'Loading VPS packages...'}
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {packages.map((pkg, index) => (
             <VPSPackageCard
-              key={pkg.id}
+              key={`${pkg.id}-${index}`} // More stable key
               package={pkg}
               lang={lang}
               backupEnabled={backupEnabled}
@@ -319,7 +344,7 @@ function VPSPackagesGrid({
   );
 }
 
-// Individual VPS Package Card
+// Individual VPS Package Card - Fixed version
 function VPSPackageCard({ 
   package: pkg, 
   lang, 
@@ -333,21 +358,37 @@ function VPSPackageCard({
 }) {
   const [selectedOS, setSelectedOS] = useState<'linux' | 'windows'>('linux');
   const [isHovered, setIsHovered] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
-  // Správné přepočítání ceny na základě vybraného OS a zálohování
-  const basePrice = pkg.pricing[selectedOS].daily;
-  const finalDailyPrice = backupEnabled ? basePrice * 2 : basePrice;
+  // Ensure component is marked as loaded after mount
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
+
+  // Memoize price calculation to prevent unnecessary recalculations
+  const finalDailyPrice = useMemo(() => {
+    const basePrice = pkg.pricing[selectedOS]?.daily || 0;
+    return backupEnabled ? basePrice * 2 : basePrice;
+  }, [pkg.pricing, selectedOS, backupEnabled]);
 
   const handleOSChange = (os: 'linux' | 'windows') => {
     setSelectedOS(os);
   };
 
+  // Fallback rendering if data is missing
+  if (!pkg || !pkg.pricing || !pkg.pricing[selectedOS]) {
+    return (
+      <div className="relative bg-bg-secondary/50 border border-accent-primary/10 rounded-3xl p-8 animate-pulse">
+        <div className="text-center text-text-secondary">Loading...</div>
+      </div>
+    );
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 50 }}
       transition={{ duration: 0.8, delay: index * 0.1 }}
-      viewport={{ once: true }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       className={`relative ${pkg.popular ? 'lg:-mt-4' : ''}`}
@@ -356,7 +397,8 @@ function VPSPackageCard({
       {pkg.popular && (
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
+          animate={{ opacity: isLoaded ? 1 : 0, scale: isLoaded ? 1 : 0.8 }}
+          transition={{ duration: 0.5, delay: index * 0.1 + 0.2 }}
           className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-20"
         >
           <div className="bg-accent-primary text-bg-primary px-4 py-2 rounded-full text-sm font-bold">
@@ -394,37 +436,48 @@ function VPSPackageCard({
           <div className="text-center mb-8">
             <motion.div
               className="inline-flex items-center justify-center w-16 h-16 bg-accent-primary/10 rounded-2xl mb-4 backdrop-blur-sm border border-accent-primary/20"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: isLoaded ? 1 : 0.8, opacity: isLoaded ? 1 : 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 + 0.3 }}
               whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.3 }}
             >
               <pkg.icon className="w-8 h-8 text-accent-primary" />
             </motion.div>
             <h3 className="text-2xl font-bold text-text-primary">{pkg.name}</h3>
           </div>
 
-          {/* OS Toggle */}
+          {/* Specifications */}
+          <div className="space-y-4 mb-8">
+            {Object.entries(pkg.specs).map(([key, value], specIndex) => (
+              <motion.div
+                key={key}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: isLoaded ? 1 : 0, x: isLoaded ? 0 : -20 }}
+                transition={{ duration: 0.5, delay: index * 0.1 + 0.4 + specIndex * 0.1 }}
+                className="flex items-center space-x-3"
+              >
+                <div className="w-2 h-2 bg-accent-primary rounded-full flex-shrink-0" />
+                <span className="text-text-secondary text-sm">{value}</span>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* OS Selection */}
           <div className="mb-8">
-            <div className="flex bg-bg-tertiary rounded-full p-1">
-              <button
-                onClick={() => handleOSChange('linux')}
-                className={`flex-1 py-2 px-4 rounded-full text-sm font-semibold transition-all duration-300 ${
-                  selectedOS === 'linux'
-                    ? 'bg-accent-primary text-bg-primary'
-                    : 'text-text-secondary hover:text-text-primary'
-                }`}
-              >
-                Linux
-              </button>
-              <button
-                onClick={() => handleOSChange('windows')}
-                className={`flex-1 py-2 px-4 rounded-full text-sm font-semibold transition-all duration-300 ${
-                  selectedOS === 'windows'
-                    ? 'bg-accent-primary text-bg-primary'
-                    : 'text-text-secondary hover:text-text-primary'
-                }`}
-              >
-                Windows
-              </button>
+            <div className="flex bg-bg-secondary/50 rounded-2xl p-1 border border-accent-primary/10">
+              {(['linux', 'windows'] as const).map((os) => (
+                <button
+                  key={os}
+                  onClick={() => handleOSChange(os)}
+                  className={`flex-1 py-3 px-4 rounded-xl text-sm font-medium transition-all duration-300 ${
+                    selectedOS === os
+                      ? 'bg-accent-primary text-bg-primary shadow-lg'
+                      : 'text-text-secondary hover:text-text-primary'
+                  }`}
+                >
+                  {os === 'linux' ? 'Linux' : 'Windows'}
+                </button>
+              ))}
             </div>
           </div>
 
@@ -451,23 +504,11 @@ function VPSPackageCard({
             </motion.div>
           </div>
 
-          {/* Specifications */}
-          <div className="mb-8">
-            <h4 className="text-accent-primary font-semibold mb-4">
-              {lang === 'cs' ? 'Specifikace:' : 'Specifications:'}
-            </h4>
-            <div className="space-y-3">
-              {Object.entries(pkg.specs).map(([key, value]) => (
-                <div key={key} className="flex items-center space-x-3">
-                  <Check className="w-5 h-5 text-accent-primary flex-shrink-0" />
-                  <span className="text-text-secondary">{value}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
           {/* CTA Button */}
           <motion.button
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 20 }}
+            transition={{ duration: 0.5, delay: index * 0.1 + 0.6 }}
             whileHover={{ 
               scale: 1.03,
               boxShadow: '0 10px 25px rgba(0, 255, 127, 0.3)',

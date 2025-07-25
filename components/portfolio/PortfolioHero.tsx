@@ -1,8 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Sparkles, TrendingUp, Users, Zap, ArrowDown, Brain, Target, Cpu } from 'lucide-react';
-import { useRef, useState } from 'react';
+import { ArrowRight, Sparkles, Target, TrendingUp, Zap } from 'lucide-react';
+import Link from 'next/link';
 
 interface PortfolioHeroProps {
   dict: any;
@@ -10,51 +10,8 @@ interface PortfolioHeroProps {
 }
 
 export default function PortfolioHero({ dict, lang }: PortfolioHeroProps) {
-  const containerRef = useRef<HTMLElement>(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width;
-    const y = (e.clientY - rect.top) / rect.height;
-    setMousePosition({ x: x * 2 - 1, y: y * 2 - 1 });
-  };
-
-  const scrollToNextSection = () => {
-    const nextSection = document.querySelector('#case-studies');
-    if (nextSection) {
-      nextSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const stats = [
-    {
-      icon: <Users className="w-6 h-6" />,
-      value: "50+",
-      label: lang === 'cs' ? 'Spokojených klientů' : 'Happy Clients',
-      gradient: 'from-blue-500/20 to-cyan-500/20'
-    },
-    {
-      icon: <Zap className="w-6 h-6" />,
-      value: "200+",
-      label: lang === 'cs' ? 'Automatizovaných procesů' : 'Automated Processes',
-      gradient: 'from-green-500/20 to-emerald-500/20'
-    },
-    {
-      icon: <TrendingUp className="w-6 h-6" />,
-      value: "85%",
-      label: lang === 'cs' ? 'Úspora času' : 'Time Saved',
-      gradient: 'from-purple-500/20 to-pink-500/20'
-    }
-  ];
-
   return (
-    <section 
-      ref={containerRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-bg-primary"
-      onMouseMove={handleMouseMove}
-    >
+    <section className="relative min-h-screen bg-bg-primary flex items-center justify-center overflow-hidden">
       {/* Advanced Background System */}
       <div className="absolute inset-0">
         {/* Dynamic Grid Pattern */}
@@ -67,225 +24,220 @@ export default function PortfolioHero({ dict, lang }: PortfolioHeroProps) {
             `,
             backgroundSize: '60px 60px',
           }}
-          animate={{
-            x: mousePosition.x * 20,
-            y: mousePosition.y * 20,
-          }}
-          transition={{ type: "spring", stiffness: 50, damping: 30 }}
         />
-
-        {/* Animated Energy Orbs */}
-        {[...Array(8)].map((_, i) => (
+        
+        {/* Animated Gradient Orbs */}
+        <div className="absolute top-20 left-10 w-96 h-96 bg-gradient-radial from-accent-primary/20 to-transparent rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-10 w-[500px] h-[500px] bg-gradient-radial from-accent-primary/10 to-transparent rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-radial from-accent-primary/5 to-transparent rounded-full blur-3xl"></div>
+        
+        {/* Floating Particles */}
+        {[...Array(20)].map((_, i) => (
           <motion.div
-            key={`orb-${i}`}
-            className="absolute rounded-full bg-accent-primary/10 blur-xl"
+            key={i}
+            className="absolute w-1 h-1 bg-accent-primary rounded-full opacity-30"
             style={{
-              width: `${60 + i * 15}px`,
-              height: `${60 + i * 15}px`,
-              left: `${10 + (i * 12) % 80}%`,
-              top: `${15 + (i * 8) % 70}%`,
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
             }}
             animate={{
-              scale: [1, 1.3, 1],
-              opacity: [0.3, 0.7, 0.3],
-              x: [0, Math.sin(i) * 40, 0],
-              y: [0, Math.cos(i) * 25, 0],
+              y: [0, -30, 0],
+              opacity: [0.3, 0.8, 0.3],
             }}
             transition={{
-              duration: 6 + i * 0.4,
+              duration: 3 + Math.random() * 2,
               repeat: Infinity,
-              delay: i * 0.2,
-              ease: "easeInOut"
-            }}
-          />
-        ))}
-
-        {/* Dynamic Light Rays */}
-        <motion.div
-          className="absolute inset-0"
-          style={{
-            background: `
-              radial-gradient(ellipse at ${50 + mousePosition.x * 30}% ${50 + mousePosition.y * 30}%, 
-                rgba(0,255,127,0.15) 0%, 
-                rgba(0,255,127,0.05) 30%, 
-                transparent 70%
-              )
-            `,
-          }}
-        />
-
-        {/* Floating particles */}
-        {[...Array(12)].map((_, i) => (
-          <motion.div
-            key={`particle-${i}`}
-            className="absolute rounded-full bg-accent-primary/40"
-            style={{
-              width: `${2 + (i % 4)}px`,
-              height: `${2 + (i % 4)}px`,
-              left: `${20 + (i * 7) % 60}%`,
-              top: `${20 + (i * 6) % 60}%`,
-            }}
-            animate={{
-              y: [0, -40, 0],
-              opacity: [0.2, 0.8, 0.2],
-              scale: [1, 1.5, 1],
-            }}
-            transition={{
-              duration: 4 + i * 0.3,
-              repeat: Infinity,
-              delay: i * 0.2,
-              ease: "easeInOut"
+              delay: Math.random() * 2,
             }}
           />
         ))}
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        {/* Main Content */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="mb-12"
-        >
-          {/* Badge */}
+      {/* Floating Icons */}
+      <motion.div
+        animate={{ 
+          y: [0, -20, 0],
+          rotate: [0, 5, 0]
+        }}
+        transition={{ 
+          duration: 6,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+        className="absolute top-32 left-20 text-accent-primary/30"
+      >
+        <Sparkles className="w-8 h-8" />
+      </motion.div>
+
+      <motion.div
+        animate={{ 
+          y: [0, 15, 0],
+          rotate: [0, -5, 0]
+        }}
+        transition={{ 
+          duration: 8,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 2
+        }}
+        className="absolute top-40 right-32 text-accent-primary/20"
+      >
+        <Target className="w-10 h-10" />
+      </motion.div>
+
+      <motion.div
+        animate={{ 
+          y: [0, -25, 0],
+          rotate: [0, 10, 0]
+        }}
+        transition={{ 
+          duration: 10,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 4
+        }}
+        className="absolute bottom-40 left-32 text-accent-primary/25"
+      >
+        <TrendingUp className="w-12 h-12" />
+      </motion.div>
+
+      <motion.div
+        animate={{ 
+          y: [0, 20, 0],
+          rotate: [0, -10, 0]
+        }}
+        transition={{ 
+          duration: 7,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 1
+        }}
+        className="absolute top-1/2 right-20 text-accent-primary/20"
+      >
+        <Zap className="w-9 h-9" />
+      </motion.div>
+
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="max-w-6xl mx-auto text-center">
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="inline-flex items-center px-6 py-3 mb-8 bg-gradient-to-r from-accent-primary/10 to-accent-primary/5 border border-accent-primary/20 rounded-full backdrop-blur-sm"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="mb-8"
           >
-            <Sparkles className="w-5 h-5 text-accent-primary mr-3" />
-            <span className="text-accent-primary font-semibold">
-              {lang === 'cs' ? 'Naše úspěšné projekty' : 'Our Success Stories'}
-            </span>
+            <motion.span 
+              className="inline-block px-8 py-4 bg-gradient-to-r from-accent-primary/10 to-accent-primary/5 border border-accent-primary/20 rounded-full text-accent-primary font-medium text-sm mb-8 backdrop-blur-xl"
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.3 }}
+            >
+              {lang === 'cs' ? '🚀 Naše úspěšné projekty' : '🚀 Our Success Stories'}
+            </motion.span>
+            
+            <h1 className="text-6xl md:text-8xl lg:text-9xl font-black mb-8 leading-tight">
+              <motion.span 
+                className="bg-gradient-to-r from-text-primary via-accent-primary to-text-primary bg-clip-text text-transparent"
+                animate={{ 
+                  backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+                }}
+                transition={{ 
+                  duration: 5,
+                  repeat: Infinity,
+                  ease: "linear"
+                }}
+                style={{ backgroundSize: '200% 200%' }}
+              >
+                {lang === 'cs' ? 'Portfolio' : 'Portfolio'}
+              </motion.span>
+              <br />
+              <span className="text-text-primary">
+                {lang === 'cs' ? 'Úspěchů' : 'of Success'}
+              </span>
+            </h1>
           </motion.div>
-          
-          {/* Main Title */}
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
+
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-6xl md:text-8xl lg:text-9xl font-black mb-8 text-text-primary leading-tight"
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-xl md:text-2xl text-text-secondary mb-12 max-w-4xl mx-auto leading-relaxed"
           >
-            <span className="block">
-              {lang === 'cs' ? 'Portfolio' : 'Portfolio'}
-            </span>
-            <span className="text-accent-primary">
-              {lang === 'cs' ? 'AI Automatizace' : 'AI Automation'}
-            </span>
-          </motion.h1>
-          
-          {/* Description */}
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-xl md:text-2xl text-text-secondary max-w-4xl mx-auto leading-relaxed font-medium mb-12"
-          >
-            {lang === 'cs' 
-              ? 'Prohlédněte si naše úspěšné AI projekty a automatizace. Ušetřili jsme klientům tisíce hodin práce a miliony korun díky pokročilým AI řešením.'
-              : 'Explore our successful AI projects and automations. We saved clients thousands of hours and millions in costs through advanced AI solutions.'
+            {lang === 'cs'
+              ? 'Objevte, jak jsme pomohli společnostem transformovat jejich procesy pomocí pokročilých AI řešení. Každý projekt je příběhem inovace, efektivity a úspěchu.'
+              : 'Discover how we\'ve helped companies transform their processes with advanced AI solutions. Every project is a story of innovation, efficiency, and success.'
             }
           </motion.p>
 
-          {/* Feature highlights */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="grid md:grid-cols-3 gap-6 mb-16 max-w-4xl mx-auto"
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16"
+          >
+            <Link
+              href={`/${lang}/${lang === 'cs' ? 'kontakt' : 'contact'}`}
+              className="btn-cta-large group inline-flex items-center"
+            >
+              <span>{lang === 'cs' ? 'Začněte svůj projekt' : 'Start Your Project'}</span>
+              <ArrowRight className="w-6 h-6 ml-3 group-hover:translate-x-2 transition-transform duration-300" />
+            </Link>
+            
+            <Link
+              href="#case-studies"
+              className="btn-cta-secondary inline-flex items-center"
+            >
+              {lang === 'cs' ? 'Prohlédnout případové studie' : 'View Case Studies'}
+            </Link>
+          </motion.div>
+
+          {/* Enhanced Stats Preview */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto"
           >
             {[
-              {
-                icon: <Brain className="w-8 h-8" />,
-                title: lang === 'cs' ? 'AI na míru' : 'Custom AI',
-                desc: lang === 'cs' ? 'Řešení šitá přesně na vaše potřeby' : 'Solutions tailored to your needs'
-              },
-              {
-                icon: <Target className="w-8 h-8" />,
-                title: lang === 'cs' ? 'Měřitelné výsledky' : 'Measurable Results',
-                desc: lang === 'cs' ? 'Konkrétní úspory času a nákladů' : 'Concrete time and cost savings'
-              },
-              {
-                icon: <Cpu className="w-8 h-8" />,
-                title: lang === 'cs' ? 'Pokročilé technologie' : 'Advanced Tech',
-                desc: lang === 'cs' ? 'Nejnovější AI a ML algoritmy' : 'Latest AI and ML algorithms'
-              }
-            ].map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
-                className="group relative p-6 rounded-2xl bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-xl border border-white/[0.08] hover:border-accent-primary/30 hover:bg-gradient-to-br hover:from-white/[0.12] hover:to-white/[0.04] transition-all duration-500"
+              { number: '50+', label: lang === 'cs' ? 'Úspěšných projektů' : 'Successful Projects' },
+              { number: '95%', label: lang === 'cs' ? 'Spokojenost klientů' : 'Client Satisfaction' },
+              { number: '2M+', label: lang === 'cs' ? 'Ušetřených hodin' : 'Hours Saved' },
+              { number: '40%', label: lang === 'cs' ? 'Průměrná úspora nákladů' : 'Average Cost Reduction' }
+            ].map((stat, index) => (
+              <motion.div 
+                key={index} 
+                className="text-center p-6 rounded-2xl backdrop-blur-xl border border-accent-primary/10 bg-gradient-to-b from-accent-primary/5 to-transparent"
+                whileHover={{ 
+                  scale: 1.05,
+                  borderColor: 'rgba(0, 255, 127, 0.3)',
+                  boxShadow: '0 0 30px rgba(0, 255, 127, 0.2)'
+                }}
+                transition={{ duration: 0.3 }}
               >
-                <div className="text-accent-primary mb-4 group-hover:scale-110 transition-transform duration-300">
-                  {feature.icon}
+                <div className="text-4xl md:text-5xl font-black text-accent-primary mb-3">
+                  {stat.number}
                 </div>
-                <h3 className="text-lg font-bold text-text-primary mb-2 group-hover:text-accent-primary transition-colors duration-300">
-                  {feature.title}
-                </h3>
-                <p className="text-text-secondary text-sm leading-relaxed">
-                  {feature.desc}
-                </p>
+                <div className="text-text-secondary text-sm font-medium">
+                  {stat.label}
+                </div>
               </motion.div>
             ))}
           </motion.div>
-        </motion.div>
-
-        {/* Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.7 }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16"
-        >
-          {stats.map((stat, index) => (
-            <motion.div 
-              key={index}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.8 + index * 0.1 }}
-              className="group relative p-8 rounded-3xl bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-xl border border-white/[0.08] hover:border-accent-primary/30 hover:bg-gradient-to-br hover:from-white/[0.12] hover:to-white/[0.04] hover:scale-105 transition-all duration-500"
-            >
-              <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br ${stat.gradient} backdrop-blur-sm border border-white/10 mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                <div className="text-accent-primary">
-                  {stat.icon}
-                </div>
-              </div>
-              <div className="text-4xl font-black text-accent-primary mb-3 group-hover:scale-105 transition-transform duration-300">
-                {stat.value}
-              </div>
-              <div className="text-text-secondary font-medium">
-                {stat.label}
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 1 }}
-          className="flex flex-col items-center cursor-pointer"
-          onClick={scrollToNextSection}
-        >
-          <span className="text-text-secondary text-sm mb-4 font-medium">
-            {lang === 'cs' ? 'Prohlédněte si naše projekty' : 'Explore our projects'}
-          </span>
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            className="p-3 bg-accent-primary/10 border border-accent-primary/20 rounded-full backdrop-blur-sm hover:bg-accent-primary/20 hover:border-accent-primary/40 transition-all duration-300"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <ArrowDown className="w-6 h-6 text-accent-primary" />
-          </motion.div>
-        </motion.div>
+        </div>
       </div>
+
+      {/* Scroll Indicator */}
+      <motion.div
+        animate={{ y: [0, 10, 0] }}
+        transition={{ duration: 2, repeat: Infinity }}
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+      >
+        <div className="w-6 h-10 border-2 border-accent-primary/30 rounded-full flex justify-center">
+          <motion.div 
+            className="w-1 h-3 bg-accent-primary rounded-full mt-2"
+            animate={{ opacity: [0.3, 1, 0.3] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          />
+        </div>
+      </motion.div>
     </section>
   );
 }

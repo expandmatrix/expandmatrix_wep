@@ -67,7 +67,7 @@ export default function TrainingCTA({ dict, lang }: TrainingCTAProps) {
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
             <Link
               href={`/${lang}/kontakt`}
-              className="group inline-flex items-center px-10 py-5 bg-gradient-to-r from-accent-primary to-accent-secondary text-bg-primary font-bold text-lg rounded-full transition-all duration-500 hover:scale-105"
+              className="btn-cta-large group inline-flex items-center"
             >
               <span>{lang === 'cs' ? 'Začít školení' : 'Start Training'}</span>
               <ArrowRight className="w-6 h-6 ml-3 group-hover:translate-x-2 transition-transform duration-300" />
@@ -75,7 +75,7 @@ export default function TrainingCTA({ dict, lang }: TrainingCTAProps) {
             
             <Link
               href={`/${lang}/${lang === 'cs' ? 'sluzby' : 'services'}`}
-              className="inline-flex items-center px-10 py-5 bg-transparent border-2 border-accent-primary/30 text-accent-primary font-bold text-lg rounded-full hover:bg-accent-primary/10 hover:scale-105 transition-all duration-500"
+              className="btn-cta-secondary inline-flex items-center"
             >
               {lang === 'cs' ? 'Všechny služby' : 'All Services'}
             </Link>

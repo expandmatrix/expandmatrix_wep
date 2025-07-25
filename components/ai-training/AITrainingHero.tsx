@@ -132,7 +132,7 @@ export default function AITrainingHero({ dict, lang }: AITrainingHeroProps) {
           >
             <Link
               href={`/${lang}/kontakt`}
-              className="group inline-flex items-center px-10 py-5 bg-gradient-to-r from-accent-primary to-accent-secondary text-bg-primary font-bold text-lg rounded-full transition-all duration-500 hover:scale-105"
+              className="btn-cta-large group inline-flex items-center"
             >
               <span>{lang === 'cs' ? 'Začít školení' : 'Start Training'}</span>
               <ArrowRight className="w-6 h-6 ml-3 group-hover:translate-x-2 transition-transform duration-300" />
@@ -140,7 +140,7 @@ export default function AITrainingHero({ dict, lang }: AITrainingHeroProps) {
             
             <Link
               href={`/${lang}/${lang === 'cs' ? 'sluzby' : 'services'}`}
-              className="inline-flex items-center px-10 py-5 bg-transparent text-accent-primary font-bold text-lg rounded-full border-2 border-accent-primary hover:bg-accent-primary/10 hover:scale-105 transition-all duration-500"
+              className="btn-cta-secondary inline-flex items-center"
             >
               {lang === 'cs' ? 'Všechny služby' : 'All Services'}
             </Link>
@@ -194,16 +194,9 @@ export default function AITrainingHero({ dict, lang }: AITrainingHeroProps) {
           backdrop-filter: blur(20px) saturate(180%);
           -webkit-backdrop-filter: blur(20px) saturate(180%);
           border: 1px solid rgba(255, 255, 255, 0.08);
-          box-shadow: 
-            0 8px 25px rgba(255, 255, 255, 0.05), 
-            0 0 0 1px rgba(255, 255, 255, 0.05) inset;
         }
         
         .liquid-glass-card:hover {
-          box-shadow: 
-            0 20px 40px rgba(255, 255, 255, 0.1), 
-            0 0 0 1px rgba(255, 255, 255, 0.1) inset,
-            0 0 30px rgba(0, 255, 127, 0.2);
           border-color: rgba(0, 255, 127, 0.3);
         }
         
@@ -213,6 +206,15 @@ export default function AITrainingHero({ dict, lang }: AITrainingHeroProps) {
             rgba(255, 255, 255, 0.06) 50%, 
             rgba(255, 255, 255, 0.02) 100%
           );
+        }
+        
+        /* Remove all shadows from buttons */
+        button, .btn-primary, .btn-secondary, a[class*="btn"] {
+          box-shadow: none !important;
+        }
+        
+        button:hover, .btn-primary:hover, .btn-secondary:hover, a[class*="btn"]:hover {
+          box-shadow: none !important;
         }
       `}</style>
     </section>

@@ -173,8 +173,8 @@ export default function ServicesCTA({ dict, lang }: ServicesCTAProps) {
                 className="flex flex-col sm:flex-row gap-6 justify-center items-center"
               >
                 <Link
-                  href={`/${lang}/${lang === 'cs' ? 'kontakt' : 'contact'}`}
-                  className="group inline-flex items-center px-10 py-5 bg-accent-primary text-bg-primary font-bold text-lg rounded-full transition-all duration-500 hover:bg-accent-primary/90 hover:scale-105 hover:shadow-[0_0_50px_rgba(0,255,127,0.4)]"
+                  href={`/${lang}/kontakt`}
+                  className="btn-cta-large group inline-flex items-center"
                 >
                   <span>{lang === 'cs' ? 'Kontaktujte nás' : 'Contact Us'}</span>
                   <ArrowRight className="w-6 h-6 ml-3 group-hover:translate-x-2 transition-transform duration-300" />
@@ -182,7 +182,7 @@ export default function ServicesCTA({ dict, lang }: ServicesCTAProps) {
                 
                 <Link
                   href={`/${lang}/${lang === 'cs' ? 'sluzby/ai-skoleni' : 'services/ai-training'}`}
-                  className="inline-flex items-center px-10 py-5 bg-transparent text-accent-primary font-bold text-lg rounded-full border-2 border-accent-primary hover:bg-accent-primary hover:text-bg-primary transition-all duration-500 hover:scale-105"
+                  className="btn-cta-secondary inline-flex items-center"
                 >
                   {lang === 'cs' ? 'AI Školení' : 'AI Training'}
                 </Link>

@@ -215,11 +215,11 @@ export default function TrainingPrograms({ dict, lang }: TrainingProgramsProps) 
                   {/* CTA Button */}
                   <motion.button
                     whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.98 }}
-                    className={`w-full py-4 rounded-full font-bold transition-all duration-300 flex items-center justify-center gap-2 ${
+                    whileTap={{ scale: 0.95 }}
+                    className={`w-full flex items-center justify-center gap-2 ${
                       program.popular
-                        ? 'bg-gradient-to-r from-accent-primary to-accent-secondary text-bg-primary'
-                        : 'bg-transparent border-2 border-accent-primary/30 text-accent-primary hover:bg-accent-primary/10'
+                        ? 'btn-primary'
+                        : 'btn-secondary'
                     }`}
                   >
                     {lang === 'cs' ? 'Vybrat program' : 'Choose Program'}
@@ -239,25 +239,14 @@ export default function TrainingPrograms({ dict, lang }: TrainingProgramsProps) 
           backdrop-filter: blur(20px) saturate(180%);
           -webkit-backdrop-filter: blur(20px) saturate(180%);
           border: 1px solid rgba(255, 255, 255, 0.08);
-          box-shadow: 
-            0 8px 25px rgba(255, 255, 255, 0.05), 
-            0 0 0 1px rgba(255, 255, 255, 0.05) inset;
         }
         
         .liquid-glass-card:hover {
-          box-shadow: 
-            0 20px 40px rgba(255, 255, 255, 0.1), 
-            0 0 0 1px rgba(255, 255, 255, 0.1) inset,
-            0 0 30px rgba(0, 255, 127, 0.15);
           border-color: rgba(0, 255, 127, 0.3);
         }
         
         .popular-glow {
           border-color: rgba(0, 255, 127, 0.4);
-          box-shadow: 
-            0 8px 25px rgba(255, 255, 255, 0.05), 
-            0 0 0 1px rgba(255, 255, 255, 0.05) inset,
-            0 0 20px rgba(0, 255, 127, 0.2);
         }
         
         .glass-layer-primary {
@@ -266,6 +255,15 @@ export default function TrainingPrograms({ dict, lang }: TrainingProgramsProps) 
             rgba(255, 255, 255, 0.06) 50%, 
             rgba(255, 255, 255, 0.02) 100%
           );
+        }
+        
+        /* Remove all shadows from buttons */
+        button, .btn-primary, .btn-secondary, a[class*="btn"] {
+          box-shadow: none !important;
+        }
+        
+        button:hover, .btn-primary:hover, .btn-secondary:hover, a[class*="btn"]:hover {
+          box-shadow: none !important;
         }
       `}</style>
     </section>

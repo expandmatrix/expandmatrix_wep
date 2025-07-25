@@ -175,16 +175,16 @@ export default function TrainingBenefits({ dict, lang }: TrainingBenefitsProps) 
           <div className="inline-flex flex-col sm:flex-row gap-4">
             <motion.button
               whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.98 }}
-              className="px-8 py-4 bg-gradient-to-r from-accent-primary to-accent-secondary text-bg-primary font-bold rounded-full transition-all duration-300"
+              whileTap={{ scale: 0.95 }}
+              className="btn-primary"
             >
               {lang === 'cs' ? 'Rezervovat konzultaci' : 'Book Consultation'}
             </motion.button>
             
             <motion.button
               whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.98 }}
-              className="px-8 py-4 bg-transparent border-2 border-accent-primary/30 text-accent-primary font-bold rounded-full hover:bg-accent-primary/10 transition-all duration-300"
+              whileTap={{ scale: 0.95 }}
+              className="btn-secondary"
             >
               {lang === 'cs' ? 'Stáhnout brožuru' : 'Download Brochure'}
             </motion.button>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X, ChevronDown } from 'lucide-react';
@@ -19,14 +19,24 @@ export default function Navigation({ lang }: NavigationProps) {
     { href: `/${lang}`, label: lang === 'cs' ? 'Domů' : 'Home' },
     { 
       href: `/${lang}/${lang === 'cs' ? 'sluzby' : 'services'}`, 
-      label: lang === 'cs' ? 'Služby' : 'Services' 
+      label: lang === 'cs' ? 'Služby' : 'Services',
+      submenu: [
+        {
+          href: `/${lang}/${lang === 'cs' ? 'sluzby/ai-systemy-na-miru' : 'services/custom-ai-systems'}`,
+          label: lang === 'cs' ? 'AI Systémy na míru' : 'Custom AI Systems'
+        },
+        {
+          href: `/${lang}/${lang === 'cs' ? 'sluzby/ai-balicky' : 'services/ai-packages'}`,
+          label: lang === 'cs' ? 'AI Balíčky' : 'AI Packages'
+        },
+        {
+          href: `/${lang}/${lang === 'cs' ? 'sluzby/ai-skoleni' : 'services/ai-training'}`,
+          label: lang === 'cs' ? 'AI Školení' : 'AI Training'
+        }
+      ]
     },
     { href: `/${lang}/vps`, label: 'VPS' },
-    { href: `/${lang}/portfolio`, label: 'Portfolio' },
-    { 
-      href: `/${lang}/${lang === 'cs' ? 'kontakt' : 'contact'}`, 
-      label: lang === 'cs' ? 'Kontakt' : 'Contact' 
-    }
+    { href: `/${lang}/portfolio`, label: 'Portfolio' }
   ];
 
   const isActive = (href: string) => {
