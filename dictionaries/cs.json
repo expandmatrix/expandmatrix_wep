@@ -33,6 +33,42 @@
       "title": "Služby - ExpandMatrix",
       "description": "Webové aplikace, VPS servery a AI řešení pro moderní podnikání.",
       "keywords": "webové aplikace, VPS servery, AI řešení, automatizace"
+    },
+    "demo": {
+      "title": "Zkuste si AI automatizaci",
+      "subtitle": "Interaktivní ukázka toho, jak AI může zrychlit vaše business procesy. Upravte data a porovnejte efektivitu manuálního zpracování s AI automatizací.",
+      "orders": {
+        "title": "Konfigurace objednávek",
+        "product": "Produkt",
+        "quantity": "Množství", 
+        "price": "Cena",
+        "add": "Přidat objednávku",
+        "remove": "Odstranit objednávku"
+      },
+      "buttons": {
+        "manual": "Spustit manuálně",
+        "ai": "Spustit s AI",
+        "reset": "Resetovat demo"
+      },
+      "steps": {
+        "receive": "Příjem objednávky",
+        "process": "Zpracování objednávky", 
+        "invoice": "Vytvoření faktury"
+      },
+      "process": {
+        "title": "Průběh zpracování",
+        "time": "Čas",
+        "progress": "Průběh"
+      },
+      "chart": {
+        "manual": "Manuálně",
+        "ai": "S AI"
+      },
+      "results": {
+        "title": "Výsledky simulace",
+        "saved": "času ušetřeno!",
+        "details": "Ušetřili jste {time} minut díky AI automatizaci"
+      }
     }
   },
   "contact": {

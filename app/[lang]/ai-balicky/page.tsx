@@ -1,47 +1,17 @@
-import AIPackagesHero from '@/components/ai-packages/AIPackagesHero';
-import AIPackagesGrid from '@/components/ai-packages/AIPackagesGrid';
-import AIPackagesComparison from '@/components/ai-packages/AIPackagesComparison';
-import AIPackagesCTA from '@/components/ai-packages/AIPackagesCTA';
-import TrainingFinalCTA from '@/components/ai-training/TrainingFinalCTA';
-import { getDictionary } from '@/lib/getDictionary';
-import type { Locale } from '@/lib/getDictionary';
-import type { Metadata } from 'next';
+// This file should be deleted - content moved to /app/[lang]/sluzby/ai-balicky/page.tsx
+// Redirect component for backward compatibility
 
-export async function generateMetadata({
-  params: { lang }
-}: {
-  params: { lang: Locale }
-}): Promise<Metadata> {
-  const dict = await getDictionary(lang);
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://expandmatrix.com';
-  
-  return {
-    title: 'AI Balíčky - Expand Matrix',
-    description: 'Vyberte si AI balíček podle velikosti vaší firmy. Starter, Professional, Enterprise nebo Custom řešení s pokročilými funkcemi.',
-    alternates: {
-      canonical: `${baseUrl}/cs/ai-balicky`,
-      languages: {
-        'cs': `${baseUrl}/cs/ai-balicky`,
-        'en': `${baseUrl}/en/ai-packages`,
-      },
-    },
-  };
-}
+import { redirect } from 'next/navigation';
+import { isValidLocale } from '@/lib/getDictionary';
 
-export default async function AIBalickyPage({
-  params: { lang }
+export default async function AIBalickyRedirect({
+  params,
 }: {
-  params: { lang: Locale }
+  params: Promise<{ lang: string }>;
 }) {
-  const dict = await getDictionary(lang);
-
-  return (
-    <main className="min-h-screen bg-bg-primary">
-      <AIPackagesHero dict={dict} lang={lang} />
-      <AIPackagesGrid dict={dict} lang={lang} />
-      <AIPackagesComparison dict={dict} lang={lang} />
-      <AIPackagesCTA dict={dict} lang={lang} />
-      <TrainingFinalCTA dict={dict} lang={lang} />
-    </main>
-  );
+  const { lang } = await params;
+  const locale = isValidLocale(lang) ? lang : 'cs';
+  
+  // Redirect to correct path
+  redirect(`/${locale}/sluzby/ai-balicky`);
 }

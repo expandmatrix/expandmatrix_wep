@@ -33,6 +33,42 @@
       "title": "Services - ExpandMatrix",
       "description": "Web applications, VPS servers and AI solutions for modern business.",
       "keywords": "web applications, VPS servers, AI solutions, automation"
+    },
+    "demo": {
+      "title": "Try AI Automation",
+      "subtitle": "Interactive demonstration of how AI can accelerate your business processes. Modify data and compare the efficiency of manual processing with AI automation.",
+      "orders": {
+        "title": "Order Configuration",
+        "product": "Product",
+        "quantity": "Quantity",
+        "price": "Price", 
+        "add": "Add Order",
+        "remove": "Remove Order"
+      },
+      "buttons": {
+        "manual": "Run Manually",
+        "ai": "Run with AI",
+        "reset": "Reset Demo"
+      },
+      "steps": {
+        "receive": "Receive Order",
+        "process": "Process Order",
+        "invoice": "Create Invoice"
+      },
+      "process": {
+        "title": "Processing Flow",
+        "time": "Time",
+        "progress": "Progress"
+      },
+      "chart": {
+        "manual": "Manual",
+        "ai": "With AI"
+      },
+      "results": {
+        "title": "Simulation Results",
+        "saved": "time saved!",
+        "details": "You saved {time} minutes with AI automation"
+      }
     }
   },
   "contact": {

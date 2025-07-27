@@ -13,27 +13,13 @@
   }
   
   .btn-primary:hover {
-    @apply bg-accent-dark;
+    @apply bg-green-400;
   }
 
   .btn-secondary {
     @apply px-8 py-4 bg-transparent text-accent-primary font-semibold text-base rounded-full;
     @apply border border-accent-primary transition-all duration-300 ease-out;
     @apply hover:bg-accent-primary hover:text-bg-primary;
-    @apply transform hover:scale-105 active:scale-95;
-  }
-
-  .btn-tertiary {
-    @apply px-6 py-3 bg-bg-secondary text-text-primary font-medium text-sm rounded-full;
-    @apply border border-border-color transition-all duration-300 ease-out;
-    @apply hover:border-accent-primary hover:text-accent-primary;
-    @apply transform hover:scale-105 active:scale-95;
-  }
-
-  .btn-ghost {
-    @apply px-6 py-3 bg-transparent text-text-secondary font-medium text-sm rounded-full;
-    @apply transition-all duration-300 ease-out;
-    @apply hover:bg-bg-secondary hover:text-text-primary;
     @apply transform hover:scale-105 active:scale-95;
   }
 
@@ -64,7 +50,7 @@
   }
   
   * {
-    @apply border-border-color;
+    @apply border-gray-700;
   }
 }
 

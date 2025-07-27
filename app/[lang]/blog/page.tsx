@@ -1,4 +1,5 @@
 import { getDictionary, isValidLocale, type Locale } from '@/lib/getDictionary';
+import { getBlogCategories, getBlogArticles } from '@/lib/blogApi';
 import type { Metadata } from 'next';
 import BlogContent from '@/components/blog/BlogContent';
 
@@ -13,17 +14,14 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { lang } = await params;
   const locale = isValidLocale(lang) ? lang : 'cs';
-
+  const dict = await getDictionary(locale);
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://expandmatrix.com';
-  const currentUrl = `${baseUrl}/${locale}/blog`;
-
+  
   return {
-    title: locale === 'cs' ? 'Blog - Expand Matrix' : 'Blog - Expand Matrix',
-    description: locale === 'cs' 
-      ? 'Objevte nejnovější trendy v AI, automatizaci a technologiích.'
-      : 'Discover the latest trends in AI, automation, and technology.',
+    title: `Blog - Expand Matrix`,
+    description: dict.home?.description || 'Nejnovější články o AI a automatizaci',
     alternates: {
-      canonical: currentUrl,
+      canonical: `${baseUrl}/${locale}/blog`,
       languages: {
         'cs': `${baseUrl}/cs/blog`,
         'en': `${baseUrl}/en/blog`,
@@ -40,6 +38,20 @@ export default async function BlogPage({
   const { lang } = await params;
   const locale = isValidLocale(lang) ? lang : 'cs';
   const dict = await getDictionary(locale);
+  
+  // Načteme data na serveru
+  const [categories, articles] = await Promise.all([
+    getBlogCategories(),
+    getBlogArticles()
+  ]);
 
-  return <BlogContent lang={locale} dict={dict} />;
+  return (
+    <BlogContent 
+      lang={locale} 
+      dict={dict} 
+      initialCategory={null}
+      articles={articles}
+      categories={categories}
+    />
+  );
 }

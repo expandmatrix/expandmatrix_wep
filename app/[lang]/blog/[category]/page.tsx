@@ -1,16 +1,18 @@
 import { getDictionary, isValidLocale, type Locale } from '@/lib/getDictionary';
-import { blogCategories } from '@/lib/blogData';
+import { getBlogCategories, getCategoryBySlug, getBlogArticles } from '@/lib/blogApi';
 import type { Metadata } from 'next';
 import BlogContent from '@/components/blog/BlogContent';
 import { notFound } from 'next/navigation';
 
 export async function generateStaticParams() {
-  const categories = Object.keys(blogCategories.cs);
+  const categories = await getBlogCategories();
   const params = [];
   
   for (const lang of ['cs', 'en']) {
     for (const category of categories) {
-      params.push({ lang, category });
+      if (category.isActive) {
+        params.push({ lang, category: category.slug });
+      }
     }
   }
   
@@ -25,18 +27,18 @@ export async function generateMetadata({
   const { lang, category } = await params;
   const locale = isValidLocale(lang) ? lang : 'cs';
   
-  if (!blogCategories[locale][category as keyof typeof blogCategories[typeof locale]]) {
+  const categoryData = await getCategoryBySlug(category);
+  if (!categoryData) {
     return {};
   }
 
-  const categoryName = blogCategories[locale][category as keyof typeof blogCategories[typeof locale]];
+  const categoryName = categoryData.name[locale];
+  const categoryDesc = categoryData.description[locale];
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://expandmatrix.com';
   
   return {
     title: `${categoryName} - Blog - Expand Matrix`,
-    description: locale === 'cs' 
-      ? `Všechny články v kategorii ${categoryName}. Praktické návody a case studies.`
-      : `All articles in ${categoryName} category. Practical guides and case studies.`,
+    description: categoryDesc,
     alternates: {
       canonical: `${baseUrl}/${locale}/blog/${category}`,
       languages: {
@@ -56,9 +58,24 @@ export default async function CategoryPage({
   const locale = isValidLocale(lang) ? lang : 'cs';
   const dict = await getDictionary(locale);
   
-  if (!blogCategories[locale][category as keyof typeof blogCategories[typeof locale]]) {
+  const categoryData = await getCategoryBySlug(category);
+  if (!categoryData || !categoryData.isActive) {
     notFound();
   }
 
-  return <BlogContent lang={locale} dict={dict} initialCategory={category} />;
+  // Načteme data na serveru
+  const [categories, articles] = await Promise.all([
+    getBlogCategories(),
+    getBlogArticles(category)
+  ]);
+
+  return (
+    <BlogContent 
+      lang={locale} 
+      dict={dict} 
+      initialCategory={categoryData}
+      articles={articles}
+      categories={categories}
+    />
+  );
 }

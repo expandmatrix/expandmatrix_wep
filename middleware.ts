@@ -70,16 +70,27 @@ export function middleware(request: NextRequest) {
     const currentLocale = pathname.split('/')[1] as Locale;
     const pathWithoutLocale = pathname.replace(`/${currentLocale}`, '') || '/';
     
+    // Temporarily allow all service paths to pass through
+    if (pathWithoutLocale.startsWith('/sluzby/') || pathWithoutLocale.startsWith('/services/')) {
+      const response = NextResponse.next();
+      response.headers.set('Content-Language', currentLocale);
+      response.cookies.set('NEXT_LOCALE', currentLocale, {
+        maxAge: 365 * 24 * 60 * 60,
+        httpOnly: false,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax'
+      });
+      return response;
+    }
+    
     // Check if path is valid for current language
     if (!isValidPathForLanguage(pathWithoutLocale, currentLocale)) {
       const redirectPath = getRedirectPath(pathWithoutLocale, currentLocale);
       
       if (redirectPath) {
-        // 301 Redirect for SEO
         const redirectUrl = new URL(`/${currentLocale}${redirectPath}${search}`, request.url);
         const response = NextResponse.redirect(redirectUrl, 301);
         
-        // Add SEO headers
         response.headers.set('Cache-Control', 'public, max-age=31536000, immutable');
         response.cookies.set('NEXT_LOCALE', currentLocale, {
           maxAge: 365 * 24 * 60 * 60,
@@ -90,7 +101,6 @@ export function middleware(request: NextRequest) {
         
         return response;
       } else {
-        // Return proper 404
         return new NextResponse(null, { status: 404 });
       }
     }
