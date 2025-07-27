@@ -1,6 +1,6 @@
 import { getDictionary, isValidLocale, type Locale } from '@/lib/getDictionary';
 import type { Metadata } from 'next';
-import VPSClient from '@/components/vps/VPSClient';
+import { VPSContent } from '@/components/vps/VPSContent';
 
 export async function generateStaticParams() {
   return [{ lang: 'cs' }, { lang: 'en' }];
@@ -19,8 +19,8 @@ export async function generateMetadata({
   const currentUrl = `${baseUrl}/${locale}/vps`;
 
   return {
-    title: dict.vps?.meta?.title || 'VPS Hosting - Expand Matrix',
-    description: dict.vps?.meta?.description || 'Vysokovýkonné VPS servery pro vaše AI aplikace a web projekty.',
+    title: dict.vps?.metadata?.title || 'VPS Hosting - High-Performance Servers | Expand Matrix',
+    description: dict.vps?.metadata?.description || 'High-performance VPS servers for your AI applications and web projects.',
     alternates: {
       canonical: currentUrl,
       languages: {
@@ -29,11 +29,10 @@ export async function generateMetadata({
       },
     },
     openGraph: {
-      title: dict.vps?.meta?.title || 'VPS Hosting - Expand Matrix',
-      description: dict.vps?.meta?.description || 'Vysokovýkonné VPS servery pro vaše AI aplikace a web projekty.',
+      title: dict.vps?.metadata?.title || 'VPS Hosting - High-Performance Servers',
+      description: dict.vps?.metadata?.description || 'High-performance VPS servers for your AI applications and web projects.',
       url: currentUrl,
       siteName: 'Expand Matrix',
-      images: [`${baseUrl}/og-vps.jpg`],
       locale: locale,
       type: 'website',
     },
@@ -49,5 +48,5 @@ export default async function VPSPage({
   const locale = isValidLocale(lang) ? lang : 'cs';
   const dict = await getDictionary(locale);
 
-  return <VPSClient lang={locale} dict={dict} />;
+  return <VPSContent lang={locale} dict={dict} />;
 }

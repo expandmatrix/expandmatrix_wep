@@ -64,6 +64,15 @@
   animation: collision-flash 0.3s ease-out;
 }
 
+/* Animation delays */
+.animate-delay-500 {
+  animation-delay: 0.5s;
+}
+
+.animate-delay-1000 {
+  animation-delay: 1s;
+}
+
 /* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 8px;
@@ -114,4 +123,27 @@ a:focus-visible {
   .backdrop-blur-xl {
     background-color: rgba(26, 26, 26, 0.9);
   }
+}
+
+/* CTA Button Styles - konzistentní napříč celou aplikací */
+.btn-cta-large {
+  @apply group relative bg-accent-primary text-bg-primary font-bold text-lg px-12 py-5 rounded-full transition-all duration-500 hover:bg-accent-primary/90 hover:scale-105 overflow-hidden;
+  box-shadow: 0 0 30px rgba(0, 255, 127, 0.2);
+}
+
+.btn-cta-large:hover {
+  box-shadow: 0 0 50px rgba(0, 255, 127, 0.4);
+}
+
+.btn-cta-secondary {
+  @apply relative bg-transparent border-2 border-accent-primary text-accent-primary font-semibold text-lg px-12 py-5 rounded-full transition-all duration-500 hover:bg-accent-primary hover:text-bg-primary hover:scale-105 overflow-hidden;
+}
+
+.btn-cta-secondary:hover {
+  box-shadow: 0 0 30px rgba(0, 255, 127, 0.2);
+}
+
+/* Gradient Radial Utility */
+.bg-gradient-radial {
+  background: radial-gradient(circle, var(--tw-gradient-stops));
 }

@@ -2,28 +2,19 @@ export type Locale = 'cs' | 'en';
 
 // Define valid URL patterns for each language
 export const URL_MAPPINGS = {
-  cs: {
-    '/': '/',
-    '/o-nas': '/o-nas',
-    '/sluzby': '/sluzby',
-    '/sluzby/ai-balicky': '/sluzby/ai-balicky',
-    '/sluzby/ai-skoleni': '/sluzby/ai-skoleni',
-    '/sluzby/ai-systemy-na-miru': '/sluzby/ai-systemy-na-miru',
-    '/vps': '/vps',
-    '/portfolio': '/portfolio',
-    '/kontakt': '/kontakt',
-  },
-  en: {
-    '/': '/',
-    '/about-us': '/about-us',
-    '/services': '/services',
-    '/services/ai-packages': '/services/ai-packages',
-    '/services/ai-training': '/services/ai-training',
-    '/services/custom-ai-systems': '/services/custom-ai-systems',
-    '/vps': '/vps',
-    '/portfolio': '/portfolio',
-    '/contact': '/contact',
-  }
+  '/': { cs: '/', en: '/' },
+  '/o-nas': { cs: '/o-nas', en: '/about-us' },
+  '/about-us': { cs: '/o-nas', en: '/about-us' },
+  '/sluzby': { cs: '/sluzby', en: '/services' },
+  '/services': { cs: '/sluzby', en: '/services' },
+  '/vps': { cs: '/vps', en: '/vps' },
+  '/portfolio': { cs: '/portfolio', en: '/portfolio' },
+  '/kontakt': { cs: '/kontakt', en: '/contact' },
+  '/contact': { cs: '/kontakt', en: '/contact' },
+  '/blog': { cs: '/blog', en: '/blog' },
+  '/blog/news': { cs: '/blog/news', en: '/blog/news' },
+  '/blog/case-studies': { cs: '/blog/case-studies', en: '/blog/case-studies' },
+  '/blog/tutorials': { cs: '/blog/tutorials', en: '/blog/tutorials' },
 } as const;
 
 // Cross-language URL mappings for redirects
@@ -50,7 +41,7 @@ export const CROSS_LANGUAGE_MAPPINGS = {
 
 // Get all valid paths for a specific language
 export function getValidPathsForLanguage(locale: Locale): string[] {
-  return Object.values(URL_MAPPINGS[locale]);
+  return VALID_PATHS_BY_LANGUAGE[locale] || [];
 }
 
 // Check if a path is valid for a specific language
@@ -85,3 +76,8 @@ export function getCanonicalPath(path: string, targetLocale: Locale): string | n
   
   return null;
 }
+
+export const VALID_PATHS_BY_LANGUAGE = {
+  cs: ['/', '/o-nas', '/sluzby', '/vps', '/portfolio', '/kontakt', '/blog', '/blog/news', '/blog/case-studies', '/blog/tutorials'],
+  en: ['/', '/about-us', '/services', '/vps', '/portfolio', '/contact', '/blog', '/blog/news', '/blog/case-studies', '/blog/tutorials']
+} as const;

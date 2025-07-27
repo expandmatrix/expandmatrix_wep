@@ -2,12 +2,12 @@ import { getDictionary, isValidLocale, type Locale } from '@/lib/getDictionary';
 import HomeClient from '@/components/home/HomeClient';
 import type { Metadata } from 'next';
 
-// Generování statických parametrů pro všechny jazyky
+// Generate static params for all supported languages
 export async function generateStaticParams() {
   return [{ lang: 'cs' }, { lang: 'en' }];
 }
 
-// Dynamická metadata pro domovskou stránku
+// Enhanced metadata with comprehensive SEO optimization
 export async function generateMetadata({
   params,
 }: {
@@ -18,24 +18,61 @@ export async function generateMetadata({
   const dict = await getDictionary(locale);
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://expandmatrix.com';
+  const currentUrl = `${baseUrl}/${locale}`;
 
   return {
     title: dict.home.title,
     description: dict.home.description,
+    keywords: locale === 'cs' 
+      ? 'AI automatizace, umělá inteligence, business automatizace, digitální transformace'
+      : 'AI automation, artificial intelligence, business automation, digital transformation',
+    authors: [{ name: 'Expand Matrix', url: baseUrl }],
+    creator: 'Expand Matrix',
+    publisher: 'Expand Matrix',
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
     alternates: {
-      canonical: `${baseUrl}/${locale}`,
+      canonical: currentUrl,
       languages: {
-        'cs': `${baseUrl}/cs`,
-        'en': `${baseUrl}/en`,
+        'cs-CZ': `${baseUrl}/cs`,
+        'en-US': `${baseUrl}/en`,
+        'x-default': `${baseUrl}/cs`,
       },
     },
     openGraph: {
       title: dict.home.title,
       description: dict.home.description,
-      url: `${baseUrl}/${locale}`,
+      url: currentUrl,
       siteName: 'Expand Matrix',
       locale: locale === 'cs' ? 'cs_CZ' : 'en_US',
       type: 'website',
+      images: [
+        {
+          url: `${baseUrl}/og-image.jpg`,
+          width: 1200,
+          height: 630,
+          alt: dict.home.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: dict.home.title,
+      description: dict.home.description,
+      images: [`${baseUrl}/og-image.jpg`],
+      creator: '@expand_matrix',
+    },
+    verification: {
+      google: process.env.GOOGLE_SITE_VERIFICATION,
     },
   };
 }
@@ -51,7 +88,7 @@ export default async function HomePage({ params }: HomePageProps) {
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://expandmatrix.com';
 
-  // Rozšířené structured data
+  // Enhanced structured data with proper i18n
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
@@ -60,14 +97,22 @@ export default async function HomePage({ params }: HomePageProps) {
         "@id": `${baseUrl}/#organization`,
         "name": "Expand Matrix",
         "url": baseUrl,
-        "logo": `${baseUrl}/logo.png`,
+        "logo": {
+          "@type": "ImageObject",
+          "url": `${baseUrl}/logo.png`,
+          "width": 512,
+          "height": 512
+        },
         "description": dict.home.description,
         "foundingDate": "2024",
         "contactPoint": {
           "@type": "ContactPoint",
           "contactType": "customer service",
-          "availableLanguage": ["Czech", "English"],
-          "areaServed": ["CZ", "SK", "US", "GB"]
+          "availableLanguage": [
+            locale === 'cs' ? 'Czech' : 'English',
+            locale === 'cs' ? 'English' : 'Czech'
+          ],
+          "areaServed": ["CZ", "SK", "US", "GB", "EU"]
         },
         "sameAs": [
           "https://linkedin.com/company/expand-matrix",
@@ -76,7 +121,7 @@ export default async function HomePage({ params }: HomePageProps) {
         "address": {
           "@type": "PostalAddress",
           "addressCountry": "CZ",
-          "addressLocality": "Prague"
+          "addressLocality": dict.home.location || "Prague"
         }
       },
       {
@@ -88,16 +133,24 @@ export default async function HomePage({ params }: HomePageProps) {
         "publisher": {
           "@id": `${baseUrl}/#organization`
         },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": `${baseUrl}/search?q={search_term_string}`
+          },
+          "query-input": "required name=search_term_string"
+        },
         "inLanguage": [
           {
             "@type": "Language",
             "name": "Czech",
-            "alternateName": "cs"
+            "alternateName": "cs-CZ"
           },
           {
             "@type": "Language", 
             "name": "English",
-            "alternateName": "en"
+            "alternateName": "en-US"
           }
         ]
       },
@@ -113,14 +166,16 @@ export default async function HomePage({ params }: HomePageProps) {
         "about": {
           "@id": `${baseUrl}/#organization`
         },
-        "inLanguage": locale === 'cs' ? 'cs-CZ' : 'en-US'
+        "inLanguage": locale === 'cs' ? 'cs-CZ' : 'en-US',
+        "datePublished": "2024-01-01T00:00:00+00:00",
+        "dateModified": new Date().toISOString()
       }
     ]
   };
 
   return (
-    <div className="min-h-screen bg-bg-primary overflow-x-hidden">
-      {/* Structured Data */}
+    <>
+      {/* Enhanced Structured Data */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -128,7 +183,9 @@ export default async function HomePage({ params }: HomePageProps) {
         }}
       />
 
-      <HomeClient dict={dict} lang={locale} />
-    </div>
+      <div className="min-h-screen bg-bg-primary overflow-x-hidden">
+        <HomeClient dict={dict} lang={locale} />
+      </div>
+    </>
   );
 }

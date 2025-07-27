@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Brain, Sparkles, ArrowRight, Code, Cpu, Network, Zap } from 'lucide-react';
+import { Brain, Sparkles, ArrowRight, Code, Cpu, Network } from 'lucide-react';
 import Link from 'next/link';
 import type { Locale } from '@/lib/getDictionary';
 
@@ -11,268 +11,175 @@ interface CustomAIHeroProps {
 }
 
 export default function CustomAIHero({ dict, lang }: CustomAIHeroProps) {
+  const features = [
+    {
+      icon: <Code className="w-6 h-6" />,
+      title: lang === 'cs' ? 'Custom vývoj' : 'Custom Development',
+      desc: lang === 'cs' ? 'Řešení šité na míru' : 'Tailored solutions'
+    },
+    {
+      icon: <Cpu className="w-6 h-6" />,
+      title: lang === 'cs' ? 'Pokročilé AI' : 'Advanced AI',
+      desc: lang === 'cs' ? 'Nejnovější technologie' : 'Latest technologies'
+    },
+    {
+      icon: <Network className="w-6 h-6" />,
+      title: lang === 'cs' ? 'Integrace' : 'Integration',
+      desc: lang === 'cs' ? 'Plynulé napojení' : 'Seamless connection'
+    }
+  ];
+
   return (
-    <section className="min-h-screen bg-bg-primary pt-24 relative overflow-hidden">
-      {/* Advanced AI Background */}
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-bg-primary via-bg-primary to-bg-secondary/20">
+      {/* Advanced AI Background System */}
       <div className="absolute inset-0">
-        {/* Animated Neural Network Grid */}
+        {/* Dynamic Neural Network Grid */}
         <motion.div 
-          className="absolute inset-0 opacity-10"
+          className="absolute inset-0 opacity-25"
           style={{
             backgroundImage: `
-              linear-gradient(rgba(0,255,127,0.3) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(0,255,127,0.3) 1px, transparent 1px)
+              linear-gradient(rgba(0,255,127,0.15) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(0,255,127,0.15) 1px, transparent 1px)
             `,
-            backgroundSize: '60px 60px',
+            backgroundSize: '50px 50px',
           }}
           animate={{
-            backgroundPosition: ['0px 0px', '60px 60px'],
+            backgroundPosition: ['0px 0px', '50px 50px'],
           }}
           transition={{
-            duration: 20,
+            duration: 15,
             repeat: Infinity,
             ease: "linear"
           }}
         />
 
-        {/* AI Neural Network Connections */}
-        <svg className="absolute inset-0 w-full h-full opacity-20" viewBox="0 0 1000 1000">
-          <defs>
-            <linearGradient id="neuralGlow" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="rgba(0,255,127,0)" />
-              <stop offset="50%" stopColor="rgba(0,255,127,0.8)" />
-              <stop offset="100%" stopColor="rgba(0,255,127,0)" />
-            </linearGradient>
-          </defs>
-          
-          {/* Neural pathways */}
-          <motion.path
-            d="M100,300 Q300,200 500,300 T900,300"
-            stroke="url(#neuralGlow)"
-            strokeWidth="2"
-            fill="none"
-            initial={{ pathLength: 0 }}
-            animate={{ pathLength: 1 }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <motion.path
-            d="M100,500 Q400,400 700,500 T900,500"
-            stroke="url(#neuralGlow)"
-            strokeWidth="2"
-            fill="none"
-            initial={{ pathLength: 0 }}
-            animate={{ pathLength: 1 }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          />
-          <motion.path
-            d="M100,700 Q350,600 600,700 T900,700"
-            stroke="url(#neuralGlow)"
-            strokeWidth="2"
-            fill="none"
-            initial={{ pathLength: 0 }}
-            animate={{ pathLength: 1 }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-          />
-          
-          {/* Neural nodes */}
-          {[...Array(12)].map((_, i) => (
+        {/* AI Brain Visualization */}
+        <div className="absolute top-20 left-20 w-[400px] h-[400px] opacity-20">
+          <svg viewBox="0 0 400 400" className="w-full h-full">
             <motion.circle
+              cx="200"
+              cy="200"
+              r="150"
+              stroke="rgba(0,255,127,0.3)"
+              strokeWidth="2"
+              fill="none"
+              initial={{ pathLength: 0, rotate: 0 }}
+              animate={{ pathLength: 1, rotate: 360 }}
+              transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+            />
+            <motion.circle
+              cx="200"
+              cy="200"
+              r="100"
+              stroke="rgba(0,255,127,0.2)"
+              strokeWidth="1"
+              fill="none"
+              initial={{ pathLength: 0, rotate: 0 }}
+              animate={{ pathLength: 1, rotate: -360 }}
+              transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
+            />
+            <motion.circle
+              cx="200"
+              cy="200"
+              r="50"
+              stroke="rgba(0,255,127,0.4)"
+              strokeWidth="3"
+              fill="none"
+              initial={{ pathLength: 0, rotate: 0 }}
+              animate={{ pathLength: 1, rotate: 360 }}
+              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+            />
+          </svg>
+        </div>
+
+        {/* Data Flow Streams */}
+        <div className="absolute inset-0">
+          {[...Array(8)].map((_, i) => (
+            <motion.div
               key={i}
-              cx={150 + i * 70}
-              cy={300 + Math.sin(i * 0.5) * 200}
-              r="6"
-              fill="rgba(0,255,127,0.6)"
+              className="absolute w-1 bg-gradient-to-b from-accent-primary/40 via-accent-primary/20 to-transparent"
+              style={{
+                left: `${20 + i * 10}%`,
+                height: '100%',
+              }}
               animate={{
-                r: [6, 10, 6],
-                opacity: [0.6, 1, 0.6],
+                opacity: [0, 1, 0],
+                scaleY: [0, 1, 0],
               }}
               transition={{
-                duration: 2,
+                duration: 3,
                 repeat: Infinity,
-                delay: i * 0.2,
+                delay: i * 0.5,
                 ease: "easeInOut"
               }}
             />
           ))}
-        </svg>
-
-        {/* Floating AI Tech Icons */}
-        <div className="absolute inset-0 pointer-events-none">
-          <motion.div
-            className="absolute top-1/4 left-1/6 text-accent-primary/15"
-            animate={{
-              rotate: 360,
-              scale: [1, 1.2, 1],
-              y: [0, -20, 0],
-            }}
-            transition={{
-              rotate: { duration: 25, repeat: Infinity, ease: "linear" },
-              scale: { duration: 8, repeat: Infinity, ease: "easeInOut" },
-              y: { duration: 6, repeat: Infinity, ease: "easeInOut" }
-            }}
-          >
-            <Brain className="w-16 h-16" />
-          </motion.div>
-
-          <motion.div
-            className="absolute top-1/3 right-1/5 text-accent-primary/15"
-            animate={{
-              rotate: -360,
-              scale: [1.1, 1, 1.1],
-              x: [0, 15, 0],
-            }}
-            transition={{
-              rotate: { duration: 30, repeat: Infinity, ease: "linear" },
-              scale: { duration: 10, repeat: Infinity, ease: "easeInOut" },
-              x: { duration: 7, repeat: Infinity, ease: "easeInOut" }
-            }}
-          >
-            <Code className="w-14 h-14" />
-          </motion.div>
-
-          <motion.div
-            className="absolute bottom-1/3 left-1/4 text-accent-primary/15"
-            animate={{
-              rotate: [0, 180, 360],
-              scale: [1, 1.3, 1],
-              y: [0, -25, 0],
-            }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          >
-            <Cpu className="w-12 h-12" />
-          </motion.div>
-
-          <motion.div
-            className="absolute bottom-1/4 right-1/3 text-accent-primary/15"
-            animate={{
-              rotate: 360,
-              scale: [1, 1.1, 1],
-              x: [0, -18, 0],
-            }}
-            transition={{
-              rotate: { duration: 22, repeat: Infinity, ease: "linear" },
-              scale: { duration: 12, repeat: Infinity, ease: "easeInOut" },
-              x: { duration: 9, repeat: Infinity, ease: "easeInOut" }
-            }}
-          >
-            <Network className="w-13 h-13" />
-          </motion.div>
-
-          <motion.div
-            className="absolute top-2/3 left-1/2 text-accent-primary/15"
-            animate={{
-              rotate: -360,
-              scale: [1, 1.4, 1],
-              y: [0, -30, 0],
-            }}
-            transition={{
-              rotate: { duration: 18, repeat: Infinity, ease: "linear" },
-              scale: { duration: 14, repeat: Infinity, ease: "easeInOut" },
-              y: { duration: 8, repeat: Infinity, ease: "easeInOut" }
-            }}
-          >
-            <Zap className="w-10 h-10" />
-          </motion.div>
         </div>
 
-        {/* Large gradient orbs */}
-        <motion.div
-          className="absolute top-20 -left-20 w-96 h-96 rounded-full blur-3xl"
-          style={{
-            background: 'radial-gradient(circle, rgba(0,255,127,0.15) 0%, rgba(0,255,127,0.05) 50%, transparent 100%)'
-          }}
-          animate={{
-            scale: [1, 1.3, 1],
-            opacity: [0.3, 0.7, 0.3],
-            x: [0, 50, 0],
-            y: [0, -30, 0],
-          }}
-          transition={{
-            duration: 12,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
-        
-        <motion.div
-          className="absolute bottom-20 -right-20 w-80 h-80 rounded-full blur-3xl"
-          style={{
-            background: 'radial-gradient(circle, rgba(0,255,127,0.12) 0%, rgba(0,255,127,0.04) 50%, transparent 100%)'
-          }}
-          animate={{
-            scale: [1.2, 1, 1.2],
-            opacity: [0.2, 0.6, 0.2],
-            x: [0, -40, 0],
-            y: [0, 20, 0],
-          }}
-          transition={{
-            duration: 15,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 3
-          }}
-        />
-
-        {/* Data particles */}
+        {/* Quantum Particles */}
         {[...Array(15)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute rounded-full bg-accent-primary/20"
+            className="absolute w-3 h-3 bg-accent-primary/40 rounded-full"
             style={{
-              width: `${3 + (i % 3)}px`,
-              height: `${3 + (i % 3)}px`,
-              left: `${15 + (i * 5) % 70}%`,
-              top: `${20 + (i * 4) % 60}%`,
+              left: `${10 + (i * 5.5) % 80}%`,
+              top: `${15 + (i * 4.2) % 70}%`,
             }}
             animate={{
               y: [0, -60, 0],
+              x: [0, 30, 0],
               opacity: [0.2, 0.8, 0.2],
-              scale: [1, 2, 1],
+              scale: [0.5, 1.5, 0.5],
             }}
             transition={{
-              duration: 10 + i * 0.5,
+              duration: 6 + i * 0.3,
               repeat: Infinity,
-              delay: i * 0.4,
+              delay: i * 0.2,
               ease: "easeInOut"
             }}
           />
         ))}
+
+        {/* Holographic Overlay */}
+        <motion.div
+          className="absolute inset-0 bg-gradient-to-br from-accent-primary/5 via-transparent to-accent-primary/10"
+          animate={{
+            opacity: [0.3, 0.7, 0.3],
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[80vh]">
-          {/* Left Column - Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
+        <div className="text-center">
+          {/* Modern Badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="inline-flex items-center px-6 py-3 mb-8 liquid-glass-badge rounded-full backdrop-blur-xl"
+          >
+            <Sparkles className="w-5 h-5 text-accent-primary mr-3" />
+            <span className="text-accent-primary font-semibold">
+              {lang === 'cs' ? 'Pokročilé AI systémy' : 'Advanced AI Systems'}
+            </span>
+          </motion.div>
+
+          {/* Unified Main Heading */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="space-y-8"
+            transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="mb-8"
           >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-              className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-accent-primary/10 to-accent-primary/5 border border-accent-primary/20 rounded-full backdrop-blur-sm"
-            >
-              <Sparkles className="w-4 h-4 text-accent-primary mr-2" />
-              <span className="text-accent-primary font-semibold text-sm">
-                {lang === 'cs' ? 'AI Systémy na míru' : 'Custom AI Systems'}
-              </span>
-            </motion.div>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-              className="text-5xl md:text-7xl font-black text-text-primary leading-tight"
-            >
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-tight">
               {lang === 'cs' ? (
                 <>
-                  Vytváříme AI{' '}
+                  <span className="text-text-primary">Vytváříme AI </span>
                   <span className="text-accent-primary relative">
                     přesně
                     <motion.div
@@ -281,12 +188,12 @@ export default function CustomAIHero({ dict, lang }: CustomAIHeroProps) {
                       transition={{ duration: 0.8, delay: 1, ease: "easeOut" }}
                       className="absolute bottom-2 left-0 right-0 h-2 bg-accent-primary/20 -z-10"
                     />
-                  </span>{' '}
-                  pro vás
+                  </span>
+                  <span className="text-text-primary"> pro vás</span>
                 </>
               ) : (
                 <>
-                  We create AI{' '}
+                  <span className="text-text-primary">We create AI </span>
                   <span className="text-accent-primary relative">
                     exactly
                     <motion.div
@@ -295,91 +202,131 @@ export default function CustomAIHero({ dict, lang }: CustomAIHeroProps) {
                       transition={{ duration: 0.8, delay: 1, ease: "easeOut" }}
                       className="absolute bottom-2 left-0 right-0 h-2 bg-accent-primary/20 -z-10"
                     />
-                  </span>{' '}
-                  for you
+                  </span>
+                  <span className="text-text-primary"> for you</span>
                 </>
               )}
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
-              className="text-xl text-text-secondary leading-relaxed max-w-2xl"
-            >
+            </h1>
+            
+            <p className="text-xl md:text-2xl text-text-secondary max-w-4xl mx-auto leading-relaxed">
               {lang === 'cs'
                 ? 'Od analýzy vašich potřeb po kompletní implementaci. Vytváříme AI systémy, které skutečně vyřeší vaše obchodní výzvy a posunou vás před konkurenci.'
                 : 'From analyzing your needs to complete implementation. We create AI systems that truly solve your business challenges and put you ahead of the competition.'
               }
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.7, ease: "easeOut" }}
-              className="flex flex-col sm:flex-row gap-4"
-            >
-              <Link
-                href={`/${lang}/contact`}
-                className="group inline-flex items-center px-8 py-4 bg-accent-primary text-bg-primary font-bold text-lg rounded-full transition-all duration-500 hover:bg-accent-primary/90 hover:scale-105 hover:shadow-[0_0_50px_rgba(0,255,127,0.4)] relative overflow-hidden"
-              >
-                <span className="relative z-10">
-                  {lang === 'cs' ? 'Začít projekt' : 'Start Project'}
-                </span>
-                <ArrowRight className="w-5 h-5 ml-3 group-hover:translate-x-2 transition-transform duration-300 relative z-10" />
-              </Link>
-              
-              <Link
-                href={`/${lang}/contact`}
-                className="inline-flex items-center px-8 py-4 border border-accent-primary/30 text-accent-primary font-semibold rounded-full hover:bg-accent-primary/10 transition-all duration-300"
-              >
-                {lang === 'cs' ? 'Konzultace zdarma' : 'Free Consultation'}
-              </Link>
-            </motion.div>
+            </p>
           </motion.div>
 
-          {/* Right Column - Visual */}
+          {/* Modern CTA Buttons */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-            className="relative"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16"
           >
-            <div className="relative">
-              {/* Main brain icon */}
+            <Link
+              href={`/${lang}/contact`}
+              className="group inline-flex items-center px-10 py-5 bg-accent-primary text-bg-primary font-bold text-lg rounded-full transition-all duration-500 hover:bg-accent-primary/90 hover:scale-105 relative overflow-hidden"
+            >
+              <span className="relative z-10">
+                {lang === 'cs' ? 'Začít projekt' : 'Start Project'}
+              </span>
+              <ArrowRight className="w-6 h-6 ml-3 group-hover:translate-x-2 transition-transform duration-300 relative z-10" />
+            </Link>
+            
+            <Link
+              href={`/${lang}/${lang === 'cs' ? 'sluzby' : 'services'}`}
+              className="inline-flex items-center px-10 py-5 liquid-glass-button text-accent-primary font-bold text-lg rounded-full transition-all duration-500 hover:scale-105"
+            >
+              {lang === 'cs' ? 'Všechny služby' : 'All Services'}
+            </Link>
+          </motion.div>
+
+          {/* Liquid Glass Feature Cards */}
+          <div className="grid md:grid-cols-3 gap-8">
+            {features.map((feature, index) => (
               <motion.div
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ duration: 1, delay: 0.6, ease: "easeOut" }}
-                className="relative z-10 flex justify-center"
+                key={index}
+                initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ 
+                  duration: 0.8, 
+                  delay: 0.4 + index * 0.1,
+                  ease: [0.25, 0.46, 0.45, 0.94]
+                }}
+                className="group liquid-glass-card p-8 rounded-3xl transition-all duration-500 hover:scale-105"
               >
-                <div className="p-12 bg-gradient-to-br from-accent-primary/20 to-accent-primary/5 rounded-3xl border border-accent-primary/30 backdrop-blur-xl">
-                  <Brain className="w-32 h-32 text-accent-primary" />
+                <div className="glass-layer-primary absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="relative z-10 text-center">
+                  <motion.div
+                    className="text-accent-primary mb-4 group-hover:scale-110 transition-transform duration-300 flex justify-center"
+                    animate={{ 
+                      y: [0, -4, 0],
+                    }}
+                    transition={{ 
+                      duration: 3,
+                      repeat: Infinity,
+                      delay: index * 0.5,
+                      ease: "easeInOut"
+                    }}
+                  >
+                    {feature.icon}
+                  </motion.div>
+                  <h3 className="text-xl font-bold text-text-primary mb-2 group-hover:text-accent-primary transition-colors duration-300">
+                    {feature.title}
+                  </h3>
+                  <p className="text-text-secondary">{feature.desc}</p>
                 </div>
               </motion.div>
-
-              {/* Floating elements */}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 1, ease: "easeOut" }}
-                className="absolute -top-8 -left-8 p-4 bg-gradient-to-br from-white/10 to-white/5 rounded-2xl border border-white/10 backdrop-blur-xl"
-              >
-                <span className="text-accent-primary font-bold">AI</span>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 1.2, ease: "easeOut" }}
-                className="absolute -bottom-8 -right-8 p-4 bg-gradient-to-br from-white/10 to-white/5 rounded-2xl border border-white/10 backdrop-blur-xl"
-              >
-                <span className="text-accent-primary font-bold">ML</span>
-              </motion.div>
-            </div>
-          </motion.div>
+            ))}
+          </div>
         </div>
       </div>
+
+      {/* Unified Liquid Glass CSS */}
+      <style jsx>{`
+        .liquid-glass-card {
+          background: rgba(255, 255, 255, 0.03);
+          backdrop-filter: blur(20px) saturate(180%);
+          -webkit-backdrop-filter: blur(20px) saturate(180%);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          box-shadow: 
+            0 8px 25px rgba(255, 255, 255, 0.05), 
+            0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+        }
+        
+        .liquid-glass-card:hover {
+          box-shadow: 
+            0 20px 40px rgba(255, 255, 255, 0.1), 
+            0 0 0 1px rgba(255, 255, 255, 0.1) inset,
+            0 0 30px rgba(0, 255, 127, 0.2);
+          border-color: rgba(0, 255, 127, 0.3);
+        }
+        
+        .liquid-glass-badge {
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(0, 255, 127, 0.2);
+          box-shadow: 0 8px 32px rgba(0, 255, 127, 0.1);
+        }
+        
+        .liquid-glass-button {
+          background: rgba(255, 255, 255, 0.03);
+          backdrop-filter: blur(20px);
+          border: 2px solid rgba(0, 255, 127, 0.3);
+        }
+        
+        .liquid-glass-button:hover {
+          background: rgba(0, 255, 127, 0.1);
+          border-color: rgba(0, 255, 127, 0.6);
+        }
+        
+        .glass-layer-primary {
+          background: linear-gradient(135deg, 
+            rgba(255, 255, 255, 0.12) 0%, 
+            rgba(255, 255, 255, 0.06) 50%, 
+            rgba(255, 255, 255, 0.02) 100%
+          );
+        }
+      `}</style>
     </section>
   );
 }

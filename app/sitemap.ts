@@ -10,7 +10,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/sluzby', 
     '/vps',
     '/portfolio',
-    '/kontakt'  // Keep only kontakt, remove contact
+    '/kontakt',
+    '/blog'  // Přidáno
   ];
   
 
@@ -27,7 +28,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   });
 
   // Add English pages
-  const enRoutes = ['', '/about-us', '/services', '/vps']; // Removed /contact
+  const enRoutes = ['', '/about-us', '/services', '/vps', '/blog']; // Přidáno /blog
   enRoutes.forEach(route => {
     sitemap.push({
       url: `${baseUrl}/en${route}`,

@@ -139,11 +139,46 @@ export default function AboutTeam({ dict, lang }: AboutTeamProps) {
             </span>
           </div>
 
-          <h2 className="text-4xl md:text-6xl font-black text-text-primary mb-6">
-            {lang === 'cs' ? 'Náš ' : 'Our '}
-            <span className="text-accent-primary bg-gradient-to-r from-accent-primary to-accent-secondary bg-clip-text text-transparent">
-              {lang === 'cs' ? 'Tým' : 'Team'}
-            </span>
+          <h2 className="text-5xl sm:text-6xl lg:text-7xl font-black text-text-primary mb-6">
+            {lang === 'cs' ? (
+              <>
+                Náš{' '}
+                <span className="text-accent-primary relative">
+                  Tým
+                  <motion.div 
+                    className="absolute -inset-2 bg-accent-primary/20 blur-2xl rounded-lg"
+                    animate={{ 
+                      opacity: [0.5, 1, 0.5],
+                      scale: [1, 1.1, 1]
+                    }}
+                    transition={{ 
+                      duration: 3, 
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  />
+                </span>
+              </>
+            ) : (
+              <>
+                Our{' '}
+                <span className="text-accent-primary relative">
+                  Team
+                  <motion.div 
+                    className="absolute -inset-2 bg-accent-primary/20 blur-2xl rounded-lg"
+                    animate={{ 
+                      opacity: [0.5, 1, 0.5],
+                      scale: [1, 1.1, 1]
+                    }}
+                    transition={{ 
+                      duration: 3, 
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  />
+                </span>
+              </>
+            )}
           </h2>
 
           <p className="text-xl text-text-secondary max-w-3xl mx-auto">

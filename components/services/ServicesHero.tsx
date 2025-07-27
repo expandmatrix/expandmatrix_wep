@@ -19,58 +19,101 @@ export default function ServicesHero({ dict, lang }: ServicesHeroProps) {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-bg-primary via-bg-primary to-bg-secondary/20">
-      {/* Simplified Background */}
+      {/* Advanced Futuristic Background */}
       <div className="absolute inset-0">
-        {/* Static Grid Pattern */}
-        <div 
-          className="absolute inset-0 opacity-10"
+        {/* Animated Neural Network Grid */}
+        <motion.div 
+          className="absolute inset-0 opacity-20"
           style={{
             backgroundImage: `
-              linear-gradient(rgba(0,255,127,0.3) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(0,255,127,0.3) 1px, transparent 1px)
+              linear-gradient(rgba(0,255,127,0.2) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(0,255,127,0.2) 1px, transparent 1px)
             `,
-            backgroundSize: '80px 80px',
+            backgroundSize: '60px 60px',
+          }}
+          animate={{
+            backgroundPosition: ['0px 0px', '60px 60px'],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "linear"
           }}
         />
 
-        {/* Simplified gradient orbs */}
-        <div
-          className="absolute top-20 -left-20 w-96 h-96 rounded-full blur-3xl opacity-30"
-          style={{
-            background: 'radial-gradient(circle, rgba(0,255,127,0.15) 0%, rgba(0,255,127,0.05) 50%, transparent 100%)'
-          }}
-        />
-        
-        <div
-          className="absolute bottom-20 -right-20 w-80 h-80 rounded-full blur-3xl opacity-20"
-          style={{
-            background: 'radial-gradient(circle, rgba(0,255,127,0.1) 0%, rgba(0,255,127,0.03) 50%, transparent 100%)'
-          }}
-        />
+        {/* Layered Gradient Orbs */}
+        <div className="absolute top-10 -left-32 w-[600px] h-[600px] bg-gradient-radial from-accent-primary/15 via-accent-primary/5 to-transparent rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-10 -right-32 w-[500px] h-[500px] bg-gradient-radial from-accent-primary/10 via-accent-primary/3 to-transparent rounded-full blur-3xl animate-pulse animate-delay-1000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-radial from-accent-primary/8 via-accent-primary/2 to-transparent rounded-full blur-3xl"></div>
 
-        {/* Reduced floating particles */}
-        {[...Array(8)].map((_, i) => (
+        {/* Floating Tech Elements */}
+        {[...Array(12)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute rounded-full bg-accent-primary/30"
+            className="absolute"
             style={{
-              width: `${2 + (i % 3)}px`,
-              height: `${2 + (i % 3)}px`,
-              left: `${20 + (i * 8) % 60}%`,
-              top: `${20 + (i * 5) % 60}%`,
+              left: `${15 + (i * 7) % 70}%`,
+              top: `${20 + (i * 6) % 60}%`,
             }}
             animate={{
-              y: [0, -30, 0],
-              opacity: [0.2, 0.6, 0.2],
+              y: [0, -40, 0],
+              opacity: [0.1, 0.6, 0.1],
+              scale: [1, 1.2, 1],
+              rotate: [0, 180, 360],
             }}
             transition={{
-              duration: 6 + i * 0.5,
+              duration: 8 + i * 0.5,
               repeat: Infinity,
-              delay: i * 0.5,
+              delay: i * 0.4,
               ease: "easeInOut"
             }}
-          />
+          >
+            <div className={`w-${2 + (i % 3)} h-${2 + (i % 3)} bg-accent-primary/30 rounded-full blur-sm`} />
+          </motion.div>
         ))}
+
+        {/* Scanning Lines Effect */}
+        <motion.div
+          className="absolute inset-0 bg-gradient-to-r from-transparent via-accent-primary/5 to-transparent"
+          animate={{
+            x: ['-100%', '100%'],
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+
+        {/* Hexagonal Pattern Overlay */}
+        <div 
+          className="absolute inset-0 opacity-5"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2300ff7f' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }}
+        />
+
+        {/* Circuit Board Lines */}
+        <svg className="absolute inset-0 w-full h-full opacity-10" viewBox="0 0 1200 800">
+          <motion.path
+            d="M100,100 L300,100 L300,200 L500,200 L500,300 L700,300"
+            stroke="rgba(0,255,127,0.3)"
+            strokeWidth="2"
+            fill="none"
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: 1 }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.path
+            d="M1100,700 L900,700 L900,600 L700,600 L700,500 L500,500"
+            stroke="rgba(0,255,127,0.3)"
+            strokeWidth="2"
+            fill="none"
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: 1 }}
+            transition={{ duration: 3, delay: 1, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </svg>
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
