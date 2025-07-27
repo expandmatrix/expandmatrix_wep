@@ -1,87 +1,88 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { 
-  isValidPathForLanguage, 
-  getRedirectPath, 
-  type Locale,
-  URL_MAPPINGS 
-} from './lib/urlMappings';
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+import { isValidLocale, type Locale } from '@/lib/getDictionary';
+import { pathExistsForLocale, getCanonicalPath } from '@/lib/urlMappings';
 
-// Supported locales with proper typing
-const locales = ['cs', 'en'] as const;
-const defaultLocale = 'cs';
+// Valid paths for each language
+const validPaths = {
+  cs: [
+    '/',
+    '/sluzby',
+    '/sluzby/ai-balicky',
+    '/sluzby/ai-systemy-na-miru',
+    '/sluzby/ai-skoleni',
+    '/portfolio',
+    '/blog',
+    '/o-nas',
+    '/kontakt',
+    '/vps'
+  ],
+  en: [
+    '/',
+    '/services',
+    '/services/ai-packages',
+    '/services/custom-ai-systems',
+    '/services/ai-training',
+    '/portfolio',
+    '/blog',
+    '/about',
+    '/contact',
+    '/vps'
+  ]
+};
 
-// Enhanced locale detection with cookie support
-function getLocale(request: NextRequest): string {
-  // 1. Check for NEXT_LOCALE cookie first (highest priority)
-  const cookieLocale = request.cookies.get('NEXT_LOCALE')?.value;
-  if (cookieLocale && locales.includes(cookieLocale as any)) {
-    return cookieLocale;
-  }
+function isValidPathForLanguage(path: string, locale: Locale): boolean {
+  const normalizedPath = path === '/' ? '/' : path.replace(/\/$/, '');
+  return validPaths[locale]?.includes(normalizedPath) || false;
+}
 
-  // 2. Check Accept-Language header
-  const acceptLanguage = request.headers.get('accept-language');
-  
-  if (acceptLanguage) {
-    // Parse Accept-Language header with quality values
-    const languages = acceptLanguage
-      .split(',')
-      .map(lang => {
-        const [locale, q = '1'] = lang.trim().split(';q=');
-        return { 
-          locale: locale.toLowerCase().split('-')[0], 
-          quality: parseFloat(q) 
-        };
-      })
-      .sort((a, b) => b.quality - a.quality);
-    
-    // Find first supported language
-    for (const { locale } of languages) {
-      if (locales.includes(locale as any)) {
-        return locale;
-      }
+function getRedirectPath(path: string, locale: Locale): string | null {
+  // Path mappings for redirects
+  const redirectMappings = {
+    cs: {
+      '/services': '/sluzby',
+      '/services/ai-packages': '/sluzby/ai-balicky',
+      '/services/custom-ai-systems': '/sluzby/ai-systemy-na-miru',
+      '/services/ai-training': '/sluzby/ai-skoleni',
+      '/about': '/o-nas',
+      '/contact': '/kontakt'
+    },
+    en: {
+      '/sluzby': '/services',
+      '/sluzby/ai-balicky': '/services/ai-packages',
+      '/sluzby/ai-systemy-na-miru': '/services/custom-ai-systems',
+      '/sluzby/ai-skoleni': '/services/ai-training',
+      '/o-nas': '/about',
+      '/kontakt': '/contact'
     }
-  }
-  
-  return defaultLocale;
+  };
+
+  const normalizedPath = path === '/' ? '/' : path.replace(/\/$/, '');
+  return redirectMappings[locale]?.[normalizedPath] || null;
 }
 
 export function middleware(request: NextRequest) {
-  const { pathname, search } = request.nextUrl;
-  
-  // Skip middleware for static files, API routes, and Next.js internals
+  const pathname = request.nextUrl.pathname;
+  const search = request.nextUrl.search;
+
+  // Skip middleware for static files and API routes
   if (
-    pathname.startsWith('/_next') ||
-    pathname.startsWith('/api') ||
+    pathname.startsWith('/_next/') ||
+    pathname.startsWith('/api/') ||
     pathname.includes('.') ||
-    pathname === '/favicon.ico' ||
-    pathname === '/robots.txt' ||
-    pathname === '/sitemap.xml' ||
-    pathname === '/manifest.json'
+    pathname.startsWith('/favicon')
   ) {
-    return;
+    return NextResponse.next();
   }
-  
-  // Check if pathname already has a locale
-  const pathnameHasLocale = locales.some(
-    locale => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
-  );
-  
-  if (pathnameHasLocale) {
-    const currentLocale = pathname.split('/')[1] as Locale;
-    const pathWithoutLocale = pathname.replace(`/${currentLocale}`, '') || '/';
-    
-    // Temporarily allow all service paths to pass through
-    if (pathWithoutLocale.startsWith('/sluzby/') || pathWithoutLocale.startsWith('/services/')) {
-      const response = NextResponse.next();
-      response.headers.set('Content-Language', currentLocale);
-      response.cookies.set('NEXT_LOCALE', currentLocale, {
-        maxAge: 365 * 24 * 60 * 60,
-        httpOnly: false,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'lax'
-      });
-      return response;
-    }
+
+  // Extract locale from pathname
+  const segments = pathname.split('/').filter(Boolean);
+  const maybeLocale = segments[0];
+  const pathWithoutLocale = '/' + segments.slice(1).join('/');
+
+  // Check if first segment is a valid locale
+  if (isValidLocale(maybeLocale)) {
+    const currentLocale = maybeLocale as Locale;
     
     // Check if path is valid for current language
     if (!isValidPathForLanguage(pathWithoutLocale, currentLocale)) {
@@ -104,36 +105,28 @@ export function middleware(request: NextRequest) {
         return new NextResponse(null, { status: 404 });
       }
     }
-    
-    // Valid path - set headers for SEO
-    const response = NextResponse.next();
-    response.headers.set('Content-Language', currentLocale);
-    response.cookies.set('NEXT_LOCALE', currentLocale, {
-      maxAge: 365 * 24 * 60 * 60,
-      httpOnly: false,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax'
-    });
-    return response;
+
+    // Valid path, continue
+    return NextResponse.next();
   }
+
+  // No locale in pathname, redirect to default locale
+  const defaultLocale = 'cs';
+  const redirectUrl = new URL(`/${defaultLocale}${pathname}${search}`, request.url);
+  const response = NextResponse.redirect(redirectUrl, 307);
   
-  // Redirect to localized URL
-  const locale = getLocale(request);
-  const newUrl = new URL(`/${locale}${pathname}${search}`, request.url);
-  
-  const response = NextResponse.redirect(newUrl, 302);
-  response.cookies.set('NEXT_LOCALE', locale, {
+  response.cookies.set('NEXT_LOCALE', defaultLocale, {
     maxAge: 365 * 24 * 60 * 60,
     httpOnly: false,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'lax'
   });
-  
+
   return response;
 }
 
 export const config = {
   matcher: [
-    '/((?!_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|manifest.json).*)',
+    '/((?!_next/static|_next/image|favicon.ico|.*\\..*|api/).*)',
   ],
 };

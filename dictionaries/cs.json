@@ -35,39 +35,132 @@
       "keywords": "webové aplikace, VPS servery, AI řešení, automatizace"
     },
     "demo": {
-      "title": "Zkuste si AI automatizaci",
-      "subtitle": "Interaktivní ukázka toho, jak AI může zrychlit vaše business procesy. Upravte data a porovnejte efektivitu manuálního zpracování s AI automatizací.",
+      "title": "Vyzkoušejte si AI automatizaci v e-commerce",
+      "subtitle": "Zažijte sílu AI automatizace s naší interaktivní ukázkou. Podívejte se, jak AI může transformovat váš workflow zpracování objednávek.",
+      "features": {
+        "dragDrop": "Drag & Drop Workflow",
+        "realTime": "Výpočty v reálném čase",
+        "aiOptimization": "AI Optimalizace"
+      },
       "orders": {
         "title": "Konfigurace objednávek",
         "product": "Produkt",
-        "quantity": "Množství", 
+        "quantity": "Množství",
         "price": "Cena",
+        "total": "Celková hodnota",
+        "items": "Položky",
         "add": "Přidat objednávku",
-        "remove": "Odstranit objednávku"
+        "remove": "Odstranit",
+        "productPlaceholder": "Název produktu",
+        "newProduct": "Nový produkt",
+        "newQuantity": "Nové množství",
+        "newPrice": "Nová cena",
+        "defaultProducts": ["Laptop", "Myš", "Klávesnice", "Monitor", "Sluchátka"]
       },
-      "buttons": {
-        "manual": "Spustit manuálně",
-        "ai": "Spustit s AI",
-        "reset": "Resetovat demo"
+      "workflow": {
+        "title": "Workflow Builder",
+        "optimized": "AI Optimalizováno",
+        "dragTip": "Přetáhněte kroky pro změnu pořadí workflow. AI automaticky optimalizuje sekvenci.",
+        "aiOptimization": "AI optimalizovalo váš workflow pro maximální efektivitu!"
       },
       "steps": {
-        "receive": "Příjem objednávky",
-        "process": "Zpracování objednávky", 
-        "invoice": "Vytvoření faktury"
+        "manual": {
+          "receive": "Příjem objednávek",
+          "inventory": "Kontrola skladu",
+          "invoice": "Generování faktury",
+          "shipping": "Příprava expedice",
+          "reporting": "Generování reportů"
+        },
+        "ai": {
+          "detection": "AI detekce chyb a optimalizace",
+          "processing": "Automatizované zpracování"
+        }
+      },
+      "controls": {
+        "title": "Ovládání simulace"
+      },
+      "buttons": {
+        "manual": "Manuální proces",
+        "ai": "AI proces",
+        "reset": "Reset",
+        "save": "Uložit",
+        "export": "Export",
+        "exportDetailed": "Export detailního reportu",
+        "detailed": "Detailní",
+        "chat": "AI Chat"
       },
       "process": {
-        "title": "Průběh zpracování",
-        "time": "Čas",
-        "progress": "Průběh"
+        "title": "Vizualizace procesu",
+        "progress": "Průběh",
+        "currentStep": "Aktuální krok",
+        "manualMode": "Manuální režim",
+        "aiMode": "AI režim"
+      },
+      "errors": {
+        "title": "Detekované chyby",
+        "inventory": "Nedostatek skladu - doplňte!",
+        "aiSolution": "AI automaticky detekovala a vyřešila tyto problémy!"
+      },
+      "chat": {
+        "title": "AI Asistent",
+        "welcome": "Zeptejte se mě na vaše objednávky, čas zpracování nebo náklady!",
+        "placeholder": "Zeptejte se na objednávky...",
+        "send": "Odeslat"
       },
       "chart": {
+        "time": "Čas (min)",
+        "cost": "Náklady",
+        "errors": "Chyby",
         "manual": "Manuálně",
-        "ai": "S AI"
+        "ai": "AI"
       },
       "results": {
-        "title": "Výsledky simulace",
-        "saved": "času ušetřeno!",
-        "details": "Ušetřili jste {time} minut díky AI automatizaci"
+        "title": "Výsledky",
+        "timeSaved": "Ušetřený čas",
+        "costSaved": "Ušetřené náklady",
+        "efficiency": "Efektivita",
+        "minutes": "minut",
+        "reduction": "snížení",
+        "errorFree": "Bez chyb",
+        "breakdown": "Detailní rozpis",
+        "manual": "Manuální proces",
+        "ai": "AI proces",
+        "totalTime": "Celkový čas",
+        "totalCost": "Celkové náklady",
+        "errors": "Chyby",
+        "steps": "Kroky"
+      },
+      "recommendations": {
+        "title": "Chytrá doporučení",
+        "bulk": "Pro 3+ objednávky šetří AI zpracování 85% času a nákladů!",
+        "starter": "Perfektní pro malé dávky! Náš Starter AI balíček zvládne váš současný objem efektivně.",
+        "professional": "Pro 5+ objednávek nabízí náš Professional AI balíček optimální poměr nákladů a efektivity.",
+        "enterprise": "S 10+ objednávkami zvažte naše Enterprise AI řešení pro maximální efektivitu!"
+      },
+      "cta": {
+        "consultation": "Získat bezplatnou konzultaci"
+      },
+      "instructions": {
+        "title": "Jak používat tuto ukázku",
+        "step1": {
+          "title": "Konfigurace objednávek",
+          "description": "Přidejte nebo upravte objednávky s detaily produktů, množstvím a cenami."
+        },
+        "step2": {
+          "title": "Přizpůsobení workflow",
+          "description": "Přetáhněte kroky workflow pro přizpůsobení sekvence procesu."
+        },
+        "step3": {
+          "title": "Spuštění simulace",
+          "description": "Porovnejte manuální vs AI zpracování a uvidíte nárůst efektivity."
+        },
+        "step4": {
+          "title": "Analýza výsledků",
+          "description": "Prohlédněte si detailní analytiku a exportujte reporty pro váš business case."
+        }
+      },
+      "insights": {
+        "bulk": "S {count} objednávkami vám AI může ušetřit {percentage}% času zpracování!"
       }
     }
   },

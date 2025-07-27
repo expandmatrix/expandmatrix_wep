@@ -35,39 +35,132 @@
       "keywords": "web applications, VPS servers, AI solutions, automation"
     },
     "demo": {
-      "title": "Try AI Automation",
-      "subtitle": "Interactive demonstration of how AI can accelerate your business processes. Modify data and compare the efficiency of manual processing with AI automation.",
+      "title": "Try AI Automation in E-commerce",
+      "subtitle": "Experience the power of AI automation with our interactive demo. See how AI can transform your order processing workflow.",
+      "features": {
+        "dragDrop": "Drag & Drop Workflow",
+        "realTime": "Real-time Calculations",
+        "aiOptimization": "AI Optimization"
+      },
       "orders": {
-        "title": "Order Configuration",
+        "title": "Configure Orders",
         "product": "Product",
         "quantity": "Quantity",
-        "price": "Price", 
+        "price": "Price",
+        "total": "Total Value",
+        "items": "Items",
         "add": "Add Order",
-        "remove": "Remove Order"
+        "remove": "Remove",
+        "productPlaceholder": "Product name",
+        "newProduct": "New product name",
+        "newQuantity": "New product quantity",
+        "newPrice": "New product price",
+        "defaultProducts": ["Laptop", "Mouse", "Keyboard", "Monitor", "Headphones"]
       },
-      "buttons": {
-        "manual": "Run Manually",
-        "ai": "Run with AI",
-        "reset": "Reset Demo"
+      "workflow": {
+        "title": "Workflow Builder",
+        "optimized": "AI Optimized",
+        "dragTip": "Drag steps to reorder workflow. AI will optimize the sequence automatically.",
+        "aiOptimization": "AI has optimized your workflow for maximum efficiency!"
       },
       "steps": {
-        "receive": "Receive Order",
-        "process": "Process Order",
-        "invoice": "Create Invoice"
+        "manual": {
+          "receive": "Receive Orders",
+          "inventory": "Check Inventory",
+          "invoice": "Generate Invoice",
+          "shipping": "Prepare Shipping",
+          "reporting": "Generate Reports"
+        },
+        "ai": {
+          "detection": "AI Error Detection & Optimization",
+          "processing": "Automated Processing"
+        }
+      },
+      "controls": {
+        "title": "Simulation Controls"
+      },
+      "buttons": {
+        "manual": "Manual Process",
+        "ai": "AI Process",
+        "reset": "Reset",
+        "save": "Save",
+        "export": "Export",
+        "exportDetailed": "Export Detailed Report",
+        "detailed": "Detailed",
+        "chat": "AI Chat"
       },
       "process": {
-        "title": "Processing Flow",
-        "time": "Time",
-        "progress": "Progress"
+        "title": "Process Visualization",
+        "progress": "Progress",
+        "currentStep": "Current Step",
+        "manualMode": "Manual Mode",
+        "aiMode": "AI Mode"
+      },
+      "errors": {
+        "title": "Errors Detected",
+        "inventory": "Stock shortage detected",
+        "aiSolution": "AI automatically detected and resolved these issues!"
+      },
+      "chat": {
+        "title": "AI Assistant",
+        "welcome": "Ask me about your orders, processing time, or costs!",
+        "placeholder": "Ask about your orders...",
+        "send": "Send"
       },
       "chart": {
+        "time": "Time (min)",
+        "cost": "Cost",
+        "errors": "Errors",
         "manual": "Manual",
-        "ai": "With AI"
+        "ai": "AI"
       },
       "results": {
-        "title": "Simulation Results",
-        "saved": "time saved!",
-        "details": "You saved {time} minutes with AI automation"
+        "title": "Results",
+        "timeSaved": "Time Saved",
+        "costSaved": "Cost Saved",
+        "efficiency": "Efficiency",
+        "minutes": "minutes",
+        "reduction": "reduction",
+        "errorFree": "Error-free",
+        "breakdown": "Performance Breakdown",
+        "manual": "Manual Process",
+        "ai": "AI Process",
+        "totalTime": "Total Time",
+        "totalCost": "Total Cost",
+        "errors": "Errors",
+        "steps": "Steps"
+      },
+      "recommendations": {
+        "title": "Smart Recommendations",
+        "bulk": "For 3+ orders, AI processing saves 85% time and costs!",
+        "starter": "Perfect for small batches! Our Starter AI package can handle your current volume efficiently.",
+        "professional": "For 5+ orders, our Professional AI package offers optimal cost-efficiency balance.",
+        "enterprise": "With 10+ orders, consider our Enterprise AI solution for maximum efficiency!"
+      },
+      "cta": {
+        "consultation": "Get Free Consultation"
+      },
+      "instructions": {
+        "title": "How to Use This Demo",
+        "step1": {
+          "title": "Configure Orders",
+          "description": "Add or modify orders with product details, quantities, and prices."
+        },
+        "step2": {
+          "title": "Customize Workflow",
+          "description": "Drag and drop workflow steps to customize the process sequence."
+        },
+        "step3": {
+          "title": "Run Simulation",
+          "description": "Compare manual vs AI processing to see the efficiency gains."
+        },
+        "step4": {
+          "title": "Analyze Results",
+          "description": "Review detailed analytics and export reports for your business case."
+        }
+      },
+      "insights": {
+        "bulk": "With {count} orders, AI can save you {percentage}% processing time!"
       }
     }
   },
