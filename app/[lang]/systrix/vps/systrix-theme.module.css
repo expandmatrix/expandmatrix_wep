@@ -1,85 +1,102 @@
-.systrix-theme .bg-accent-primary {
+.systrix-theme {
+  background-color: #f5f5f5;
+}
+
+.systrix-theme :global(.bg-accent-primary) {
   background-color: #0077ff !important;
 }
-.systrix-theme .bg-accent-primary\/5 {
+.systrix-theme :global(.bg-accent-primary\/5) {
   background-color: rgb(0 119 255 / 0.05) !important;
 }
-.systrix-theme .bg-accent-primary\/10 {
+.systrix-theme :global(.bg-accent-primary\/10) {
   background-color: rgb(0 119 255 / 0.1) !important;
 }
-.systrix-theme .bg-accent-primary\/20 {
+.systrix-theme :global(.bg-accent-primary\/20) {
   background-color: rgb(0 119 255 / 0.2) !important;
 }
-.systrix-theme .bg-accent-primary\/30 {
+.systrix-theme :global(.bg-accent-primary\/30) {
   background-color: rgb(0 119 255 / 0.3) !important;
 }
-.systrix-theme .bg-accent-primary\/40 {
+.systrix-theme :global(.bg-accent-primary\/40) {
   background-color: rgb(0 119 255 / 0.4) !important;
 }
-.systrix-theme .bg-accent-primary\/60 {
+.systrix-theme :global(.bg-accent-primary\/60) {
   background-color: rgb(0 119 255 / 0.6) !important;
 }
-.systrix-theme .bg-accent-primary\/90 {
+.systrix-theme :global(.bg-accent-primary\/90) {
   background-color: rgb(0 119 255 / 0.9) !important;
 }
 
-.systrix-theme .text-accent-primary {
+.systrix-theme :global(.text-accent-primary) {
   color: #0077ff !important;
 }
 
-.systrix-theme .border-accent-primary {
+.systrix-theme :global(.border-accent-primary) {
   border-color: #0077ff !important;
 }
-.systrix-theme .border-accent-primary\/20 {
+.systrix-theme :global(.border-accent-primary\/20) {
   border-color: rgb(0 119 255 / 0.2) !important;
 }
-.systrix-theme .border-accent-primary\/40 {
+.systrix-theme :global(.border-accent-primary\/40) {
   border-color: rgb(0 119 255 / 0.4) !important;
 }
-.systrix-theme .border-accent-primary\/60 {
+.systrix-theme :global(.border-accent-primary\/60) {
   border-color: rgb(0 119 255 / 0.6) !important;
 }
 
-.systrix-theme .shadow-accent-primary\/10 {
+.systrix-theme :global(.shadow-accent-primary\/10) {
   --tw-shadow-color: rgb(0 119 255 / 0.1) !important;
 }
 
-.systrix-theme .bg-bg-primary {
+.systrix-theme :global(.bg-bg-primary) {
+  background-color: #f5f5f5 !important;
+}
+.systrix-theme :global(.bg-bg-secondary),
+.systrix-theme :global(.bg-bg-tertiary) {
   background-color: #ffffff !important;
 }
-.systrix-theme .text-text-primary {
+.systrix-theme :global(.bg-bg-secondary\/50) {
+  background-color: rgb(255 255 255 / 0.5) !important;
+}
+.systrix-theme :global(.bg-bg-tertiary\/30) {
+  background-color: rgb(255 255 255 / 0.3) !important;
+}
+.systrix-theme :global(.text-text-primary) {
   color: #000000 !important;
+}
+.systrix-theme :global(.text-text-secondary) {
+  color: #4a4a4a !important;
 }
 
 /* CTA buttons */
-.systrix-theme .btn-cta-large {
+.systrix-theme :global(.btn-cta-large) {
   background-color: #0077ff !important;
   box-shadow: 0 0 30px rgba(0, 119, 255, 0.2) !important;
 }
-.systrix-theme .btn-cta-large:hover {
+.systrix-theme :global(.btn-cta-large:hover) {
   background-color: rgb(0, 119, 255) !important;
   box-shadow: 0 0 50px rgba(0, 119, 255, 0.4) !important;
 }
-.systrix-theme .btn-cta-secondary {
+.systrix-theme :global(.btn-cta-secondary) {
   border-color: #0077ff !important;
   color: #0077ff !important;
 }
-.systrix-theme .btn-cta-secondary:hover {
+.systrix-theme :global(.btn-cta-secondary:hover) {
   background-color: #0077ff !important;
   color: #ffffff !important;
   box-shadow: 0 0 30px rgba(0, 119, 255, 0.2) !important;
 }
 
 /* Accent dark variant for hover states */
-.systrix-theme .bg-accent-dark {
+.systrix-theme :global(.bg-accent-dark) {
   background-color: #005fcc !important;
 }
-.systrix-theme .text-accent-dark {
+.systrix-theme :global(.text-accent-dark) {
   color: #005fcc !important;
 }
-.systrix-theme .border-accent-dark {
+.systrix-theme :global(.border-accent-dark) {
   border-color: #005fcc !important;
 }
-.systrix-theme .hover\:bg-accent-dark:hover {
+.systrix-theme :global(.hover\:bg-accent-dark:hover) {
   background-color: #005fcc !important;
 }
