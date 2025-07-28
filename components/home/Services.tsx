@@ -14,21 +14,36 @@ export default function Services({ dict, lang }: ServicesProps) {
   const services = [
     {
       title: lang === 'cs' ? 'AI Systémy na míru' : 'Custom AI Systems',
-      description: lang === 'cs' ? 'Vytváříme pokročilé AI řešení přesně podle vašich potřeb a požadavků.' : 'We create advanced AI solutions tailored exactly to your needs and requirements.',
-      features: lang === 'cs' ? ['Custom AI modely', 'Integrace se systémy', '24/7 podpora'] : ['Custom AI models', 'System integration', '24/7 support'],
-      icon: <Zap className="w-16 h-16" />
+      description: lang === 'cs'
+        ? 'Vytváříme pokročilé AI řešení přesně podle vašich potřeb a požadavků.'
+        : 'We create advanced AI solutions tailored exactly to your needs and requirements.',
+      features: lang === 'cs'
+        ? ['Custom AI modely', 'Integrace se systémy', '24/7 podpora']
+        : ['Custom AI models', 'System integration', '24/7 support'],
+      icon: <Zap className="w-16 h-16" />,
+      link: `/${lang}/${lang === 'cs' ? 'sluzby/ai-systemy-na-miru' : 'services/custom-ai-systems'}`
     },
     {
       title: lang === 'cs' ? 'Automatizace procesů' : 'Process Automation',
-      description: lang === 'cs' ? 'Automatizujeme opakující se úkoly a optimalizujeme vaše workflow.' : 'We automate repetitive tasks and optimize your workflows for maximum efficiency.',
-      features: lang === 'cs' ? ['Workflow automatizace', 'Reporty v reálném čase', 'ROI tracking'] : ['Workflow automation', 'Real-time reports', 'ROI tracking'],
-      icon: <Target className="w-16 h-16" />
+      description: lang === 'cs'
+        ? 'Automatizujeme opakující se úkoly a optimalizujeme vaše workflow.'
+        : 'We automate repetitive tasks and optimize your workflows for maximum efficiency.',
+      features: lang === 'cs'
+        ? ['Workflow automatizace', 'Reporty v reálném čase', 'ROI tracking']
+        : ['Workflow automation', 'Real-time reports', 'ROI tracking'],
+      icon: <Target className="w-16 h-16" />,
+      link: `/${lang}/${lang === 'cs' ? 'sluzby/ai-balicky' : 'services/ai-packages'}`
     },
     {
       title: lang === 'cs' ? 'AI Školení' : 'AI Training',
-      description: lang === 'cs' ? 'Připravíme váš tým na budoucnost s AI technologiemi a best practices.' : 'We prepare your team for the future with AI technologies and best practices.',
-      features: lang === 'cs' ? ['Interaktivní workshopy', 'Online kurzy', 'Certifikace'] : ['Interactive workshops', 'Online courses', 'Certification'],
-      icon: <Rocket className="w-16 h-16" />
+      description: lang === 'cs'
+        ? 'Připravíme váš tým na budoucnost s AI technologiemi a best practices.'
+        : 'We prepare your team for the future with AI technologies and best practices.',
+      features: lang === 'cs'
+        ? ['Interaktivní workshopy', 'Online kurzy', 'Certifikace']
+        : ['Interactive workshops', 'Online courses', 'Certification'],
+      icon: <Rocket className="w-16 h-16" />,
+      link: `/${lang}/${lang === 'cs' ? 'sluzby/ai-skoleni' : 'services/ai-training'}`
     }
   ];
 
@@ -65,10 +80,11 @@ export default function Services({ dict, lang }: ServicesProps) {
         {/* Services Grid */}
         <div className="grid lg:grid-cols-3 gap-8 mb-20">
           {services.map((service, index) => (
-            <ServiceCard 
+            <ServiceCard
               key={index}
               service={service}
               index={index}
+              lang={lang}
             />
           ))}
         </div>
@@ -106,11 +122,13 @@ interface ServiceCardProps {
     description: string;
     features: string[];
     icon: React.ReactNode;
+    link: string;
   };
   index: number;
+  lang: Locale;
 }
 
-function ServiceCard({ service, index }: ServiceCardProps) {
+function ServiceCard({ service, index, lang }: ServiceCardProps) {
   return (
     <motion.div
       initial={{ opacity: 0.4, y: 6, scale: 0.98 }}
@@ -173,7 +191,16 @@ function ServiceCard({ service, index }: ServiceCardProps) {
             </motion.li>
           ))}
         </ul>
-        
+
+        {/* Detail link */}
+        <Link
+          href={service.link}
+          className="absolute bottom-6 right-6 inline-flex items-center px-4 py-2 bg-accent-primary text-bg-primary text-sm font-semibold rounded-full transition-all duration-300 hover:bg-accent-primary/90"
+        >
+          <span>{lang === 'cs' ? 'Zjistit více' : 'Learn More'}</span>
+          <ArrowRight className="w-4 h-4 ml-2" />
+        </Link>
+
         {/* Card hover glow effect */}
         <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-accent-primary/[0.02] via-transparent to-accent-primary/[0.01] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
         
