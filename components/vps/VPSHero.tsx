@@ -11,17 +11,44 @@ interface VPSHeroProps {
 export default function VPSHero({ lang }: VPSHeroProps) {
   return (
     <section className="relative py-32 overflow-hidden">
-      <div className="absolute inset-0">
-        <motion.div 
+      {/* Futuristic background */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Animated gradient mesh */}
+        <motion.div
           className="absolute inset-0 opacity-20"
           animate={{
             background: [
               'radial-gradient(circle at 30% 40%, rgba(0,255,127,0.15) 0%, transparent 50%)',
-              'radial-gradient(circle at 70% 40%, rgba(0,255,127,0.15) 0%, transparent 50%)',
+              'radial-gradient(circle at 70% 60%, rgba(0,255,127,0.1) 0%, transparent 50%)',
+              'radial-gradient(circle at 50% 50%, rgba(0,255,127,0.15) 0%, transparent 50%)',
             ]
           }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
         />
+
+        {/* Floating particles */}
+        {[...Array(6)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-3 h-3 bg-accent-primary/30 rounded-full blur-sm"
+            style={{
+              left: `${10 + (i * 15) % 80}%`,
+              top: `${20 + (i * 10) % 60}%`,
+            }}
+            animate={{
+              y: [0, -20, 0],
+              opacity: [0.3, 0.8, 0.3],
+            }}
+            transition={{
+              duration: 6 + i,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
+
+        {/* Subtle grid overlay */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(0,255,127,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(0,255,127,0.04)_1px,transparent_1px)] bg-[size:80px_80px] opacity-20" />
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
