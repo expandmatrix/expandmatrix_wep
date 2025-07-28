@@ -247,11 +247,13 @@ export default function Testimonials({ dict, lang }: TestimonialsProps) {
               whileHover={{ scale: 1.2 }}
               whileTap={{ scale: 0.9 }}
             >
-              <div className={`w-3 h-3 rounded-full transition-all duration-500 ${
-                index === activeIndex 
-                  ? 'bg-accent-primary shadow-[0_0_20px_rgba(0,255,127,0.6)]' 
-                  : 'bg-border-color hover:bg-accent-primary/50'
-              }`} />
+              <div
+                className={`w-3 h-3 rounded-full transition-all duration-500 ${
+                  index === activeIndex
+                    ? 'bg-accent-primary shadow-[0_0_20px_rgba(0,255,127,0.6)]'
+                    : 'bg-gray-600 hover:bg-accent-primary/50'
+                }`}
+              />
               
               {/* Progress Ring for Active Indicator */}
               {index === activeIndex && isAutoPlaying && (
