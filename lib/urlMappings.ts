@@ -32,6 +32,13 @@ export const urlMappings = {
   }
 } as const;
 
+// Path to the main services page for each supported locale
+export const servicesPaths: Record<Locale, string> = {
+  cs: '/sluzby',
+  en: '/services'
+} as const;
+
+
 // Reverse mappings for language switching
 export const reverseUrlMappings = {
   cs: {
