@@ -17,7 +17,7 @@ export async function generateMetadata({
   const dict = await getDictionary(locale);
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://expandmatrix.com';
-  const currentUrl = `${baseUrl}/${locale}/vps`;
+  const currentUrl = `${baseUrl}/systrix/vps`;
 
   return {
     title: dict.vps?.metadata?.title || 'VPS Hosting - High-Performance Servers | Expand Matrix',
@@ -25,8 +25,8 @@ export async function generateMetadata({
     alternates: {
       canonical: currentUrl,
       languages: {
-        'cs': `${baseUrl}/cs/vps`,
-        'en': `${baseUrl}/en/vps`,
+        cs: `${baseUrl}/cs/systrix/vps`,
+        en: `${baseUrl}/en/systrix/vps`,
       },
     },
     openGraph: {

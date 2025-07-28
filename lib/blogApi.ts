@@ -8,13 +8,15 @@ export interface BlogCategory {
   isActive: boolean;
 }
 
+import { blogArticles } from './blogData';
+
 export interface BlogArticle {
   id: string;
   slug: string;
   title: { cs: string; en: string };
   excerpt: { cs: string; en: string };
   content: { cs: string; en: string };
-  categoryId: string; // Změna z category na categoryId
+  category: 'news' | 'case-studies' | 'tutorials';
   tags: string[];
   author: string;
   publishedAt: string;
@@ -59,17 +61,18 @@ export async function getBlogCategories(): Promise<BlogCategory[]> {
 // API funkce pro články
 export async function getBlogArticles(categorySlug?: string): Promise<BlogArticle[]> {
   // TODO: Nahradit databázovým dotazem
-  const allArticles = []; // Vaše články z databáze
-  
+  const allArticles = blogArticles;
+
   if (categorySlug) {
-    const categories = await getBlogCategories();
-    const category = categories.find(cat => cat.slug === categorySlug);
-    if (!category) return [];
-    
-    return allArticles.filter(article => article.categoryId === category.id);
+    return allArticles.filter(article => article.category === categorySlug);
   }
-  
+
   return allArticles;
+}
+
+export async function getArticleBySlug(slug: string): Promise<BlogArticle | null> {
+  const articles = await getBlogArticles();
+  return articles.find(article => article.slug === slug) || null;
 }
 
 export async function getCategoryBySlug(slug: string): Promise<BlogCategory | null> {

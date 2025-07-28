@@ -1,5 +1,6 @@
 import { getDictionary, isValidLocale, type Locale } from '@/lib/getDictionary';
 import { Metadata } from 'next';
+import CustomAICTA from '@/components/custom-ai-systems/CustomAICTA';
 
 export async function generateMetadata({
   params,
@@ -107,6 +108,7 @@ export default async function CustomAISystemsPage({
           </div>
         </div>
       </div>
+      <CustomAICTA dict={dict} lang={locale} />
     </main>
   );
 }
