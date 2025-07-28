@@ -14,6 +14,7 @@ const validPaths = {
     '/interaktivni-demo',
     '/portfolio',
     '/blog',
+    '/blog/*',
     '/o-nas',
     '/kontakt',
     '/vps',
@@ -28,6 +29,7 @@ const validPaths = {
     '/interactive-demo',
     '/portfolio',
     '/blog',
+    '/blog/*',
     '/about',
     '/contact',
     '/vps',
@@ -37,7 +39,14 @@ const validPaths = {
 
 function isValidPathForLanguage(path: string, locale: Locale): boolean {
   const normalizedPath = path === '/' ? '/' : path.replace(/\/$/, '');
-  return validPaths[locale]?.includes(normalizedPath) || false;
+  const paths = validPaths[locale] || [];
+  return paths.some((p) => {
+    if (p.endsWith('/*')) {
+      const base = p.slice(0, -1);
+      return normalizedPath.startsWith(base);
+    }
+    return normalizedPath === p;
+  });
 }
 
 function getRedirectPath(path: string, locale: Locale): string | null {

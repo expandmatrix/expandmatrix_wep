@@ -5,7 +5,7 @@ import { Calendar, Clock, User, ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Locale } from '@/lib/getDictionary';
-import type { BlogArticle } from '@/lib/blogData';
+import type { BlogArticle } from '@/lib/blogApi';
 import { blogCategories } from '@/lib/blogData';
 
 interface ArticleCardProps {
