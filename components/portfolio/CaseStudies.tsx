@@ -134,7 +134,7 @@ export default function CaseStudies({ dict, lang }: CaseStudiesProps) {
           viewport={{ once: true }}
           className="text-center mb-20"
         >
-          <h2 className="text-5xl md:text-6xl font-black mb-8 bg-gradient-to-r from-text-primary to-accent-primary bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-6xl font-black mb-6 text-text-primary">
             {lang === 'cs' ? 'Případové studie' : 'Case Studies'}
           </h2>
           <p className="text-xl md:text-2xl text-text-secondary max-w-4xl mx-auto leading-relaxed">
