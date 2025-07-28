@@ -1,6 +1,7 @@
 import { getDictionary, isValidLocale, type Locale } from '@/lib/getDictionary';
 import type { Metadata } from 'next';
 import { VPSContent } from '@/components/vps/VPSContent';
+import './systrix-theme.css';
 
 export async function generateStaticParams() {
   return [{ lang: 'cs' }, { lang: 'en' }];
@@ -48,5 +49,9 @@ export default async function VPSPage({
   const locale = isValidLocale(lang) ? lang : 'cs';
   const dict = await getDictionary(locale);
 
-  return <VPSContent lang={locale} dict={dict} />;
+  return (
+    <div className="systrix-theme">
+      <VPSContent lang={locale} dict={dict} />
+    </div>
+  );
 }
