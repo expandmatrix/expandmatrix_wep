@@ -98,9 +98,9 @@ interface VPSPackagesGridProps {
   onOrderProcess: (orderData: VPSOrderData) => void;
 }
 
-export default function VPSPackagesGrid({ 
-  lang, 
-  backupEnabled, 
+export default function VPSPackagesGrid({
+  lang,
+  backupEnabled,
   orderData,
   onPackageSelect,
   onOSSelect,
@@ -108,8 +108,46 @@ export default function VPSPackagesGrid({
 }: VPSPackagesGridProps) {
 
   return (
-    <section className="py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-20 bg-bg-primary relative overflow-hidden">
+      {/* Animated background */}
+      <div className="absolute inset-0 pointer-events-none">
+        <motion.div
+          className="absolute inset-0 opacity-20"
+          animate={{
+            background: [
+              'radial-gradient(circle at 20% 50%, rgba(0,255,127,0.1) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(0,255,127,0.05) 0%, transparent 50%)',
+              'radial-gradient(circle at 80% 50%, rgba(0,255,127,0.1) 0%, transparent 50%), radial-gradient(circle at 20% 50%, rgba(0,255,127,0.05) 0%, transparent 50%)',
+            ]
+          }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+        />
+
+        {[...Array(8)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-2 h-2 bg-accent-primary/30 rounded-full blur-sm"
+            style={{
+              left: `${15 + (i * 12) % 70}%`,
+              top: `${20 + (i * 8) % 60}%`,
+            }}
+            animate={{
+              y: [0, -25, 0],
+              opacity: [0.3, 0.7, 0.3],
+              scale: [1, 1.2, 1],
+            }}
+            transition={{
+              duration: 5 + i * 0.5,
+              repeat: Infinity,
+              delay: i * 0.3,
+              ease: "easeInOut"
+            }}
+          />
+        ))}
+
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(0,255,127,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,255,127,0.03)_1px,transparent_1px)] bg-[size:60px_60px] opacity-20" />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-text-primary mb-4">
             {lang === 'cs' ? 'Vyberte si VPS balíček' : 'Choose Your VPS Package'}
