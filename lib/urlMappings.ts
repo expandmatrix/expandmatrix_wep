@@ -27,7 +27,7 @@ export const urlMappings = {
     '/portfolio': '/portfolio',
     '/blog': '/blog',
     '/contact': '/contact',
-    '/about': '/about',
+    '/about-us': '/about-us',
     '/vps': '/vps'
   }
 } as const;
@@ -51,7 +51,7 @@ export const reverseUrlMappings = {
     '/portfolio': '/portfolio',
     '/blog': '/blog',
     '/kontakt': '/contact',
-    '/o-nas': '/about',
+    '/o-nas': '/about-us',
     '/vps': '/vps'
   },
   en: {
@@ -64,7 +64,7 @@ export const reverseUrlMappings = {
     '/portfolio': '/portfolio',
     '/blog': '/blog',
     '/contact': '/kontakt',
-    '/about': '/o-nas',
+    '/about-us': '/o-nas',
     '/vps': '/vps'
   }
 } as const;
@@ -173,7 +173,7 @@ export const navigationStructure: Record<Locale, NavigationItem[]> = {
     },
     { href: '/portfolio', label: 'Portfolio' },
     { href: '/blog', label: 'Blog' },
-    { href: '/about', label: 'About' },
+    { href: '/about-us', label: 'About' },
     { href: '/contact', label: 'Contact' }
   ]
 };
