@@ -1,7 +1,6 @@
 .systrix-theme {
   background-color: #f5f5f5;
 }
-
 .systrix-theme :global(.bg-accent-primary) {
   background-color: #0077ff !important;
 }
@@ -53,6 +52,7 @@
 }
 .systrix-theme :global(.bg-bg-secondary),
 .systrix-theme :global(.bg-bg-tertiary) {
+
   background-color: #ffffff !important;
 }
 .systrix-theme :global(.text-text-primary) {
@@ -93,4 +93,27 @@
 }
 .systrix-theme :global(.hover\:bg-accent-dark:hover) {
   background-color: #005fcc !important;
+}
+
+/* Light background and text tweaks for Systrix theme */
+.systrix-theme :global(.bg-bg-secondary) {
+  background-color: #f5f5f5 !important;
+}
+.systrix-theme :global(.bg-bg-secondary\/50) {
+  background-color: rgb(245 245 245 / 0.5) !important;
+}
+.systrix-theme :global(.bg-bg-secondary\/70) {
+  background-color: rgb(245 245 245 / 0.7) !important;
+}
+.systrix-theme :global(.bg-bg-tertiary) {
+  background-color: #e6e6e6 !important;
+}
+.systrix-theme :global(.bg-bg-tertiary\/30) {
+  background-color: rgb(230 230 230 / 0.3) !important;
+}
+.systrix-theme :global(.text-text-secondary) {
+  color: #555555 !important;
+}
+.systrix-theme :global(.border-border-color) {
+  border-color: #cccccc !important;
 }
