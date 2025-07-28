@@ -30,7 +30,7 @@ const validPaths = {
     '/portfolio',
     '/blog',
     '/blog/*',
-    '/about',
+    '/about-us',
     '/contact',
     '/vps',
     '/systrix/vps'
@@ -58,7 +58,7 @@ function getRedirectPath(path: string, locale: Locale): string | null {
       '/services/custom-ai-systems': '/sluzby/ai-systemy-na-miru',
       '/services/ai-training': '/sluzby/ai-skoleni',
       '/services/interactive-demo': '/interaktivni-demo',
-      '/about': '/o-nas',
+      '/about-us': '/o-nas',
       '/contact': '/kontakt'
     },
     en: {
@@ -67,7 +67,7 @@ function getRedirectPath(path: string, locale: Locale): string | null {
       '/sluzby/ai-systemy-na-miru': '/services/custom-ai-systems',
       '/sluzby/ai-skoleni': '/services/ai-training',
       '/sluzby/interaktivni-demo': '/interactive-demo',
-      '/o-nas': '/about',
+      '/o-nas': '/about-us',
       '/kontakt': '/contact'
     }
   };
