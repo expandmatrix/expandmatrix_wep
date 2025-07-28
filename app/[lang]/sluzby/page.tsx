@@ -5,7 +5,6 @@ import ServicesHero from '@/components/services/ServicesHero';
 import CustomAISystems from '@/components/services/CustomAISystems';
 import AISolutionPackages from '@/components/services/AISolutionPackages';
 import AITrainingConsulting from '@/components/services/AITrainingConsulting';
-import InteractiveDemo from '@/components/services/InteractiveDemo';
 import ServicesCTA from '@/components/services/ServicesCTA';
 
 export async function generateMetadata({
@@ -71,7 +70,6 @@ export default async function ServicesPage({ params }: ServicesPageProps) {
       <CustomAISystems dict={dict} lang={locale} />
       <AISolutionPackages dict={dict} lang={locale} />
       <AITrainingConsulting dict={dict} lang={locale} />
-      <InteractiveDemo dict={dict.services.demo} lang={locale} />
       <ServicesCTA dict={dict} lang={locale} />
     </main>
   );
