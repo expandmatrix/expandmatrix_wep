@@ -152,7 +152,7 @@ export default function SuccessMetrics({ dict, lang }: SuccessMetricsProps) {
           viewport={{ once: true }}
           className="text-center mb-20"
         >
-          <h2 className="text-5xl md:text-6xl font-black mb-8 bg-gradient-to-r from-text-primary to-accent-primary bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-6xl font-black mb-6 text-text-primary">
             {lang === 'cs' ? 'Naše úspěchy v číslech' : 'Our Success in Numbers'}
           </h2>
           <p className="text-xl md:text-2xl text-text-secondary max-w-4xl mx-auto leading-relaxed">
