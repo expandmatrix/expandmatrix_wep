@@ -174,7 +174,7 @@ export default function PortfolioHero({ dict, lang }: PortfolioHeroProps) {
             className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16"
           >
             <Link
-              href={`/${lang}/${lang === 'cs' ? 'kontakt' : 'contact'}`}
+              href={`/${lang}/${lang === 'cs' ? 'sluzby' : 'services'}`}
               className="btn-cta-large group inline-flex items-center"
             >
               <span>{lang === 'cs' ? 'Začněte svůj projekt' : 'Start Your Project'}</span>
