@@ -40,10 +40,10 @@ export async function generateMetadata({
     title: `${categoryName} - Blog - Expand Matrix`,
     description: categoryDesc,
     alternates: {
-      canonical: `${baseUrl}/${locale}/blog/${category}`,
+      canonical: `${baseUrl}/${locale}/blog/category/${category}`,
       languages: {
-        'cs': `${baseUrl}/cs/blog/${category}`,
-        'en': `${baseUrl}/en/blog/${category}`,
+        'cs': `${baseUrl}/cs/blog/category/${category}`,
+        'en': `${baseUrl}/en/blog/category/${category}`,
       },
     },
   };

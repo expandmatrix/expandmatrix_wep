@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Loader2 } from 'lucide-react';
 import type { Locale } from '@/lib/getDictionary';
-import { BlogCategory, BlogArticle } from '@/lib/blogData';
+import { BlogCategory, BlogArticle } from '@/lib/blogApi';
 import BlogHero from './BlogHero';
 import BlogFilters from './BlogFilters';
 import ArticleGrid from './ArticleGrid';

@@ -1,5 +1,3 @@
-/* systrix-theme.module.css */
-
 .systrix-theme .bg-accent-primary {
   background-color: #0077ff;
 }
@@ -52,3 +50,10 @@
 .systrix-theme .text-text-primary {
   color: #000000;
 }
+
+/* systrix-theme.css */
+.systrix-theme .bg-accent-primary { background-color: #0077ff; }
+.systrix-theme .text-accent-primary { color: #0077ff; }
+.systrix-theme .border-accent-primary { border-color: #0077ff; }
+.systrix-theme .bg-bg-primary { background-color: #ffffff; }
+.systrix-theme .text-text-primary { color: #000000; }      /* if needed */

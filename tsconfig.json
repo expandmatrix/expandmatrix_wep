@@ -40,9 +40,7 @@
   },
   "include": [
     "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
+    "components/layout/LanguageSwitcher.tsx"
   ],
   "exclude": [
     "node_modules"
