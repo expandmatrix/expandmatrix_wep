@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import type { Locale } from '@/lib/getDictionary';
 import VPSHero from './VPSHero';
 import VPSBackupToggle from './VPSBackupToggle';
@@ -48,7 +48,6 @@ interface VPSContentProps {
 
 export function VPSContent({ lang, dict }: VPSContentProps) {
   const [backupEnabled, setBackupEnabled] = useState(true);
-  const [isMounted, setIsMounted] = useState(false);
   
   // Order state management
   const [orderData, setOrderData] = useState<VPSOrderData>({
@@ -75,15 +74,11 @@ export function VPSContent({ lang, dict }: VPSContentProps) {
     },
   });
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
   // Update backup in order data
   const handleBackupToggle = (enabled: boolean) => {
     setBackupEnabled(enabled);
     setOrderData(prev => {
-      const backupPrice = enabled && prev.package ? prev.package.price * 0.2 : 0; // 20% of base price
+      const backupPrice = enabled && prev.package ? prev.package.price * 0.2 : 0;
       const newTotals = calculateTotals(prev.package?.price || 0, backupPrice, prev.os.price);
       
       return {
@@ -123,7 +118,7 @@ export function VPSContent({ lang, dict }: VPSContentProps) {
   // Update OS selection in order data
   const handleOSSelect = (osType: 'linux' | 'windows') => {
     setOrderData(prev => {
-      const osPrice = osType === 'windows' && prev.package ? prev.package.price * 0.5 : 0; // 50% extra for Windows
+      const osPrice = osType === 'windows' && prev.package ? prev.package.price * 0.5 : 0;
       const newTotals = calculateTotals(prev.package?.price || 0, prev.backup.price, osPrice);
       
       return {
@@ -153,14 +148,11 @@ export function VPSContent({ lang, dict }: VPSContentProps) {
   const handleOrderProcess = (orderData: VPSOrderData) => {
     console.log('VPS Order Data:', orderData);
     
-    // Validate order data
     if (!orderData.package) {
       console.error('No package selected');
       return;
     }
 
-    // Here will be HostBill integration
-    // For now, just log the complete order data
     console.log('Processing VPS order:', {
       ...orderData,
       readableTotal: `${orderData.totals.finalPrice} ${orderData.metadata.currency}`,
@@ -170,18 +162,7 @@ export function VPSContent({ lang, dict }: VPSContentProps) {
         os: orderData.os.type.charAt(0).toUpperCase() + orderData.os.type.slice(1),
       },
     });
-
-    // Future: Redirect to HostBill or payment gateway
-    // window.location.href = `/order/vps?data=${encodeURIComponent(JSON.stringify(orderData))}`;
   };
-
-  if (!isMounted) {
-    return (
-      <div className="min-h-screen bg-bg-primary">
-        <div className="h-screen bg-bg-primary animate-pulse" />
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-bg-primary">

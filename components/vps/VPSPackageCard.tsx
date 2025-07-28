@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
   Server, 
@@ -52,11 +52,6 @@ export default function VPSPackageCard({
   index 
 }: VPSPackageCardProps) {
   const [selectedOS, setSelectedOS] = useState<'linux' | 'windows'>('linux');
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   const basePrice = pkg.pricing[selectedOS].daily;
   const finalDailyPrice = backupEnabled ? basePrice * 2 : basePrice;
@@ -97,18 +92,6 @@ export default function VPSPackageCard({
     
     onOrderProcess(completeOrderData);
   };
-
-  if (!isMounted) {
-    return (
-      <div className="relative bg-bg-secondary border border-accent-primary/20 rounded-3xl p-8 h-full animate-pulse">
-        <div className="h-6 bg-accent-primary/20 rounded mb-4"></div>
-        <div className="h-4 bg-accent-primary/10 rounded mb-8"></div>
-        <div className="h-20 bg-accent-primary/10 rounded mb-8"></div>
-        <div className="h-32 bg-accent-primary/10 rounded mb-8"></div>
-        <div className="h-12 bg-accent-primary/20 rounded"></div>
-      </div>
-    );
-  }
 
   return (
     <motion.div 

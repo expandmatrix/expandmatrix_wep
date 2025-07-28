@@ -106,36 +106,6 @@ export default function VPSPackagesGrid({
   onOSSelect,
   onOrderProcess
 }: VPSPackagesGridProps) {
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  if (!isMounted) {
-    return (
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-text-primary mb-4">
-              {lang === 'cs' ? 'Vyberte si VPS balíček' : 'Choose Your VPS Package'}
-            </h2>
-            <p className="text-xl text-text-secondary max-w-3xl mx-auto">
-              {lang === 'cs' 
-                ? 'Porovnejte naše VPS balíčky a vyberte si ten, který nejlépe vyhovuje vašim potřebám'
-                : 'Compare our VPS packages and choose the one that best fits your needs'
-              }
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[...Array(4)].map((_, index) => (
-              <div key={index} className="h-96 bg-bg-secondary/50 rounded-3xl animate-pulse" />
-            ))}
-          </div>
-        </div>
-      </section>
-    );
-  }
 
   return (
     <section className="py-20">
