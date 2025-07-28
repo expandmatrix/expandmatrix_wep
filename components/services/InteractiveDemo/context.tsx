@@ -1,27 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useReducer, ReactNode } from 'react';
-
-export interface ChatMessage {
-  id: string;
-  type: 'user' | 'ai';
-  content: string;
-  timestamp: Date;
-}
-
-export interface ProcessStep {
-  id: string;
-  name: string;
-  icon: React.ReactElement;
-  manualTime: number;
-  aiTime: number;
-  completed: boolean;
-  category: 'input' | 'processing' | 'output';
-  position: number;
-  hasError?: boolean;
-  errorMessage?: string;
-  aiOptimized?: boolean;
-}
+import type { ChatMessage, ProcessStep } from './types';
 
 export interface DemoState {
   mode: 'ecommerce' | 'hr' | 'workflow';

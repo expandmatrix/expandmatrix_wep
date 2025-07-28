@@ -7,17 +7,20 @@ export interface Order {
   estimatedTime: number;
 }
 
+import React from 'react';
+
 export interface ProcessStep {
   id: string;
   name: string;
-  icon: string;
+  icon: React.ReactElement;
   manualTime: number;
   aiTime: number;
-  position: number;
   completed: boolean;
-  aiOptimized: boolean;
-  hasError: boolean;
-  errorMessage: string | null;
+  category: 'input' | 'processing' | 'output';
+  position: number;
+  hasError?: boolean;
+  errorMessage?: string;
+  aiOptimized?: boolean;
 }
 
 export interface SimulationResult {
