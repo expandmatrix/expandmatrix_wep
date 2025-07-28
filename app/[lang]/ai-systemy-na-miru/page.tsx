@@ -3,10 +3,11 @@ import type { Locale } from '@/lib/getDictionary';
 import { Metadata } from 'next';
 
 export async function generateMetadata({
-  params: { lang }
+  params
 }: {
-  params: { lang: Locale }
+  params: Promise<{ lang: Locale }>
 }): Promise<Metadata> {
+  const { lang } = await params;
   return {
     title: lang === 'cs' ? 'AI Systémy na míru - Expand Matrix' : 'Custom AI Systems - Expand Matrix',
     description: lang === 'cs' 
@@ -19,10 +20,11 @@ export async function generateMetadata({
 }
 
 export default async function CustomAISystemsPage({
-  params: { lang }
+  params
 }: {
-  params: { lang: Locale }
+  params: Promise<{ lang: Locale }>
 }) {
+  const { lang } = await params;
   const dict = await getDictionary(lang);
 
   return (
