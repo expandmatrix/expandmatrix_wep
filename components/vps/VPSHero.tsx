@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Server } from 'lucide-react';
+import { Server, MapPin, Zap, Shield } from 'lucide-react';
 import type { Locale } from '@/lib/getDictionary';
 
 interface VPSHeroProps {
@@ -54,6 +54,59 @@ export default function VPSHero({ lang }: VPSHeroProps) {
               : 'High-performance VPS servers for your AI applications and web projects.'
             }
           </motion.p>
+
+          {/* Czech Hosting Trust Indicators */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="flex flex-wrap justify-center items-center gap-8 mb-8"
+          >
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              className="flex items-center space-x-3 bg-bg-secondary/50 backdrop-blur-sm border border-accent-primary/20 rounded-2xl px-6 py-4"
+            >
+              <MapPin className="w-6 h-6 text-accent-primary" />
+              <div className="text-left">
+                <div className="text-sm font-bold text-text-primary">
+                  {lang === 'cs' ? 'České servery' : 'Czech Servers'}
+                </div>
+                <div className="text-xs text-text-secondary">
+                  {lang === 'cs' ? 'Datacenter v ČR' : 'Czech Republic DC'}
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              className="flex items-center space-x-3 bg-bg-secondary/50 backdrop-blur-sm border border-accent-primary/20 rounded-2xl px-6 py-4"
+            >
+              <Zap className="w-6 h-6 text-accent-primary" />
+              <div className="text-left">
+                <div className="text-sm font-bold text-text-primary">
+                  {lang === 'cs' ? 'Čistá energie' : 'Clean Energy'}
+                </div>
+                <div className="text-xs text-text-secondary">
+                  {lang === 'cs' ? '100% obnovitelná' : '100% renewable'}
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              className="flex items-center space-x-3 bg-bg-secondary/50 backdrop-blur-sm border border-accent-primary/20 rounded-2xl px-6 py-4"
+            >
+              <Shield className="w-6 h-6 text-accent-primary" />
+              <div className="text-left">
+                <div className="text-sm font-bold text-text-primary">
+                  {lang === 'cs' ? 'Dedikované' : 'Dedicated'}
+                </div>
+                <div className="text-xs text-text-secondary">
+                  {lang === 'cs' ? '100% výkon' : '100% performance'}
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
     </section>

@@ -8,9 +8,10 @@ import {
   Cpu, 
   HardDrive, 
   Shield,
-  ArrowRight,
 } from 'lucide-react';
 import type { Locale } from '@/lib/getDictionary';
+import type { VPSOrderData } from './VPSContent';
+import VPSPackageCard from './VPSPackageCard';
 
 interface VPSPackage {
   id: string;
@@ -91,9 +92,20 @@ const vpsPackages: VPSPackage[] = [
 interface VPSPackagesGridProps {
   lang: Locale;
   backupEnabled: boolean;
+  orderData: VPSOrderData;
+  onPackageSelect: (packageData: VPSOrderData['package']) => void;
+  onOSSelect: (osType: 'linux' | 'windows') => void;
+  onOrderProcess: (orderData: VPSOrderData) => void;
 }
 
-export default function VPSPackagesGrid({ lang, backupEnabled }: VPSPackagesGridProps) {
+export default function VPSPackagesGrid({ 
+  lang, 
+  backupEnabled, 
+  orderData,
+  onPackageSelect,
+  onOSSelect,
+  onOrderProcess
+}: VPSPackagesGridProps) {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -128,7 +140,6 @@ export default function VPSPackagesGrid({ lang, backupEnabled }: VPSPackagesGrid
   return (
     <section className="py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-text-primary mb-4">
             {lang === 'cs' ? 'Vyberte si VPS balíček' : 'Choose Your VPS Package'}
@@ -141,7 +152,6 @@ export default function VPSPackagesGrid({ lang, backupEnabled }: VPSPackagesGrid
           </p>
         </div>
 
-        {/* Packages Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {vpsPackages.map((pkg, index) => (
             <motion.div
@@ -160,13 +170,17 @@ export default function VPSPackagesGrid({ lang, backupEnabled }: VPSPackagesGrid
                 package={pkg}
                 lang={lang}
                 backupEnabled={backupEnabled}
+                orderData={orderData}
+                isSelected={orderData.package?.id === pkg.id}
+                onPackageSelect={onPackageSelect}
+                onOSSelect={onOSSelect}
+                onOrderProcess={onOrderProcess}
                 index={index}
               />
             </motion.div>
           ))}
         </div>
 
-        {/* Comparison Helper */}
         <div className="mt-12 text-center">
           <div className="inline-flex items-center px-6 py-3 bg-bg-secondary/50 border border-accent-primary/20 rounded-full">
             <Shield className="w-5 h-5 text-accent-primary mr-3" />
@@ -183,139 +197,4 @@ export default function VPSPackagesGrid({ lang, backupEnabled }: VPSPackagesGrid
   );
 }
 
-function VPSPackageCard({ 
-  package: pkg, 
-  lang, 
-  backupEnabled, 
-  index 
-}: { 
-  package: VPSPackage; 
-  lang: Locale; 
-  backupEnabled: boolean; 
-  index: number;
-}) {
-  const [selectedOS, setSelectedOS] = useState<'linux' | 'windows'>('linux');
-  const [isMounted, setIsMounted] = useState(false);
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  const basePrice = pkg.pricing[selectedOS].daily;
-  const finalDailyPrice = backupEnabled ? basePrice * 2 : basePrice;
-
-  if (!isMounted) {
-    return (
-      <div className="relative bg-bg-secondary border border-accent-primary/20 rounded-3xl p-8 h-full animate-pulse">
-        <div className="h-6 bg-accent-primary/20 rounded mb-4"></div>
-        <div className="h-4 bg-accent-primary/10 rounded mb-8"></div>
-        <div className="h-20 bg-accent-primary/10 rounded mb-8"></div>
-        <div className="h-32 bg-accent-primary/10 rounded mb-8"></div>
-        <div className="h-12 bg-accent-primary/20 rounded"></div>
-      </div>
-    );
-  }
-
-  return (
-    <motion.div 
-      className="relative"
-      whileHover={{ 
-        scale: 1.02,
-        y: -4,
-      }}
-      transition={{ duration: 0.3, ease: "easeOut" }}
-    >
-      {/* Popular Badge - nyní se pohybuje s celou kartou */}
-      {pkg.popular && (
-        <div className="absolute -top-3 -right-3 z-20">
-          <div className="bg-accent-primary text-bg-primary px-3 py-1 rounded-full text-xs font-bold shadow-lg transform rotate-12">
-            {lang === 'cs' ? 'Nejpopulárnější' : 'Most Popular'}
-          </div>
-        </div>
-      )}
-
-      <div
-        className={`relative bg-bg-secondary border rounded-3xl p-8 h-full transition-all duration-300 ${
-          pkg.popular ? 'border-accent-primary/40' : 'border-accent-primary/20'
-        } hover:border-accent-primary/60 hover:shadow-2xl hover:shadow-accent-primary/10`}
-      >
-        {/* Package Header */}
-        <div className="text-center mb-6">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-accent-primary/10 rounded-2xl mb-4">
-            <pkg.icon className="w-8 h-8 text-accent-primary" />
-          </div>
-          <h3 className="text-2xl font-bold text-text-primary mb-2">{pkg.name}</h3>
-        </div>
-
-        {/* Pricing Section */}
-        <div className="text-center mb-8 p-6 bg-bg-tertiary/30 rounded-2xl">
-          <div className="text-4xl font-black text-accent-primary mb-2">
-            {finalDailyPrice} Kč
-          </div>
-          <div className="text-sm text-text-secondary mb-3">
-            {lang === 'cs' ? 'den s DPH' : 'day with VAT'}
-          </div>
-          <div className="text-xs text-text-secondary/70">
-            {lang === 'cs' ? 'bez DPH' : 'without VAT'}: {Math.round(finalDailyPrice / 1.21)} Kč
-          </div>
-        </div>
-
-        {/* OS Selection */}
-        <div className="mb-8">
-          <div className="flex bg-bg-tertiary rounded-full p-1">
-            <button
-              onClick={() => setSelectedOS('linux')}
-              className={`flex-1 py-2 px-4 rounded-full text-sm font-semibold transition-all ${
-                selectedOS === 'linux'
-                  ? 'bg-accent-primary text-bg-primary'
-                  : 'text-text-secondary hover:text-text-primary'
-              }`}
-            >
-              Linux
-            </button>
-            <button
-              onClick={() => setSelectedOS('windows')}
-              className={`flex-1 py-2 px-4 rounded-full text-sm font-semibold transition-all ${
-                selectedOS === 'windows'
-                  ? 'bg-accent-primary text-bg-primary'
-                  : 'text-text-secondary hover:text-text-primary'
-              }`}
-            >
-              Windows
-            </button>
-          </div>
-        </div>
-
-        {/* Specifications */}
-        <div className="mb-8 flex-grow">
-          <h4 className="text-accent-primary font-semibold mb-4 text-center">
-            {lang === 'cs' ? 'Specifikace:' : 'Specifications:'}
-          </h4>
-          <div className="space-y-4">
-            {Object.entries(pkg.specs).map(([key, value]) => (
-              <div key={key} className="flex items-start space-x-3">
-                <div className="w-2 h-2 bg-accent-primary rounded-full mt-2 flex-shrink-0" />
-                <span className="text-text-secondary text-sm leading-relaxed">{value}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* CTA Button */}
-        <motion.button 
-          whileHover={{ 
-            scale: 1.02,
-            boxShadow: '0 10px 25px rgba(0, 255, 127, 0.3)',
-          }}
-          whileTap={{ scale: 0.98 }}
-          className="w-full bg-accent-primary text-bg-primary font-bold text-lg py-4 rounded-full transition-all duration-300 hover:bg-accent-primary/90 group"
-        >
-          <span className="flex items-center justify-center">
-            {lang === 'cs' ? 'Objednat' : 'Order Now'}
-            <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
-          </span>
-        </motion.button>
-      </div>
-    </motion.div>
-  );
-}

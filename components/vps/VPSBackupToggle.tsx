@@ -14,6 +14,19 @@ export default function VPSBackupToggle({
   backupEnabled, 
   onBackupToggle 
 }: VPSBackupToggleProps) {
+  
+  const handleToggle = () => {
+    const newState = !backupEnabled;
+    onBackupToggle(newState);
+    
+    // Log backup selection for order tracking
+    console.log('Backup option changed:', {
+      enabled: newState,
+      timestamp: new Date().toISOString(),
+      language: lang,
+    });
+  };
+
   return (
     <section className="py-16">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -32,10 +45,13 @@ export default function VPSBackupToggle({
                   }
                 </span>
                 <button
-                  onClick={() => onBackupToggle(!backupEnabled)}
-                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                  onClick={handleToggle}
+                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-accent-primary focus:ring-offset-2 focus:ring-offset-bg-primary ${
                     backupEnabled ? 'bg-accent-primary' : 'bg-gray-600'
                   }`}
+                  role="switch"
+                  aria-checked={backupEnabled}
+                  aria-label={lang === 'cs' ? 'Zapnout automatické zálohování' : 'Enable automatic backup'}
                 >
                   <span
                     className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
@@ -45,6 +61,32 @@ export default function VPSBackupToggle({
                 </button>
               </div>
             </div>
+            
+            {/* Backup Info */}
+            {backupEnabled && (
+              <div className="mt-4 p-4 bg-accent-primary/10 rounded-xl border border-accent-primary/20">
+                <div className="text-sm text-text-secondary">
+                  <div className="flex items-center justify-between mb-2">
+                    <span>{lang === 'cs' ? 'Frekvence:' : 'Frequency:'}</span>
+                    <span className="text-text-primary font-semibold">
+                      {lang === 'cs' ? 'Denně' : 'Daily'}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between mb-2">
+                    <span>{lang === 'cs' ? 'Uchovávání:' : 'Retention:'}</span>
+                    <span className="text-text-primary font-semibold">
+                      {lang === 'cs' ? '7 dní' : '7 days'}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span>{lang === 'cs' ? 'Obnovení:' : 'Restore:'}</span>
+                    <span className="text-text-primary font-semibold">
+                      {lang === 'cs' ? '1 klik' : '1-click'}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
