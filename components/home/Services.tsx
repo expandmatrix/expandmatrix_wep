@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { Zap, Target, Rocket, CheckCircle, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
+import { servicesPaths } from '@/lib/urlMappings';
 import type { Locale } from '@/lib/getDictionary';
 
 interface ServicesProps {
@@ -97,8 +98,8 @@ export default function Services({ dict, lang }: ServicesProps) {
           viewport={{ once: true }}
           className="text-center"
         >
-          <Link 
-            href={`/${lang}/${lang === 'cs' ? 'sluzby' : 'services'}`}
+          <Link
+            href={`/${lang}${servicesPaths[lang]}`}
             className="group inline-flex items-center px-10 py-5 bg-accent-primary text-bg-primary font-bold text-lg rounded-full transition-all duration-500 hover:bg-accent-primary/90 hover:scale-105 hover:shadow-[0_0_50px_rgba(0,255,127,0.4)] relative overflow-hidden"
           >
             <span className="relative z-10">
