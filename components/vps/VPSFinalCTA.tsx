@@ -92,7 +92,7 @@ export default function VPSFinalCTA({ lang }: VPSFinalCTAProps) {
             }}
             whileHover={{
               scale: 1.01,
-              borderColor: 'rgba(0, 255, 127, 0.4)',
+              borderColor: 'rgba(0, 119, 255, 0.4)',
             }}
             transition={{ duration: 0.3 }}
           >

@@ -174,9 +174,9 @@ export default function VPSPackageCard({
         </div>
 
         <motion.button 
-          whileHover={{ 
+          whileHover={{
             scale: 1.02,
-            boxShadow: '0 10px 25px rgba(0, 255, 127, 0.3)',
+            boxShadow: '0 10px 25px rgba(0, 119, 255, 0.3)',
           }}
           whileTap={{ scale: 0.98 }}
           onClick={handleOrderClick}
