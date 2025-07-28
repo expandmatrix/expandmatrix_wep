@@ -213,18 +213,7 @@ export default function AboutCTA({ dict, lang }: AboutCTAProps) {
                   whileTap={{ scale: 0.95 }}
                   className="btn-cta-large group inline-flex items-center"
                 >
-                  {/* Button Background Animation */}
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-accent-primary via-accent-dark to-accent-primary"
-                    animate={{
-                      x: ['-100%', '100%'],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
-                  />
+
                   
                   <span className="relative z-10 flex items-center">
                     {lang === 'cs' ? 'Začít hned teď' : 'Get Started Now'}
