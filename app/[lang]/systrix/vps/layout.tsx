@@ -1,4 +1,4 @@
-import './systrix-theme.module.css';
+import styles from './systrix-theme.module.css';
 export default function SystrixLayout({ children }: { children: React.ReactNode }) {
-  return <div className="systrix-theme">{children}</div>;
+  return <div className={styles['systrix-theme']}>{children}</div>;
 }
