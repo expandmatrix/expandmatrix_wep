@@ -71,7 +71,7 @@ export default function TrainingFinalCTA({ dict, lang }: TrainingFinalCTAProps) 
         <div className="absolute inset-0 bg-[linear-gradient(rgba(0,255,127,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,255,127,0.02)_1px,transparent_1px)] bg-[size:60px_60px] opacity-40" />
       </div>
 
-      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={containerRef}
           initial={{ opacity: 0, y: 30 }}
@@ -173,7 +173,7 @@ export default function TrainingFinalCTA({ dict, lang }: TrainingFinalCTAProps) 
               >
                 <Link
                   href={`/${lang}/kontakt`}
-                  className="group inline-flex items-center px-10 py-5 bg-gradient-to-r from-accent-primary to-accent-secondary text-bg-primary font-bold text-lg rounded-full transition-all duration-500 hover:scale-105"
+                  className="btn-cta-large group inline-flex items-center"
                   style={{ boxShadow: 'none' }}
                 >
                   <span>{lang === 'cs' ? 'Začít školení' : 'Start Training'}</span>
@@ -182,7 +182,7 @@ export default function TrainingFinalCTA({ dict, lang }: TrainingFinalCTAProps) 
                 
                 <Link
                   href={`/${lang}/${lang === 'cs' ? 'sluzby' : 'services'}`}
-                  className="inline-flex items-center px-10 py-5 bg-transparent border-2 border-accent-primary/30 text-accent-primary font-bold text-lg rounded-full hover:bg-accent-primary/10 hover:scale-105 transition-all duration-500"
+                  className="btn-cta-secondary inline-flex items-center"
                   style={{ boxShadow: 'none' }}
                 >
                   {lang === 'cs' ? 'Všechny služby' : 'All Services'}
