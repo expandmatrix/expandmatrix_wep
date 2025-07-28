@@ -209,25 +209,11 @@ export default function AboutCTA({ dict, lang }: AboutCTAProps) {
               >
                 {/* Primary CTA */}
                 <motion.button
-                  whileHover={{ 
-                    scale: 1.05,
-                    boxShadow: '0 20px 40px rgba(0, 255, 127, 0.3)',
-                  }}
+                  whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="group relative bg-accent-primary text-bg-primary font-bold text-lg px-12 py-5 rounded-full transition-all duration-300 overflow-hidden"
+                  className="btn-cta-large group inline-flex items-center"
                 >
-                  {/* Button Background Animation */}
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-accent-primary via-accent-dark to-accent-primary"
-                    animate={{
-                      x: ['-100%', '100%'],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
-                  />
+
                   
                   <span className="relative z-10 flex items-center">
                     {lang === 'cs' ? 'Začít hned teď' : 'Get Started Now'}
@@ -245,14 +231,9 @@ export default function AboutCTA({ dict, lang }: AboutCTAProps) {
 
                 {/* Secondary CTA */}
                 <motion.button
-                  whileHover={{ 
-                    scale: 1.05,
-                    borderColor: 'rgba(0, 255, 127, 0.6)',
-                    color: '#00FF7F',
-                    boxShadow: '0 0 30px rgba(0, 255, 127, 0.2)',
-                  }}
+                  whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="relative bg-transparent border-2 border-accent-primary/30 text-text-primary font-semibold text-lg px-12 py-5 rounded-full transition-all duration-300 overflow-hidden group"
+                  className="btn-cta-secondary inline-flex items-center"
                 >
                   {/* Hover Background */}
                   <motion.div

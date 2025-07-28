@@ -18,7 +18,7 @@ export default function CustomAICTA({ dict, lang }: CustomAICTAProps) {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-accent-primary/5 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -56,7 +56,7 @@ export default function CustomAICTA({ dict, lang }: CustomAICTAProps) {
           >
             <Link
               href={`/${lang}/contact`}
-              className="group inline-flex items-center px-10 py-5 bg-accent-primary text-bg-primary font-bold text-lg rounded-full transition-all duration-500 hover:bg-accent-primary/90 hover:scale-105 hover:shadow-[0_0_50px_rgba(0,255,127,0.4)] relative overflow-hidden"
+              className="btn-cta-large group inline-flex items-center"
             >
               <MessageCircle className="w-6 h-6 mr-3 relative z-10" />
               <span className="relative z-10">
@@ -67,7 +67,7 @@ export default function CustomAICTA({ dict, lang }: CustomAICTAProps) {
 
             <Link
               href={`/${lang}/contact`}
-              className="group inline-flex items-center px-10 py-5 border border-accent-primary/30 text-accent-primary font-bold text-lg rounded-full hover:bg-accent-primary/10 transition-all duration-300"
+              className="btn-cta-secondary inline-flex items-center"
             >
               <Calendar className="w-6 h-6 mr-3" />
               {lang === 'cs' ? 'Naplánovat schůzku' : 'Schedule Meeting'}
