@@ -144,7 +144,7 @@ export default function AITrainingHero({ dict, lang }: AITrainingHeroProps) {
         ))}
       </div>
       
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
         <div className="text-center">
           {/* Modern Badge */}
           <motion.div
@@ -222,7 +222,7 @@ export default function AITrainingHero({ dict, lang }: AITrainingHeroProps) {
                   delay: 0.4 + index * 0.1,
                   ease: [0.25, 0.46, 0.45, 0.94]
                 }}
-                className="group liquid-glass-card p-10 rounded-3xl transition-all duration-500 hover:scale-105"
+                className="group liquid-glass-card p-8 rounded-3xl transition-all duration-500 hover:scale-105"
               >
                 <div className="glass-layer-primary absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <div className="relative z-10 text-center">
