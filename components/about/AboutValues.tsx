@@ -219,7 +219,7 @@ export default function AboutValues({ dict, lang }: AboutValuesProps) {
                 <motion.div
                   className="relative w-full h-full preserve-3d"
                   animate={{ rotateY: flippedCard === index ? 180 : 0 }}
-                  transition={{ 
+                  transition={{
                     duration: 0.6,
                     ease: [0.25, 0.46, 0.45, 0.94]
                   }}
@@ -229,10 +229,14 @@ export default function AboutValues({ dict, lang }: AboutValuesProps) {
                   }}
                 >
                   {/* Front Side - Enhanced */}
-                  <div className="absolute inset-0 w-full h-full backface-hidden">
+                  <motion.div
+                    className="absolute inset-0 w-full h-full backface-hidden"
+                    animate={{ opacity: flippedCard === index ? 0 : 1 }}
+                    transition={{ duration: 0.3 }}
+                  >
                     <div className="relative card-glass-enhanced rounded-3xl p-6 border border-accent-primary/20 h-full flex flex-col gpu-accelerated">
                       <div className={`absolute inset-0 bg-gradient-to-br ${value.color} opacity-5 group-hover:opacity-10 transition-opacity duration-300 rounded-3xl`} />
-                      
+
                       <div className="relative z-10 flex-1 flex flex-col">
                         {/* Icon - Enhanced rendering */}
                         <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${value.color} p-4 mb-6 group-hover:scale-110 transition-transform duration-300 gpu-accelerated flex items-center justify-center`}>
@@ -264,13 +268,17 @@ export default function AboutValues({ dict, lang }: AboutValuesProps) {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
 
                   {/* Back Side - Enhanced */}
-                  <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180">
+                  <motion.div
+                    className="absolute inset-0 w-full h-full backface-hidden rotate-y-180"
+                    animate={{ opacity: flippedCard === index ? 1 : 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
                     <div className="relative card-glass-enhanced rounded-3xl p-6 border border-accent-primary/40 h-full flex flex-col gpu-accelerated">
                       <div className={`absolute inset-0 bg-gradient-to-br ${value.color} opacity-10 rounded-3xl`} />
-                      
+
                       <div className="relative z-10 flex-1 flex flex-col">
                         {/* Full Description */}
                         <p className="text-text-secondary leading-relaxed mb-6 text-sm flex-1">
@@ -298,7 +306,7 @@ export default function AboutValues({ dict, lang }: AboutValuesProps) {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
                 </motion.div>
               </motion.div>
             </motion.div>
