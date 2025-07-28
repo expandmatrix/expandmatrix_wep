@@ -16,7 +16,8 @@ const validPaths = {
     '/blog',
     '/o-nas',
     '/kontakt',
-    '/vps'
+    '/vps',
+    '/systrix/vps'
   ],
   en: [
     '/',
@@ -29,7 +30,8 @@ const validPaths = {
     '/blog',
     '/about',
     '/contact',
-    '/vps'
+    '/vps',
+    '/systrix/vps'
   ]
 };
 

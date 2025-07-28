@@ -1,3 +1,21 @@
+'use client';
+import { useState } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { ChevronDown } from 'lucide-react';
+
+const languages = [
+  { code: 'en', name: 'English' },
+  { code: 'cs', name: 'Čeština' }
+];
+
+export default function LanguageSwitcher() {
+  const pathname = usePathname();
+  const currentLang = pathname.split('/')[1] || 'en';
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className="relative inline-block text-left">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center space-x-2 px-4 py-2 rounded-full bg-bg-secondary hover:bg-bg-tertiary transition-colors duration-200"
@@ -20,3 +38,6 @@
           ))}
         </div>
       )}
+    </div>
+  );
+}
