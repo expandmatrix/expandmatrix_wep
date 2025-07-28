@@ -268,8 +268,14 @@ export default function Hero({ dict, lang }: HeroProps) {
           className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16"
         >
           {/* Primary CTA */}
-          <Link
-            href={`/${lang}/contact`}
+          <motion.button
+            onClick={() => {
+              document.getElementById('results')?.scrollIntoView({
+                behavior: 'smooth'
+              });
+            }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             className="group relative bg-accent-primary text-bg-primary font-bold text-xl px-12 py-6 rounded-full transition-all duration-500 hover:bg-accent-primary/90 hover:scale-105 hover:shadow-[0_0_50px_rgba(0,255,127,0.4)] overflow-hidden"
           >
             <motion.div
@@ -278,21 +284,16 @@ export default function Hero({ dict, lang }: HeroProps) {
               whileHover={{ x: '100%' }}
               transition={{ duration: 0.6 }}
             />
-            
+
             <span className="relative z-10 flex items-center">
               {currentContent.primaryCTA}
               <ArrowRight className="w-6 h-6 ml-3 group-hover:translate-x-2 transition-transform duration-300" />
             </span>
-          </Link>
+          </motion.button>
 
           {/* Secondary CTA */}
-          <motion.button
-            whileHover={{ 
-              scale: 1.05,
-              borderColor: 'rgba(0, 255, 127, 0.6)',
-              boxShadow: '0 0 30px rgba(0, 255, 127, 0.2)',
-            }}
-            whileTap={{ scale: 0.95 }}
+          <Link
+            href={lang === 'cs' ? `/${lang}/sluzby` : `/${lang}/services`}
             className="group relative bg-transparent border-2 border-accent-primary/30 text-text-primary font-semibold text-lg px-10 py-5 rounded-full transition-all duration-300 overflow-hidden backdrop-blur-xl"
           >
             <motion.div
@@ -301,11 +302,11 @@ export default function Hero({ dict, lang }: HeroProps) {
               whileHover={{ scale: 1 }}
               transition={{ duration: 0.3 }}
             />
-            
+
             <span className="relative z-10 group-hover:text-accent-primary transition-colors duration-300">
               {currentContent.secondaryCTA}
             </span>
-          </motion.button>
+          </Link>
         </motion.div>
 
         {/* Floating Stats */}

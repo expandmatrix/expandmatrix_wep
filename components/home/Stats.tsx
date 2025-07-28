@@ -33,7 +33,11 @@ export default function Stats({ dict, lang }: StatsProps) {
   ];
 
   return (
-    <section ref={ref} className="py-32 bg-bg-primary relative overflow-hidden">
+    <section
+      id="results"
+      ref={ref}
+      className="py-32 bg-bg-primary relative overflow-hidden"
+    >
       {/* Background Elements */}
       <div className="absolute inset-0">
         {/* Gradient Orbs */}
