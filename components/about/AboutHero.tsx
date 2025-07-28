@@ -150,10 +150,10 @@ export default function AboutHero({ dict, lang }: AboutHeroProps) {
             className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16"
           >
             <Link
-              href={`/${lang}/kontakt`}
+              href={`#${lang === 'cs' ? 'od-vize-k-realite' : 'from-vision-to-reality'}`}
               className="btn-cta-large group inline-flex items-center"
             >
-              <span>{lang === 'cs' ? 'Začněte s námi' : 'Start With Us'}</span>
+              <span>{lang === 'cs' ? 'Více o nás' : 'More About Us'}</span>
               <ArrowRight className="w-6 h-6 ml-3 group-hover:translate-x-2 transition-transform duration-300" />
             </Link>
             

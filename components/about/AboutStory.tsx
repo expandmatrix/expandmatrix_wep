@@ -103,7 +103,8 @@ export default function AboutStory({ dict, lang }: AboutStoryProps) {
   }, [scrollYProgress, milestones.length]);
 
   return (
-    <section 
+    <section
+      id={lang === 'cs' ? 'od-vize-k-realite' : 'from-vision-to-reality'}
       ref={containerRef}
       className="relative py-32 bg-gradient-to-br from-bg-primary via-bg-secondary/20 to-bg-primary overflow-hidden"
       onMouseMove={handleMouseMove}
