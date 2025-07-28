@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import ArticleCard from './ArticleCard';
 import type { Locale } from '@/lib/getDictionary';
-import type { BlogArticle } from '@/lib/blogData';
+import type { BlogArticle } from '@/lib/blogApi';
 
 interface ArticleGridProps {
   articles: BlogArticle[];
