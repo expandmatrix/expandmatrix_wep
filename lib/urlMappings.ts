@@ -147,9 +147,8 @@ export interface NavigationItem {
 
 export const navigationStructure: Record<Locale, NavigationItem[]> = {
   cs: [
-    { href: '/', label: 'Domů' },
-    { 
-      href: '/sluzby', 
+    {
+      href: '/sluzby',
       label: 'Služby',
       children: [
         { href: '/sluzby/ai-balicky', label: 'AI Balíčky' },
@@ -162,9 +161,8 @@ export const navigationStructure: Record<Locale, NavigationItem[]> = {
     { href: '/kontakt', label: 'Kontakt' }
   ],
   en: [
-    { href: '/', label: 'Home' },
-    { 
-      href: '/services', 
+    {
+      href: '/services',
       label: 'Services',
       children: [
         { href: '/services/ai-packages', label: 'AI Packages' },
