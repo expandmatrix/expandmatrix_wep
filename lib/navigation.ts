@@ -42,6 +42,10 @@ export function getLocalizedNavigation(lang: 'cs' | 'en'): NavigationItem[] {
       href: `/${lang}/portfolio` as Route,
     },
     {
+      name: lang === 'cs' ? 'Komunita' : 'Community',
+      href: (lang === 'cs' ? `/${lang}/komunita` : `/${lang}/community`) as Route,
+    },
+    {
       name: 'Blog',
       href: `/${lang}/blog` as Route,
     }
