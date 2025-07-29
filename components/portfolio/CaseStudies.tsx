@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { stableRandom } from '@/lib/stableRandom';
 import { useState } from 'react';
 import { ArrowRight, ExternalLink } from 'lucide-react';
 
@@ -104,26 +105,29 @@ export default function CaseStudies({ dict, lang }: CaseStudiesProps) {
         <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-gradient-radial from-accent-primary/5 to-transparent rounded-full blur-3xl animate-pulse delay-1000"></div>
         
         {/* Floating Particles */}
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-accent-primary/30 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -40, 0],
-              opacity: [0.3, 1, 0.3],
-              scale: [1, 2, 1],
-            }}
-            transition={{
-              duration: 4 + Math.random() * 2,
-              repeat: Infinity,
-              delay: Math.random() * 2,
-            }}
-          />
-        ))}
+        {Array.from({ length: 20 }).map((_, i) => {
+          const left = `${stableRandom(i + 1) * 100}%`;
+          const top = `${stableRandom(i + 21) * 100}%`;
+          const duration = 4 + stableRandom(i + 41) * 2;
+          const delay = stableRandom(i + 61) * 2;
+          return (
+            <motion.div
+              key={i}
+              className="absolute w-1 h-1 bg-accent-primary/30 rounded-full"
+              style={{ left, top }}
+              animate={{
+                y: [0, -40, 0],
+                opacity: [0.3, 1, 0.3],
+                scale: [1, 2, 1],
+              }}
+              transition={{
+                duration,
+                repeat: Infinity,
+                delay,
+              }}
+            />
+          );
+        })}
       </div>
 
       <div className="container mx-auto px-6 relative z-10">

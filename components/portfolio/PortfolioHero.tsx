@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { stableRandom } from '@/lib/stableRandom';
 import { ArrowRight, Sparkles, Target, TrendingUp, Zap } from 'lucide-react';
 import Link from 'next/link';
 
@@ -32,25 +33,28 @@ export default function PortfolioHero({ dict, lang }: PortfolioHeroProps) {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-radial from-accent-primary/5 to-transparent rounded-full blur-3xl"></div>
         
         {/* Floating Particles */}
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-accent-primary rounded-full opacity-30"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -30, 0],
-              opacity: [0.3, 0.8, 0.3],
-            }}
-            transition={{
-              duration: 3 + Math.random() * 2,
-              repeat: Infinity,
-              delay: Math.random() * 2,
-            }}
-          />
-        ))}
+        {Array.from({ length: 20 }).map((_, i) => {
+          const left = `${stableRandom(i + 1) * 100}%`;
+          const top = `${stableRandom(i + 21) * 100}%`;
+          const duration = 3 + stableRandom(i + 41) * 2;
+          const delay = stableRandom(i + 61) * 2;
+          return (
+            <motion.div
+              key={i}
+              className="absolute w-1 h-1 bg-accent-primary rounded-full opacity-30"
+              style={{ left, top }}
+              animate={{
+                y: [0, -30, 0],
+                opacity: [0.3, 0.8, 0.3],
+              }}
+              transition={{
+                duration,
+                repeat: Infinity,
+                delay,
+              }}
+            />
+          );
+        })}
       </div>
 
       {/* Floating Icons */}
