@@ -38,8 +38,8 @@ export default function Hero({ dict, lang }: HeroProps) {
   const content = {
     cs: {
       badge: 'AI Řešení Budoucnosti',
-      title: 'Automatizujeme až 80% Vašich Procesů',
-      subtitle: 'Transformujeme vaše podnikání pomocí pokročilých AI technologií. Specializujeme se na custom AI systémy, chatboty a automatizaci workflow. Zvyšte efektivitu, snižte náklady a získejte konkurenční výhodu.',
+      title: 'Automatizujeme 80 % procesů',
+      subtitle: 'Posuňte své podnikání s AI. Tvoříme custom systémy, chatboty a automatizujeme procesy. Pracujte rychleji, snižte náklady a získejte náskok.',
       primaryCTA: 'Začít s AI automatizací',
       secondaryCTA: 'Zjistit více o službách',
       stats: {
@@ -50,8 +50,8 @@ export default function Hero({ dict, lang }: HeroProps) {
     },
     en: {
       badge: 'AI Solutions of the Future',
-      title: 'We Automate Up to 80% of Your Processes',
-      subtitle: 'Transform your business with advanced AI technologies. We specialize in custom AI systems, chatbots, and workflow automation. Increase efficiency, reduce costs, and gain competitive advantage.',
+      title: 'Automate 80% of Your Processes',
+      subtitle: 'Boost your business with AI. We build custom systems and chatbots to automate workflows. Work faster, save costs, and stay ahead.',
       primaryCTA: 'Start AI Automation',
       secondaryCTA: 'Learn About Services',
       stats: {
