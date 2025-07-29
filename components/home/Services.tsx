@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Zap, Target, Rocket, CheckCircle, ArrowRight } from 'lucide-react';
+import { Zap, Package, Rocket, CheckCircle, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { servicesPaths } from '@/lib/urlMappings';
 import type { Locale } from '@/lib/getDictionary';
@@ -25,14 +25,14 @@ export default function Services({ dict, lang }: ServicesProps) {
       link: `/${lang}/${lang === 'cs' ? 'sluzby/ai-systemy-na-miru' : 'services/custom-ai-systems'}`
     },
     {
-      title: lang === 'cs' ? 'Automatizace procesů' : 'Process Automation',
+      title: lang === 'cs' ? 'AI Balíčky' : 'AI Packages',
       description: lang === 'cs'
-        ? 'Automatizujeme opakující se úkoly a optimalizujeme vaše workflow.'
-        : 'We automate repetitive tasks and optimize your workflows for maximum efficiency.',
+        ? 'Hotová AI řešení připravená k okamžitému nasazení.'
+        : 'Ready-made AI solutions prepared for immediate deployment.',
       features: lang === 'cs'
-        ? ['Workflow automatizace', 'Reporty v reálném čase', 'ROI tracking']
-        : ['Workflow automation', 'Real-time reports', 'ROI tracking'],
-      icon: <Target className="w-16 h-16" />,
+        ? ['Rychlá implementace', 'Ověřené use-casy', 'Podpora a údržba']
+        : ['Fast implementation', 'Proven use cases', 'Support & maintenance'],
+      icon: <Package className="w-16 h-16" />,
       link: `/${lang}/${lang === 'cs' ? 'sluzby/ai-balicky' : 'services/ai-packages'}`
     },
     {
