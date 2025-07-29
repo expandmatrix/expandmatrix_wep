@@ -6,6 +6,17 @@ module.exports = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    container: {
+      center: true,
+      padding: '1rem',
+      screens: {
+        DEFAULT: '100%',
+        lg: '1024px',
+        xl: '1200px',
+        '2xl': '1200px',
+        '3xl': '1400px',
+      },
+    },
     extend: {
       screens: {
         '2xl': '1920px',
