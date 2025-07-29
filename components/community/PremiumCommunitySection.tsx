@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { FaCrown, FaDiscord } from 'react-icons/fa';
+import { FaCrown, FaDiscord, FaStar, FaGem } from 'react-icons/fa';
 import BenefitList from './BenefitList';
 
 interface PremiumCommunityProps {
@@ -10,8 +10,13 @@ interface PremiumCommunityProps {
 
 export default function PremiumCommunitySection({ dict }: PremiumCommunityProps) {
   return (
-    <section className="py-20 px-4 bg-gradient-to-r from-green-500/5 to-blue-500/5">
-      <div className="container mx-auto max-w-6xl">
+    <section className="py-20 px-4 bg-bg-primary relative overflow-hidden">
+      {/* Premium background effects */}
+      <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/5 via-transparent to-orange-500/5" />
+      <div className="absolute top-20 left-20 w-64 h-64 bg-yellow-400/10 rounded-full blur-3xl animate-float" />
+      <div className="absolute bottom-20 right-20 w-64 h-64 bg-orange-400/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
+      
+      <div className="container mx-auto max-w-6xl relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -19,10 +24,10 @@ export default function PremiumCommunitySection({ dict }: PremiumCommunityProps)
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+          <h2 className="fluid-heading text-text-primary mb-6 font-bold">
             {dict.community.premium.title}
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl text-text-secondary max-w-3xl mx-auto">
             {dict.community.premium.subtitle}
           </p>
         </motion.div>
@@ -35,32 +40,42 @@ export default function PremiumCommunitySection({ dict }: PremiumCommunityProps)
           viewport={{ once: true }}
           className="max-w-4xl mx-auto mb-16"
         >
-          <div className="bg-gradient-to-r from-yellow-500/10 to-orange-500/10 rounded-3xl p-8 border border-yellow-500/30 relative overflow-hidden">
+          <div className="relative overflow-hidden rounded-3xl p-8 bg-gradient-to-br from-bg-secondary via-bg-secondary to-bg-primary border border-yellow-400/30 shadow-2xl shadow-yellow-400/10">
+            {/* Premium glow effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/5 via-orange-400/5 to-yellow-400/5 rounded-3xl" />
+            
+            {/* Animated background pattern */}
+            <div className="absolute top-0 right-0 opacity-10">
+              <FaGem className="text-8xl text-yellow-400 animate-pulse" />
+            </div>
+            
             {/* Premium badge */}
-            <div className="absolute top-4 right-4">
-              <div className="bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-4 py-2 rounded-full flex items-center gap-2 font-bold">
-                <FaCrown className="text-sm" />
+            <div className="absolute top-6 right-6 z-10">
+              <div className="bg-gradient-to-r from-yellow-400 to-orange-500 text-bg-primary px-6 py-3 rounded-full flex items-center gap-3 font-bold shadow-lg shadow-yellow-400/30 animate-pulse-glow">
+                <FaCrown className="text-lg" />
                 PREMIUM
               </div>
             </div>
 
-            <div className="flex flex-col md:flex-row items-center gap-8">
-              <div className="w-24 h-24 rounded-2xl bg-gradient-to-r from-purple-500 to-indigo-600 flex items-center justify-center">
-                <FaDiscord className="text-4xl text-white" />
+            <div className="flex flex-col md:flex-row items-center gap-8 relative z-10">
+              <div className="w-24 h-24 rounded-2xl bg-gradient-to-r from-accent-primary to-accent-secondary flex items-center justify-center shadow-xl shadow-accent-primary/30 group-hover:scale-110 transition-transform duration-300">
+                <FaDiscord className="text-4xl text-bg-primary" />
               </div>
               
               <div className="flex-1 text-center md:text-left">
-                <h3 className="text-3xl font-bold text-white mb-4">
+                <h3 className="text-3xl font-bold text-text-primary mb-4 flex items-center gap-3 justify-center md:justify-start">
+                  <FaStar className="text-yellow-400" />
                   {dict.community.premium.discord.title}
                 </h3>
-                <p className="text-gray-300 text-lg leading-relaxed mb-6">
+                <p className="text-text-secondary text-lg leading-relaxed mb-6">
                   {dict.community.premium.discord.description}
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <button className="bg-gradient-to-r from-green-500 to-blue-500 text-white px-8 py-3 rounded-xl font-bold hover:from-green-600 hover:to-blue-600 transition-all duration-300 hover:scale-105">
+                <div className="flex flex-col sm:flex-row gap-4 items-center">
+                  <button className="btn-primary bg-gradient-to-r from-accent-primary to-accent-secondary hover:from-accent-secondary hover:to-accent-primary shadow-lg shadow-accent-primary/30">
                     {dict.community.premium.discord.cta}
                   </button>
-                  <div className="text-2xl font-bold text-yellow-400">
+                  <div className="text-2xl font-bold text-yellow-400 flex items-center gap-2">
+                    <FaCrown className="text-lg" />
                     {dict.community.premium.discord.price}
                   </div>
                 </div>
