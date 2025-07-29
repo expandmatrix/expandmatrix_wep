@@ -49,7 +49,7 @@ export default function AboutCTA({ dict, lang }: AboutCTAProps) {
                   ]
                 }
           }
-          transition={prefersReducedMotion ? undefined : { duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          transition={prefersReducedMotion ? undefined : { duration: 8, repeat: Infinity, ease: "easeInOut" }}>
 
       <div
         className="absolute inset-0 pointer-events-none overflow-hidden"
@@ -111,6 +111,8 @@ export default function AboutCTA({ dict, lang }: AboutCTAProps) {
 
         {/* Grid Pattern */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(0,255,127,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,255,127,0.02)_1px,transparent_1px)] bg-[size:60px_60px] opacity-40 pointer-events-none" />
+      </div>
+      </motion.div>
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
