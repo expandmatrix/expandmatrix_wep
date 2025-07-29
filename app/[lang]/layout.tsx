@@ -138,7 +138,7 @@ export default async function RootLayout({
       </head>
       <body className={`${inter.className} antialiased bg-bg-primary text-text-primary relative`}>
         <Header dict={dict} lang={locale} />
-        <main className="min-h-screen" style={{ paddingBottom: 'var(--footer-height)' }}>
+        <main className="min-h-screen">
           {children}
         </main>
         <Footer dict={dict} lang={locale} />
