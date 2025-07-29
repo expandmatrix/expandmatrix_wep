@@ -70,7 +70,7 @@ export default async function ServicesPage({ params }: ServicesPageProps) {
       <CustomAISystems dict={dict} lang={locale} />
       <AISolutionPackages dict={dict} lang={locale} />
       <AITrainingConsulting dict={dict} lang={locale} />
-      <ServicesCTA lang={locale} />
+      <ServicesCTA dict={dict} lang={locale} />
     </main>
   );
 }

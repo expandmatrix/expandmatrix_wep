@@ -161,7 +161,17 @@
       },
       "insights": {
         "bulk": "S {count} objednávkami vám AI může ušetřit {percentage}% času zpracování!"
+      },
+      "cta": {
+        "title": "Připraveni začít vaši AI transformaci?",
+        "description": "Kontaktujte nás ještě dnes a zjistěte, jak můžeme automatizovat vaše procesy a zvýšit efektivitu vašeho podnikání pomocí pokročilých AI technologií."
       }
+    }
+  },
+  "portfolio": {
+    "cta": {
+      "title": "Připraveni realizovat váš projekt?",
+      "description": "Inspirovali vás naše úspěšné projekty? Pojďme společně vytvořit další příběh úspěchu pro vaši společnost."
     }
   },
   "contact": {

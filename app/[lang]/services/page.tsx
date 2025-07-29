@@ -19,7 +19,7 @@ export default async function ServicesPage({
       <CustomAISystems dict={dict} lang={lang} />
       <AISolutionPackages dict={dict} lang={lang} />
       <AITrainingConsulting dict={dict} lang={lang} />
-      <ServicesCTA lang={lang} />
+      <ServicesCTA dict={dict} lang={lang} />
     </main>
   );
 }
