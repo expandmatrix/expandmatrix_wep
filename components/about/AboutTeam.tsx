@@ -2,6 +2,7 @@
 
 import { motion, useMotionValue, useTransform, AnimatePresence } from 'framer-motion';
 import { Linkedin, Mail, Code, Brain, Database, Zap, Globe, Shield, Star, Cpu, Network } from 'lucide-react';
+import { stableRandom } from '@/lib/stableRandom';
 import { useRef, useState, useCallback } from 'react';
 
 interface AboutTeamProps {
@@ -100,27 +101,30 @@ export default function AboutTeam({ dict, lang }: AboutTeamProps) {
         />
 
         {/* Floating Particles */}
-        {Array.from({ length: 12 }).map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-2 h-2 bg-accent-primary/40 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -100, 0],
-              opacity: [0, 1, 0],
-              scale: [0.5, 1.5, 0.5],
-            }}
-            transition={{
-              duration: 8 + Math.random() * 4,
-              repeat: Infinity,
-              delay: Math.random() * 5,
-              ease: "easeInOut"
-            }}
-          />
-        ))}
+        {Array.from({ length: 12 }).map((_, i) => {
+          const left = `${stableRandom(i + 1) * 100}%`;
+          const top = `${stableRandom(i + 21) * 100}%`;
+          const duration = 8 + stableRandom(i + 41) * 4;
+          const delay = stableRandom(i + 61) * 5;
+          return (
+            <motion.div
+              key={i}
+              className="absolute w-2 h-2 bg-accent-primary/40 rounded-full"
+              style={{ left, top }}
+              animate={{
+                y: [0, -100, 0],
+                opacity: [0, 1, 0],
+                scale: [0.5, 1.5, 0.5],
+              }}
+              transition={{
+                duration,
+                repeat: Infinity,
+                delay,
+                ease: "easeInOut"
+              }}
+            />
+          );
+        })}
       </div>
 
       <div ref={containerRef} className="max-w-7xl mx-auto relative z-10 px-4 sm:px-6 lg:px-8">

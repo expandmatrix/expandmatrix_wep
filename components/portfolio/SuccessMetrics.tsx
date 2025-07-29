@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Clock, DollarSign, TrendingUp, Zap, Users, Target } from 'lucide-react';
+import { stableRandom } from '@/lib/stableRandom';
 import { useState, useEffect } from 'react';
 
 interface SuccessMetricsProps {
@@ -122,26 +123,29 @@ export default function SuccessMetrics({ dict, lang }: SuccessMetricsProps) {
         <div className="absolute bottom-0 right-1/3 w-[600px] h-[600px] bg-gradient-radial from-accent-primary/5 to-transparent rounded-full blur-3xl animate-pulse delay-1000"></div>
         
         {/* Floating Elements */}
-        {[...Array(25)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-accent-primary/30 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -40, 0],
-              opacity: [0.3, 1, 0.3],
-              scale: [1, 2, 1],
-            }}
-            transition={{
-              duration: 5 + Math.random() * 3,
-              repeat: Infinity,
-              delay: Math.random() * 3,
-            }}
-          />
-        ))}
+        {Array.from({ length: 25 }).map((_, i) => {
+          const left = `${stableRandom(i + 1) * 100}%`;
+          const top = `${stableRandom(i + 31) * 100}%`;
+          const duration = 5 + stableRandom(i + 61) * 3;
+          const delay = stableRandom(i + 91) * 3;
+          return (
+            <motion.div
+              key={i}
+              className="absolute w-1 h-1 bg-accent-primary/30 rounded-full"
+              style={{ left, top }}
+              animate={{
+                y: [0, -40, 0],
+                opacity: [0.3, 1, 0.3],
+                scale: [1, 2, 1],
+              }}
+              transition={{
+                duration,
+                repeat: Infinity,
+                delay,
+              }}
+            />
+          );
+        })}
       </div>
 
       <div className="container mx-auto px-6 relative z-10">

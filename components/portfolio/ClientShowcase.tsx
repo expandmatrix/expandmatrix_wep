@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Building2, Zap, TrendingUp, Shield } from 'lucide-react';
+import { stableRandom } from '@/lib/stableRandom';
 
 interface ClientShowcaseProps {
   dict: any;
@@ -77,26 +78,29 @@ export default function ClientShowcase({ dict, lang }: ClientShowcaseProps) {
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-radial from-accent-primary/5 to-transparent rounded-full blur-3xl animate-pulse delay-1000"></div>
         
         {/* Particle System */}
-        {[...Array(15)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-2 h-2 bg-accent-primary/20 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -50, 0],
-              opacity: [0.2, 0.8, 0.2],
-              scale: [1, 1.5, 1],
-            }}
-            transition={{
-              duration: 4 + Math.random() * 2,
-              repeat: Infinity,
-              delay: Math.random() * 2,
-            }}
-          />
-        ))}
+        {Array.from({ length: 15 }).map((_, i) => {
+          const left = `${stableRandom(i + 1) * 100}%`;
+          const top = `${stableRandom(i + 21) * 100}%`;
+          const duration = 4 + stableRandom(i + 41) * 2;
+          const delay = stableRandom(i + 61) * 2;
+          return (
+            <motion.div
+              key={i}
+              className="absolute w-2 h-2 bg-accent-primary/20 rounded-full"
+              style={{ left, top }}
+              animate={{
+                y: [0, -50, 0],
+                opacity: [0.2, 0.8, 0.2],
+                scale: [1, 1.5, 1],
+              }}
+              transition={{
+                duration,
+                repeat: Infinity,
+                delay,
+              }}
+            />
+          );
+        })}
       </div>
 
       <div className="container mx-auto px-6 relative z-10">

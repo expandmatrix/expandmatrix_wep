@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
 import { Rocket, Target, Users, Award, Globe, Zap, TrendingUp, Star, Brain, Code, Cpu, Network } from 'lucide-react';
+import { stableRandom } from '@/lib/stableRandom';
 import { useRef, useState, useEffect } from 'react';
 
 interface AboutStoryProps {
@@ -127,27 +128,30 @@ export default function AboutStory({ dict, lang }: AboutStoryProps) {
         />
 
         {/* Floating Particles */}
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={`particle-${i}`}
-            className="absolute w-1 h-1 bg-accent-primary/40 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -100, 0],
-              opacity: [0, 1, 0],
-              scale: [0, 1, 0],
-            }}
-            transition={{
-              duration: 3 + Math.random() * 2,
-              repeat: Infinity,
-              delay: Math.random() * 2,
-              ease: "easeInOut"
-            }}
-          />
-        ))}
+        {Array.from({ length: 20 }).map((_, i) => {
+          const left = `${stableRandom(i + 1) * 100}%`;
+          const top = `${stableRandom(i + 21) * 100}%`;
+          const duration = 3 + stableRandom(i + 41) * 2;
+          const delay = stableRandom(i + 61) * 2;
+          return (
+            <motion.div
+              key={`particle-${i}`}
+              className="absolute w-1 h-1 bg-accent-primary/40 rounded-full"
+              style={{ left, top }}
+              animate={{
+                y: [0, -100, 0],
+                opacity: [0, 1, 0],
+                scale: [0, 1, 0],
+              }}
+              transition={{
+                duration,
+                repeat: Infinity,
+                delay,
+                ease: "easeInOut"
+              }}
+            />
+          );
+        })}
 
         {/* Grid Pattern */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(0,255,127,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,255,127,0.03)_1px,transparent_1px)] bg-[size:100px_100px] opacity-30" />
@@ -400,28 +404,32 @@ export default function AboutStory({ dict, lang }: AboutStoryProps) {
             />
 
             {/* Floating Orbs */}
-            {Array.from({ length: 6 }).map((_, i) => (
-              <motion.div
-                key={i}
-                className="absolute w-3 h-3 rounded-full bg-accent-primary/30"
-                style={{
-                  left: `${20 + Math.random() * 60}%`,
-                  top: `${20 + Math.random() * 60}%`,
-                }}
-                animate={{
-                  y: [0, -30, 0],
-                  x: [0, Math.random() * 20 - 10, 0],
-                  opacity: [0.3, 0.8, 0.3],
-                  scale: [1, 1.5, 1],
-                }}
-                transition={{
-                  duration: 4 + Math.random() * 2,
-                  repeat: Infinity,
-                  delay: Math.random() * 3,
-                  ease: "easeInOut"
-                }}
-              />
-            ))}
+            {Array.from({ length: 6 }).map((_, i) => {
+              const left = `${20 + stableRandom(i + 1) * 60}%`;
+              const top = `${20 + stableRandom(i + 21) * 60}%`;
+              const xMove = stableRandom(i + 41) * 20 - 10;
+              const duration = 4 + stableRandom(i + 61) * 2;
+              const delay = stableRandom(i + 81) * 3;
+              return (
+                <motion.div
+                  key={i}
+                  className="absolute w-3 h-3 rounded-full bg-accent-primary/30"
+                  style={{ left, top }}
+                  animate={{
+                    y: [0, -30, 0],
+                    x: [0, xMove, 0],
+                    opacity: [0.3, 0.8, 0.3],
+                    scale: [1, 1.5, 1],
+                  }}
+                  transition={{
+                    duration,
+                    repeat: Infinity,
+                    delay,
+                    ease: "easeInOut"
+                  }}
+                />
+              );
+            })}
 
             {/* Morphing Background Waves */}
             <motion.div
