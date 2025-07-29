@@ -1,17 +1,18 @@
 'use client';
 
-import { Suspense, lazy } from 'react';
+import { Suspense } from 'react';
+import dynamic from 'next/dynamic';
 import type { Locale } from '@/lib/getDictionary';
 import ErrorBoundary from '@/components/ui/ErrorBoundary';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
 
-// Lazy load components for better performance
-const Hero = lazy(() => import('./Hero'));
-const PartnersSection = lazy(() => import('./PartnersSection'));
-const Stats = lazy(() => import('./Stats'));
-const Services = lazy(() => import('./Services'));
-const Testimonials = lazy(() => import('./Testimonials'));
-const FinalCTA = lazy(() => import('./FinalCTA'));
+// Dynamically load components for better performance
+const Hero = dynamic(() => import('./Hero'));
+const PartnersSection = dynamic(() => import('./PartnersSection'));
+const Stats = dynamic(() => import('./Stats'));
+const Services = dynamic(() => import('./Services'));
+const Testimonials = dynamic(() => import('./Testimonials'));
+const FinalCTA = dynamic(() => import('./FinalCTA'));
 
 interface HomeClientProps {
   dict: any;

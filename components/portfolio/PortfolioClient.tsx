@@ -1,16 +1,17 @@
 'use client';
 
-import { Suspense, lazy } from 'react';
+import { Suspense } from 'react';
+import dynamic from 'next/dynamic';
 import type { Locale } from '@/lib/getDictionary';
 import ErrorBoundary from '@/components/ui/ErrorBoundary';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
 
-// Lazy loading pro lepší performance
-const PortfolioHero = lazy(() => import('./PortfolioHero'));
-const CaseStudies = lazy(() => import('./CaseStudies'));
-const ClientShowcase = lazy(() => import('./ClientShowcase'));
-const SuccessMetrics = lazy(() => import('./SuccessMetrics'));
-const PortfolioCTA = lazy(() => import('./PortfolioCTA'));
+// Dynamické načítání pro lepší výkon
+const PortfolioHero = dynamic(() => import('./PortfolioHero'));
+const CaseStudies = dynamic(() => import('./CaseStudies'));
+const ClientShowcase = dynamic(() => import('./ClientShowcase'));
+const SuccessMetrics = dynamic(() => import('./SuccessMetrics'));
+const PortfolioCTA = dynamic(() => import('./PortfolioCTA'));
 
 interface PortfolioClientProps {
   dict: any;
