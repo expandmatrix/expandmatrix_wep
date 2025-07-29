@@ -17,21 +17,6 @@ export default function Footer({ dict, lang }: FooterProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const footerRef = useRef<HTMLElement>(null);
 
-  useEffect(() => {
-    const updateHeight = () => {
-      if (footerRef.current) {
-        document.documentElement.style.setProperty(
-          '--footer-height',
-          `${footerRef.current.offsetHeight}px`
-        );
-      }
-    };
-
-    updateHeight();
-    window.addEventListener('resize', updateHeight);
-    return () => window.removeEventListener('resize', updateHeight);
-  }, []);
-
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setIsSubmitting(true);
@@ -75,7 +60,7 @@ export default function Footer({ dict, lang }: FooterProps) {
     <footer
 
       ref={footerRef}
-      className="fixed bottom-0 left-0 right-0 z-40 bg-bg-secondary text-text-primary overflow-hidden"
+      className="bg-bg-secondary text-text-primary overflow-hidden"
 
     >
       {/* Animated Background */}
@@ -402,19 +387,7 @@ export default function Footer({ dict, lang }: FooterProps) {
         </motion.div>
       </div>
 
-      {/* Bottom Glow */}
-      <motion.div
-        className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-accent-primary/40 to-transparent"
-        animate={{
-          opacity: [0.3, 0.8, 0.3],
-          scaleX: [0.8, 1.2, 0.8],
-        }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-          ease: 'easeInOut'
-        }}
-      />
+
     </footer>
   );
 }
