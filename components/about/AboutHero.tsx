@@ -108,27 +108,17 @@ export default function AboutHero({ dict, lang }: AboutHeroProps) {
               {lang === 'cs' ? '🚀 O naší AI agentuře' : '🚀 About Our AI Agency'}
             </motion.span>
 
-            <h1 className="fluid-hero font-black mb-8 leading-tight">
-
-              <motion.span 
-                className="bg-gradient-to-r from-text-primary via-accent-primary to-text-primary bg-clip-text text-transparent"
-                animate={{ 
-                  backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
-                }}
-                transition={{ 
-                  duration: 5,
-                  repeat: Infinity,
-                  ease: "linear"
-                }}
-                style={{ backgroundSize: '200% 200%' }}
-              >
-                {lang === 'cs' ? 'Automatizujeme' : 'We Automate'}
-              </motion.span>
-              <br />
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="fluid-hero font-black text-text-primary mb-8 leading-tight"
+            >
+              {lang === 'cs' ? 'Automatizujeme' : 'We Automate'}{' '}
               <span className="text-accent-primary">
                 {lang === 'cs' ? 'Budoucnost' : 'The Future'}
               </span>
-            </h1>
+            </motion.h1>
 
             <motion.p
               className="text-xl md:text-2xl 2xl:text-3xl 3xl:text-4xl text-text-secondary max-w-4xl mx-auto leading-relaxed mb-12"
