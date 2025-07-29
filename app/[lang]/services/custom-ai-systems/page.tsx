@@ -64,7 +64,7 @@ export default async function CustomAISystemsPage({
       <TargetAudience dict={dict} lang={locale} />
       <WhyAutomation dict={dict} lang={locale} />
       <OurApproach dict={dict} lang={locale} />
-      <ServicesCTA lang={locale} />
+      <ServicesCTA dict={dict} lang={locale} />
     </main>
   );
 }

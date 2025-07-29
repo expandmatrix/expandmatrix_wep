@@ -161,7 +161,17 @@
       },
       "insights": {
         "bulk": "With {count} orders, AI can save you {percentage}% processing time!"
+      },
+      "cta": {
+        "title": "Ready to start your AI transformation?",
+        "description": "Contact us today to discover how we can automate your processes and increase your business efficiency using advanced AI technologies."
       }
+    }
+  },
+  "portfolio": {
+    "cta": {
+      "title": "Ready to bring your project to life?",
+      "description": "Inspired by our successful projects? Let's create another success story for your company together."
     }
   },
   "contact": {
