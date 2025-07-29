@@ -9,9 +9,13 @@ Install dependencies and start the development server:
 ```bash
 npm install
 npm run dev
+npm run lint
+npm run type-check
 ```
 
 The site will be available at `http://localhost:3000`.
+
+Before submitting changes, ensure that the linting and type checks pass.
 
 ## VPS page with Systrix theme
 
