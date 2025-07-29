@@ -191,5 +191,103 @@
     "copyright": "© 2024 ExpandMatrix. All rights reserved.",
     "privacy": "Privacy Policy",
     "terms": "Terms of Service"
+  },
+  "community": {
+    "title": "Community",
+    "subtitle": "Join the largest AI community in the Czech Republic. Share experiences, learn from experts, and build the future with artificial intelligence.",
+    "description": "Expand Matrix Community - Join AI experts, share business automation experiences, and discover the latest trends in artificial intelligence.",
+    "keywords": "AI community, business automation, artificial intelligence, Discord community, LinkedIn networking, AI experts",
+    "free": {
+      "title": "Free Communities",
+      "subtitle": "Start your AI journey with our free communities full of inspiration and practical tips.",
+      "discord": {
+        "title": "FREE Discord Community",
+        "description": "Active community of AI enthusiasts where you can discuss latest trends, share projects, and get quick help."
+      },
+      "linkedin": {
+        "title": "LinkedIn Community",
+        "description": "Professional network for business networking, sharing successes, and building business contacts in the AI sphere."
+      },
+      "facebook": {
+        "title": "Facebook Group",
+        "description": "Informal space for sharing interesting articles, discussing AI news, and community events."
+      },
+      "benefits": {
+        "title": "Benefits of being in the community",
+        "items": [
+          "Networking with AI experts and professionals",
+          "Access to exclusive webinars and workshops",
+          "Sharing practical AI implementation experiences",
+          "Quick help with technical problem solving",
+          "Information about new AI tools and technologies",
+          "Opportunity to present your own projects"
+        ]
+      },
+      "content": {
+        "title": "What you can find there",
+        "items": [
+          "Tips for business process automation",
+          "AI tool reviews and recommendations",
+          "Case studies of successful AI implementations",
+          "Discussions about the future of artificial intelligence",
+          "Sharing job opportunities in AI sector",
+          "Community projects and hackathons"
+        ]
+      }
+    },
+    "premium": {
+      "title": "Want to be ahead?",
+      "subtitle": "Get access to exclusive content, personal consultations, and advanced AI tools.",
+      "discord": {
+        "title": "Premium Discord Community",
+        "description": "Exclusive access to premium content, personal consultations with experts, and advanced AI tools for your business.",
+        "cta": "Join Now",
+        "price": "$39/month"
+      },
+      "benefits": {
+        "title": "Premium Benefits",
+        "items": [
+          "Personal consultations with AI experts (1:1 sessions)",
+          "Access to premium AI tools and software",
+          "Exclusive workshops and masterclasses",
+          "Priority support for AI solution implementation",
+          "Access to internal case studies and data",
+          "Ability to influence community development direction"
+        ]
+      },
+      "content": {
+        "title": "Exclusive content",
+        "items": [
+          "Advanced AI strategies for business growth",
+          "Access to beta versions of new AI tools",
+          "Detailed ROI analyses of AI implementations",
+          "Personal AI audit of your business",
+          "Exclusive interviews with AI leaders",
+          "Premium templates and automation scripts"
+        ]
+      }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "subtitle": "Have questions? Here you'll find answers to the most common questions about our community.",
+      "items": [
+        {
+          "question": "How can I join the free Discord community?",
+          "answer": "Simply click on the Discord community link above and follow the instructions to join. Registration is completely free and takes just a few minutes."
+        },
+        {
+          "question": "What's the difference between free and paid community?",
+          "answer": "The free community offers basic networking and experience sharing. The paid community provides personal consultations, access to premium tools, and exclusive content."
+        },
+        {
+          "question": "Can I cancel premium membership anytime?",
+          "answer": "Yes, you can cancel premium membership anytime without notice period. Access to premium content remains active until the end of the paid period."
+        },
+        {
+          "question": "Are communities suitable for AI beginners?",
+          "answer": "Absolutely! Our communities are designed for all knowledge levels - from complete beginners to advanced AI experts. You'll find support at every level."
+        }
+      ]
+    }
   }
 }
