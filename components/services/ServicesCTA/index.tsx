@@ -7,11 +7,10 @@ import { ArrowRight, Sparkles } from 'lucide-react';
 import { type Locale } from '@/lib/getDictionary';
 
 interface ServicesCTAProps {
-  dict: any;
   lang: Locale;
 }
 
-export default function ServicesCTA({ dict, lang }: ServicesCTAProps) {
+export default function ServicesCTA({ lang }: ServicesCTAProps) {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
