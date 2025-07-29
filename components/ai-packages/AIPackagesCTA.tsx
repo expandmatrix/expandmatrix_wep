@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import CtaCard from '@/components/ui/CtaCard';
 import { useState, useRef } from 'react';
 import Link from 'next/link';
 import { ArrowRight, Sparkles, Zap, Target, MessageCircle } from 'lucide-react';
@@ -99,58 +100,7 @@ export default function AIPackagesCTA({ dict, lang }: AIPackagesCTAProps) {
           style={{ perspective: 1000, transformStyle: 'preserve-3d' }}
         >
           {/* Main CTA Container with 3D Effect */}
-          <motion.div
-            className="relative bg-gradient-to-br from-bg-secondary/80 via-bg-secondary/60 to-bg-secondary/40 backdrop-blur-2xl border border-accent-primary/20 rounded-3xl overflow-hidden"
-            style={{
-              rotateX,
-              rotateY,
-              backfaceVisibility: 'hidden',
-              transformStyle: 'preserve-3d'
-            }}
-            whileHover={{
-              scale: 1.01,
-              borderColor: 'rgba(0, 255, 127, 0.4)',
-            }}
-            transition={{ duration: 0.4 }}
-          >
-            {/* Animated Background Layers */}
-            <div className="absolute inset-0 pointer-events-none overflow-hidden">
-              {/* Primary Glow */}
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-br from-accent-primary/10 via-transparent to-accent-primary/5 rounded-3xl pointer-events-none overflow-hidden"
-                style={{
-                  WebkitMaskImage:
-                    'radial-gradient(100% 100% at 50% 50%, black 70%, transparent)',
-                  maskImage:
-                    'radial-gradient(100% 100% at 50% 50%, black 70%, transparent)'
-                }}
-                animate={{
-                  opacity: isHovered ? 0.8 : 0.4,
-                }}
-                transition={{ duration: 0.5 }}
-              />
-              
-              {/* Animated Shimmer */}
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-transparent via-accent-primary/10 to-transparent rounded-3xl pointer-events-none overflow-hidden"
-                style={{
-                  WebkitMaskImage:
-                    'radial-gradient(100% 100% at 50% 50%, black 70%, transparent)',
-                  maskImage:
-                    'radial-gradient(100% 100% at 50% 50%, black 70%, transparent)'
-                }}
-                animate={{
-                  x: ['-100%', '100%'],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              />
-            </div>
-
-            {/* Content */}
+          <CtaCard rotateX={rotateX} rotateY={rotateY} isHovered={isHovered}>
             <div className="relative z-10 p-12 text-center">
               {/* Icon */}
               <motion.div
@@ -215,7 +165,7 @@ export default function AIPackagesCTA({ dict, lang }: AIPackagesCTAProps) {
                 </Link>
               </motion.div>
             </div>
-          </motion.div>
+          </CtaCard>
         </motion.div>
       </div>
     </section>
