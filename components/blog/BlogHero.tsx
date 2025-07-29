@@ -28,9 +28,40 @@ export default function BlogHero({ lang, onSearch }: BlogHeroProps) {
     : ['AI automation', 'Chatbots', 'VPS hosting', 'Case studies'];
 
   return (
-    <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-bg-primary via-bg-secondary to-bg-primary">
+    <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-bg-primary via-bg-primary to-bg-secondary/20">
       {/* Animated Background */}
       <div className="absolute inset-0">
+        {/* Futuristic grid */}
+        <motion.div
+          className="absolute inset-0 opacity-20"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(0,255,127,0.1) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(0,255,127,0.1) 1px, transparent 1px)
+            `,
+            backgroundSize: '60px 60px',
+          }}
+          animate={{
+            backgroundPosition: ['0px 0px', '60px 60px'],
+          }}
+          transition={{
+            duration: 30,
+            repeat: Infinity,
+            ease: 'linear',
+          }}
+        />
+
+        {/* Glowing orbs */}
+        <div className="absolute -top-24 -left-32 w-[500px] h-[500px] bg-gradient-radial from-accent-primary/15 via-accent-primary/5 to-transparent rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-gradient-radial from-accent-primary/10 via-accent-primary/3 to-transparent rounded-full blur-3xl animate-pulse animate-delay-1000" />
+
+        {/* Scanning line */}
+        <motion.div
+          className="absolute inset-0 bg-gradient-to-r from-transparent via-accent-primary/10 to-transparent"
+          animate={{ x: ['-100%', '100%'] }}
+          transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
+        />
+
         {/* Floating Particles - pouze na klientu */}
         {isClient && [...Array(20)].map((_, i) => (
           <motion.div
@@ -84,7 +115,7 @@ export default function BlogHero({ lang, onSearch }: BlogHeroProps) {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder={lang === 'cs' ? 'Hledat články...' : 'Search articles...'}
-                className="w-full pl-12 pr-4 py-4 bg-bg-secondary border border-border-color rounded-xl text-text-primary placeholder-text-secondary focus:outline-none focus:ring-2 focus:ring-accent-primary focus:border-transparent transition-all duration-300"
+                className="w-full pl-12 pr-4 py-4 bg-bg-secondary/60 backdrop-blur-sm border border-border-color/60 rounded-xl text-text-primary placeholder-text-secondary focus:outline-none focus:ring-2 focus:ring-accent-primary focus:border-transparent transition-all duration-300"
               />
             </div>
           </form>
@@ -95,7 +126,7 @@ export default function BlogHero({ lang, onSearch }: BlogHeroProps) {
               <button
                 key={index}
                 onClick={() => onSearch(suggestion)}
-                className="px-4 py-2 bg-bg-secondary hover:bg-accent-primary/10 border border-border-color hover:border-accent-primary rounded-full text-sm text-text-secondary hover:text-accent-primary transition-all duration-300"
+                className="px-4 py-2 bg-bg-secondary/60 backdrop-blur-sm hover:bg-accent-primary/10 border border-border-color hover:border-accent-primary rounded-full text-sm text-text-secondary hover:text-accent-primary transition-all duration-300"
               >
                 {suggestion}
               </button>
