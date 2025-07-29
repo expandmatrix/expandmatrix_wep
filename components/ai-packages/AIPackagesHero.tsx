@@ -254,23 +254,6 @@ export default function AIPackagesHero({ dict, lang }: AIPackagesHeroProps) {
 
       {/* Unified Liquid Glass CSS */}
       <style jsx>{`
-        .liquid-glass-card {
-          background: rgba(255, 255, 255, 0.03);
-          backdrop-filter: blur(20px) saturate(180%);
-          -webkit-backdrop-filter: blur(20px) saturate(180%);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          box-shadow: 
-            0 8px 25px rgba(255, 255, 255, 0.05), 
-            0 0 0 1px rgba(255, 255, 255, 0.05) inset;
-        }
-        
-        .liquid-glass-card:hover {
-          box-shadow: 
-            0 20px 40px rgba(255, 255, 255, 0.1), 
-            0 0 0 1px rgba(255, 255, 255, 0.1) inset,
-            0 0 30px rgba(0, 255, 127, 0.2);
-          border-color: rgba(0, 255, 127, 0.3);
-        }
         
         .liquid-glass-badge {
           background: rgba(255, 255, 255, 0.05);
