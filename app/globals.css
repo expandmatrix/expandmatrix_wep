@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --footer-height: 0px;
+}
+
 /* Custom animations */
 @keyframes pulse-glow {
   0%, 100% { 
