@@ -92,7 +92,7 @@ export default function AboutHero({ dict, lang }: AboutHeroProps) {
         />
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-6 2xl:px-12 3xl:px-24 relative z-10">
         <div className="max-w-6xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -107,8 +107,11 @@ export default function AboutHero({ dict, lang }: AboutHeroProps) {
             >
               {lang === 'cs' ? '🚀 O naší AI agentuře' : '🚀 About Our AI Agency'}
             </motion.span>
-            
+
+            <h1 className="text-6xl md:text-8xl lg:text-9xl 2xl:text-[10rem] 3xl:text-[12rem] font-black mb-8 leading-tight">
+
             <h1 className="fluid-hero font-black mb-8 leading-tight">
+
               <motion.span 
                 className="bg-gradient-to-r from-text-primary via-accent-primary to-text-primary bg-clip-text text-transparent"
                 animate={{ 
@@ -129,8 +132,8 @@ export default function AboutHero({ dict, lang }: AboutHeroProps) {
               </span>
             </h1>
 
-            <motion.p 
-              className="text-xl md:text-2xl text-text-secondary max-w-4xl mx-auto leading-relaxed mb-12"
+            <motion.p
+              className="text-xl md:text-2xl 2xl:text-3xl 3xl:text-4xl text-text-secondary max-w-4xl mx-auto leading-relaxed mb-12"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}

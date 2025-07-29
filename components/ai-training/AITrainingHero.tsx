@@ -144,7 +144,7 @@ export default function AITrainingHero({ dict, lang }: AITrainingHeroProps) {
         ))}
       </div>
       
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 2xl:px-12 3xl:px-24 py-32">
         <div className="text-center">
           {/* Modern Badge */}
           <motion.div
@@ -166,7 +166,7 @@ export default function AITrainingHero({ dict, lang }: AITrainingHeroProps) {
             transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="mb-8"
           >
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-tight">
+            <h1 className="text-5xl md:text-7xl lg:text-8xl 2xl:text-[9rem] 3xl:text-[11rem] font-black mb-6 leading-tight">
               <span className="text-text-primary">AI </span>
               <span className="text-accent-primary relative">
                 {lang === 'cs' ? 'Školení' : 'Training'}
@@ -179,7 +179,7 @@ export default function AITrainingHero({ dict, lang }: AITrainingHeroProps) {
               </span>
             </h1>
             
-            <p className="text-xl md:text-2xl text-text-secondary max-w-4xl mx-auto leading-relaxed">
+            <p className="text-xl md:text-2xl 2xl:text-3xl 3xl:text-4xl text-text-secondary max-w-4xl mx-auto leading-relaxed">
               {lang === 'cs' 
                 ? 'Připravte svůj tým na budoucnost s našimi komplexními AI školeními. Od základů po pokročilé techniky - získejte konkurenční výhodu.'
                 : 'Prepare your team for the future with our comprehensive AI training programs. From basics to advanced techniques - gain competitive advantage.'

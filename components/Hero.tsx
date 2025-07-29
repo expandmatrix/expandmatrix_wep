@@ -11,14 +11,14 @@ interface HeroProps {
 export default function Hero({ dict, lang }: HeroProps) {
   return (
     <section className="bg-gradient-to-br from-blue-50 to-indigo-100 py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 2xl:px-12 3xl:px-24">
         <div className="text-center">
           {/* Animovaný nadpis */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-4xl md:text-6xl font-bold text-gray-900 mb-6"
+            className="text-4xl md:text-6xl 2xl:text-7xl 3xl:text-8xl font-bold text-gray-900 mb-6"
           >
             {dict.home.title}
           </motion.h1>
@@ -28,7 +28,7 @@ export default function Hero({ dict, lang }: HeroProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-xl md:text-2xl text-primary-600 font-semibold mb-8"
+            className="text-xl md:text-2xl 2xl:text-3xl 3xl:text-4xl text-primary-600 font-semibold mb-8"
           >
             {dict.home.subtitle}
           </motion.h2>
@@ -38,7 +38,7 @@ export default function Hero({ dict, lang }: HeroProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-lg text-gray-600 mb-10 max-w-3xl mx-auto leading-relaxed"
+            className="text-lg md:text-xl 2xl:text-2xl 3xl:text-3xl text-gray-600 mb-10 max-w-3xl mx-auto leading-relaxed"
           >
             {dict.home.description}
           </motion.p>
