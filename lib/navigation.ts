@@ -12,10 +12,6 @@ export interface NavigationItem {
 export function getLocalizedNavigation(lang: 'cs' | 'en'): NavigationItem[] {
   return [
     {
-      name: lang === 'cs' ? 'Domů' : 'Home',
-      href: `/${lang}` as Route,
-    },
-    {
       name: lang === 'cs' ? 'O nás' : 'About',
       href: (lang === 'cs' ? `/${lang}/o-nas` : `/${lang}/about-us`) as Route,
     },
