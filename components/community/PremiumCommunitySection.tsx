@@ -45,7 +45,7 @@ export default function PremiumCommunitySection({ dict }: PremiumCommunityProps)
             <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/5 via-orange-400/5 to-yellow-400/5 rounded-3xl" />
             
             {/* Animated background pattern */}
-            <div className="absolute top-0 right-0 opacity-10">
+            <div className="absolute top-4 right-4 opacity-10">
               <FaGem className="text-8xl text-yellow-400 animate-pulse" />
             </div>
             

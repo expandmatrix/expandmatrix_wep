@@ -32,7 +32,7 @@ export default function BenefitList({ title, items, type, premium = false }: Ben
       className={`liquid-glass-card glow-on-hover p-8 border ${borderColor} shadow-xl ${glowColor} relative overflow-hidden`}
     >
       {/* Background pattern */}
-      <div className="absolute top-0 right-0 opacity-5">
+      <div className="absolute top-4 right-4 opacity-5">
         <Icon className={`text-6xl ${iconColor}`} />
       </div>
       
