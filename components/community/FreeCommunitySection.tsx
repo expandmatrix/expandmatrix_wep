@@ -77,7 +77,7 @@ export default function FreeCommunitySection({ dict }: FreeCommunityProps) {
               >
                 <div className="liquid-glass-card glow-on-hover p-8 h-full relative overflow-hidden">
                   {/* AI pattern background */}
-                  <div className="absolute top-0 right-0 opacity-5">
+                  <div className="absolute top-4 right-4 opacity-5">
                     <community.aiIcon className="text-6xl text-accent-primary" />
                   </div>
                   
