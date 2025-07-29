@@ -39,8 +39,9 @@
     "target": "ES2017"
   },
   "include": [
+    "components/layout/LanguageSwitcher.tsx",
     "next-env.d.ts",
-    "components/layout/LanguageSwitcher.tsx"
+    ".next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"
