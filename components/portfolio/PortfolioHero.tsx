@@ -138,8 +138,6 @@ export default function PortfolioHero({ dict, lang }: PortfolioHeroProps) {
             </motion.span>
             
 
-            <h1 className="text-6xl md:text-8xl lg:text-9xl 2xl:text-[10rem] 3xl:text-[12rem] font-black mb-8 leading-tight">
-
             <h1 className="fluid-hero font-black mb-8 leading-tight">
 
               <motion.span 
