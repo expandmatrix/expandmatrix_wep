@@ -41,8 +41,6 @@ export default function TrainingFinalCTA({ dict, lang }: TrainingFinalCTAProps) 
       >
         {/* Animated Gradient Mesh */}
         <motion.div
-
-          className="absolute inset-0 opacity-30"
           animate={
             prefersReducedMotion
               ? undefined
@@ -55,7 +53,6 @@ export default function TrainingFinalCTA({ dict, lang }: TrainingFinalCTAProps) 
                 }
           }
           transition={prefersReducedMotion ? undefined : { duration: 8, repeat: Infinity, ease: "easeInOut" }}
-
           className="absolute inset-0 opacity-30 pointer-events-none overflow-hidden"
           style={{
             WebkitMaskImage:
@@ -63,15 +60,6 @@ export default function TrainingFinalCTA({ dict, lang }: TrainingFinalCTAProps) 
             maskImage:
               'radial-gradient(90% 90% at 50% 50%, black 60%, transparent)'
           }}
-          animate={{
-            background: [
-              'radial-gradient(circle at 20% 50%, rgba(0,255,127,0.1) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(0,255,127,0.05) 0%, transparent 50%)',
-              'radial-gradient(circle at 80% 50%, rgba(0,255,127,0.1) 0%, transparent 50%), radial-gradient(circle at 20% 50%, rgba(0,255,127,0.05) 0%, transparent 50%)',
-              'radial-gradient(circle at 20% 50%, rgba(0,255,127,0.1) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(0,255,127,0.05) 0%, transparent 50%)'
-            ]
-          }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-
         />
         
         {/* Floating Energy Orbs */}
@@ -148,10 +136,6 @@ export default function TrainingFinalCTA({ dict, lang }: TrainingFinalCTAProps) 
               
               {/* Animated Shimmer */}
               <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-transparent via-accent-primary/10 to-transparent rounded-3xl"
-                animate={prefersReducedMotion ? undefined : { x: ['-100%', '100%'] }}
-                transition={prefersReducedMotion ? undefined : { duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-
                 className="absolute inset-0 bg-gradient-to-r from-transparent via-accent-primary/10 to-transparent rounded-3xl pointer-events-none overflow-hidden"
                 style={{
                   WebkitMaskImage:
@@ -159,15 +143,8 @@ export default function TrainingFinalCTA({ dict, lang }: TrainingFinalCTAProps) 
                   maskImage:
                     'radial-gradient(100% 100% at 50% 50%, black 70%, transparent)'
                 }}
-                animate={{
-                  x: ['-100%', '100%'],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-
+                animate={prefersReducedMotion ? undefined : { x: ['-100%', '100%'] }}
+                transition={prefersReducedMotion ? undefined : { duration: 3, repeat: Infinity, ease: 'easeInOut' }}
               />
             </div>
 
