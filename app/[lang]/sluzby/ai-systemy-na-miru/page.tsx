@@ -4,7 +4,7 @@ import CustomAIHero from '@/components/custom-ai-systems/CustomAIHero';
 import TargetAudience from '@/components/custom-ai-systems/TargetAudience';
 import WhyAutomation from '@/components/custom-ai-systems/WhyAutomation';
 import OurApproach from '@/components/custom-ai-systems/OurApproach';
-import CustomAICTA from '@/components/custom-ai-systems/CustomAICTA';
+import ServicesCTA from '@/components/services/ServicesCTA';
 
 export async function generateStaticParams() {
   return [{ lang: 'cs' }, { lang: 'en' }];
@@ -64,7 +64,7 @@ export default async function AISystemyNaMiruPage({
       <TargetAudience dict={dict} lang={locale} />
       <WhyAutomation dict={dict} lang={locale} />
       <OurApproach dict={dict} lang={locale} />
-      <CustomAICTA dict={dict} lang={locale} />
+      <ServicesCTA dict={dict} lang={locale} />
     </main>
   );
 }
