@@ -183,6 +183,11 @@
     }
   },
   "footer": {
+    "description": "Futuristická AI agentura pro automatizaci vašeho podnikání.",
+    "newsletterTitle": "Odebírejte náš newsletter",
+    "newsletterPlaceholder": "Váš e-mail",
+    "newsletterCta": "Odebírat",
+    "important": "Důležité odkazy",
     "copyright": "© 2024 ExpandMatrix. Všechna práva vyhrazena.",
     "privacy": "Ochrana soukromí",
     "terms": "Podmínky použití"

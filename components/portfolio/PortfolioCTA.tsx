@@ -102,14 +102,13 @@ export default function PortfolioCTA({ dict, lang }: PortfolioCTAProps) {
         }}
       >
         {/* Animated Grid Pattern */}
-        <motion.div
-          className="absolute inset-0 opacity-20"
-          className="absolute inset-0 opacity-20 pointer-events-none overflow-hidden"
-          style={{
-            backgroundImage: `
-              linear-gradient(rgba(0,255,127,0.1) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(0,255,127,0.1) 1px, transparent 1px)
-            `,
+          <motion.div
+            className="absolute inset-0 opacity-20 pointer-events-none overflow-hidden"
+            style={{
+              backgroundImage: `
+                linear-gradient(rgba(0,255,127,0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,255,127,0.1) 1px, transparent 1px)
+              `,
             backgroundSize: '60px 60px',
           }}
           animate={
@@ -253,10 +252,6 @@ export default function PortfolioCTA({ dict, lang }: PortfolioCTAProps) {
               
               {/* Animated Shimmer */}
               <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-transparent via-accent-primary/10 to-transparent rounded-3xl"
-                animate={prefersReducedMotion ? undefined : { x: ['-100%', '100%'] }}
-                transition={prefersReducedMotion ? undefined : { duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-
                 className="absolute inset-0 bg-gradient-to-r from-transparent via-accent-primary/10 to-transparent rounded-3xl pointer-events-none overflow-hidden"
                 style={{
                   WebkitMaskImage:
@@ -264,14 +259,8 @@ export default function PortfolioCTA({ dict, lang }: PortfolioCTAProps) {
                   maskImage:
                     'radial-gradient(100% 100% at 50% 50%, black 70%, transparent)'
                 }}
-                animate={{
-                  x: ['-100%', '100%'],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
+                animate={prefersReducedMotion ? undefined : { x: ['-100%', '100%'] }}
+                transition={prefersReducedMotion ? undefined : { duration: 3, repeat: Infinity, ease: 'easeInOut' }}
               />
             </div>
 

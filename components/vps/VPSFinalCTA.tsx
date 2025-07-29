@@ -41,7 +41,6 @@ export default function VPSFinalCTA({ lang }: VPSFinalCTAProps) {
       >
         {/* Gradient Orbs */}
         <motion.div
-          className="absolute inset-0 opacity-30"
           animate={
             prefersReducedMotion
               ? undefined
@@ -60,13 +59,7 @@ export default function VPSFinalCTA({ lang }: VPSFinalCTAProps) {
             maskImage:
               'radial-gradient(90% 90% at 50% 50%, black 60%, transparent)'
           }}
-          animate={{
-            background: [
-              'radial-gradient(circle at 20% 80%, rgba(0,255,127,0.15) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(0,255,127,0.1) 0%, transparent 50%)',
-              'radial-gradient(circle at 80% 80%, rgba(0,255,127,0.15) 0%, transparent 50%), radial-gradient(circle at 20% 20%, rgba(0,255,127,0.1) 0%, transparent 50%)',
-            ]
-          }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          
         />
         
         {/* Floating Energy Orbs */}

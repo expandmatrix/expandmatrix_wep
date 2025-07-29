@@ -183,6 +183,11 @@
     }
   },
   "footer": {
+    "description": "Futuristic AI agency for automating your business.",
+    "newsletterTitle": "Subscribe to our newsletter",
+    "newsletterPlaceholder": "Your email address",
+    "newsletterCta": "Subscribe",
+    "important": "Important links",
     "copyright": "© 2024 ExpandMatrix. All rights reserved.",
     "privacy": "Privacy Policy",
     "terms": "Terms of Service"
