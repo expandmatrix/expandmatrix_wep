@@ -53,7 +53,7 @@ export default function BlogFilters({ lang, activeCategory = null, categories }:
                 const isActive = activeCategory?.id === category.id;
                 
                 return (
-                  <Link key={category.id} href={`/${lang}/blog/category/${category.slug}`}> 
+                  <Link key={category.id} href={`/${lang}/blog/${category.slug}`}>
                     <motion.div
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
