@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { useState, useRef } from 'react';
 import Link from 'next/link';
 import { ArrowRight, Sparkles, Zap, Target } from 'lucide-react';
@@ -14,6 +14,7 @@ export default function TrainingFinalCTA({ dict, lang }: TrainingFinalCTAProps) 
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = useReducedMotion();
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!containerRef.current) return;
@@ -40,6 +41,21 @@ export default function TrainingFinalCTA({ dict, lang }: TrainingFinalCTAProps) 
       >
         {/* Animated Gradient Mesh */}
         <motion.div
+
+          className="absolute inset-0 opacity-30"
+          animate={
+            prefersReducedMotion
+              ? undefined
+              : {
+                  background: [
+                    'radial-gradient(circle at 20% 50%, rgba(0,255,127,0.1) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(0,255,127,0.05) 0%, transparent 50%)',
+                    'radial-gradient(circle at 80% 50%, rgba(0,255,127,0.1) 0%, transparent 50%), radial-gradient(circle at 20% 50%, rgba(0,255,127,0.05) 0%, transparent 50%)',
+                    'radial-gradient(circle at 20% 50%, rgba(0,255,127,0.1) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(0,255,127,0.05) 0%, transparent 50%)'
+                  ]
+                }
+          }
+          transition={prefersReducedMotion ? undefined : { duration: 8, repeat: Infinity, ease: "easeInOut" }}
+
           className="absolute inset-0 opacity-30 pointer-events-none overflow-hidden"
           style={{
             WebkitMaskImage:
@@ -55,6 +71,7 @@ export default function TrainingFinalCTA({ dict, lang }: TrainingFinalCTAProps) 
             ]
           }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+
         />
         
         {/* Floating Energy Orbs */}
@@ -66,17 +83,16 @@ export default function TrainingFinalCTA({ dict, lang }: TrainingFinalCTAProps) 
               left: `${15 + (i * 12) % 70}%`,
               top: `${20 + (i * 8) % 60}%`,
             }}
-            animate={{
-              y: [0, -40, 0],
-              opacity: [0.2, 0.8, 0.2],
-              scale: [1, 1.5, 1],
-            }}
-            transition={{
-              duration: 4 + i * 0.5,
-              repeat: Infinity,
-              delay: i * 0.3,
-              ease: "easeInOut"
-            }}
+            animate={
+              prefersReducedMotion
+                ? undefined
+                : { y: [0, -40, 0], opacity: [0.2, 0.8, 0.2], scale: [1, 1.5, 1] }
+            }
+            transition={
+              prefersReducedMotion
+                ? undefined
+                : { duration: 4 + i * 0.5, repeat: Infinity, delay: i * 0.3, ease: 'easeInOut' }
+            }
           />
         ))}
 
@@ -103,6 +119,7 @@ export default function TrainingFinalCTA({ dict, lang }: TrainingFinalCTAProps) 
             style={{
               rotateX,
               rotateY,
+              willChange: 'transform',
               backfaceVisibility: 'hidden',
               transformStyle: 'preserve-3d'
             }}
@@ -131,6 +148,10 @@ export default function TrainingFinalCTA({ dict, lang }: TrainingFinalCTAProps) 
               
               {/* Animated Shimmer */}
               <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-accent-primary/10 to-transparent rounded-3xl"
+                animate={prefersReducedMotion ? undefined : { x: ['-100%', '100%'] }}
+                transition={prefersReducedMotion ? undefined : { duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+
                 className="absolute inset-0 bg-gradient-to-r from-transparent via-accent-primary/10 to-transparent rounded-3xl pointer-events-none overflow-hidden"
                 style={{
                   WebkitMaskImage:
@@ -146,6 +167,7 @@ export default function TrainingFinalCTA({ dict, lang }: TrainingFinalCTAProps) 
                   repeat: Infinity,
                   ease: "easeInOut"
                 }}
+
               />
             </div>
 
@@ -168,7 +190,7 @@ export default function TrainingFinalCTA({ dict, lang }: TrainingFinalCTAProps) 
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.3 }}
                 viewport={{ once: true }}
-                className="text-4xl md:text-5xl font-black text-text-primary mb-6"
+                className="text-3xl sm:text-4xl md:text-5xl font-black text-text-primary mb-6"
               >
                 {lang === 'cs' 
                   ? 'Připraveni na AI revoluci?' 

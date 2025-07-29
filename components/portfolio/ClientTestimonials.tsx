@@ -131,6 +131,7 @@ export default function ClientTestimonials({ dict, lang }: ClientTestimonialsPro
             <Quote className="w-12 h-12 text-accent-primary mx-auto mb-6" />
             
             <blockquote className="text-xl md:text-2xl text-text-primary mb-8 leading-relaxed">
+              &quot;{testimonials[currentTestimonial].quote}&quot;
               {testimonials[currentTestimonial].quote}
             </blockquote>
 
