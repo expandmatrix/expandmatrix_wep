@@ -108,7 +108,7 @@ export default function AboutHero({ dict, lang }: AboutHeroProps) {
               {lang === 'cs' ? '🚀 O naší AI agentuře' : '🚀 About Our AI Agency'}
             </motion.span>
             
-            <h1 className="text-6xl md:text-8xl lg:text-9xl font-black mb-8 leading-tight">
+            <h1 className="fluid-hero font-black mb-8 leading-tight">
               <motion.span 
                 className="bg-gradient-to-r from-text-primary via-accent-primary to-text-primary bg-clip-text text-transparent"
                 animate={{ 
