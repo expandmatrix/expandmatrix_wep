@@ -40,7 +40,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
             Something went wrong
           </h3>
           <p className="text-text-secondary mb-4">
-            We're sorry, but this section couldn't load properly.
+            We are sorry, but this section could not load properly.
           </p>
           <button
             onClick={() => this.setState({ hasError: false })}

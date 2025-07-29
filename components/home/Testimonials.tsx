@@ -291,7 +291,7 @@ export default function Testimonials({ dict, lang }: TestimonialsProps) {
               >
                 <div className="bg-bg-secondary/40 backdrop-blur-sm border border-accent-primary/10 rounded-lg p-3 max-w-xs">
                   <p className="text-xs text-text-secondary truncate">
-                    "{testimonial.text.substring(0, 50)}..."
+                    {testimonial.text.substring(0, 50)}…
                   </p>
                   <p className="text-xs text-accent-primary mt-1">
                     {testimonial.author}
