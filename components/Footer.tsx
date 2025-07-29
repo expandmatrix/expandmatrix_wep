@@ -73,8 +73,10 @@ export default function Footer({ dict, lang }: FooterProps) {
 
   return (
     <footer
+
       ref={footerRef}
       className="fixed bottom-0 left-0 right-0 z-40 bg-bg-secondary text-text-primary overflow-hidden"
+
     >
       {/* Animated Background */}
       <div className="absolute inset-0">
