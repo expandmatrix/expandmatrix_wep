@@ -4,7 +4,7 @@ import React, { createContext, useContext, useReducer, ReactNode } from 'react';
 import type { ChatMessage, ProcessStep } from './types';
 
 export interface DemoState {
-  mode: 'ecommerce' | 'hr' | 'workflow';
+  mode: 'ecommerce' | 'hr' | 'marketing';
   showResults: boolean;
   isSimulating: boolean;
   simulationResult: any;
@@ -19,8 +19,8 @@ export interface DemoState {
   validationErrors: { [key: string]: string };
 }
 
-export type DemoAction = 
-  | { type: 'SET_MODE'; payload: 'ecommerce' | 'hr' | 'workflow' }
+export type DemoAction =
+  | { type: 'SET_MODE'; payload: 'ecommerce' | 'hr' | 'marketing' }
   | { type: 'START_SIMULATION' }
   | { type: 'STOP_SIMULATION' }
   | { type: 'SET_RESULTS'; payload: any }

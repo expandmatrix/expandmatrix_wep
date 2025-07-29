@@ -3,13 +3,15 @@ import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { getDictionary, isValidLocale, type Locale } from '@/lib/getDictionary';
-import { Inter } from 'next/font/google';
+import localFont from 'next/font/local';
 
-const inter = Inter({
-  subsets: ['latin', 'latin-ext'],
+const inter = localFont({
+  src: '../../public/fonts/Inter-Variable.ttf',
+  variable: '--font-inter',
   display: 'swap',
   preload: true,
-  variable: '--font-inter',
+  weight: '100 900',
+  style: 'normal',
 });
 
 // Generate static params for all supported locales

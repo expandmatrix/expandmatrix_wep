@@ -93,8 +93,8 @@ export default function AIPackagesComparison({ dict, lang }: AIPackagesCompariso
   ];
 
   const packages = ['Starter', 'Professional', 'Enterprise', 'Custom'];
-  const packageColors = {
-    'Professional': 'text-accent-primary'
+  const packageColors: Record<string, string> = {
+    Professional: 'text-accent-primary'
   };
 
   const renderFeatureValue = (value: any) => {

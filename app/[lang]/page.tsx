@@ -121,7 +121,7 @@ export default async function HomePage({ params }: HomePageProps) {
         "address": {
           "@type": "PostalAddress",
           "addressCountry": "CZ",
-          "addressLocality": dict.home.location || "Prague"
+          "addressLocality": "Prague"
         }
       },
       {

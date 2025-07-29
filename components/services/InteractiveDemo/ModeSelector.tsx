@@ -26,10 +26,10 @@ export default function ModeSelector({ dict }: ModeSelectorProps) {
       description: dict?.modes?.hrDesc || 'Streamline HR processes'
     },
     {
-      id: 'workflow' as const,
-      title: dict?.modes?.workflow || 'Custom Workflow',
+      id: 'marketing' as const,
+      title: dict?.modes?.marketing || 'Marketing',
       icon: Workflow,
-      description: dict?.modes?.workflowDesc || 'Build custom automation'
+      description: dict?.modes?.marketingDesc || 'Automate marketing workflows'
     }
   ];
 

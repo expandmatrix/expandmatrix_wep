@@ -7,10 +7,11 @@ import { getDictionary } from '@/lib/getDictionary';
 import type { Locale } from '@/lib/getDictionary';
 
 export default async function ServicesPage({
-  params: { lang }
+  params,
 }: {
-  params: { lang: Locale }
+  params: Promise<{ lang: Locale }>;
 }) {
+  const { lang } = await params;
   const dict = await getDictionary(lang);
 
   return (
