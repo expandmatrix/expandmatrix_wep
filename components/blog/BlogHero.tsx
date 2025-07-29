@@ -84,7 +84,7 @@ export default function BlogHero({ lang, onSearch }: BlogHeroProps) {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder={lang === 'cs' ? 'Hledat články...' : 'Search articles...'}
-                className="w-full pl-12 pr-4 py-4 bg-bg-secondary border border-border-primary rounded-xl text-text-primary placeholder-text-secondary focus:outline-none focus:ring-2 focus:ring-accent-primary focus:border-transparent transition-all duration-300"
+                className="w-full pl-12 pr-4 py-4 bg-bg-secondary border border-border-color rounded-xl text-text-primary placeholder-text-secondary focus:outline-none focus:ring-2 focus:ring-accent-primary focus:border-transparent transition-all duration-300"
               />
             </div>
           </form>
@@ -95,7 +95,7 @@ export default function BlogHero({ lang, onSearch }: BlogHeroProps) {
               <button
                 key={index}
                 onClick={() => onSearch(suggestion)}
-                className="px-4 py-2 bg-bg-secondary hover:bg-accent-primary/10 border border-border-primary hover:border-accent-primary rounded-full text-sm text-text-secondary hover:text-accent-primary transition-all duration-300"
+                className="px-4 py-2 bg-bg-secondary hover:bg-accent-primary/10 border border-border-color hover:border-accent-primary rounded-full text-sm text-text-secondary hover:text-accent-primary transition-all duration-300"
               >
                 {suggestion}
               </button>

@@ -15,8 +15,8 @@ export default function ArticleGrid({ articles, lang, loading = false }: Article
   if (loading) {
     return (
       <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="container">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             {[...Array(6)].map((_, index) => (
               <div key={index} className="h-96 bg-bg-secondary/50 rounded-3xl animate-pulse" />
             ))}
@@ -29,7 +29,7 @@ export default function ArticleGrid({ articles, lang, loading = false }: Article
   if (articles.length === 0) {
     return (
       <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="container text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -52,8 +52,8 @@ export default function ArticleGrid({ articles, lang, loading = false }: Article
 
   return (
     <section className="py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="container">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {articles.map((article, index) => (
             <ArticleCard
               key={article.id}

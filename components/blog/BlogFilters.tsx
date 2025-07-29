@@ -24,9 +24,9 @@ export default function BlogFilters({ lang, activeCategory = null, categories }:
 
   return (
     <section className="py-8 border-b border-accent-primary/10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-center">
-          <div className="flex flex-wrap justify-center gap-4">
+      <div className="container">
+        <div className="flex justify-center">
+          <div className="flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-6">
             {/* All Articles */}
             <Link href={`/${lang}/blog`}>
               <motion.div
