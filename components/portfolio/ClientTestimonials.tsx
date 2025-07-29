@@ -132,6 +132,7 @@ export default function ClientTestimonials({ dict, lang }: ClientTestimonialsPro
             
             <blockquote className="text-xl md:text-2xl text-text-primary mb-8 leading-relaxed">
               &quot;{testimonials[currentTestimonial].quote}&quot;
+              {testimonials[currentTestimonial].quote}
             </blockquote>
 
             <div className="flex items-center justify-center mb-6">

@@ -36,7 +36,14 @@ export default function FinalCTA({ dict, lang }: FinalCTAProps) {
   return (
     <section className="py-32 bg-bg-primary relative overflow-hidden">
       {/* Dynamic Background */}
-      <div className="absolute inset-0">
+      <div
+        className="absolute inset-0 pointer-events-none overflow-hidden"
+        style={{
+          WebkitMaskImage:
+            'radial-gradient(75% 75% at 50% 50%, black 60%, transparent)',
+          maskImage: 'radial-gradient(75% 75% at 50% 50%, black 60%, transparent)'
+        }}
+      >
         {/* Animated Gradient Mesh */}
         <motion.div
           className="absolute inset-0 opacity-30"
@@ -56,13 +63,29 @@ export default function FinalCTA({ dict, lang }: FinalCTAProps) {
               ? undefined
               : { duration: 8, repeat: Infinity, ease: "easeInOut" }
           }
+
+          className="absolute inset-0 opacity-30 pointer-events-none overflow-hidden"
+          style={{
+            WebkitMaskImage:
+              'radial-gradient(90% 90% at 50% 50%, black 60%, transparent)',
+            maskImage:
+              'radial-gradient(90% 90% at 50% 50%, black 60%, transparent)'
+          }}
+          animate={{
+            background: [
+              'radial-gradient(circle at 20% 50%, rgba(0,255,127,0.1) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(0,255,127,0.05) 0%, transparent 50%)',
+              'radial-gradient(circle at 80% 50%, rgba(0,255,127,0.1) 0%, transparent 50%), radial-gradient(circle at 20% 50%, rgba(0,255,127,0.05) 0%, transparent 50%)',
+              'radial-gradient(circle at 20% 50%, rgba(0,255,127,0.1) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(0,255,127,0.05) 0%, transparent 50%)'
+            ]
+          }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         />
         
         {/* Floating Energy Orbs */}
         {[...Array(8)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-4 h-4 bg-accent-primary/20 rounded-full blur-sm"
+            className="absolute w-4 h-4 bg-accent-primary/20 rounded-full blur-sm pointer-events-none"
             style={{
               left: `${15 + (i * 12) % 70}%`,
               top: `${20 + (i * 8) % 60}%`,
@@ -90,7 +113,7 @@ export default function FinalCTA({ dict, lang }: FinalCTAProps) {
         ))}
 
         {/* Grid Pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(0,255,127,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,255,127,0.02)_1px,transparent_1px)] bg-[size:60px_60px] opacity-40" />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(0,255,127,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,255,127,0.02)_1px,transparent_1px)] bg-[size:60px_60px] opacity-40 pointer-events-none" />
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -106,6 +129,7 @@ export default function FinalCTA({ dict, lang }: FinalCTAProps) {
           className="relative"
           style={{
             perspective: 1000,
+            transformStyle: 'preserve-3d'
           }}
         >
           {/* Main CTA Container with 3D Effect */}
@@ -115,6 +139,8 @@ export default function FinalCTA({ dict, lang }: FinalCTAProps) {
               rotateX,
               rotateY,
               willChange: 'transform',
+              backfaceVisibility: 'hidden',
+              transformStyle: 'preserve-3d'
             }}
             whileHover={{
               scale: 1.01,
@@ -123,10 +149,16 @@ export default function FinalCTA({ dict, lang }: FinalCTAProps) {
             transition={{ duration: 0.4 }}
           >
             {/* Animated Background Layers */}
-            <div className="absolute inset-0">
+            <div className="absolute inset-0 pointer-events-none overflow-hidden">
               {/* Primary Glow */}
-              <motion.div 
-                className="absolute inset-0 bg-gradient-to-br from-accent-primary/10 via-transparent to-accent-primary/5 rounded-3xl"
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-br from-accent-primary/10 via-transparent to-accent-primary/5 rounded-3xl pointer-events-none overflow-hidden"
+                style={{
+                  WebkitMaskImage:
+                    'radial-gradient(100% 100% at 50% 50%, black 70%, transparent)',
+                  maskImage:
+                    'radial-gradient(100% 100% at 50% 50%, black 70%, transparent)'
+                }}
                 animate={{
                   opacity: isHovered ? 0.8 : 0.4,
                 }}
@@ -135,9 +167,27 @@ export default function FinalCTA({ dict, lang }: FinalCTAProps) {
               
               {/* Animated Shimmer */}
               <motion.div
+
                 className="absolute inset-0 bg-gradient-to-r from-transparent via-accent-primary/10 to-transparent rounded-3xl"
                 animate={prefersReducedMotion ? undefined : { x: ['-100%', '100%'] }}
                 transition={prefersReducedMotion ? undefined : { duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-accent-primary/10 to-transparent rounded-3xl pointer-events-none overflow-hidden"
+                style={{
+                  WebkitMaskImage:
+                    'radial-gradient(100% 100% at 50% 50%, black 70%, transparent)',
+                  maskImage:
+                    'radial-gradient(100% 100% at 50% 50%, black 70%, transparent)'
+                }}
+                animate={{
+                  x: ['-100%', '100%'],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+
               />
             </div>
 

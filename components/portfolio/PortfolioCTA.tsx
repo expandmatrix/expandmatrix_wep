@@ -93,10 +93,18 @@ export default function PortfolioCTA({ dict, lang }: PortfolioCTAProps) {
   return (
     <section className="py-32 bg-bg-primary relative overflow-hidden">
       {/* Advanced Background System */}
-      <div className="absolute inset-0">
+      <div
+        className="absolute inset-0 pointer-events-none overflow-hidden"
+        style={{
+          WebkitMaskImage:
+            'radial-gradient(75% 75% at 50% 50%, black 60%, transparent)',
+          maskImage: 'radial-gradient(75% 75% at 50% 50%, black 60%, transparent)'
+        }}
+      >
         {/* Animated Grid Pattern */}
         <motion.div
           className="absolute inset-0 opacity-20"
+          className="absolute inset-0 opacity-20 pointer-events-none overflow-hidden"
           style={{
             backgroundImage: `
               linear-gradient(rgba(0,255,127,0.1) 1px, transparent 1px),
@@ -117,15 +125,15 @@ export default function PortfolioCTA({ dict, lang }: PortfolioCTAProps) {
         />
         
         {/* Gradient Orbs */}
-        <div className="absolute top-20 left-10 w-96 h-96 bg-gradient-radial from-accent-primary/20 to-transparent rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-10 w-[500px] h-[500px] bg-gradient-radial from-accent-primary/10 to-transparent rounded-full blur-3xl animate-pulse animate-delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-radial from-accent-primary/5 to-transparent rounded-full blur-3xl"></div>
+        <div className="absolute top-20 left-10 w-96 h-96 bg-gradient-radial from-accent-primary/20 to-transparent rounded-full blur-3xl animate-pulse pointer-events-none"></div>
+        <div className="absolute bottom-20 right-10 w-[500px] h-[500px] bg-gradient-radial from-accent-primary/10 to-transparent rounded-full blur-3xl animate-pulse animate-delay-1000 pointer-events-none"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-radial from-accent-primary/5 to-transparent rounded-full blur-3xl pointer-events-none"></div>
         
         {/* Floating Energy Orbs */}
         {orbPositions.map((position, i) => (
           <motion.div
             key={`cta-orb-${i}`}
-            className="absolute w-4 h-4 bg-accent-primary/20 rounded-full blur-sm"
+            className="absolute w-4 h-4 bg-accent-primary/20 rounded-full blur-sm pointer-events-none"
             style={{
               left: position.left,
               top: position.top,
@@ -208,7 +216,7 @@ export default function PortfolioCTA({ dict, lang }: PortfolioCTAProps) {
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           className="relative"
-          style={{ perspective: 1000 }}
+          style={{ perspective: 1000, transformStyle: 'preserve-3d' }}
         >
           {/* Main CTA Container with 3D Effect */}
           <motion.div
@@ -217,6 +225,8 @@ export default function PortfolioCTA({ dict, lang }: PortfolioCTAProps) {
               rotateX,
               rotateY,
               willChange: 'transform',
+              backfaceVisibility: 'hidden',
+              transformStyle: 'preserve-3d'
             }}
             whileHover={{
               scale: 1.01,
@@ -225,10 +235,16 @@ export default function PortfolioCTA({ dict, lang }: PortfolioCTAProps) {
             transition={{ duration: 0.4 }}
           >
             {/* Animated Background Layers */}
-            <div className="absolute inset-0">
+            <div className="absolute inset-0 pointer-events-none overflow-hidden">
               {/* Primary Glow */}
-              <motion.div 
-                className="absolute inset-0 bg-gradient-to-br from-accent-primary/10 via-transparent to-accent-primary/5 rounded-3xl"
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-br from-accent-primary/10 via-transparent to-accent-primary/5 rounded-3xl pointer-events-none overflow-hidden"
+                style={{
+                  WebkitMaskImage:
+                    'radial-gradient(100% 100% at 50% 50%, black 70%, transparent)',
+                  maskImage:
+                    'radial-gradient(100% 100% at 50% 50%, black 70%, transparent)'
+                }}
                 animate={{
                   opacity: isHovered ? 0.8 : 0.4,
                 }}
@@ -240,6 +256,22 @@ export default function PortfolioCTA({ dict, lang }: PortfolioCTAProps) {
                 className="absolute inset-0 bg-gradient-to-r from-transparent via-accent-primary/10 to-transparent rounded-3xl"
                 animate={prefersReducedMotion ? undefined : { x: ['-100%', '100%'] }}
                 transition={prefersReducedMotion ? undefined : { duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-accent-primary/10 to-transparent rounded-3xl pointer-events-none overflow-hidden"
+                style={{
+                  WebkitMaskImage:
+                    'radial-gradient(100% 100% at 50% 50%, black 70%, transparent)',
+                  maskImage:
+                    'radial-gradient(100% 100% at 50% 50%, black 70%, transparent)'
+                }}
+                animate={{
+                  x: ['-100%', '100%'],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
               />
             </div>
 

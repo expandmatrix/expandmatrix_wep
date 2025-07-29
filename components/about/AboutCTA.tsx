@@ -34,6 +34,7 @@ export default function AboutCTA({ dict, lang }: AboutCTAProps) {
   return (
     <section className="py-32 bg-bg-primary relative overflow-hidden">
       {/* Dynamic Background */}
+
       <div className="absolute inset-0">
         <motion.div
           className="absolute inset-0 opacity-30"
@@ -49,13 +50,39 @@ export default function AboutCTA({ dict, lang }: AboutCTAProps) {
                 }
           }
           transition={prefersReducedMotion ? undefined : { duration: 8, repeat: Infinity, ease: "easeInOut" }}
+
+      <div
+        className="absolute inset-0 pointer-events-none overflow-hidden"
+        style={{
+          WebkitMaskImage:
+            'radial-gradient(75% 75% at 50% 50%, black 60%, transparent)',
+          maskImage: 'radial-gradient(75% 75% at 50% 50%, black 60%, transparent)'
+        }}
+      >
+        <motion.div
+          className="absolute inset-0 opacity-30 pointer-events-none overflow-hidden"
+          style={{
+            WebkitMaskImage:
+              'radial-gradient(90% 90% at 50% 50%, black 60%, transparent)',
+            maskImage:
+              'radial-gradient(90% 90% at 50% 50%, black 60%, transparent)'
+          }}
+          animate={{
+            background: [
+              'radial-gradient(circle at 20% 50%, rgba(0,255,127,0.1) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(0,255,127,0.05) 0%, transparent 50%)',
+              'radial-gradient(circle at 80% 50%, rgba(0,255,127,0.1) 0%, transparent 50%), radial-gradient(circle at 20% 50%, rgba(0,255,127,0.05) 0%, transparent 50%)',
+              'radial-gradient(circle at 20% 50%, rgba(0,255,127,0.1) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(0,255,127,0.05) 0%, transparent 50%)'
+            ]
+          }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+
         />
         
         {/* Floating Energy Orbs */}
         {[...Array(8)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-4 h-4 bg-accent-primary/20 rounded-full blur-sm"
+            className="absolute w-4 h-4 bg-accent-primary/20 rounded-full blur-sm pointer-events-none"
             style={{
               left: `${15 + (i * 12) % 70}%`,
               top: `${20 + (i * 8) % 60}%`,
@@ -83,7 +110,7 @@ export default function AboutCTA({ dict, lang }: AboutCTAProps) {
         ))}
 
         {/* Grid Pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(0,255,127,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,255,127,0.02)_1px,transparent_1px)] bg-[size:60px_60px] opacity-40" />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(0,255,127,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,255,127,0.02)_1px,transparent_1px)] bg-[size:60px_60px] opacity-40 pointer-events-none" />
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -99,6 +126,7 @@ export default function AboutCTA({ dict, lang }: AboutCTAProps) {
           className="relative"
           style={{
             perspective: 1000,
+            transformStyle: 'preserve-3d'
           }}
         >
           {/* Main CTA Container with 3D Effect */}
@@ -108,6 +136,9 @@ export default function AboutCTA({ dict, lang }: AboutCTAProps) {
               rotateX,
               rotateY,
               willChange: 'transform',
+
+              backfaceVisibility: 'hidden',
+              transformStyle: 'preserve-3d'
             }}
             whileHover={{
               scale: 1.02,

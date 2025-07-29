@@ -241,18 +241,6 @@ export default function AIPackagesComparison({ dict, lang }: AIPackagesCompariso
         </motion.div>
       </div>
 
-      {/* Liquid Glass CSS */}
-      <style jsx>{`
-        .liquid-glass-card {
-          background: rgba(255, 255, 255, 0.03);
-          backdrop-filter: blur(20px) saturate(180%);
-          -webkit-backdrop-filter: blur(20px) saturate(180%);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          box-shadow: 
-            0 8px 25px rgba(255, 255, 255, 0.05), 
-            0 0 0 1px rgba(255, 255, 255, 0.05) inset;
-        }
-      `}</style>
     </section>
   );
 }
