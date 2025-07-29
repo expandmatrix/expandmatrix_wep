@@ -61,7 +61,7 @@ export default function Header({ dict, lang }: HeaderProps) {
         }}
       />
 
-      <nav className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 2xl:px-12 3xl:px-24">
         <div className="flex justify-between items-center h-20">
           {/* Logo Section */}
           <motion.div

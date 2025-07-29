@@ -154,7 +154,7 @@ export default function CustomAIHero({ dict, lang }: CustomAIHeroProps) {
         />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 2xl:px-12 3xl:px-24 py-32">
         <div className="text-center">
           {/* Modern Badge */}
           <motion.div
@@ -176,7 +176,7 @@ export default function CustomAIHero({ dict, lang }: CustomAIHeroProps) {
             transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="mb-8"
           >
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-tight">
+            <h1 className="text-5xl md:text-7xl lg:text-8xl 2xl:text-[9rem] 3xl:text-[11rem] font-black mb-6 leading-tight">
               {lang === 'cs' ? (
                 <>
                   <span className="text-text-primary">Vytváříme AI </span>
@@ -208,7 +208,7 @@ export default function CustomAIHero({ dict, lang }: CustomAIHeroProps) {
               )}
             </h1>
             
-            <p className="text-xl md:text-2xl text-text-secondary max-w-4xl mx-auto leading-relaxed">
+            <p className="text-xl md:text-2xl 2xl:text-3xl 3xl:text-4xl text-text-secondary max-w-4xl mx-auto leading-relaxed">
               {lang === 'cs'
                 ? 'Od analýzy vašich potřeb po kompletní implementaci. Vytváříme AI systémy, které skutečně vyřeší vaše obchodní výzvy a posunou vás před konkurenci.'
                 : 'From analyzing your needs to complete implementation. We create AI systems that truly solve your business challenges and put you ahead of the competition.'

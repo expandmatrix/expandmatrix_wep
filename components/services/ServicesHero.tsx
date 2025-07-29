@@ -116,7 +116,7 @@ export default function ServicesHero({ dict, lang }: ServicesHeroProps) {
         </svg>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 2xl:px-12 3xl:px-24 text-center">
         {/* Main heading */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -140,7 +140,7 @@ export default function ServicesHero({ dict, lang }: ServicesHeroProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-5xl md:text-7xl lg:text-8xl font-black mb-6 text-text-primary leading-tight"
+            className="text-5xl md:text-7xl lg:text-8xl 2xl:text-[9rem] 3xl:text-[11rem] font-black mb-6 text-text-primary leading-tight"
           >
             {lang === 'cs' ? (
               <>
@@ -163,7 +163,7 @@ export default function ServicesHero({ dict, lang }: ServicesHeroProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-xl md:text-2xl text-text-secondary max-w-4xl mx-auto leading-relaxed font-medium"
+            className="text-xl md:text-2xl 2xl:text-3xl 3xl:text-4xl text-text-secondary max-w-4xl mx-auto leading-relaxed font-medium"
           >
             {lang === 'cs' 
               ? 'Objevte naše komplexní portfolio AI řešení. Od automatizace procesů po pokročilé AI systémy na míru - najděte řešení, které posune vaše podnikání do budoucnosti.'
