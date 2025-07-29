@@ -22,7 +22,7 @@ export default function FinalCTA({ dict, lang }: FinalCTAProps) {
   };
 
   const trust = (
-    <>
+    <div className="mt-12 flex flex-wrap justify-center items-center gap-8 text-text-secondary text-sm">
       <div className="flex items-center space-x-2">
         <div className="w-2 h-2 bg-accent-primary rounded-full animate-pulse" />
         <span>{lang === 'cs' ? 'Bezplatná konzultace' : 'Free consultation'}</span>
@@ -35,7 +35,7 @@ export default function FinalCTA({ dict, lang }: FinalCTAProps) {
         <div className="w-2 h-2 bg-accent-primary rounded-full animate-pulse" style={{ animationDelay: '1s' }} />
         <span>{lang === 'cs' ? '24/7 podpora' : '24/7 support'}</span>
       </div>
-    </>
+    </div>
   );
 
   return (
