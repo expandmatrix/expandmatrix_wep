@@ -64,14 +64,18 @@ export default function BlogContent({
 
   return (
     <div className="min-h-screen bg-bg-primary">
-      <BlogHero lang={lang} onSearch={setSearchQuery} />
-      <BlogFilters 
-        lang={lang} 
-        activeCategory={initialCategory}
-        categories={categories}
-      />
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="pb-12">
+        <BlogHero lang={lang} onSearch={setSearchQuery} />
+      </div>
+      <div className="pb-12">
+        <BlogFilters
+          lang={lang}
+          activeCategory={initialCategory}
+          categories={categories}
+        />
+      </div>
+
+      <div className="container py-16">
         {/* Zobrazení aktuální kategorie */}
         {initialCategory && (
           <div className="mb-8">
