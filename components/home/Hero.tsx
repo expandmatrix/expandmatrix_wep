@@ -220,8 +220,8 @@ export default function Hero({ dict, lang }: HeroProps) {
         </motion.div>
 
         {/* Main Title */}
-        <motion.h1 
-          className="text-6xl md:text-8xl lg:text-9xl font-black mb-8 text-text-primary leading-tight"
+        <motion.h1
+          className="fluid-hero font-black mb-8 text-text-primary leading-tight"
           style={{
             willChange: 'transform',
             transform: 'translate3d(0, 0, 0)',
