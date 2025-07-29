@@ -201,5 +201,103 @@
     "copyright": "© 2024 ExpandMatrix. Všechna práva vyhrazena.",
     "privacy": "Ochrana soukromí",
     "terms": "Podmínky použití"
+  },
+  "community": {
+    "title": "Komunita",
+    "subtitle": "Připojte se k největší AI komunitě v České republice. Sdílejte zkušenosti, učte se od expertů a budujte budoucnost s umělou inteligencí.",
+    "description": "Expand Matrix Community - Připojte se k AI expertům, sdílejte zkušenosti s automatizací businessu a objevte nejnovější trendy v umělé inteligenci.",
+    "keywords": "AI komunita, business automatizace, umělá inteligence, Discord komunita, LinkedIn networking, AI experty",
+    "free": {
+      "title": "Zdarma Komunity",
+      "subtitle": "Začněte svou AI cestu s našimi bezplatnými komunitami plnými inspirace a praktických tipů.",
+      "discord": {
+        "title": "ZDARMA Discord Komunita",
+        "description": "Aktivní komunita AI nadšenců, kde můžete diskutovat o nejnovějších trendech, sdílet projekty a získat rychlou pomoc."
+      },
+      "linkedin": {
+        "title": "LinkedIn Komunita", 
+        "description": "Profesionální síť pro business networking, sdílení úspěchů a navazování obchodních kontaktů v AI sféře."
+      },
+      "facebook": {
+        "title": "Facebook Skupina",
+        "description": "Neformální prostor pro sdílení zajímavých článků, diskuze o AI novinkách a komunitní události."
+      },
+      "benefits": {
+        "title": "Benefity být v komunitě",
+        "items": [
+          "Networking s AI experty a profesionály",
+          "Přístup k exkluzivním webinářům a workshopům",
+          "Sdílení praktických zkušeností s AI implementací",
+          "Rychlá pomoc při řešení technických problémů",
+          "Informace o nových AI nástrojích a technologiích",
+          "Možnost prezentace vlastních projektů"
+        ]
+      },
+      "content": {
+        "title": "Co tam mohou najít",
+        "items": [
+          "Tipy pro automatizaci business procesů",
+          "Recenze a doporučení AI nástrojů",
+          "Case studies úspěšných AI implementací",
+          "Diskuze o budoucnosti umělé inteligence",
+          "Sdílení job opportunities v AI sektoru",
+          "Komunitní projekty a hackathony"
+        ]
+      }
+    },
+    "premium": {
+      "title": "Chcete být napřed?",
+      "subtitle": "Získejte přístup k exkluzivnímu obsahu, osobním konzultacím a pokročilým AI nástrojům.",
+      "discord": {
+        "title": "Placená Discord Komunita",
+        "description": "Exkluzivní přístup k premium obsahu, osobním konzultacím s experty a pokročilým AI nástrojům pro váš business.",
+        "cta": "Připojit se nyní",
+        "price": "990 Kč/měsíc"
+      },
+      "benefits": {
+        "title": "Premium Benefity",
+        "items": [
+          "Osobní konzultace s AI experty (1:1 sessions)",
+          "Přístup k premium AI nástrojům a softwareu",
+          "Exkluzivní workshopy a masterclassy",
+          "Prioritní podpora při implementaci AI řešení",
+          "Přístup k interním case studies a datům",
+          "Možnost ovlivnit směr vývoje komunity"
+        ]
+      },
+      "content": {
+        "title": "Exkluzivní obsah",
+        "items": [
+          "Pokročilé AI strategie pro business růst",
+          "Přístup k beta verzím nových AI nástrojů",
+          "Detailní analýzy ROI AI implementací",
+          "Osobní AI audit vašeho businessu",
+          "Exkluzivní rozhovory s AI leadery",
+          "Premium templates a automatizační skripty"
+        ]
+      }
+    },
+    "faq": {
+      "title": "Často kladené otázky",
+      "subtitle": "Máte dotazy? Zde najdete odpovědi na nejčastější otázky o naší komunitě.",
+      "items": [
+        {
+          "question": "Jak se mohu připojit k bezplatné Discord komunitě?",
+          "answer": "Stačí kliknout na odkaz Discord komunity výše a následovat instrukce pro připojení. Registrace je zcela zdarma a trvá jen několik minut."
+        },
+        {
+          "question": "Jaký je rozdíl mezi bezplatnou a placenou komunitou?",
+          "answer": "Bezplatná komunita nabízí základní networking a sdílení zkušeností. Placená komunita poskytuje osobní konzultace, přístup k premium nástrojům a exkluzivní obsah."
+        },
+        {
+          "question": "Mohu zrušit premium členství kdykoli?",
+          "answer": "Ano, premium členství můžete zrušit kdykoli bez výpovědní lhůty. Přístup k premium obsahu zůstane aktivní do konce zaplaceného období."
+        },
+        {
+          "question": "Jsou komunity vhodné pro začátečníky v AI?",
+          "answer": "Absolutně! Naše komunity jsou navrženy pro všechny úrovně znalostí - od úplných začátečníků po pokročilé AI experty. Najdete zde podporu na každé úrovni."
+        }
+      ]
+    }
   }
 }

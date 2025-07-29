@@ -156,6 +156,7 @@ export const navigationStructure: Record<Locale, NavigationItem[]> = {
       ]
     },
     { href: '/portfolio', label: 'Portfolio' },
+    { href: '/komunita', label: 'Komunita' },
     { href: '/blog', label: 'Blog' },
     { href: '/o-nas', label: 'O nás' },
     { href: '/kontakt', label: 'Kontakt' }
@@ -170,6 +171,7 @@ export const navigationStructure: Record<Locale, NavigationItem[]> = {
       ]
     },
     { href: '/portfolio', label: 'Portfolio' },
+    { href: '/community', label: 'Community' },
     { href: '/blog', label: 'Blog' },
     { href: '/about-us', label: 'About' },
     { href: '/contact', label: 'Contact' }
