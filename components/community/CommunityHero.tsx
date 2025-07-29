@@ -25,13 +25,13 @@ export default function CommunityHero({ dict }: CommunityHeroProps) {
           transition={{ duration: 0.8 }}
           className="text-center"
         >
-          <motion.h1 
-            className="fluid-hero text-text-primary mb-8 font-bold bg-gradient-to-r from-text-primary via-accent-primary to-text-primary bg-clip-text text-transparent"
+          <motion.h1
+            className="fluid-hero font-black text-text-primary mb-8 leading-tight"
             initial={{ scale: 0.9 }}
             animate={{ scale: 1 }}
-            transition={{ duration: 1, ease: "easeOut" }}
+            transition={{ duration: 1, ease: 'easeOut' }}
           >
-            {dict.community.title}
+            <span className="text-accent-primary">{dict.community.title}</span>
           </motion.h1>
           <motion.p 
             className="text-xl md:text-2xl text-text-secondary max-w-4xl mx-auto leading-relaxed"
