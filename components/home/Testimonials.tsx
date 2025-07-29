@@ -291,7 +291,8 @@ export default function Testimonials({ dict, lang }: TestimonialsProps) {
               >
                 <div className="bg-bg-secondary/40 backdrop-blur-sm border border-accent-primary/10 rounded-lg p-3 max-w-xs">
                   <p className="text-xs text-text-secondary truncate">
-                    "{testimonial.text.substring(0, 50)}..."
+                    &quot;{testimonial.text.substring(0, 50)}...&quot;
+                    {testimonial.text.substring(0, 50)}…
                   </p>
                   <p className="text-xs text-accent-primary mt-1">
                     {testimonial.author}
@@ -351,7 +352,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
         >
-          <span className="font-light italic">"{testimonial.text}"</span>
+          <span className="font-light italic">&quot;{testimonial.text}&quot;</span>
         </motion.blockquote>
 
         {/* Highlight Badge */}

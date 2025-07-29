@@ -55,7 +55,7 @@ export default function BlogHero({ lang, onSearch }: BlogHeroProps) {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
+      <div className="relative z-10 max-w-4xl mx-auto px-6 2xl:px-12 3xl:px-24 text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -63,12 +63,12 @@ export default function BlogHero({ lang, onSearch }: BlogHeroProps) {
         >
           <div className="flex items-center justify-center mb-6">
             <Sparkles className="w-8 h-8 text-accent-primary mr-3" />
-            <h1 className="text-4xl md:text-6xl font-bold text-text-primary">
+            <h1 className="text-4xl md:text-6xl 2xl:text-7xl 3xl:text-8xl font-bold text-text-primary">
               {lang === 'cs' ? 'Blog' : 'Blog'}
             </h1>
           </div>
           
-          <p className="text-xl text-text-secondary mb-8 max-w-2xl mx-auto">
+          <p className="text-xl md:text-2xl 2xl:text-3xl 3xl:text-4xl text-text-secondary mb-8 max-w-2xl mx-auto">
             {lang === 'cs' 
               ? 'Objevte nejnovější trendy v AI, automatizaci a technologiích. Praktické návody a case studies.'
               : 'Discover the latest trends in AI, automation, and technology. Practical guides and case studies.'

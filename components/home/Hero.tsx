@@ -205,7 +205,7 @@ export default function Hero({ dict, lang }: HeroProps) {
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 2xl:px-12 3xl:px-24 text-center">
         {/* Badge */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
@@ -221,6 +221,7 @@ export default function Hero({ dict, lang }: HeroProps) {
 
         {/* Main Title */}
         <motion.h1
+          className="text-6xl md:text-8xl lg:text-9xl 2xl:text-[10rem] 3xl:text-[12rem] font-black mb-8 text-text-primary leading-tight"
           className="fluid-hero font-black mb-8 text-text-primary leading-tight"
           style={{
             willChange: 'transform',
@@ -255,7 +256,7 @@ export default function Hero({ dict, lang }: HeroProps) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
-          className="text-xl md:text-2xl lg:text-3xl text-text-secondary mb-12 max-w-4xl mx-auto leading-relaxed font-light"
+          className="text-xl md:text-2xl lg:text-3xl 2xl:text-4xl 3xl:text-5xl text-text-secondary mb-12 max-w-4xl mx-auto leading-relaxed font-light"
         >
           {currentContent.subtitle}
         </motion.p>

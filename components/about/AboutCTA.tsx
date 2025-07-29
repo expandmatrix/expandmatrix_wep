@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useMotionValue, useTransform } from 'framer-motion';
+import { motion, useMotionValue, useTransform, useReducedMotion } from 'framer-motion';
 import { ArrowRight, Sparkles, Rocket } from 'lucide-react';
 import { useState, useRef } from 'react';
 
@@ -12,6 +12,7 @@ interface AboutCTAProps {
 export default function AboutCTA({ dict, lang }: AboutCTAProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
   
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -33,9 +34,39 @@ export default function AboutCTA({ dict, lang }: AboutCTAProps) {
   return (
     <section className="py-32 bg-bg-primary relative overflow-hidden">
       {/* Dynamic Background */}
+
       <div className="absolute inset-0">
-        <motion.div 
+        <motion.div
           className="absolute inset-0 opacity-30"
+          animate={
+            prefersReducedMotion
+              ? undefined
+              : {
+                  background: [
+                    'radial-gradient(circle at 20% 50%, rgba(0,255,127,0.1) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(0,255,127,0.05) 0%, transparent 50%)',
+                    'radial-gradient(circle at 80% 50%, rgba(0,255,127,0.1) 0%, transparent 50%), radial-gradient(circle at 20% 50%, rgba(0,255,127,0.05) 0%, transparent 50%)',
+                    'radial-gradient(circle at 20% 50%, rgba(0,255,127,0.1) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(0,255,127,0.05) 0%, transparent 50%)'
+                  ]
+                }
+          }
+          transition={prefersReducedMotion ? undefined : { duration: 8, repeat: Infinity, ease: "easeInOut" }}
+
+      <div
+        className="absolute inset-0 pointer-events-none overflow-hidden"
+        style={{
+          WebkitMaskImage:
+            'radial-gradient(75% 75% at 50% 50%, black 60%, transparent)',
+          maskImage: 'radial-gradient(75% 75% at 50% 50%, black 60%, transparent)'
+        }}
+      >
+        <motion.div
+          className="absolute inset-0 opacity-30 pointer-events-none overflow-hidden"
+          style={{
+            WebkitMaskImage:
+              'radial-gradient(90% 90% at 50% 50%, black 60%, transparent)',
+            maskImage:
+              'radial-gradient(90% 90% at 50% 50%, black 60%, transparent)'
+          }}
           animate={{
             background: [
               'radial-gradient(circle at 20% 50%, rgba(0,255,127,0.1) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(0,255,127,0.05) 0%, transparent 50%)',
@@ -44,33 +75,42 @@ export default function AboutCTA({ dict, lang }: AboutCTAProps) {
             ]
           }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+
         />
         
         {/* Floating Energy Orbs */}
         {[...Array(8)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-4 h-4 bg-accent-primary/20 rounded-full blur-sm"
+            className="absolute w-4 h-4 bg-accent-primary/20 rounded-full blur-sm pointer-events-none"
             style={{
               left: `${15 + (i * 12) % 70}%`,
               top: `${20 + (i * 8) % 60}%`,
             }}
-            animate={{
-              y: [0, -40, 0],
-              opacity: [0.2, 0.8, 0.2],
-              scale: [1, 1.5, 1],
-            }}
-            transition={{
-              duration: 4 + i * 0.5,
-              repeat: Infinity,
-              delay: i * 0.3,
-              ease: "easeInOut"
-            }}
+            animate={
+              prefersReducedMotion
+                ? undefined
+                : {
+                    y: [0, -40, 0],
+                    opacity: [0.2, 0.8, 0.2],
+                    scale: [1, 1.5, 1],
+                  }
+            }
+            transition={
+              prefersReducedMotion
+                ? undefined
+                : {
+                    duration: 4 + i * 0.5,
+                    repeat: Infinity,
+                    delay: i * 0.3,
+                    ease: "easeInOut",
+                  }
+            }
           />
         ))}
 
         {/* Grid Pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(0,255,127,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,255,127,0.02)_1px,transparent_1px)] bg-[size:60px_60px] opacity-40" />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(0,255,127,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,255,127,0.02)_1px,transparent_1px)] bg-[size:60px_60px] opacity-40 pointer-events-none" />
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -86,6 +126,7 @@ export default function AboutCTA({ dict, lang }: AboutCTAProps) {
           className="relative"
           style={{
             perspective: 1000,
+            transformStyle: 'preserve-3d'
           }}
         >
           {/* Main CTA Container with 3D Effect */}
@@ -94,6 +135,10 @@ export default function AboutCTA({ dict, lang }: AboutCTAProps) {
             style={{
               rotateX,
               rotateY,
+              willChange: 'transform',
+
+              backfaceVisibility: 'hidden',
+              transformStyle: 'preserve-3d'
             }}
             whileHover={{
               scale: 1.02,
@@ -105,15 +150,16 @@ export default function AboutCTA({ dict, lang }: AboutCTAProps) {
               {/* Floating Rocket */}
               <motion.div
                 className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-accent-primary/20"
-                animate={{
-                  y: [0, -15, 0],
-                  rotate: [0, 10, 0],
-                }}
-                transition={{
-                  duration: 5,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
+                animate={
+                  prefersReducedMotion
+                    ? undefined
+                    : { y: [0, -15, 0], rotate: [0, 10, 0] }
+                }
+                transition={
+                  prefersReducedMotion
+                    ? undefined
+                    : { duration: 5, repeat: Infinity, ease: "easeInOut" }
+                }
               >
                 <Rocket className="w-8 h-8" />
               </motion.div>
@@ -138,24 +184,25 @@ export default function AboutCTA({ dict, lang }: AboutCTAProps) {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
                 viewport={{ once: true }}
-                className="text-4xl sm:text-5xl lg:text-6xl font-black text-text-primary mb-6 leading-tight"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-text-primary mb-6 leading-tight"
               >
                 {lang === 'cs' ? (
                   <>
                     Připraveni{' '}
                     <span className="text-accent-primary relative inline-block">
                       revolucionalizovat
-                      <motion.div 
+                      <motion.div
                         className="absolute -inset-2 bg-accent-primary/10 blur-2xl rounded-lg"
-                        animate={{ 
-                          opacity: [0.5, 1, 0.5],
-                          scale: [1, 1.05, 1]
-                        }}
-                        transition={{ 
-                          duration: 3, 
-                          repeat: Infinity,
-                          ease: "easeInOut"
-                        }}
+                        animate={
+                          prefersReducedMotion
+                            ? undefined
+                            : { opacity: [0.5, 1, 0.5], scale: [1, 1.05, 1] }
+                        }
+                        transition={
+                          prefersReducedMotion
+                            ? undefined
+                            : { duration: 3, repeat: Infinity, ease: "easeInOut" }
+                        }
                       />
                     </span>
                     <br />
@@ -166,17 +213,18 @@ export default function AboutCTA({ dict, lang }: AboutCTAProps) {
                     Ready to{' '}
                     <span className="text-accent-primary relative inline-block">
                       revolutionize
-                      <motion.div 
+                      <motion.div
                         className="absolute -inset-2 bg-accent-primary/10 blur-2xl rounded-lg"
-                        animate={{ 
-                          opacity: [0.5, 1, 0.5],
-                          scale: [1, 1.05, 1]
-                        }}
-                        transition={{ 
-                          duration: 3, 
-                          repeat: Infinity,
-                          ease: "easeInOut"
-                        }}
+                        animate={
+                          prefersReducedMotion
+                            ? undefined
+                            : { opacity: [0.5, 1, 0.5], scale: [1, 1.05, 1] }
+                        }
+                        transition={
+                          prefersReducedMotion
+                            ? undefined
+                            : { duration: 3, repeat: Infinity, ease: "easeInOut" }
+                        }
                       />
                     </span>
                     <br />

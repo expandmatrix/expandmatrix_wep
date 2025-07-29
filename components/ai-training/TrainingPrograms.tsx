@@ -234,16 +234,6 @@ export default function TrainingPrograms({ dict, lang }: TrainingProgramsProps) 
 
       {/* Liquid Glass CSS */}
       <style jsx>{`
-        .liquid-glass-card {
-          background: rgba(255, 255, 255, 0.03);
-          backdrop-filter: blur(20px) saturate(180%);
-          -webkit-backdrop-filter: blur(20px) saturate(180%);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        
-        .liquid-glass-card:hover {
-          border-color: rgba(0, 255, 127, 0.3);
-        }
         
         .popular-glow {
           border-color: rgba(0, 255, 127, 0.4);

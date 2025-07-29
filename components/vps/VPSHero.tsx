@@ -51,7 +51,7 @@ export default function VPSHero({ lang }: VPSHeroProps) {
         <div className="absolute inset-0 bg-[linear-gradient(rgba(0,255,127,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(0,255,127,0.04)_1px,transparent_1px)] bg-[size:80px_80px] opacity-20" />
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 2xl:px-12 3xl:px-24 relative z-10">
         <div className="text-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.5 }}
@@ -64,7 +64,7 @@ export default function VPSHero({ lang }: VPSHeroProps) {
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-5xl sm:text-6xl lg:text-7xl font-black text-text-primary mb-6"
+            className="text-5xl sm:text-6xl lg:text-7xl 2xl:text-[8rem] 3xl:text-[10rem] font-black text-text-primary mb-6"
           >
             VPS{' '}
             <span className="text-accent-primary">Hosting</span>
@@ -74,7 +74,7 @@ export default function VPSHero({ lang }: VPSHeroProps) {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-xl text-text-secondary mb-12 max-w-4xl mx-auto"
+            className="text-xl md:text-2xl 2xl:text-3xl 3xl:text-4xl text-text-secondary mb-12 max-w-4xl mx-auto"
           >
             {lang === 'cs' 
               ? 'Vysokovýkonné VPS servery pro vaše AI aplikace a web projekty.'
