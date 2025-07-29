@@ -2,6 +2,7 @@
 
 import { useState, useRef } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
+import CtaCard from '@/components/ui/CtaCard';
 import Link from 'next/link';
 import { ArrowRight, MessageCircle } from 'lucide-react';
 import type { Locale } from '@/lib/getDictionary';
@@ -111,37 +112,14 @@ export default function VPSFinalCTA({ lang }: VPSFinalCTAProps) {
           style={{ perspective: 1000, transformStyle: 'preserve-3d' }}
         >
           {/* Main CTA Container with 3D Effect */}
-          <motion.div
-            className="relative bg-gradient-to-br from-bg-secondary/80 via-bg-secondary/60 to-bg-secondary/40 backdrop-blur-2xl border border-accent-primary/20 rounded-3xl overflow-hidden"
-            style={{
-              rotateX,
-              rotateY,
-              willChange: 'transform',
-              backfaceVisibility: 'hidden',
-              transformStyle: 'preserve-3d'
-            }}
-            whileHover={{
-              scale: 1.01,
-              borderColor: 'rgba(0, 119, 255, 0.4)',
-            }}
-            transition={{ duration: 0.3 }}
+          <CtaCard
+            rotateX={rotateX}
+            rotateY={rotateY}
+            isHovered={isHovered}
+            shimmer={false}
+            glowClassName="from-accent-primary/5 via-transparent to-accent-primary/5"
+            hoverBorderColor="rgba(0, 119, 255, 0.4)"
           >
-            {/* Inner Glow Effect */}
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-br from-accent-primary/5 via-transparent to-accent-primary/5 rounded-3xl pointer-events-none overflow-hidden"
-              style={{
-                WebkitMaskImage:
-                  'radial-gradient(100% 100% at 50% 50%, black 70%, transparent)',
-                maskImage:
-                  'radial-gradient(100% 100% at 50% 50%, black 70%, transparent)'
-              }}
-              animate={{
-                opacity: isHovered ? 0.8 : 0.4,
-              }}
-              transition={{ duration: 0.3 }}
-            />
-
-            {/* Content */}
             <div className="relative z-10 p-12 text-center">
               {/* Icon */}
               <motion.div
@@ -228,8 +206,8 @@ export default function VPSFinalCTA({ lang }: VPSFinalCTAProps) {
                 </div>
               </motion.div>
             </div>
+            </CtaCard>
           </motion.div>
-        </motion.div>
       </div>
     </section>
   );
