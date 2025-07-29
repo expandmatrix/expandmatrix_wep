@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
-import { Zap, Mail, ArrowRight, CheckCircle, ExternalLink } from 'lucide-react';
+import { Zap, Mail, ArrowRight, CheckCircle, ExternalLink, Linkedin, Twitter, Github } from 'lucide-react';
 import Link from 'next/link';
 import { type Locale } from '@/lib/getDictionary';
 
@@ -160,10 +160,32 @@ export default function Footer({ dict, lang }: FooterProps) {
 
             {/* Social Links */}
             <div className="flex space-x-4">
-              {['linkedin', 'twitter', 'github'].map((social, index) => (
+              {[
+                { 
+                  name: 'linkedin', 
+                  icon: Linkedin, 
+                  href: 'https://linkedin.com/company/expand-matrix',
+                  label: 'LinkedIn'
+                },
+                { 
+                  name: 'twitter', 
+                  icon: Twitter, 
+                  href: 'https://twitter.com/expand_matrix',
+                  label: 'Twitter'
+                },
+                { 
+                  name: 'github', 
+                  icon: Github, 
+                  href: 'https://github.com/expand-matrix',
+                  label: 'GitHub'
+                }
+              ].map((social) => (
                 <motion.a
-                  key={social}
-                  href="#"
+                  key={social.name}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.label}
                   whileHover={{ 
                     scale: 1.1,
                     boxShadow: '0 0 20px rgba(0, 255, 127, 0.4)'
@@ -171,7 +193,7 @@ export default function Footer({ dict, lang }: FooterProps) {
                   whileTap={{ scale: 0.95 }}
                   className="w-10 h-10 bg-bg-primary/50 backdrop-blur-sm border border-accent-primary/20 rounded-xl flex items-center justify-center text-text-secondary hover:text-accent-primary hover:border-accent-primary/60 transition-all duration-300"
                 >
-                  <ExternalLink className="w-4 h-4" />
+                  <social.icon className="w-4 h-4" />
                 </motion.a>
               ))}
             </div>
@@ -332,9 +354,14 @@ export default function Footer({ dict, lang }: FooterProps) {
           />
 
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <p className="text-text-secondary text-sm text-center md:text-left">
-              {dict?.footer?.copyright || '© 2024 Expand Matrix. Všechna práva vyhrazena.'}
-            </p>
+            <div className="text-text-secondary text-sm text-center md:text-left">
+              <p className="mb-1">
+                {dict?.footer?.copyright || '© 2024 Expand Matrix, s.r.o. Všechna práva vyhrazena.'}
+              </p>
+              <p className="text-xs opacity-70">
+                {lang === 'cs' ? 'Provozovatel: Expand Matrix, s.r.o.' : 'Operator: Expand Matrix, s.r.o.'}
+              </p>
+            </div>
 
             <motion.div
               className="flex items-center space-x-2 text-xs text-text-secondary"
