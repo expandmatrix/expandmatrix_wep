@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowRight, MessageCircle } from 'lucide-react';
 import type { Locale } from '@/lib/getDictionary';
@@ -14,6 +14,7 @@ export default function VPSFinalCTA({ lang }: VPSFinalCTAProps) {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = useReducedMotion();
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!containerRef.current) return;
@@ -32,15 +33,19 @@ export default function VPSFinalCTA({ lang }: VPSFinalCTAProps) {
       {/* Animated Background */}
       <div className="absolute inset-0">
         {/* Gradient Orbs */}
-        <motion.div 
+        <motion.div
           className="absolute inset-0 opacity-30"
-          animate={{
-            background: [
-              'radial-gradient(circle at 20% 80%, rgba(0,255,127,0.15) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(0,255,127,0.1) 0%, transparent 50%)',
-              'radial-gradient(circle at 80% 80%, rgba(0,255,127,0.15) 0%, transparent 50%), radial-gradient(circle at 20% 20%, rgba(0,255,127,0.1) 0%, transparent 50%)',
-            ]
-          }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          animate={
+            prefersReducedMotion
+              ? undefined
+              : {
+                  background: [
+                    'radial-gradient(circle at 20% 80%, rgba(0,255,127,0.15) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(0,255,127,0.1) 0%, transparent 50%)',
+                    'radial-gradient(circle at 80% 80%, rgba(0,255,127,0.15) 0%, transparent 50%), radial-gradient(circle at 20% 20%, rgba(0,255,127,0.1) 0%, transparent 50%)',
+                  ]
+                }
+          }
+          transition={prefersReducedMotion ? undefined : { duration: 8, repeat: Infinity, ease: 'easeInOut' }}
         />
         
         {/* Floating Energy Orbs */}
@@ -52,17 +57,25 @@ export default function VPSFinalCTA({ lang }: VPSFinalCTAProps) {
               left: `${20 + (i * 15) % 60}%`,
               top: `${30 + (i * 10) % 40}%`,
             }}
-            animate={{
-              y: [0, -30, 0],
-              opacity: [0.3, 0.8, 0.3],
-              scale: [1, 1.3, 1],
-            }}
-            transition={{
-              duration: 3 + i * 0.4,
-              repeat: Infinity,
-              delay: i * 0.2,
-              ease: "easeInOut"
-            }}
+            animate={
+              prefersReducedMotion
+                ? undefined
+                : {
+                    y: [0, -30, 0],
+                    opacity: [0.3, 0.8, 0.3],
+                    scale: [1, 1.3, 1],
+                  }
+            }
+            transition={
+              prefersReducedMotion
+                ? undefined
+                : {
+                    duration: 3 + i * 0.4,
+                    repeat: Infinity,
+                    delay: i * 0.2,
+                    ease: "easeInOut",
+                  }
+            }
           />
         ))}
 
@@ -89,6 +102,7 @@ export default function VPSFinalCTA({ lang }: VPSFinalCTAProps) {
             style={{
               rotateX,
               rotateY,
+              willChange: 'transform',
             }}
             whileHover={{
               scale: 1.01,
@@ -124,7 +138,7 @@ export default function VPSFinalCTA({ lang }: VPSFinalCTAProps) {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.3 }}
                 viewport={{ once: true }}
-                className="text-4xl md:text-5xl font-black text-text-primary mb-6"
+                className="text-3xl sm:text-4xl md:text-5xl font-black text-text-primary mb-6"
               >
                 {lang === 'cs' 
                   ? 'Nevíte si rady? Poradíme vám' 

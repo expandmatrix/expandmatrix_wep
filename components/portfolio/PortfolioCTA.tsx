@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useMotionValue, useTransform } from 'framer-motion';
+import { motion, useMotionValue, useTransform, useReducedMotion } from 'framer-motion';
 import { ArrowRight, Sparkles, Target, Zap } from 'lucide-react';
 import Link from 'next/link';
 import { useRef, useState, useEffect } from 'react';
@@ -15,6 +15,7 @@ export default function PortfolioCTA({ dict, lang }: PortfolioCTAProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = useReducedMotion();
   
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -58,7 +59,7 @@ export default function PortfolioCTA({ dict, lang }: PortfolioCTAProps) {
               <div className="mb-8">
                 <Sparkles className="w-16 h-16 text-accent-primary mx-auto" />
               </div>
-              <h2 className="text-4xl md:text-5xl font-black text-text-primary mb-6">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-text-primary mb-6">
                 {lang === 'cs' ? 'Připraveni realizovat váš projekt?' : 'Ready to bring your project to life?'}
               </h2>
               <p className="text-xl text-text-secondary mb-10 max-w-2xl mx-auto leading-relaxed">
@@ -94,7 +95,7 @@ export default function PortfolioCTA({ dict, lang }: PortfolioCTAProps) {
       {/* Advanced Background System */}
       <div className="absolute inset-0">
         {/* Animated Grid Pattern */}
-        <motion.div 
+        <motion.div
           className="absolute inset-0 opacity-20"
           style={{
             backgroundImage: `
@@ -103,14 +104,16 @@ export default function PortfolioCTA({ dict, lang }: PortfolioCTAProps) {
             `,
             backgroundSize: '60px 60px',
           }}
-          animate={{
-            backgroundPosition: ['0px 0px', '60px 60px'],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "linear"
-          }}
+          animate={
+            prefersReducedMotion
+              ? undefined
+              : { backgroundPosition: ['0px 0px', '60px 60px'] }
+          }
+          transition={
+            prefersReducedMotion
+              ? undefined
+              : { duration: 20, repeat: Infinity, ease: 'linear' }
+          }
         />
         
         {/* Gradient Orbs */}
@@ -127,32 +130,37 @@ export default function PortfolioCTA({ dict, lang }: PortfolioCTAProps) {
               left: position.left,
               top: position.top,
             }}
-            animate={{
-              y: [0, -40, 0],
-              opacity: [0.2, 0.8, 0.2],
-              scale: [1, 1.5, 1],
-            }}
-            transition={{
-              duration: 4 + i * 0.5,
-              repeat: Infinity,
-              delay: i * 0.3,
-              ease: "easeInOut"
-            }}
+            animate={
+              prefersReducedMotion
+                ? undefined
+                : {
+                    y: [0, -40, 0],
+                    opacity: [0.2, 0.8, 0.2],
+                    scale: [1, 1.5, 1],
+                  }
+            }
+            transition={
+              prefersReducedMotion
+                ? undefined
+                : {
+                    duration: 4 + i * 0.5,
+                    repeat: Infinity,
+                    delay: i * 0.3,
+                    ease: "easeInOut",
+                  }
+            }
           />
         ))}
       </div>
 
       {/* Floating Icons */}
       <motion.div
-        animate={{ 
-          y: [0, -20, 0],
-          rotate: [0, 5, 0]
-        }}
-        transition={{ 
-          duration: 6,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
+        animate={
+          prefersReducedMotion ? undefined : { y: [0, -20, 0], rotate: [0, 5, 0] }
+        }
+        transition={
+          prefersReducedMotion ? undefined : { duration: 6, repeat: Infinity, ease: "easeInOut" }
+        }
         className="absolute top-32 left-20 text-accent-primary/30 hidden lg:block"
         aria-hidden="true"
       >
@@ -160,16 +168,14 @@ export default function PortfolioCTA({ dict, lang }: PortfolioCTAProps) {
       </motion.div>
 
       <motion.div
-        animate={{ 
-          y: [0, 15, 0],
-          rotate: [0, -5, 0]
-        }}
-        transition={{ 
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 2
-        }}
+        animate={
+          prefersReducedMotion ? undefined : { y: [0, 15, 0], rotate: [0, -5, 0] }
+        }
+        transition={
+          prefersReducedMotion
+            ? undefined
+            : { duration: 8, repeat: Infinity, ease: "easeInOut", delay: 2 }
+        }
         className="absolute top-40 right-32 text-accent-primary/20 hidden lg:block"
         aria-hidden="true"
       >
@@ -177,16 +183,14 @@ export default function PortfolioCTA({ dict, lang }: PortfolioCTAProps) {
       </motion.div>
 
       <motion.div
-        animate={{ 
-          y: [0, 20, 0],
-          rotate: [0, -10, 0]
-        }}
-        transition={{ 
-          duration: 7,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 1
-        }}
+        animate={
+          prefersReducedMotion ? undefined : { y: [0, 20, 0], rotate: [0, -10, 0] }
+        }
+        transition={
+          prefersReducedMotion
+            ? undefined
+            : { duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }
+        }
         className="absolute bottom-32 right-20 text-accent-primary/20 hidden lg:block"
         aria-hidden="true"
       >
@@ -212,6 +216,7 @@ export default function PortfolioCTA({ dict, lang }: PortfolioCTAProps) {
             style={{
               rotateX,
               rotateY,
+              willChange: 'transform',
             }}
             whileHover={{
               scale: 1.01,
@@ -233,14 +238,8 @@ export default function PortfolioCTA({ dict, lang }: PortfolioCTAProps) {
               {/* Animated Shimmer */}
               <motion.div
                 className="absolute inset-0 bg-gradient-to-r from-transparent via-accent-primary/10 to-transparent rounded-3xl"
-                animate={{
-                  x: ['-100%', '100%'],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
+                animate={prefersReducedMotion ? undefined : { x: ['-100%', '100%'] }}
+                transition={prefersReducedMotion ? undefined : { duration: 3, repeat: Infinity, ease: 'easeInOut' }}
               />
             </div>
 
@@ -263,7 +262,7 @@ export default function PortfolioCTA({ dict, lang }: PortfolioCTAProps) {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.3 }}
                 viewport={{ once: true }}
-                className="text-4xl md:text-5xl font-black text-text-primary mb-6"
+                className="text-3xl sm:text-4xl md:text-5xl font-black text-text-primary mb-6"
               >
                 {dict.portfolio?.cta?.title || (lang === 'cs'
                   ? (<>Připraveni realizovat <span className="text-accent-primary">váš projekt</span>?</>)
