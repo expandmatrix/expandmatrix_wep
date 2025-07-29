@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { motion, useMotionValue, useTransform } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 import { Zap, Mail, ArrowRight, CheckCircle, ExternalLink, Linkedin, Twitter, Github } from 'lucide-react';
 import Link from 'next/link';
 import { type Locale } from '@/lib/getDictionary';
@@ -15,6 +15,22 @@ export default function Footer({ dict, lang }: FooterProps) {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const footerRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const updateHeight = () => {
+      if (footerRef.current) {
+        document.documentElement.style.setProperty(
+          '--footer-height',
+          `${footerRef.current.offsetHeight}px`
+        );
+      }
+    };
+
+    updateHeight();
+    window.addEventListener('resize', updateHeight);
+    return () => window.removeEventListener('resize', updateHeight);
+  }, []);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -56,7 +72,10 @@ export default function Footer({ dict, lang }: FooterProps) {
   };
 
   return (
-    <footer className="relative bg-bg-secondary text-text-primary overflow-hidden">
+    <footer
+      ref={footerRef}
+      className="fixed bottom-0 left-0 right-0 z-40 bg-bg-secondary text-text-primary overflow-hidden"
+    >
       {/* Animated Background */}
       <div className="absolute inset-0">
         {/* Gradient Overlay */}

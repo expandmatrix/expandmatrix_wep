@@ -134,9 +134,9 @@ export default async function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
       </head>
-      <body className={`${inter.className} antialiased bg-bg-primary text-text-primary`}>
+      <body className={`${inter.className} antialiased bg-bg-primary text-text-primary relative`}>
         <Header dict={dict} lang={locale} />
-        <main className="min-h-screen">
+        <main className="min-h-screen" style={{ paddingBottom: 'var(--footer-height)' }}>
           {children}
         </main>
         <Footer dict={dict} lang={locale} />
