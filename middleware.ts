@@ -12,6 +12,7 @@ const validPaths = {
     '/sluzby/ai-systemy-na-miru',
     '/sluzby/ai-skoleni',
     '/interaktivni-demo',
+    '/komunita',
     '/portfolio',
     '/blog',
     '/blog/*',
@@ -27,6 +28,7 @@ const validPaths = {
     '/services/custom-ai-systems',
     '/services/ai-training',
     '/interactive-demo',
+    '/community',
     '/portfolio',
     '/blog',
     '/blog/*',
@@ -58,6 +60,7 @@ function getRedirectPath(path: string, locale: Locale): string | null {
       '/services/custom-ai-systems': '/sluzby/ai-systemy-na-miru',
       '/services/ai-training': '/sluzby/ai-skoleni',
       '/services/interactive-demo': '/interaktivni-demo',
+      '/community': '/komunita',
       '/about-us': '/o-nas',
       '/contact': '/kontakt'
     },
@@ -67,6 +70,7 @@ function getRedirectPath(path: string, locale: Locale): string | null {
       '/sluzby/ai-systemy-na-miru': '/services/custom-ai-systems',
       '/sluzby/ai-skoleni': '/services/ai-training',
       '/sluzby/interaktivni-demo': '/interactive-demo',
+      '/komunita': '/community',
       '/o-nas': '/about-us',
       '/kontakt': '/contact'
     }
