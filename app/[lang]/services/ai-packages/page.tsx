@@ -3,7 +3,6 @@ import type { Metadata } from 'next';
 import AIPackagesHero from '@/components/ai-packages/AIPackagesHero';
 import AIPackagesGrid from '@/components/ai-packages/AIPackagesGrid';
 import AIPackagesComparison from '@/components/ai-packages/AIPackagesComparison';
-import AIPackagesCTA from '@/components/ai-packages/AIPackagesCTA';
 import TrainingFinalCTA from '@/components/ai-training/TrainingFinalCTA';
 
 export async function generateStaticParams() {
@@ -48,7 +47,6 @@ export default async function AIPackagesPage({
       <AIPackagesHero dict={dict} lang={locale} />
       <AIPackagesGrid dict={dict} lang={locale} />
       <AIPackagesComparison dict={dict} lang={locale} />
-      <AIPackagesCTA dict={dict} lang={locale} />
       <TrainingFinalCTA dict={dict} lang={locale} />
     </main>
   );
