@@ -42,18 +42,19 @@ export default function CtaCard({
   const rotateY = isHovered ? (mousePosition.x - 300) * 0.01 : 0;
 
   return (
-    <motion.div
-      ref={containerRef}
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
-      viewport={{ once: true, margin: '-100px' }}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      className="relative"
-      style={{ perspective: 1000, transformStyle: 'preserve-3d' }}
-    >
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <motion.div
+        ref={containerRef}
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
+        viewport={{ once: true, margin: '-100px' }}
+        onMouseMove={handleMouseMove}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        className="relative"
+        style={{ perspective: 1000, transformStyle: 'preserve-3d' }}
+      >
       <motion.div
         className="relative bg-gradient-to-br from-bg-secondary/80 via-bg-secondary/60 to-bg-secondary/40 backdrop-blur-2xl border border-accent-primary/20 rounded-3xl overflow-hidden"
         style={{
@@ -138,5 +139,6 @@ export default function CtaCard({
         </div>
       </motion.div>
     </motion.div>
+    </div>
   );
 }
