@@ -4,14 +4,19 @@ This repository contains the code for the Expand Matrix website built with Next.
 
 ## Local development
 
-Install dependencies and start the development server:
+Run the setup script to install dependencies (and disable Next.js telemetry). This
+also prepares the environment for `npm run lint` and `npm run type-check`:
 
 ```bash
-npm install
+./setup.sh
 npm run dev
+npm run lint
+npm run type-check
 ```
 
 The site will be available at `http://localhost:3000`.
+
+Before submitting changes, ensure that the linting and type checks pass.
 
 ## VPS page with Systrix theme
 

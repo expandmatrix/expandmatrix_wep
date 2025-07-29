@@ -60,6 +60,14 @@ module.exports = {
             boxShadow: '0 0 30px rgba(0, 255, 127, 0.4)',
             transform: 'translateY(-2px)',
           }
+        },
+        '.fluid-hero': {
+          fontSize: 'clamp(3.75rem, 8vw, 8rem)',
+          lineHeight: '1.1',
+        },
+        '.fluid-heading': {
+          fontSize: 'clamp(3rem, 6vw, 6rem)',
+          lineHeight: '1.1',
         }
       }
       addUtilities(newUtilities)

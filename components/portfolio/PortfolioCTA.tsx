@@ -265,9 +265,9 @@ export default function PortfolioCTA({ dict, lang }: PortfolioCTAProps) {
                 viewport={{ once: true }}
                 className="text-4xl md:text-5xl font-black text-text-primary mb-6"
               >
-                {dict.portfolio?.cta?.title || (lang === 'cs' 
-                  ? 'Připraveni realizovat váš projekt?' 
-                  : 'Ready to bring your project to life?'
+                {dict.portfolio?.cta?.title || (lang === 'cs'
+                  ? (<>Připraveni realizovat <span className="text-accent-primary">váš projekt</span>?</>)
+                  : (<>Ready to bring your <span className="text-accent-primary">project</span> to life?</>)
                 )}
               </motion.h2>
 

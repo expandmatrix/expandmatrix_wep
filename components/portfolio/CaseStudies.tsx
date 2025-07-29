@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { stableRandom } from '@/lib/stableRandom';
 import { useState } from 'react';
 import { ArrowRight, ExternalLink } from 'lucide-react';
 
@@ -104,26 +105,29 @@ export default function CaseStudies({ dict, lang }: CaseStudiesProps) {
         <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-gradient-radial from-accent-primary/5 to-transparent rounded-full blur-3xl animate-pulse delay-1000"></div>
         
         {/* Floating Particles */}
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-accent-primary/30 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -40, 0],
-              opacity: [0.3, 1, 0.3],
-              scale: [1, 2, 1],
-            }}
-            transition={{
-              duration: 4 + Math.random() * 2,
-              repeat: Infinity,
-              delay: Math.random() * 2,
-            }}
-          />
-        ))}
+        {Array.from({ length: 20 }).map((_, i) => {
+          const left = `${stableRandom(i + 1) * 100}%`;
+          const top = `${stableRandom(i + 21) * 100}%`;
+          const duration = 4 + stableRandom(i + 41) * 2;
+          const delay = stableRandom(i + 61) * 2;
+          return (
+            <motion.div
+              key={i}
+              className="absolute w-1 h-1 bg-accent-primary/30 rounded-full"
+              style={{ left, top }}
+              animate={{
+                y: [0, -40, 0],
+                opacity: [0.3, 1, 0.3],
+                scale: [1, 2, 1],
+              }}
+              transition={{
+                duration,
+                repeat: Infinity,
+                delay,
+              }}
+            />
+          );
+        })}
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
@@ -135,7 +139,13 @@ export default function CaseStudies({ dict, lang }: CaseStudiesProps) {
           className="text-center mb-20"
         >
           <h2 className="text-4xl md:text-6xl font-black mb-6 text-text-primary">
-            {lang === 'cs' ? 'Případové studie' : 'Case Studies'}
+            {lang === 'cs'
+              ? (<>
+                  Případové <span className="text-accent-primary">studie</span>
+                </>)
+              : (<>
+                  Case <span className="text-accent-primary">Studies</span>
+                </>)}
           </h2>
           <p className="text-xl md:text-2xl text-text-secondary max-w-4xl mx-auto leading-relaxed">
             {lang === 'cs'
@@ -158,10 +168,10 @@ export default function CaseStudies({ dict, lang }: CaseStudiesProps) {
                 className="group relative"
               >
                 <motion.div
-                  className={`h-full p-8 rounded-3xl backdrop-blur-xl border cursor-pointer transition-all duration-500 relative overflow-hidden ${
-                    selectedCase === index 
-                      ? 'border-accent-primary/40 bg-gradient-to-b from-accent-primary/10 to-accent-primary/5' 
-                      : 'border-accent-primary/10 bg-gradient-to-b from-accent-primary/5 to-transparent hover:border-accent-primary/30'
+                className={`h-full p-8 rounded-3xl liquid-glass-card cursor-pointer transition-all duration-500 relative overflow-hidden ${
+                    selectedCase === index
+                      ? 'border-accent-primary/40'
+                      : 'border-accent-primary/10 hover:border-accent-primary/30'
                   }`}
                   whileHover={{ 
                     scale: 1.02,
@@ -246,8 +256,8 @@ export default function CaseStudies({ dict, lang }: CaseStudiesProps) {
             className="lg:col-span-2 group relative"
           >
             <motion.div
-              className="h-full p-10 rounded-3xl backdrop-blur-xl border border-accent-primary/10 bg-gradient-to-b from-accent-primary/5 to-transparent relative overflow-hidden"
-              whileHover={{ 
+              className="h-full p-10 rounded-3xl liquid-glass-card border border-accent-primary/10 relative overflow-hidden"
+              whileHover={{
                 borderColor: 'rgba(0, 255, 127, 0.3)',
               }}
               transition={{ duration: 0.3 }}
