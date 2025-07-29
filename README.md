@@ -4,7 +4,7 @@ This repository contains the code for the Expand Matrix website built with Next.
 
 ## Local development
 
-Run the setup script to install dependencies (and disable Next.js telemetry). This
+First run `npm install` or `./setup.sh` (which calls `npm install` and disables Next.js telemetry). This
 also prepares the environment for `npm run lint` and `npm run type-check`:
 
 ```bash
@@ -13,6 +13,8 @@ npm run dev
 npm run lint
 npm run type-check
 ```
+
+Skipping the installation step will lead to the error `Module not found: Can't resolve 'react-icons/fa'`.
 
 The site will be available at `http://localhost:3000`.
 

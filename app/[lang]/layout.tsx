@@ -3,13 +3,15 @@ import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { getDictionary, isValidLocale, type Locale } from '@/lib/getDictionary';
-import { Inter } from 'next/font/google';
+import localFont from 'next/font/local';
 
-const inter = Inter({
-  subsets: ['latin', 'latin-ext'],
+const inter = localFont({
+  src: '../../public/fonts/Inter-Variable.ttf',
+  variable: '--font-inter',
   display: 'swap',
   preload: true,
-  variable: '--font-inter',
+  weight: '100 900',
+  style: 'normal',
 });
 
 // Generate static params for all supported locales
@@ -134,9 +136,9 @@ export default async function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
       </head>
-      <body className={`${inter.className} antialiased bg-bg-primary text-text-primary`}>
+      <body className={`${inter.className} antialiased bg-bg-primary text-text-primary relative`}>
         <Header dict={dict} lang={locale} />
-        <main className="min-h-screen">
+        <main className="min-h-screen" style={{ paddingBottom: 'var(--footer-height)' }}>
           {children}
         </main>
         <Footer dict={dict} lang={locale} />

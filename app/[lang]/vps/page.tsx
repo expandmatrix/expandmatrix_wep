@@ -19,8 +19,8 @@ export async function generateMetadata({
   const currentUrl = `${baseUrl}/${locale}/vps`;
 
   return {
-    title: dict.vps?.metadata?.title || 'VPS Hosting - High-Performance Servers | Expand Matrix',
-    description: dict.vps?.metadata?.description || 'High-performance VPS servers for your AI applications and web projects.',
+    title: 'VPS Hosting - High-Performance Servers | Expand Matrix',
+    description: 'High-performance VPS servers for your AI applications and web projects.',
     alternates: {
       canonical: currentUrl,
       languages: {
@@ -29,8 +29,8 @@ export async function generateMetadata({
       },
     },
     openGraph: {
-      title: dict.vps?.metadata?.title || 'VPS Hosting - High-Performance Servers',
-      description: dict.vps?.metadata?.description || 'High-performance VPS servers for your AI applications and web projects.',
+      title: 'VPS Hosting - High-Performance Servers',
+      description: 'High-performance VPS servers for your AI applications and web projects.',
       url: currentUrl,
       siteName: 'Expand Matrix',
       locale: locale,
