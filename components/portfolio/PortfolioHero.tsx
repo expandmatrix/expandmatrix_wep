@@ -138,24 +138,10 @@ export default function PortfolioHero({ dict, lang }: PortfolioHeroProps) {
             </motion.span>
             
 
-            <h1 className="fluid-hero font-black mb-8 leading-tight">
-
-              <motion.span 
-                className="bg-gradient-to-r from-text-primary via-accent-primary to-text-primary bg-clip-text text-transparent"
-                animate={{ 
-                  backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
-                }}
-                transition={{ 
-                  duration: 5,
-                  repeat: Infinity,
-                  ease: "linear"
-                }}
-                style={{ backgroundSize: '200% 200%' }}
-              >
-                {lang === 'cs' ? 'Portfolio' : 'Portfolio'}
-              </motion.span>
+            <h1 className="fluid-hero font-black mb-8 leading-tight text-text-primary">
+              {lang === 'cs' ? 'Portfolio' : 'Portfolio'}
               <br />
-              <span className="text-text-primary">
+              <span className="text-accent-primary">
                 {lang === 'cs' ? 'Úspěchů' : 'of Success'}
               </span>
             </h1>
