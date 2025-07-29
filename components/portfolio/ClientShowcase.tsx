@@ -108,7 +108,13 @@ export default function ClientShowcase({ dict, lang }: ClientShowcaseProps) {
           className="text-center mb-20"
         >
           <h2 className="text-4xl md:text-6xl font-black mb-6 text-text-primary">
-            {lang === 'cs' ? 'Naši klienti' : 'Our Clients'}
+            {lang === 'cs'
+              ? (<>
+                  Naši <span className="text-accent-primary">klienti</span>
+                </>)
+              : (<>
+                  Our <span className="text-accent-primary">Clients</span>
+                </>)}
           </h2>
           <p className="text-xl md:text-2xl text-text-secondary max-w-4xl mx-auto leading-relaxed">
             {lang === 'cs'
@@ -129,8 +135,8 @@ export default function ClientShowcase({ dict, lang }: ClientShowcaseProps) {
               className="group relative"
             >
               <motion.div
-                className="h-full p-8 rounded-3xl backdrop-blur-xl border border-accent-primary/10 bg-gradient-to-b from-accent-primary/5 to-transparent relative overflow-hidden"
-                whileHover={{ 
+                className="h-full p-8 rounded-3xl liquid-glass-card border border-accent-primary/10 relative overflow-hidden"
+                whileHover={{
                   scale: 1.05,
                   borderColor: 'rgba(0, 255, 127, 0.3)',
                 }}

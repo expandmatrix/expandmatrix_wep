@@ -153,7 +153,9 @@ export default function SuccessMetrics({ dict, lang }: SuccessMetricsProps) {
           className="text-center mb-20"
         >
           <h2 className="text-4xl md:text-6xl font-black mb-6 text-text-primary">
-            {lang === 'cs' ? 'Naše úspěchy v číslech' : 'Our Success in Numbers'}
+            {lang === 'cs'
+              ? (<>Naše <span className="text-accent-primary">úspěchy</span> v číslech</>)
+              : (<>Our <span className="text-accent-primary">Success</span> in Numbers</>)}
           </h2>
           <p className="text-xl md:text-2xl text-text-secondary max-w-4xl mx-auto leading-relaxed">
             {lang === 'cs'
@@ -174,8 +176,8 @@ export default function SuccessMetrics({ dict, lang }: SuccessMetricsProps) {
               className="group relative"
             >
               <motion.div
-                className="h-full p-10 rounded-3xl backdrop-blur-xl border border-accent-primary/10 bg-gradient-to-b from-accent-primary/5 to-transparent text-center relative overflow-hidden"
-                whileHover={{ 
+                className="h-full p-10 rounded-3xl liquid-glass-card border border-accent-primary/10 text-center relative overflow-hidden"
+                whileHover={{
                   scale: 1.05,
                   borderColor: 'rgba(0, 255, 127, 0.3)',
                 }}

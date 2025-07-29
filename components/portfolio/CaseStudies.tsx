@@ -135,7 +135,13 @@ export default function CaseStudies({ dict, lang }: CaseStudiesProps) {
           className="text-center mb-20"
         >
           <h2 className="text-4xl md:text-6xl font-black mb-6 text-text-primary">
-            {lang === 'cs' ? 'Případové studie' : 'Case Studies'}
+            {lang === 'cs'
+              ? (<>
+                  Případové <span className="text-accent-primary">studie</span>
+                </>)
+              : (<>
+                  Case <span className="text-accent-primary">Studies</span>
+                </>)}
           </h2>
           <p className="text-xl md:text-2xl text-text-secondary max-w-4xl mx-auto leading-relaxed">
             {lang === 'cs'
@@ -158,10 +164,10 @@ export default function CaseStudies({ dict, lang }: CaseStudiesProps) {
                 className="group relative"
               >
                 <motion.div
-                  className={`h-full p-8 rounded-3xl backdrop-blur-xl border cursor-pointer transition-all duration-500 relative overflow-hidden ${
-                    selectedCase === index 
-                      ? 'border-accent-primary/40 bg-gradient-to-b from-accent-primary/10 to-accent-primary/5' 
-                      : 'border-accent-primary/10 bg-gradient-to-b from-accent-primary/5 to-transparent hover:border-accent-primary/30'
+                className={`h-full p-8 rounded-3xl liquid-glass-card cursor-pointer transition-all duration-500 relative overflow-hidden ${
+                    selectedCase === index
+                      ? 'border-accent-primary/40'
+                      : 'border-accent-primary/10 hover:border-accent-primary/30'
                   }`}
                   whileHover={{ 
                     scale: 1.02,
@@ -246,8 +252,8 @@ export default function CaseStudies({ dict, lang }: CaseStudiesProps) {
             className="lg:col-span-2 group relative"
           >
             <motion.div
-              className="h-full p-10 rounded-3xl backdrop-blur-xl border border-accent-primary/10 bg-gradient-to-b from-accent-primary/5 to-transparent relative overflow-hidden"
-              whileHover={{ 
+              className="h-full p-10 rounded-3xl liquid-glass-card border border-accent-primary/10 relative overflow-hidden"
+              whileHover={{
                 borderColor: 'rgba(0, 255, 127, 0.3)',
               }}
               transition={{ duration: 0.3 }}
