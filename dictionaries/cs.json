@@ -7,6 +7,12 @@
     "vps": "VPS",
     "web": "Webové stránky"
   },
+  "buttons": {
+    "freeConsultation": "Bezplatná konzultace",
+    "allServices": "Všechny služby",
+    "startTraining": "Začít školení",
+    "contactUs": "Kontaktovat nás"
+  },
   "home": {
     "title": "ExpandMatrix - AI a webové řešení",
     "subtitle": "Rozšiřte své možnosti s AI",

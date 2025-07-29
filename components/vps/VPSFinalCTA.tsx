@@ -1,10 +1,8 @@
 'use client';
 
-import { useState, useRef } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import CtaCard from '@/components/ui/CtaCard';
-import Link from 'next/link';
-import { ArrowRight, MessageCircle } from 'lucide-react';
+import { MessageCircle } from 'lucide-react';
 import type { Locale } from '@/lib/getDictionary';
 
 interface VPSFinalCTAProps {
@@ -12,22 +10,7 @@ interface VPSFinalCTAProps {
 }
 
 export default function VPSFinalCTA({ lang }: VPSFinalCTAProps) {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isHovered, setIsHovered] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    setMousePosition({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    });
-  };
-
-  const rotateX = isHovered ? (mousePosition.y - 200) * 0.01 : 0;
-  const rotateY = isHovered ? (mousePosition.x - 300) * 0.01 : 0;
 
   return (
     <section className="relative py-32 overflow-hidden">
@@ -99,115 +82,46 @@ export default function VPSFinalCTA({ lang }: VPSFinalCTAProps) {
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          ref={containerRef}
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
-          viewport={{ once: true, margin: "-100px" }}
-          onMouseMove={handleMouseMove}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-          className="relative"
-          style={{ perspective: 1000, transformStyle: 'preserve-3d' }}
+        <CtaCard
+          icon={<MessageCircle className="w-16 h-16 text-accent-primary mx-auto" />}
+          title={
+            lang === 'cs' ? 'Nevíte si rady? Poradíme vám' : "Need help choosing? We'll help you"
+          }
+          description={
+            lang === 'cs'
+              ? 'Naši VPS experti vám pomohou vybrat nejlepší server pro vaše potřeby. Váš VPS bude připraven během 15 minut.'
+              : 'Our VPS experts will help you choose the best server for your needs. Your VPS will be ready within 15 minutes.'
+          }
+          primary={{
+            href: `/${lang}/${lang === 'cs' ? 'kontakt' : 'contact'}`,
+            label: lang === 'cs' ? 'Kontaktovat nás' : 'Contact Us',
+          }}
+          secondary={{
+            href: `/${lang}/${lang === 'cs' ? 'sluzby' : 'services'}`,
+            label: lang === 'cs' ? 'Všechny služby' : 'All Services',
+          }}
         >
-          {/* Main CTA Container with 3D Effect */}
-          <CtaCard
-            rotateX={rotateX}
-            rotateY={rotateY}
-            isHovered={isHovered}
-            shimmer={false}
-            glowClassName="from-accent-primary/5 via-transparent to-accent-primary/5"
-            hoverBorderColor="rgba(0, 119, 255, 0.4)"
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.7 }}
+            viewport={{ once: true }}
+            className="mt-12 flex flex-wrap justify-center items-center gap-8 text-text-secondary text-sm"
           >
-            <div className="relative z-10 p-12 text-center">
-              {/* Icon */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                viewport={{ once: true }}
-                className="mb-8"
-              >
-                <MessageCircle className="w-16 h-16 text-accent-primary mx-auto" />
-              </motion.div>
-
-              {/* Heading */}
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.3 }}
-                viewport={{ once: true }}
-                className="text-3xl sm:text-4xl md:text-5xl font-black text-text-primary mb-6"
-              >
-                {lang === 'cs' 
-                  ? 'Nevíte si rady? Poradíme vám' 
-                  : 'Need help choosing? We\'ll help you'
-                }
-              </motion.h2>
-
-              {/* Description */}
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.4 }}
-                viewport={{ once: true }}
-                className="text-xl text-text-secondary mb-10 max-w-2xl mx-auto leading-relaxed"
-              >
-                {lang === 'cs'
-                  ? 'Naši VPS experti vám pomohou vybrat nejlepší server pro vaše potřeby. Váš VPS bude připraven během 15 minut.'
-                  : 'Our VPS experts will help you choose the best server for your needs. Your VPS will be ready within 15 minutes.'
-                }
-              </motion.p>
-
-              {/* CTA Buttons */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.5 }}
-                viewport={{ once: true }}
-                className="flex flex-col sm:flex-row gap-6 justify-center items-center"
-              >
-                <Link
-                  href={`/${lang}/${lang === 'cs' ? 'kontakt' : 'contact'}`}
-                  className="btn-cta-large group inline-flex items-center"
-                >
-                  <span>{lang === 'cs' ? 'Kontaktovat nás' : 'Contact Us'}</span>
-                  <ArrowRight className="w-6 h-6 ml-3 group-hover:translate-x-2 transition-transform duration-300" />
-                </Link>
-                
-                <Link
-                  href={`/${lang}/${lang === 'cs' ? 'sluzby' : 'services'}`}
-                  className="btn-cta-secondary inline-flex items-center"
-                >
-                  {lang === 'cs' ? 'Všechny služby' : 'All Services'}
-                </Link>
-              </motion.div>
-
-              {/* Trust Indicators */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.7 }}
-                viewport={{ once: true }}
-                className="mt-12 flex flex-wrap justify-center items-center gap-8 text-text-secondary text-sm"
-              >
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-accent-primary rounded-full animate-pulse" />
-                  <span>{lang === 'cs' ? 'Připraven za 15 minut' : 'Ready in 15 minutes'}</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-accent-primary rounded-full animate-pulse" style={{ animationDelay: '0.5s' }} />
-                  <span>{lang === 'cs' ? 'České servery' : 'Czech servers'}</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-accent-primary rounded-full animate-pulse" style={{ animationDelay: '1s' }} />
-                  <span>{lang === 'cs' ? '24/7 podpora' : '24/7 support'}</span>
-                </div>
-              </motion.div>
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 bg-accent-primary rounded-full animate-pulse" />
+              <span>{lang === 'cs' ? 'Připraven za 15 minut' : 'Ready in 15 minutes'}</span>
             </div>
-            </CtaCard>
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 bg-accent-primary rounded-full animate-pulse" style={{ animationDelay: '0.5s' }} />
+              <span>{lang === 'cs' ? 'České servery' : 'Czech servers'}</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 bg-accent-primary rounded-full animate-pulse" style={{ animationDelay: '1s' }} />
+              <span>{lang === 'cs' ? '24/7 podpora' : '24/7 support'}</span>
+            </div>
           </motion.div>
+        </CtaCard>
       </div>
     </section>
   );

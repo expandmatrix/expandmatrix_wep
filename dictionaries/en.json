@@ -7,6 +7,12 @@
     "vps": "VPS",
     "web": "Websites"
   },
+  "buttons": {
+    "freeConsultation": "Free Consultation",
+    "allServices": "All Services",
+    "startTraining": "Start Training",
+    "contactUs": "Contact Us"
+  },
   "home": {
     "title": "ExpandMatrix - AI and web solutions",
     "subtitle": "Expand your possibilities with AI",
