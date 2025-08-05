@@ -38,7 +38,7 @@ export default function AboutHero({ dict, lang }: AboutHeroProps) {
   ];
 
   return (
-    <section className="relative min-h-screen bg-bg-primary flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen lg:min-h-screen md:min-h-[80vh] sm:min-h-[70vh] bg-bg-primary flex items-center justify-center overflow-hidden">
       {/* Advanced Background System */}
       <div className="absolute inset-0">
         {/* Dynamic Grid Pattern */}
@@ -92,16 +92,16 @@ export default function AboutHero({ dict, lang }: AboutHeroProps) {
         />
       </div>
 
-      <div className="container mx-auto px-6 2xl:px-12 3xl:px-24 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-24 relative z-10">
         <div className="max-w-6xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="mb-8"
+            className="mb-6 sm:mb-8"
           >
             <motion.span 
-              className="inline-block px-8 py-4 bg-gradient-to-r from-accent-primary/10 to-accent-primary/5 border border-accent-primary/20 rounded-full text-accent-primary font-medium text-sm mb-8 backdrop-blur-xl"
+              className="inline-block px-4 sm:px-6 lg:px-8 py-2 sm:py-3 lg:py-4 bg-gradient-to-r from-accent-primary/10 to-accent-primary/5 border border-accent-primary/20 rounded-full text-accent-primary font-medium text-xs sm:text-sm mb-6 sm:mb-8 backdrop-blur-xl"
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.3 }}
             >
@@ -112,7 +112,7 @@ export default function AboutHero({ dict, lang }: AboutHeroProps) {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="fluid-hero font-black text-text-primary mb-8 leading-tight"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-text-primary mb-6 sm:mb-8 leading-tight"
             >
               {lang === 'cs' ? 'Automatizujeme' : 'We Automate'}{' '}
               <span className="text-accent-primary">
@@ -121,7 +121,7 @@ export default function AboutHero({ dict, lang }: AboutHeroProps) {
             </motion.h1>
 
             <motion.p
-              className="text-xl md:text-2xl 2xl:text-3xl 3xl:text-4xl text-text-secondary max-w-4xl mx-auto leading-relaxed mb-12"
+              className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-text-secondary max-w-4xl mx-auto leading-relaxed mb-8 sm:mb-12 px-4 sm:px-0"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
@@ -133,12 +133,12 @@ export default function AboutHero({ dict, lang }: AboutHeroProps) {
             </motion.p>
           </motion.div>
 
-          {/* CTA Buttons */}
+          {/* CTA Buttons - responzivní úprava */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16"
+            className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center mb-12 sm:mb-16 px-4 sm:px-0"
           >
             <Link
               href={`#${lang === 'cs' ? 'od-vize-k-realite' : 'from-vision-to-reality'}`}
@@ -156,17 +156,17 @@ export default function AboutHero({ dict, lang }: AboutHeroProps) {
             </Link>
           </motion.div>
 
-          {/* Enhanced Stats */}
+          {/* Stats - responzivní grid */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto"
+            className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 max-w-5xl mx-auto px-4 sm:px-0"
           >
             {stats.map((stat, index) => (
               <motion.div 
                 key={index} 
-                className="text-center p-6 rounded-2xl backdrop-blur-xl border border-accent-primary/10 bg-gradient-to-b from-accent-primary/5 to-transparent group hover:border-accent-primary/30 transition-all duration-300"
+                className="text-center p-3 sm:p-4 lg:p-6 rounded-xl sm:rounded-2xl backdrop-blur-xl border border-accent-primary/10 bg-gradient-to-b from-accent-primary/5 to-transparent group hover:border-accent-primary/30 transition-all duration-300"
                 whileHover={{ 
                   scale: 1.05,
                   y: -5,
@@ -174,14 +174,14 @@ export default function AboutHero({ dict, lang }: AboutHeroProps) {
                 transition={{ duration: 0.3 }}
               >
                 <motion.div
-                  className={`w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br ${stat.color} p-4 group-hover:scale-110 transition-transform duration-300`}
+                  className={`w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 mx-auto mb-2 sm:mb-3 lg:mb-4 rounded-lg sm:rounded-xl lg:rounded-2xl bg-gradient-to-br ${stat.color} p-2 sm:p-3 lg:p-4 group-hover:scale-110 transition-transform duration-300`}
                   whileHover={{ rotate: 5 }}
                 >
                   <stat.icon className="w-full h-full text-white" />
                 </motion.div>
                 
                 <motion.div
-                  className="text-4xl md:text-5xl font-black text-text-primary mb-2"
+                  className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-black text-text-primary mb-1 sm:mb-2"
                   animate={{ 
                     scale: [1, 1.05, 1],
                   }}
@@ -195,7 +195,7 @@ export default function AboutHero({ dict, lang }: AboutHeroProps) {
                   {stat.number}
                 </motion.div>
                 
-                <div className="text-sm md:text-base text-text-secondary font-medium">
+                <div className="text-xs sm:text-sm lg:text-base text-text-secondary font-medium px-1">
                   {stat.label}
                 </div>
               </motion.div>

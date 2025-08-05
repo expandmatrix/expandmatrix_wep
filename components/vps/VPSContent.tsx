@@ -47,13 +47,13 @@ interface VPSContentProps {
 }
 
 export function VPSContent({ lang, dict }: VPSContentProps) {
-  const [backupEnabled, setBackupEnabled] = useState(true);
+  const [backupEnabled, setBackupEnabled] = useState(true); // Default zapnutý
   
   // Order state management
   const [orderData, setOrderData] = useState<VPSOrderData>({
     package: null,
     backup: {
-      enabled: true,
+      enabled: true, // Default zapnutý
       price: 0,
     },
     os: {
@@ -74,12 +74,15 @@ export function VPSContent({ lang, dict }: VPSContentProps) {
     },
   });
 
-  // Update backup in order data
+  // Update backup in order data - opravená logika
   const handleBackupToggle = (enabled: boolean) => {
+    console.log('Backup toggle changed:', enabled); // Debug log
     setBackupEnabled(enabled);
+    
     setOrderData(prev => {
-      const backupPrice = enabled && prev.package ? prev.package.price * 0.2 : 0;
-      const newTotals = calculateTotals(prev.package?.price || 0, backupPrice, prev.os.price);
+      const basePrice = prev.package?.price || 0;
+      const backupPrice = enabled ? basePrice : 0; // Backup cena = základní cena
+      const newTotals = calculateTotals(basePrice, backupPrice, prev.os.price);
       
       return {
         ...prev,
@@ -106,6 +109,10 @@ export function VPSContent({ lang, dict }: VPSContentProps) {
       return {
         ...prev,
         package: packageData,
+        backup: {
+          ...prev.backup,
+          price: backupPrice,
+        },
         totals: newTotals,
         metadata: {
           ...prev.metadata,

@@ -1,9 +1,8 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { stableRandom } from '@/lib/stableRandom';
-import { useState } from 'react';
-import { ArrowRight, ExternalLink } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { ArrowRight, Calendar, TrendingUp, Users, Zap } from 'lucide-react';
 
 interface CaseStudiesProps {
   dict: any;
@@ -11,7 +10,13 @@ interface CaseStudiesProps {
 }
 
 export default function CaseStudies({ dict, lang }: CaseStudiesProps) {
-  const [selectedCase, setSelectedCase] = useState(0);
+  const [selectedCase, setSelectedCase] = useState<number | null>(null);
+  const [mounted, setMounted] = useState(false);
+
+  // Fix hydration error
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const caseStudies = [
     {
@@ -25,14 +30,18 @@ export default function CaseStudies({ dict, lang }: CaseStudiesProps) {
         ? 'Implementovali jsme inteligentní AI chatbot s NLP schopnostmi, který dokáže vyřešit 80% běžných dotazů automaticky.'
         : 'We implemented an intelligent AI chatbot with NLP capabilities that can resolve 80% of common inquiries automatically.',
       results: [
-        lang === 'cs' ? '75% snížení čekacích dob' : '75% reduction in waiting times',
-        lang === 'cs' ? '60% úspora nákladů na podporu' : '60% cost savings in support',
-        lang === 'cs' ? '95% spokojenost zákazníků' : '95% customer satisfaction',
-        lang === 'cs' ? '24/7 dostupnost služeb' : '24/7 service availability'
+        { metric: '75%', label: lang === 'cs' ? 'snížení čekacích dob' : 'reduction in waiting times' },
+        { metric: '60%', label: lang === 'cs' ? 'úspora nákladů na podporu' : 'cost savings in support' },
+        { metric: '95%', label: lang === 'cs' ? 'spokojenost zákazníků' : 'customer satisfaction' },
+        { metric: '24/7', label: lang === 'cs' ? 'dostupnost služeb' : 'service availability' }
       ],
       technologies: ['GPT-4', 'Natural Language Processing', 'Machine Learning', 'API Integration'],
       duration: lang === 'cs' ? '3 měsíce' : '3 months',
-      roi: '300%'
+      roi: '300%',
+      color: 'from-blue-500/20 to-cyan-500/20',
+      accentColor: 'text-blue-400',
+      borderColor: 'border-blue-500/20 hover:border-blue-400/40',
+      icon: Users
     },
     {
       title: lang === 'cs' ? 'Prediktivní analýza prodeje' : 'Predictive Sales Analytics',
@@ -45,14 +54,18 @@ export default function CaseStudies({ dict, lang }: CaseStudiesProps) {
         ? 'Vytvořili jsme AI systém pro predikci poptávky založený na historických datech, sezónních trendech a externích faktorech.'
         : 'We created an AI demand prediction system based on historical data, seasonal trends, and external factors.',
       results: [
-        lang === 'cs' ? '40% snížení nadbytečných zásob' : '40% reduction in excess inventory',
-        lang === 'cs' ? '25% nárůst tržeb' : '25% increase in sales',
-        lang === 'cs' ? '90% přesnost predikce' : '90% prediction accuracy',
-        lang === 'cs' ? '50% rychlejší rozhodování' : '50% faster decision making'
+        { metric: '40%', label: lang === 'cs' ? 'snížení nadbytečných zásob' : 'reduction in excess inventory' },
+        { metric: '25%', label: lang === 'cs' ? 'nárůst tržeb' : 'increase in sales' },
+        { metric: '90%', label: lang === 'cs' ? 'přesnost predikce' : 'prediction accuracy' },
+        { metric: '50%', label: lang === 'cs' ? 'rychlejší rozhodování' : 'faster decision making' }
       ],
       technologies: ['Python', 'TensorFlow', 'Time Series Analysis', 'Data Visualization'],
       duration: lang === 'cs' ? '4 měsíce' : '4 months',
-      roi: '250%'
+      roi: '250%',
+      color: 'from-purple-500/20 to-pink-500/20',
+      accentColor: 'text-purple-400',
+      borderColor: 'border-purple-500/20 hover:border-purple-400/40',
+      icon: TrendingUp
     },
     {
       title: lang === 'cs' ? 'Automatizace finančních procesů' : 'Financial Process Automation',
@@ -65,89 +78,70 @@ export default function CaseStudies({ dict, lang }: CaseStudiesProps) {
         ? 'Implementovali jsme RPA řešení s AI pro automatické zpracování dokumentů a compliance monitoring.'
         : 'We implemented RPA solution with AI for automatic document processing and compliance monitoring.',
       results: [
-        lang === 'cs' ? '85% snížení času zpracování' : '85% reduction in processing time',
-        lang === 'cs' ? '99% přesnost zpracování' : '99% processing accuracy',
-        lang === 'cs' ? '70% úspora pracovních hodin' : '70% labor hours saved',
-        lang === 'cs' ? '100% compliance dodržování' : '100% compliance adherence'
+        { metric: '85%', label: lang === 'cs' ? 'snížení času zpracování' : 'reduction in processing time' },
+        { metric: '99%', label: lang === 'cs' ? 'přesnost zpracování' : 'processing accuracy' },
+        { metric: '70%', label: lang === 'cs' ? 'úspora pracovních hodin' : 'labor hours saved' },
+        { metric: '100%', label: lang === 'cs' ? 'compliance dodržování' : 'compliance adherence' }
       ],
       technologies: ['RPA', 'OCR', 'Document AI', 'Workflow Automation'],
       duration: lang === 'cs' ? '5 měsíců' : '5 months',
-      roi: '400%'
+      roi: '400%',
+      color: 'from-emerald-500/20 to-teal-500/20',
+      accentColor: 'text-emerald-400',
+      borderColor: 'border-emerald-500/20 hover:border-emerald-400/40',
+      icon: Zap
     }
   ];
 
+  if (!mounted) {
+    return (
+      <section id="case-studies" className="py-20 md:py-32 bg-bg-primary relative overflow-hidden">
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="text-center mb-16 md:mb-20">
+            <h2 className="text-3xl md:text-5xl lg:text-6xl font-black mb-6 text-text-primary">
+              {lang === 'cs'
+                ? (<>Případové <span className="bg-gradient-to-r from-accent-primary to-blue-400 bg-clip-text text-transparent">studie</span></>)
+                : (<>Case <span className="bg-gradient-to-r from-accent-primary to-blue-400 bg-clip-text text-transparent">Studies</span></>)}
+            </h2>
+            <p className="text-lg md:text-xl text-text-secondary max-w-3xl mx-auto leading-relaxed">
+              {lang === 'cs'
+                ? 'Detailní pohled na naše nejúspěšnější projekty a jejich dopad na klientské firmy'
+                : 'Detailed look at our most successful projects and their impact on client companies'
+              }
+            </p>
+          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="h-96 bg-white/5 rounded-3xl animate-pulse" />
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
-    <section id="case-studies" className="py-32 bg-bg-primary relative overflow-hidden">
-      {/* Advanced Background Effects */}
+    <section id="case-studies" className="py-20 md:py-32 bg-bg-primary relative overflow-hidden">
+      {/* Subtle Background Effects */}
       <div className="absolute inset-0">
-        {/* Dynamic Grid Pattern */}
-        <motion.div 
-          className="absolute inset-0 opacity-15"
-          style={{
-            backgroundImage: `
-              linear-gradient(rgba(0,255,127,0.2) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(0,255,127,0.2) 1px, transparent 1px)
-            `,
-            backgroundSize: '80px 80px',
-          }}
-          animate={{
-            backgroundPosition: ['0px 0px', '80px 80px'],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-        />
-        
-        {/* Gradient Orbs */}
-        <div className="absolute top-1/4 left-0 w-96 h-96 bg-gradient-radial from-accent-primary/10 to-transparent rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-gradient-radial from-accent-primary/5 to-transparent rounded-full blur-3xl animate-pulse delay-1000"></div>
-        
-        {/* Floating Particles */}
-        {Array.from({ length: 20 }).map((_, i) => {
-          const left = `${stableRandom(i + 1) * 100}%`;
-          const top = `${stableRandom(i + 21) * 100}%`;
-          const duration = 4 + stableRandom(i + 41) * 2;
-          const delay = stableRandom(i + 61) * 2;
-          return (
-            <motion.div
-              key={i}
-              className="absolute w-1 h-1 bg-accent-primary/30 rounded-full"
-              style={{ left, top }}
-              animate={{
-                y: [0, -40, 0],
-                opacity: [0.3, 1, 0.3],
-                scale: [1, 2, 1],
-              }}
-              transition={{
-                duration,
-                repeat: Infinity,
-                delay,
-              }}
-            />
-          );
-        })}
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-radial from-white/[0.02] to-transparent rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-radial from-white/[0.01] to-transparent rounded-full blur-3xl"></div>
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
           viewport={{ once: true }}
-          className="text-center mb-20"
+          className="text-center mb-16 md:mb-20"
         >
-          <h2 className="text-4xl md:text-6xl font-black mb-6 text-text-primary">
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-black mb-6 text-text-primary">
             {lang === 'cs'
-              ? (<>
-                  Případové <span className="text-accent-primary">studie</span>
-                </>)
-              : (<>
-                  Case <span className="text-accent-primary">Studies</span>
-                </>)}
+              ? (<>Případové <span className="text-accent-primary">studie</span></>)
+              : (<>Case <span className="text-accent-primary">Studies</span></>)}
           </h2>
-          <p className="text-xl md:text-2xl text-text-secondary max-w-4xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl text-text-secondary max-w-3xl mx-auto leading-relaxed">
             {lang === 'cs'
               ? 'Detailní pohled na naše nejúspěšnější projekty a jejich dopad na klientské firmy'
               : 'Detailed look at our most successful projects and their impact on client companies'
@@ -155,253 +149,200 @@ export default function CaseStudies({ dict, lang }: CaseStudiesProps) {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Case Study Cards */}
-          <div className="lg:col-span-1 space-y-6">
-            {caseStudies.map((study, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="group relative"
-              >
-                <motion.div
-                className={`h-full p-8 rounded-3xl liquid-glass-card cursor-pointer transition-all duration-500 relative overflow-hidden ${
-                    selectedCase === index
-                      ? 'border-accent-primary/40'
-                      : 'border-accent-primary/10 hover:border-accent-primary/30'
-                  }`}
-                  whileHover={{ 
-                    scale: 1.02,
-                    borderColor: 'rgba(0, 255, 127, 0.4)',
-                  }}
-                  transition={{ duration: 0.3 }}
-                  onClick={() => setSelectedCase(index)}
-                >
-                  {/* Hover Glow Effect */}
-                  <motion.div
-                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                    style={{
-                      background: 'radial-gradient(circle at center, rgba(0, 255, 127, 0.1) 0%, transparent 70%)'
-                    }}
-                  />
-                  
-                  {/* Selected Indicator */}
-                  {selectedCase === index && (
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      className="absolute top-4 right-4 w-3 h-3 bg-accent-primary rounded-full"
-                    />
-                  )}
-
-                  <div className="relative z-10">
-                    <h3 className="text-xl font-bold text-text-primary mb-3">
-                      {study.title}
-                    </h3>
-                    <div className="text-accent-primary text-sm font-semibold mb-3 uppercase tracking-wider">
-                      {study.client} • {study.industry}
-                    </div>
-                    <p className="text-text-secondary text-sm leading-relaxed mb-6">
-                      {study.challenge}
-                    </p>
-                    <div className="flex items-center justify-between">
-                      <motion.div 
-                        className="bg-gradient-to-r from-accent-primary/10 to-accent-primary/5 border border-accent-primary/20 rounded-full px-3 py-1"
-                        whileHover={{ scale: 1.05 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <span className="text-xs text-accent-primary font-semibold">
-                          ROI: {study.roi}
-                        </span>
-                      </motion.div>
-                      <motion.div
-                        whileHover={{ x: 5 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <ArrowRight className="w-4 h-4 text-accent-primary" />
-                      </motion.div>
-                    </div>
-                  </div>
-
-                  {/* Animated Border */}
-                  <motion.div
-                    className="absolute inset-0 rounded-3xl border-2 border-accent-primary/0 group-hover:border-accent-primary/30 transition-all duration-500"
-                    style={{
-                      background: 'linear-gradient(45deg, transparent, rgba(0, 255, 127, 0.1), transparent)',
-                      backgroundSize: '200% 200%',
-                    }}
-                    animate={{
-                      backgroundPosition: ['0% 0%', '100% 100%'],
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      ease: "linear"
-                    }}
-                  />
-                </motion.div>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Selected Case Study Details */}
-          <motion.div
-            key={selectedCase}
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="lg:col-span-2 group relative"
-          >
+        {/* Modern Card Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8">
+          {caseStudies.map((study, index) => (
             <motion.div
-              className="h-full p-10 rounded-3xl liquid-glass-card border border-accent-primary/10 relative overflow-hidden"
-              whileHover={{
-                borderColor: 'rgba(0, 255, 127, 0.3)',
+              key={`case-study-${index}`}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ 
+                duration: 0.6, 
+                delay: index * 0.1,
+                ease: [0.25, 0.46, 0.45, 0.94]
               }}
-              transition={{ duration: 0.3 }}
+              viewport={{ once: true, margin: "-50px" }}
+              className="group relative"
             >
-              {/* Hover Glow Effect */}
               <motion.div
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                style={{
-                  background: 'radial-gradient(circle at center, rgba(0, 255, 127, 0.08) 0%, transparent 70%)'
+                className={`relative bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-xl border ${study.borderColor} rounded-3xl p-6 md:p-8 transition-all duration-300 cursor-pointer overflow-hidden`}
+                whileHover={{ 
+                  scale: 1.02,
+                  y: -5,
                 }}
-              />
+                whileTap={{ scale: 0.98 }}
+                onClick={() => setSelectedCase(selectedCase === index ? null : index)}
+                layout="position"
+                layoutId={`card-${index}`}
+              >
+                {/* Top gradient line */}
+                <div className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+                
+                {/* Icon */}
+                <motion.div 
+                  className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${study.color} p-3 mb-6 backdrop-blur-sm border border-white/10`}
+                  whileHover={{ rotate: 5, scale: 1.05 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <study.icon className={`w-full h-full ${study.accentColor}`} />
+                </motion.div>
 
-              <div className="relative z-10">
-                <div className="mb-8">
-                  <motion.h3 
-                    className="text-3xl md:text-4xl font-black text-text-primary mb-6"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    {caseStudies[selectedCase].title}
-                  </motion.h3>
-                  <motion.div 
-                    className="flex flex-wrap items-center gap-4 mb-6"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.1 }}
-                  >
-                    <span className="text-accent-primary font-semibold text-lg">
-                      {caseStudies[selectedCase].client}
-                    </span>
-                    <span className="text-text-secondary">•</span>
-                    <span className="text-text-secondary">
-                      {caseStudies[selectedCase].industry}
-                    </span>
-                    <span className="text-text-secondary">•</span>
-                    <span className="text-text-secondary">
-                      {caseStudies[selectedCase].duration}
-                    </span>
-                  </motion.div>
+                {/* Header */}
+                <div className="mb-6">
+                  <h3 className="text-xl md:text-2xl font-bold text-text-primary mb-3 group-hover:text-accent-primary transition-colors duration-300">
+                    {study.title}
+                  </h3>
+                  <div className="flex items-center gap-2 text-sm text-text-secondary mb-4">
+                    <span className={study.accentColor}>{study.client}</span>
+                    <span>•</span>
+                    <span>{study.industry}</span>
+                  </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
-                  >
-                    <h4 className="text-xl font-bold text-text-primary mb-4 flex items-center">
-                      <div className="w-2 h-2 bg-accent-primary rounded-full mr-3"></div>
-                      {lang === 'cs' ? 'Výzva' : 'Challenge'}
-                    </h4>
-                    <p className="text-text-secondary mb-8 leading-relaxed">
-                      {caseStudies[selectedCase].challenge}
-                    </p>
+                {/* Challenge Preview */}
+                <p className="text-text-secondary text-sm leading-relaxed mb-6 line-clamp-3">
+                  {study.challenge}
+                </p>
 
-                    <h4 className="text-xl font-bold text-text-primary mb-4 flex items-center">
-                      <div className="w-2 h-2 bg-accent-primary rounded-full mr-3"></div>
-                      {lang === 'cs' ? 'Řešení' : 'Solution'}
-                    </h4>
-                    <p className="text-text-secondary leading-relaxed">
-                      {caseStudies[selectedCase].solution}
-                    </p>
-                  </motion.div>
-
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.3 }}
-                  >
-                    <h4 className="text-xl font-bold text-text-primary mb-4 flex items-center">
-                      <div className="w-2 h-2 bg-accent-primary rounded-full mr-3"></div>
-                      {lang === 'cs' ? 'Výsledky' : 'Results'}
-                    </h4>
-                    <ul className="space-y-3 mb-8">
-                      {caseStudies[selectedCase].results.map((result, index) => (
-                        <motion.li 
-                          key={index} 
-                          className="flex items-center text-text-secondary"
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ duration: 0.3, delay: 0.4 + index * 0.1 }}
-                        >
-                          <div className="w-2 h-2 bg-accent-primary rounded-full mr-4 flex-shrink-0"></div>
-                          {result}
-                        </motion.li>
-                      ))}
-                    </ul>
-
-                    <h4 className="text-xl font-bold text-text-primary mb-4 flex items-center">
-                      <div className="w-2 h-2 bg-accent-primary rounded-full mr-3"></div>
-                      {lang === 'cs' ? 'Technologie' : 'Technologies'}
-                    </h4>
-                    <div className="flex flex-wrap gap-3 mb-8">
-                      {caseStudies[selectedCase].technologies.map((tech, index) => (
-                        <motion.span
-                          key={index}
-                          className="px-4 py-2 bg-gradient-to-r from-accent-primary/10 to-accent-primary/5 border border-accent-primary/20 rounded-full text-accent-primary text-sm font-medium"
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
-                          whileHover={{ scale: 1.05 }}
-                        >
-                          {tech}
-                        </motion.span>
-                      ))}
-                    </div>
-
+                {/* Key Metrics */}
+                <div className="grid grid-cols-2 gap-4 mb-6">
+                  {study.results.slice(0, 2).map((result, idx) => (
                     <motion.div 
-                      className="bg-gradient-to-r from-accent-primary/10 to-accent-primary/5 border border-accent-primary/20 rounded-2xl p-6"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: 0.6 }}
-                      whileHover={{ scale: 1.02 }}
+                      key={idx} 
+                      className={`text-center p-3 rounded-xl bg-gradient-to-br ${study.color} backdrop-blur-sm border border-white/10`}
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ duration: 0.2 }}
                     >
-                      <div className="text-accent-primary font-black text-2xl mb-2">
-                        ROI: {caseStudies[selectedCase].roi}
+                      <div className={`text-2xl font-black ${study.accentColor} mb-1`}>
+                        {result.metric}
                       </div>
-                      <div className="text-text-secondary text-sm">
-                        {lang === 'cs' ? 'Návratnost investice' : 'Return on Investment'}
+                      <div className="text-xs text-text-secondary">
+                        {result.label}
                       </div>
                     </motion.div>
+                  ))}
+                </div>
+
+                {/* Footer */}
+                <div className="flex items-center justify-between">
+                  <div className={`px-3 py-1 rounded-full bg-gradient-to-r ${study.color} backdrop-blur-sm border border-white/10`}>
+                    <span className={`text-xs font-semibold ${study.accentColor}`}>
+                      ROI: {study.roi}
+                    </span>
+                  </div>
+                  <motion.div
+                    whileHover={{ x: 5 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <ArrowRight className={`w-5 h-5 ${study.accentColor}`} />
                   </motion.div>
                 </div>
-              </div>
 
-              {/* Animated Border */}
-              <motion.div
-                className="absolute inset-0 rounded-3xl border-2 border-accent-primary/0 group-hover:border-accent-primary/20 transition-all duration-500"
-                style={{
-                  background: 'linear-gradient(45deg, transparent, rgba(0, 255, 127, 0.05), transparent)',
-                  backgroundSize: '200% 200%',
-                }}
-                animate={{
-                  backgroundPosition: ['0% 0%', '100% 100%'],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "linear"
-                }}
-              />
+                {/* Expanded Content */}
+                <AnimatePresence mode="wait">
+                  {selectedCase === index && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0, marginTop: 0 }}
+                      animate={{ opacity: 1, height: 'auto', marginTop: 32 }}
+                      exit={{ opacity: 0, height: 0, marginTop: 0 }}
+                      transition={{ 
+                        duration: 0.4,
+                        ease: [0.25, 0.46, 0.45, 0.94]
+                      }}
+                      className="pt-8 border-t border-white/10"
+                    >
+                      {/* Solution */}
+                      <motion.div 
+                        className="mb-6"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.1 }}
+                      >
+                        <h4 className={`text-lg font-bold ${study.accentColor} mb-3`}>
+                          {lang === 'cs' ? 'Řešení' : 'Solution'}
+                        </h4>
+                        <p className="text-text-secondary text-sm leading-relaxed">
+                          {study.solution}
+                        </p>
+                      </motion.div>
+
+                      {/* All Results */}
+                      <motion.div 
+                        className="mb-6"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2 }}
+                      >
+                        <h4 className={`text-lg font-bold ${study.accentColor} mb-3`}>
+                          {lang === 'cs' ? 'Výsledky' : 'Results'}
+                        </h4>
+                        <div className="grid grid-cols-2 gap-3">
+                          {study.results.map((result, idx) => (
+                            <motion.div 
+                              key={idx} 
+                              className={`p-3 rounded-xl bg-gradient-to-br ${study.color} backdrop-blur-sm border border-white/10`}
+                              initial={{ opacity: 0, scale: 0.9 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              transition={{ delay: 0.3 + idx * 0.05 }}
+                            >
+                              <div className={`text-lg font-black ${study.accentColor} mb-1`}>
+                                {result.metric}
+                              </div>
+                              <div className="text-xs text-text-secondary">
+                                {result.label}
+                              </div>
+                            </motion.div>
+                          ))}
+                        </div>
+                      </motion.div>
+
+                      {/* Technologies */}
+                      <motion.div 
+                        className="mb-6"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.4 }}
+                      >
+                        <h4 className={`text-lg font-bold ${study.accentColor} mb-3`}>
+                          {lang === 'cs' ? 'Technologie' : 'Technologies'}
+                        </h4>
+                        <div className="flex flex-wrap gap-2">
+                          {study.technologies.map((tech, idx) => (
+                            <motion.span
+                              key={idx}
+                              className={`px-3 py-1 rounded-full bg-gradient-to-r ${study.color} backdrop-blur-sm border border-white/10 text-xs ${study.accentColor} font-medium`}
+                              initial={{ opacity: 0, scale: 0.8 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              transition={{ delay: 0.5 + idx * 0.05 }}
+                              whileHover={{ scale: 1.05 }}
+                            >
+                              {tech}
+                            </motion.span>
+                          ))}
+                        </div>
+                      </motion.div>
+
+                      {/* Project Info */}
+                      <motion.div 
+                        className="flex items-center justify-between text-sm text-text-secondary"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.6 }}
+                      >
+                        <div className="flex items-center gap-2">
+                          <Calendar className="w-4 h-4" />
+                          <span>{study.duration}</span>
+                        </div>
+                        <div className={`font-bold ${study.accentColor}`}>
+                          ROI: {study.roi}
+                        </div>
+                      </motion.div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
             </motion.div>
-          </motion.div>
+          ))}
         </div>
       </div>
     </section>

@@ -53,8 +53,13 @@ export default function VPSPackageCard({
 }: VPSPackageCardProps) {
   const [selectedOS, setSelectedOS] = useState<'linux' | 'windows'>('linux');
 
-  const basePrice = pkg.pricing[selectedOS].daily;
-  const finalDailyPrice = backupEnabled ? basePrice * 2 : basePrice;
+  // Správný výpočet cen
+  const baseDailyPrice = pkg.pricing[selectedOS].daily;
+  const backupMultiplier = backupEnabled ? 2 : 1; // 2x cena když je backup zapnutý
+  const finalDailyPrice = baseDailyPrice * backupMultiplier;
+  
+  const baseMonthlyPrice = pkg.pricing[selectedOS].monthly;
+  const finalMonthlyPrice = baseMonthlyPrice * backupMultiplier;
 
   const handleOSChange = (osType: 'linux' | 'windows') => {
     setSelectedOS(osType);
@@ -65,7 +70,7 @@ export default function VPSPackageCard({
     const packageData = {
       id: pkg.id,
       name: pkg.name,
-      price: pkg.pricing[selectedOS].monthly,
+      price: finalMonthlyPrice,
       cpu: pkg.specs.cpu,
       ram: pkg.specs.ram,
       storage: pkg.specs.storage,
@@ -82,11 +87,15 @@ export default function VPSPackageCard({
         type: selectedOS,
         price: selectedOS === 'windows' ? packageData.price * 0.5 : 0,
       },
+      backup: {
+        enabled: backupEnabled,
+        price: backupEnabled ? baseMonthlyPrice : 0,
+      },
       totals: {
-        basePrice: packageData.price,
-        backupPrice: backupEnabled ? packageData.price * 0.2 : 0,
+        basePrice: baseMonthlyPrice,
+        backupPrice: backupEnabled ? baseMonthlyPrice : 0,
         osPrice: selectedOS === 'windows' ? packageData.price * 0.5 : 0,
-        finalPrice: packageData.price + (backupEnabled ? packageData.price * 0.2 : 0) + (selectedOS === 'windows' ? packageData.price * 0.5 : 0),
+        finalPrice: finalMonthlyPrice + (selectedOS === 'windows' ? packageData.price * 0.5 : 0),
       },
     };
     

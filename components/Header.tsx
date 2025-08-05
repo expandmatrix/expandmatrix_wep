@@ -266,21 +266,22 @@ export default function Header({ dict, lang }: HeaderProps) {
 
           {/* Right Section */}
           <div className="flex items-center space-x-4">
-            {/* Language Switcher */}
+            {/* Language Switcher - pouze na desktop */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.4, duration: 0.5 }}
+              className="hidden lg:block"
             >
               <LanguageSwitcher />
             </motion.div>
 
-            {/* CTA Button (Desktop) */}
+            {/* CTA Button - skrytý na malých mobilech */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.5, duration: 0.5 }}
-              className="hidden md:block"
+              className="hidden sm:block md:block"
             >
               <motion.button
                 whileHover={{ 
@@ -288,21 +289,8 @@ export default function Header({ dict, lang }: HeaderProps) {
                   boxShadow: '0 10px 30px rgba(0, 255, 127, 0.3)'
                 }}
                 whileTap={{ scale: 0.95 }}
-                className="relative px-6 py-3 bg-accent-primary text-bg-primary font-semibold text-sm rounded-xl transition-all duration-300 overflow-hidden group"
+                className="relative px-4 sm:px-6 py-2 sm:py-3 bg-accent-primary text-bg-primary font-semibold text-sm rounded-xl transition-all duration-300 overflow-hidden group"
               >
-                {/* Animated background */}
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-accent-primary via-accent-dark to-accent-primary"
-                  animate={{
-                    x: ['-100%', '100%'],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                />
-                
                 <span className="relative z-10">
                   {lang === 'cs' ? 'Kontakt' : 'Contact'}
                 </span>

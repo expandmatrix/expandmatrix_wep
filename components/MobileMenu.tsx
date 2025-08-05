@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ArrowRight, ChevronDown } from 'lucide-react';
 import { type Locale } from '@/lib/getDictionary';
 import { getLocalizedNavigation } from '@/lib/navigation';
-import LanguageSwitcher from './LanguageSwitcher';
+import LanguageSwitcher from './layout/LanguageSwitcher';
 
 interface MobileMenuProps {
   dict: any;
@@ -58,27 +58,28 @@ export default function MobileMenu({ dict, lang }: MobileMenuProps) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="fixed inset-0 bg-bg-primary/80 backdrop-blur-xl z-40"
+              className="fixed inset-0 bg-black/80 backdrop-blur-xl z-40"
               onClick={toggleMenu}
             />
 
-            {/* Menu Panel */}
+            {/* Menu Panel - opraveno pro celou výšku */}
             <motion.div
               initial={{ x: '100%', opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: '100%', opacity: 0 }}
               transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="fixed top-0 right-0 h-full w-80 max-w-[90vw] bg-bg-primary/95 backdrop-blur-2xl border-l border-accent-primary/20 shadow-2xl shadow-accent-primary/10 z-50 flex flex-col"
+              className="fixed top-0 right-0 bottom-0 w-full sm:w-80 sm:max-w-[90vw] bg-bg-primary border-l border-accent-primary/20 shadow-2xl z-50 flex flex-col"
+              style={{ height: '100vh', height: '100dvh' }}
             >
               {/* Header */}
-              <div className="flex items-center justify-between p-6 border-b border-accent-primary/10">
+              <div className="flex items-center justify-between p-6 border-b border-accent-primary/20 bg-bg-primary">
                 <motion.h2
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.1, duration: 0.4 }}
                   className="text-xl font-bold text-text-primary"
                 >
-                  {lang === 'cs' ? 'Menu' : 'Menu'}
+                  Menu
                 </motion.h2>
                 
                 <motion.button
@@ -88,29 +89,29 @@ export default function MobileMenu({ dict, lang }: MobileMenuProps) {
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   onClick={toggleMenu}
-                  className="p-2 text-text-secondary hover:text-accent-primary transition-colors duration-300"
+                  className="p-3 bg-accent-primary/20 border border-accent-primary/40 rounded-xl text-accent-primary hover:bg-accent-primary/30 transition-all duration-300"
                 >
                   <X className="w-6 h-6" />
                 </motion.button>
               </div>
 
-              {/* Navigation Links */}
-              <nav className="flex-1 p-6">
-                <div className="space-y-2">
+              {/* Navigation Links - scrollable content */}
+              <nav className="flex-1 p-6 overflow-y-auto">
+                <div className="space-y-4">
                   {navigation.map((item, index) => (
                     <motion.div
                       key={item.name}
                       initial={{ opacity: 0, x: 50 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.1 * (index + 2), duration: 0.4 }}
-                      className="space-y-2"
+                      className="space-y-3"
                     >
                       {/* Main Navigation Item */}
-                      <div className="group flex items-center justify-between px-4 py-4 rounded-xl text-text-secondary hover:text-accent-primary hover:bg-accent-primary/10 transition-all duration-300 font-medium border border-transparent hover:border-accent-primary/20">
+                      <div className="group flex items-center justify-between px-6 py-5 rounded-2xl bg-bg-primary border-2 border-accent-primary/30 text-text-primary hover:text-accent-primary hover:bg-accent-primary/10 hover:border-accent-primary/50 transition-all duration-300 font-medium shadow-lg">
                         <Link
                           href={item.href}
                           onClick={item.submenu ? undefined : toggleMenu}
-                          className="flex-1 text-lg"
+                          className="flex-1 text-lg font-semibold"
                         >
                           {item.name}
                         </Link>
@@ -118,7 +119,7 @@ export default function MobileMenu({ dict, lang }: MobileMenuProps) {
                         {item.submenu ? (
                           <motion.button
                             onClick={() => toggleSubmenu(item.name)}
-                            className="p-1 hover:bg-accent-primary/10 rounded-lg transition-colors duration-300"
+                            className="p-3 bg-accent-primary/20 hover:bg-accent-primary/30 rounded-xl transition-colors duration-300 border border-accent-primary/30"
                             whileTap={{ scale: 0.95 }}
                           >
                             <motion.div
@@ -127,7 +128,7 @@ export default function MobileMenu({ dict, lang }: MobileMenuProps) {
                               }}
                               transition={{ duration: 0.3 }}
                             >
-                              <ChevronDown className="w-5 h-5" />
+                              <ChevronDown className="w-5 h-5 text-accent-primary" />
                             </motion.div>
                           </motion.button>
                         ) : (
@@ -135,7 +136,7 @@ export default function MobileMenu({ dict, lang }: MobileMenuProps) {
                             className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                             whileHover={{ x: 5 }}
                           >
-                            <ArrowRight className="w-5 h-5" />
+                            <ArrowRight className="w-5 h-5 text-accent-primary" />
                           </motion.div>
                         )}
                       </div>
@@ -148,7 +149,7 @@ export default function MobileMenu({ dict, lang }: MobileMenuProps) {
                             animate={{ opacity: 1, height: 'auto' }}
                             exit={{ opacity: 0, height: 0 }}
                             transition={{ duration: 0.3, ease: "easeOut" }}
-                            className="ml-4 space-y-1 overflow-hidden"
+                            className="ml-4 space-y-2 overflow-hidden"
                           >
                             {item.submenu.map((subItem, subIndex) => (
                               <motion.div
@@ -160,9 +161,9 @@ export default function MobileMenu({ dict, lang }: MobileMenuProps) {
                                 <Link
                                   href={subItem.href}
                                   onClick={toggleMenu}
-                                  className="group flex items-center px-4 py-3 text-text-secondary hover:text-accent-primary hover:bg-accent-primary/5 transition-all duration-300 rounded-lg border-l-2 border-accent-primary/20 hover:border-accent-primary/60"
+                                  className="group flex items-center px-5 py-4 text-text-secondary hover:text-accent-primary bg-bg-primary/80 hover:bg-accent-primary/10 transition-all duration-300 rounded-xl border-l-4 border-accent-primary/40 hover:border-accent-primary shadow-md"
                                 >
-                                  <span className="text-sm font-medium group-hover:translate-x-1 transition-transform duration-300">
+                                  <span className="text-base font-medium group-hover:translate-x-1 transition-transform duration-300">
                                     {subItem.name}
                                   </span>
                                   
@@ -170,7 +171,7 @@ export default function MobileMenu({ dict, lang }: MobileMenuProps) {
                                     className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                                     whileHover={{ x: 3 }}
                                   >
-                                    <div className="w-1.5 h-1.5 bg-accent-primary rounded-full" />
+                                    <div className="w-2 h-2 bg-accent-primary rounded-full" />
                                   </motion.div>
                                 </Link>
                               </motion.div>
@@ -183,20 +184,24 @@ export default function MobileMenu({ dict, lang }: MobileMenuProps) {
                 </div>
               </nav>
 
-              {/* Footer */}
-              <div className="p-6 border-t border-accent-primary/10">
+              {/* Footer - Language Switcher + Contact */}
+              <div className="p-6 border-t border-accent-primary/20 bg-bg-primary">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3, duration: 0.4 }}
-                  className="flex items-center justify-between"
+                  className="flex flex-col gap-4"
                 >
-                  <LanguageSwitcher />
+                  {/* Language Switcher - jednoduchý přepínač */}
+                  <div className="flex justify-center">
+                    <LanguageSwitcher />
+                  </div>
                   
+                  {/* Contact Button */}
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="px-6 py-3 bg-accent-primary text-bg-primary font-semibold text-sm rounded-xl transition-all duration-300"
+                    className="w-full px-6 py-4 bg-accent-primary text-bg-primary font-semibold text-base rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-accent-primary/20"
                   >
                     {lang === 'cs' ? 'Kontakt' : 'Contact'}
                   </motion.button>

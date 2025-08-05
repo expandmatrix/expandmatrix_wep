@@ -229,73 +229,127 @@ export default function AboutStory({ dict, lang }: AboutStoryProps) {
 
         {/* Interactive Timeline */}
         <div ref={timelineRef} className="relative max-w-6xl mx-auto">
-          {/* Background Progress Bar */}
-          <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-accent-primary/20 to-accent-primary/10 rounded-full" />
-          
-          {/* Animated Progress Bar */}
-          <motion.div
-            className="absolute top-0 left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-accent-primary via-accent-primary to-accent-primary/60 rounded-full origin-top"
-            style={{
-              height: useTransform(scrollYProgress, [0, 1], ['0%', '100%']),
-            }}
-          />
+          {/* Desktop Timeline - původní design */}
+          <div className="hidden md:block">
+            {/* Background Progress Bar */}
+            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-accent-primary/20 to-accent-primary/10 rounded-full" />
+            
+            {/* Animated Progress Bar */}
+            <motion.div
+              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-accent-primary via-accent-primary to-accent-primary/60 rounded-full origin-top"
+              style={{
+                height: useTransform(scrollYProgress, [0, 1], ['0%', '100%']),
+              }}
+            />
+          </div>
+
+          {/* Mobile Timeline - nový design */}
+          <div className="block md:hidden">
+            {/* Background Progress Bar - uprostřed */}
+            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-accent-primary/15 to-accent-primary/5 rounded-full" />
+            
+            {/* Animated Progress Bar */}
+            <motion.div
+              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-accent-primary via-accent-primary to-accent-primary/60 rounded-full origin-top"
+              style={{
+                height: useTransform(scrollYProgress, [0, 1], ['0%', '100%']),
+              }}
+            />
+
+            {/* Glow effect pro aktivní kartu */}
+            <motion.div
+              className="absolute left-1/2 transform -translate-x-1/2 w-32 h-32 bg-accent-primary/10 rounded-full blur-3xl"
+              animate={{
+                y: `${activeIndex * 400}px`,
+                opacity: [0.3, 0.6, 0.3],
+                scale: [1, 1.2, 1],
+              }}
+              transition={{
+                y: { duration: 0.8, ease: "easeOut" },
+                opacity: { duration: 2, repeat: Infinity, ease: "easeInOut" },
+                scale: { duration: 2, repeat: Infinity, ease: "easeInOut" }
+              }}
+            />
+          </div>
 
           {/* Timeline Items */}
-          <div className="space-y-32">
+          <div className="space-y-8 md:space-y-32">
             {milestones.map((milestone, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -100 : 100 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 transition={{ 
                   duration: 0.8, 
                   delay: index * 0.1,
                   ease: [0.25, 0.46, 0.45, 0.94]
                 }}
                 viewport={{ once: true, margin: "-100px" }}
-                className={`relative flex items-center ${
-                  index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'
+                className={`relative ${
+                  // Desktop: alternující layout, Mobile: centrovaný
+                  'md:flex md:items-center ' + 
+                  (index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse')
                 }`}
                 onMouseEnter={() => setActiveIndex(index)}
               >
-                {/* Content Card */}
-                <div className={`w-5/12 ${index % 2 === 0 ? 'pr-12' : 'pl-12'}`}>
+                {/* Mobile Layout */}
+                <div className="block md:hidden">
+                  {/* Central Icon pro mobil */}
+                  <div className="flex justify-center mb-6">
+                    <motion.div
+                      className={`w-16 h-16 rounded-full bg-gradient-to-br ${milestone.color} p-4 shadow-2xl ${milestone.glowColor} border-4 border-bg-primary relative z-20`}
+                      whileHover={{ 
+                        scale: 1.1,
+                        rotate: 180,
+                      }}
+                      animate={activeIndex === index ? { 
+                        scale: [1, 1.15, 1],
+                        boxShadow: [
+                          '0 0 20px rgba(0,255,127,0.4)',
+                          '0 0 40px rgba(0,255,127,0.7)',
+                          '0 0 20px rgba(0,255,127,0.4)'
+                        ]
+                      } : {}}
+                      transition={{ duration: 0.6 }}
+                    >
+                      <milestone.icon className="w-full h-full text-white" />
+                    </motion.div>
+                  </div>
+
+                  {/* Content Card pro mobil */}
                   <motion.div
-                    whileHover={{ 
-                      scale: 1.05,
-                      rotateY: index % 2 === 0 ? 5 : -5,
-                    }}
-                    className={`relative p-8 rounded-3xl backdrop-blur-2xl border border-accent-primary/20 bg-gradient-to-br from-bg-secondary/80 to-bg-secondary/40 group overflow-hidden ${milestone.glowColor} hover:shadow-2xl transition-all duration-500`}
-                    style={{
-                      willChange: 'transform',
-                      transform: 'translate3d(0, 0, 0)',
-                    }}
+                    whileHover={{ scale: 1.02 }}
+                    className={`relative p-6 mx-4 rounded-3xl backdrop-blur-2xl border border-accent-primary/20 bg-gradient-to-br from-bg-secondary/90 to-bg-secondary/50 group overflow-hidden ${milestone.glowColor} hover:shadow-2xl transition-all duration-500`}
+                    animate={activeIndex === index ? {
+                      borderColor: 'rgba(0, 255, 127, 0.4)',
+                      boxShadow: '0 20px 60px rgba(0, 255, 127, 0.15)'
+                    } : {}}
                   >
                     {/* Card Glow Effect */}
                     <motion.div
                       className={`absolute inset-0 bg-gradient-to-br ${milestone.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-3xl`}
-                      animate={activeIndex === index ? { opacity: 0.1 } : { opacity: 0 }}
+                      animate={activeIndex === index ? { opacity: 0.08 } : { opacity: 0 }}
                     />
 
                     {/* Year Badge */}
                     <motion.div
-                      className={`inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r ${milestone.color} text-white font-bold text-sm mb-6 shadow-lg`}
-                      whileHover={{ scale: 1.1 }}
+                      className={`inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r ${milestone.color} text-white font-bold text-sm mb-4 shadow-lg`}
+                      whileHover={{ scale: 1.05 }}
                     >
                       {milestone.year}
                     </motion.div>
 
-                    <h3 className="text-2xl font-bold text-text-primary mb-4 group-hover:text-accent-primary transition-colors duration-300">
+                    <h3 className="text-xl font-bold text-text-primary mb-3 group-hover:text-accent-primary transition-colors duration-300">
                       {milestone.title}
                     </h3>
 
-                    <p className="text-text-secondary mb-6 leading-relaxed">
+                    <p className="text-base text-text-secondary mb-4 leading-relaxed">
                       {milestone.description}
                     </p>
 
                     {/* Achievement Badge */}
                     <motion.div
-                      className="inline-flex items-center px-4 py-2 bg-accent-primary/10 border border-accent-primary/20 rounded-full text-accent-primary font-medium text-sm backdrop-blur-sm"
+                      className="inline-flex items-center px-4 py-2 bg-accent-primary/10 border border-accent-primary/20 rounded-full text-accent-primary font-medium text-sm backdrop-blur-sm mb-4"
                       whileHover={{ scale: 1.05 }}
                     >
                       <Award className="w-4 h-4 mr-2" />
@@ -303,7 +357,7 @@ export default function AboutStory({ dict, lang }: AboutStoryProps) {
                     </motion.div>
 
                     {/* Progress Indicator */}
-                    <div className="mt-6">
+                    <div>
                       <div className="flex justify-between items-center mb-2">
                         <span className="text-xs text-text-secondary">
                           {lang === 'cs' ? 'Pokrok' : 'Progress'}
@@ -324,8 +378,69 @@ export default function AboutStory({ dict, lang }: AboutStoryProps) {
                   </motion.div>
                 </div>
 
-                {/* Central Icon */}
-                <div className="w-2/12 flex justify-center">
+                {/* Desktop Layout - původní */}
+                <div className="hidden md:block md:w-5/12">
+                  <div className={index % 2 === 0 ? 'pr-12' : 'pl-12'}>
+                    <motion.div
+                      whileHover={{ 
+                        scale: 1.05,
+                        rotateY: index % 2 === 0 ? 5 : -5,
+                      }}
+                      className={`relative p-8 rounded-3xl backdrop-blur-2xl border border-accent-primary/20 bg-gradient-to-br from-bg-secondary/80 to-bg-secondary/40 group overflow-hidden ${milestone.glowColor} hover:shadow-2xl transition-all duration-500`}
+                    >
+                      {/* Desktop card content - stejné jako původní */}
+                      <motion.div
+                        className={`absolute inset-0 bg-gradient-to-br ${milestone.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-3xl`}
+                        animate={activeIndex === index ? { opacity: 0.1 } : { opacity: 0 }}
+                      />
+
+                      <motion.div
+                        className={`inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r ${milestone.color} text-white font-bold text-sm mb-6 shadow-lg`}
+                        whileHover={{ scale: 1.1 }}
+                      >
+                        {milestone.year}
+                      </motion.div>
+
+                      <h3 className="text-2xl font-bold text-text-primary mb-4 group-hover:text-accent-primary transition-colors duration-300">
+                        {milestone.title}
+                      </h3>
+
+                      <p className="text-base text-text-secondary mb-6 leading-relaxed">
+                        {milestone.description}
+                      </p>
+
+                      <motion.div
+                        className="inline-flex items-center px-4 py-2 bg-accent-primary/10 border border-accent-primary/20 rounded-full text-accent-primary font-medium text-sm backdrop-blur-sm"
+                        whileHover={{ scale: 1.05 }}
+                      >
+                        <Award className="w-4 h-4 mr-2" />
+                        {milestone.achievement}
+                      </motion.div>
+
+                      <div className="mt-6">
+                        <div className="flex justify-between items-center mb-2">
+                          <span className="text-xs text-text-secondary">
+                            {lang === 'cs' ? 'Pokrok' : 'Progress'}
+                          </span>
+                          <span className="text-xs text-accent-primary font-bold">
+                            {milestone.progress}%
+                          </span>
+                        </div>
+                        <div className="w-full bg-bg-primary/50 rounded-full h-2">
+                          <motion.div
+                            className={`h-2 rounded-full bg-gradient-to-r ${milestone.color}`}
+                            initial={{ width: 0 }}
+                            whileInView={{ width: `${milestone.progress}%` }}
+                            transition={{ duration: 1.5, delay: 0.5 }}
+                          />
+                        </div>
+                      </div>
+                    </motion.div>
+                  </div>
+                </div>
+
+                {/* Desktop Central Icon */}
+                <div className="hidden md:flex md:w-2/12 justify-center">
                   <motion.div
                     className={`w-20 h-20 rounded-full bg-gradient-to-br ${milestone.color} p-5 shadow-2xl ${milestone.glowColor} border-4 border-bg-primary relative z-20`}
                     whileHover={{ 
@@ -346,8 +461,8 @@ export default function AboutStory({ dict, lang }: AboutStoryProps) {
                   </motion.div>
                 </div>
 
-                {/* Empty space for alternating layout */}
-                <div className="w-5/12" />
+                {/* Desktop Empty space */}
+                <div className="hidden md:block md:w-5/12" />
               </motion.div>
             ))}
           </div>

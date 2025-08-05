@@ -475,3 +475,37 @@ a[class*="bg-accent"]:active,
 *[class*="bg-gradient"]:active {
   box-shadow: none !important;
 }
+
+/* Responsivní hero sekce */
+.hero {
+  min-height: 100vh;
+  padding: 2rem 1rem;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    min-height: 80vh;
+    padding: 1rem 0.5rem;
+  }
+  
+  .heading-hero {
+    font-size: 2rem;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    min-height: 70vh;
+  }
+  
+  .heading-hero {
+    font-size: 1.75rem;
+  }
+}
