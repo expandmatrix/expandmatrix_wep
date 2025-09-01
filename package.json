@@ -7,12 +7,14 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "generate-content": "node scripts/generateTestContent.js"
   },
   "dependencies": {
     "framer-motion": "^11.18.2",
     "lucide-react": "^0.294.0",
     "next": "^15.0.0",
+    "node-fetch": "^2.7.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-icons": "^5.5.0",

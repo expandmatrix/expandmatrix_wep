@@ -4,7 +4,7 @@ export interface BlogArticle {
   title: { cs: string; en: string };
   excerpt: { cs: string; en: string };
   content: { cs: string; en: string };
-  category: 'news' | 'case-studies' | 'tutorials';
+  category: 'news' | 'case-studies' | 'guide';
   tags: string[];
   author: string;
   publishedAt: string;
@@ -72,7 +72,7 @@ export const blogArticles: BlogArticle[] = [
       cs: 'Kompletní tutorial o chatbotech...',
       en: 'Complete tutorial about chatbots...'
     },
-    category: 'tutorials',
+    category: 'guide',
     tags: ['Tutorial', 'Chatbot', 'Implementace'],
     author: 'Marie Svobodová',
     publishedAt: '2024-01-08',
@@ -95,7 +95,7 @@ export const blogArticles: BlogArticle[] = [
       cs: 'Podrobný návod pro VPS optimalizaci...',
       en: 'Detailed guide for VPS optimization...'
     },
-    category: 'tutorials',
+    category: 'guide',
     tags: ['VPS', 'Hosting', 'Optimalizace'],
     author: 'Tomáš Procházka',
     publishedAt: '2024-01-05',
@@ -108,11 +108,11 @@ export const blogCategories = {
   cs: {
     'news': 'Novinky',
     'case-studies': 'Case Studies',
-    'tutorials': 'Návody'
+    'guide': 'Návody'
   },
   en: {
     'news': 'News',
     'case-studies': 'Case Studies',
-    'tutorials': 'Tutorials'
+    'guide': 'Guide'
   }
 };

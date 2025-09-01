@@ -9,6 +9,7 @@ export interface BlogCategory {
 }
 
 import { blogArticles } from './blogData';
+import { strapiApi } from './strapiApi';
 
 export interface BlogArticle {
   id: string;
@@ -16,7 +17,7 @@ export interface BlogArticle {
   title: { cs: string; en: string };
   excerpt: { cs: string; en: string };
   content: { cs: string; en: string };
-  category: 'news' | 'case-studies' | 'tutorials';
+  category: 'news' | 'case-studies' | 'guide';
   tags: string[];
   author: string;
   publishedAt: string;
@@ -26,8 +27,8 @@ export interface BlogArticle {
 
 // API funkce pro kategorie
 export async function getBlogCategories(): Promise<BlogCategory[]> {
-  // TODO: Nahradit databázovým dotazem
-  return [
+  // Fallback kategorie pro případ chyby
+  const fallbackCategories: BlogCategory[] = [
     {
       id: '1',
       slug: 'news',
@@ -48,31 +49,123 @@ export async function getBlogCategories(): Promise<BlogCategory[]> {
     },
     {
       id: '3',
-      slug: 'tutorials',
-      name: { cs: 'Návody', en: 'Tutorials' },
+      slug: 'guide',
+      name: { cs: 'Návody', en: 'Guide' },
       description: { cs: 'Praktické návody krok za krokem', en: 'Step-by-step practical guides' },
       icon: 'book-open',
       order: 3,
       isActive: true
     }
   ];
+
+  // Pro nyní vrátíme fallback kategorie, protože Strapi API nefunguje správně
+  console.warn('Using fallback categories due to Strapi API issues');
+  return fallbackCategories;
 }
 
 // API funkce pro články
 export async function getBlogArticles(categorySlug?: string): Promise<BlogArticle[]> {
-  // TODO: Nahradit databázovým dotazem
-  const allArticles = blogArticles;
+  try {
+    const options: any = {
+      page: 1,
+      pageSize: 100, // Načteme více článků
+      sort: 'publishedAt:desc'
+    };
 
-  if (categorySlug) {
-    return allArticles.filter(article => article.category === categorySlug);
+    // Pokud je specifikována kategorie, přidáme filtr
+    if (categorySlug) {
+      options.filters = {
+        category: {
+          slug: {
+            $eq: categorySlug
+          }
+        }
+      };
+    }
+
+    const result = await strapiApi.getArticles(options);
+    const { articles } = result || {};
+    
+    // Kontrola, zda jsou články validní
+    if (!articles || !Array.isArray(articles)) {
+      throw new Error('Invalid articles data from Strapi');
+    }
+    
+    // Transformace článků ze Strapi na blog články s dvoujazyčnou podporou
+    return articles
+      .filter(article => article && article.id && article.slug) // Filtrujeme pouze validní články
+      .map(article => ({
+      id: article.id.toString(),
+      slug: article.slug,
+      title: {
+        cs: article.title, // V budoucnu můžeme přidat lokalizaci
+        en: article.title
+      },
+      excerpt: {
+        cs: article.excerpt || article.content.substring(0, 200) + '...',
+        en: article.excerpt || article.content.substring(0, 200) + '...'
+      },
+      content: {
+        cs: article.content,
+        en: article.content
+      },
+      category: article.category?.slug as 'news' | 'case-studies' | 'guide' || 'news',
+      tags: article.tags || [],
+      author: article.author?.name || 'Expand Matrix',
+      publishedAt: article.publishedAt,
+      featuredImage: article.featuredImage?.url || '/images/default-blog.jpg',
+      readTime: article.readingTime || Math.ceil(article.content.length / 1000) // Odhad času čtení
+    }));
+  } catch (error) {
+    console.error('Chyba při načítání článků ze Strapi:', error);
+    // Fallback na původní hardcoded články v případě chyby
+    const allArticles = blogArticles;
+    
+    if (categorySlug) {
+      return allArticles.filter(article => article.category === categorySlug);
+    }
+    
+    return allArticles;
   }
-
-  return allArticles;
 }
 
 export async function getArticleBySlug(slug: string): Promise<BlogArticle | null> {
-  const articles = await getBlogArticles();
-  return articles.find(article => article.slug === slug) || null;
+  try {
+    const strapiArticle = await strapiApi.getArticleBySlug(slug);
+    
+    if (!strapiArticle) {
+      return null;
+    }
+    
+    // Transformace článku ze Strapi na blog článek
+    return {
+      id: strapiArticle.id.toString(),
+      slug: strapiArticle.slug,
+      title: {
+        cs: strapiArticle.title,
+        en: strapiArticle.title
+      },
+      excerpt: {
+        cs: strapiArticle.excerpt || strapiArticle.content.substring(0, 200) + '...',
+        en: strapiArticle.excerpt || strapiArticle.content.substring(0, 200) + '...'
+      },
+      content: {
+        cs: strapiArticle.content,
+        en: strapiArticle.content
+      },
+      category: strapiArticle.category?.slug as 'news' | 'case-studies' | 'guide' || 'news',
+      tags: strapiArticle.tags || [],
+      author: strapiArticle.author?.name || 'Expand Matrix',
+      publishedAt: strapiArticle.publishedAt,
+      featuredImage: strapiArticle.featuredImage?.url || '/images/default-blog.jpg',
+      readTime: strapiArticle.readingTime || Math.ceil(strapiArticle.content.length / 1000)
+    };
+  } catch (error) {
+    console.error('Chyba při načítání článku ze Strapi:', error);
+    // Fallback na původní hardcoded články
+    const articles = blogArticles;
+    return articles.find(article => article.slug === slug) || null;
+  }
 }
 
 export async function getCategoryBySlug(slug: string): Promise<BlogCategory | null> {
