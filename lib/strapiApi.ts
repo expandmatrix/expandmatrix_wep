@@ -140,29 +140,29 @@ class StrapiAPI {
     filters?: Record<string, any>;
     populate?: string[];
   } = {}): Promise<{ articles: Article[]; pagination: any }> {
-    const params = new URLSearchParams({
-      'pagination[page]': page.toString(),
-      'pagination[pageSize]': pageSize.toString(),
-      'sort': sort,
-    });
-
-    // Add populate parameters
-    populate.forEach(field => {
-      params.append('populate', field);
-    });
-
-    // Add filters
-    Object.entries(filters).forEach(([key, value]) => {
-      params.append(`filters[${key}]`, value.toString());
-    });
-
-    const response = await this.request<StrapiResponse<StrapiEntity<StrapiArticle>[]>>(
-      `/articles?${params.toString()}`
+    // Použijeme jednodušší formát jako v testovacím skriptu
+    const response = await this.request<any>(
+      '/articles'
     );
 
+    // Strapi vrací data v jednoduchém formátu
+    const articles = response.data.map((article: any) => ({
+      id: article.id,
+      title: article.title,
+      slug: article.slug,
+      content: article.content,
+      excerpt: article.excerpt,
+      publishedAt: article.publishedAt,
+      createdAt: article.createdAt,
+      updatedAt: article.updatedAt,
+      featured_image: article.featured_image,
+      author: article.author,
+      category: article.category,
+    }));
+
     return {
-      articles: response.data.map(article => this.transformArticle(article)),
-      pagination: response.meta.pagination,
+      articles,
+      pagination: response.meta || { page: 1, pageSize: articles.length, total: articles.length },
     };
   }
 
@@ -206,11 +206,20 @@ class StrapiAPI {
 
   // Get all categories
   async getCategories(): Promise<Category[]> {
-    const response = await this.request<StrapiResponse<StrapiEntity<StrapiCategory>[]>>(
+    const response = await this.request<any>(
       '/categories?sort=name:asc'
     );
 
-    return response.data.map(category => this.transformCategory(category));
+    // Strapi vrací data v jednoduchém formátu, ne ve vnořené struktuře
+    return response.data.map((category: any) => ({
+      id: category.id,
+      name: category.name,
+      slug: category.slug,
+      description: category.description,
+      color: category.color,
+      createdAt: category.createdAt,
+      updatedAt: category.updatedAt,
+    }));
   }
 
   // Get all authors
