@@ -1,24 +1,112 @@
-# Expand Matrix
+# ExpandMatrix Web Application
 
-This repository contains the code for the Expand Matrix website built with Next.js and TypeScript.
+Moderná webová aplikácia postavená na Next.js s Strapi CMS backend.
 
-## Local development
+## 🚀 Rýchly štart
 
-First run `npm install` or `./setup.sh` (which calls `npm install` and disables Next.js telemetry). This
-also prepares the environment for `npm run lint` and `npm run type-check`:
+### Predpoklady
+- Node.js 18+
+- npm alebo yarn
+- Prístup k Strapi CMS
+
+### Inštalácia
+
+1. **Klonujte repozitár**
+   ```bash
+   git clone https://github.com/expandmatrix/expandmatrix_wep.git
+   cd expandmatrix_wep
+   ```
+
+2. **Nainštalujte závislosti**
+   ```bash
+   npm install
+   # alebo
+   ./setup.sh
+   ```
+
+3. **Nastavte environment premenné**
+   ```bash
+   cp .env.example .env.local
+   ```
+   
+   Upravte `.env.local` s vašimi skutočnými hodnotami:
+   ```env
+   STRAPI_API_URL=https://cms.expandmatrix.com
+   STRAPI_API_TOKEN=your_actual_strapi_token
+   NEXT_PUBLIC_BASE_URL=http://localhost:3000
+   ```
+
+4. **Spustite vývojový server**
+   ```bash
+   npm run dev
+   ```
+
+   Aplikácia bude dostupná na `http://localhost:3000`
+
+5. **Kontrola kvality kódu**
+   ```bash
+   npm run lint
+   npm run type-check
+   ```
+
+## 🏗️ Štruktúra projektu
+
+```
+├── app/                    # Next.js App Router
+│   ├── [lang]/            # Viacjazyčné stránky
+│   └── api/               # API routes
+├── components/            # React komponenty
+├── lib/                   # Utility funkcie a API
+├── dictionaries/          # Jazykové súbory
+├── scripts/              # Utility skripty
+└── public/               # Statické súbory
+```
+
+## 🌐 Viacjazyčnosť
+
+Aplikácia podporuje:
+- 🇨🇿 Čeština (`cs`)
+- 🇬🇧 Angličtina (`en`)
+
+Jazykové súbory sa nachádzajú v `dictionaries/`.
+
+## 📝 Blog systém
+
+### Kategórie
+Kategórie sú spravované cez Strapi CMS s podporou i18n:
+- Kolekcia: `category_i18n`
+- Podporované jazyky: cs, en
+- Automatické načítanie podľa jazyka
+
+### Články
+- Markdown podpora
+- SEO optimalizácia
+- Kategorizácia
+- Autor systém
+
+## 🔧 Užitočné skripty
 
 ```bash
-./setup.sh
+# Vývoj
 npm run dev
+
+# Build
+npm run build
+
+# Produkcia
+npm start
+
+# Linting
 npm run lint
 npm run type-check
 ```
 
-Skipping the installation step will lead to the error `Module not found: Can't resolve 'react-icons/fa'`.
+## 🔒 Bezpečnosť
 
-The site will be available at `http://localhost:3000`.
-
-Before submitting changes, ensure that the linting and type checks pass.
+- API tokeny sú chránené cez environment premenné
+- `.env.local` je v `.gitignore`
+- Všetky API volania sú autentifikované
+- Error handling pre všetky Strapi volania
 
 ## VPS page with Systrix theme
 
