@@ -26,13 +26,13 @@ export interface BlogArticle {
 }
 
 // API funkce pro kategorie
-export async function getBlogCategories(): Promise<BlogCategory[]> {
+export async function getBlogCategories(locale: string = 'en'): Promise<BlogCategory[]> {
   // Žádné fallback kategorie - načítáme pouze z CMS
   const fallbackCategories: BlogCategory[] = [];
 
   try {
-    console.log('Načítám kategorie ze Strapi CMS...');
-    const strapiCategories = await strapiApi.getCategories();
+    console.log(`Načítám kategorie ze Strapi CMS pro jazyk: ${locale}...`);
+    const strapiCategories = await strapiApi.getCategories(locale);
     console.log('Strapi kategorie:', strapiCategories);
     
     if (!strapiCategories || !Array.isArray(strapiCategories)) {
@@ -208,7 +208,7 @@ export async function getArticleBySlug(slug: string): Promise<BlogArticle | null
   }
 }
 
-export async function getCategoryBySlug(slug: string): Promise<BlogCategory | null> {
-  const categories = await getBlogCategories();
+export async function getCategoryBySlug(slug: string, locale: string = 'en'): Promise<BlogCategory | null> {
+  const categories = await getBlogCategories(locale);
   return categories.find(cat => cat.slug === slug) || null;
 }

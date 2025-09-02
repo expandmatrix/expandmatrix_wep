@@ -5,7 +5,7 @@ import BlogContent from '@/components/blog/BlogContent';
 import { notFound } from 'next/navigation';
 
 export async function generateStaticParams() {
-  const categories = await getBlogCategories();
+  const categories = await getBlogCategories('cs'); // Použijeme češtinu pro generování statických parametrů
   const params = [];
   
   for (const lang of ['cs', 'en']) {
@@ -27,7 +27,7 @@ export async function generateMetadata({
   const { lang, category } = await params;
   const locale = isValidLocale(lang) ? lang : 'cs';
   
-  const categoryData = await getCategoryBySlug(category);
+  const categoryData = await getCategoryBySlug(category, locale);
   if (!categoryData) {
     return {};
   }
@@ -58,14 +58,14 @@ export default async function CategoryPage({
   const locale = isValidLocale(lang) ? lang : 'cs';
   const dict = await getDictionary(locale);
   
-  const categoryData = await getCategoryBySlug(category);
+  const categoryData = await getCategoryBySlug(category, locale);
   if (!categoryData || !categoryData.isActive) {
     notFound();
   }
 
   // Načteme data na serveru
   const [categories, articles] = await Promise.all([
-    getBlogCategories(),
+    getBlogCategories(locale),
     getBlogArticles(category)
   ]);
 

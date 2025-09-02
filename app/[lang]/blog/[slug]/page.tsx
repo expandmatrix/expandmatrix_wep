@@ -8,7 +8,7 @@ import { notFound } from 'next/navigation';
 export async function generateStaticParams() {
   const [articles, categories] = await Promise.all([
     getBlogArticles(),
-    getBlogCategories(),
+    getBlogCategories('cs'), // Použijeme češtinu pro generování statických parametrů
   ]);
 
   const articleParams = articles.flatMap((article) => [
@@ -29,7 +29,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ lang: string; slug: string }> }): Promise<Metadata> {
   const { lang, slug } = await params;
   const locale = isValidLocale(lang) ? lang : 'cs';
-  const category = await getCategoryBySlug(slug);
+  const category = await getCategoryBySlug(slug, locale);
   const article = category ? null : await getArticleBySlug(slug);
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://expandmatrix.com';
 
@@ -66,11 +66,11 @@ export default async function ArticleOrCategoryPage({ params }: { params: Promis
   const { lang, slug } = await params;
   const locale: Locale = isValidLocale(lang) ? lang : 'cs';
 
-  const category = await getCategoryBySlug(slug);
+  const category = await getCategoryBySlug(slug, locale);
   if (category) {
     const dict = await getDictionary(locale);
     const [categories, articles] = await Promise.all([
-      getBlogCategories(),
+      getBlogCategories(locale),
       getBlogArticles(category.slug),
     ]);
 

@@ -205,10 +205,11 @@ class StrapiAPI {
   }
 
   // Get all categories
-  async getCategories(): Promise<Category[]> {
-    const response = await this.request<any>(
-      '/categories?sort=name:asc'
-    );
+  async getCategories(locale: string = 'en'): Promise<Category[]> {
+    // Určíme endpoint podle jazyka
+    const endpoint = locale === 'cs' ? '/kategories?sort=name:asc' : '/categories?sort=name:asc';
+    
+    const response = await this.request<any>(endpoint);
 
     // Strapi vrací data v jednoduchém formátu, ne ve vnořené struktuře
     return response.data.map((category: any) => ({

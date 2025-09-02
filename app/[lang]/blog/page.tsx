@@ -41,7 +41,7 @@ export default async function BlogPage({
   
   // Načteme data na serveru
   const [categories, articles] = await Promise.all([
-    getBlogCategories(),
+    getBlogCategories(locale),
     getBlogArticles()
   ]);
 
