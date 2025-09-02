@@ -58,43 +58,78 @@ class StrapiAPI {
   }
 
   // Transform Strapi article to our Article type
-  private transformArticle(strapiArticle: StrapiEntity<StrapiArticle>): Article {
-    const { id, attributes } = strapiArticle;
+  private transformArticle(strapiArticle: any): Article {
+    // V Strapi v4 sú údaje priamo v objekte, nie v attributes
+    const { id, name, authors, categories, article_i_18_ns, publishedAt, createdAt, updatedAt } = strapiArticle;
+    
+    // Transform authors - handle case when authors is not populated
+    const transformedAuthors = authors?.data ? authors.data.map((author: any) => ({
+      id: author.id,
+      name: author.attributes.name,
+      email: author.attributes.email,
+      bio: author.attributes.bio,
+      avatar: this.getMediaUrl(author.attributes.avatar?.attributes.url),
+    })) : [];
+
+    // Transform categories - handle case when categories is not populated
+    const transformedCategories = categories?.data ? categories.data.map((category: any) => ({
+      id: category.id,
+      name: category.name_cat,
+      slug: category.name_cat.toLowerCase().replace(/[^a-z0-9]/g, '-'),
+      description: '', // Description je v category_i18n
+      color: category.color,
+    })) : [];
+
+    // Transform i18n data
+    const i18n: Article['i18n'] = {
+      cs: {
+        title: '',
+        slug: '',
+        content: '',
+      },
+      en: {
+        title: '',
+        slug: '',
+        content: '',
+      },
+    };
+
+    // Fill i18n data from article_i_18_ns
+    article_i_18_ns?.data?.forEach((i18nData: any) => {
+      const lang = i18nData.lang;
+      (i18n as any)[lang] = {
+        title: i18nData.title,
+        slug: i18nData.slug,
+        excerpt: i18nData.excerpt,
+        content: i18nData.content,
+        coverImage: i18nData.cover_image?.data ? {
+          url: this.getMediaUrl(i18nData.cover_image.data.url) || '',
+          alt: i18nData.cover_image.data.alternativeText,
+          width: i18nData.cover_image.data.width,
+          height: i18nData.cover_image.data.height,
+        } : undefined,
+        metaTitle: i18nData.meta_title,
+        metaDescription: i18nData.meta_description,
+        ogTitle: i18nData.og_title,
+        ogDescription: i18nData.og_description,
+        ogImage: i18nData.og_image?.data ? {
+          url: this.getMediaUrl(i18nData.og_image.data.url) || '',
+          alt: i18nData.og_image.data.alternativeText,
+          width: i18nData.og_image.data.width,
+          height: i18nData.og_image.data.height,
+        } : undefined,
+      };
+    });
     
     return {
       id,
-      title: attributes.title,
-      slug: attributes.slug,
-      content: attributes.content,
-      excerpt: attributes.excerpt,
-      featuredImage: attributes.featured_image?.data ? {
-        url: this.getMediaUrl(attributes.featured_image.data.attributes.url) || '',
-        alt: attributes.featured_image.data.attributes.alternativeText,
-        width: attributes.featured_image.data.attributes.width,
-        height: attributes.featured_image.data.attributes.height,
-      } : undefined,
-      author: attributes.author?.data ? {
-        id: attributes.author.data.id,
-        name: attributes.author.data.attributes.name,
-        email: attributes.author.data.attributes.email,
-        bio: attributes.author.data.attributes.bio,
-        avatar: this.getMediaUrl(attributes.author.data.attributes.avatar?.attributes.url),
-      } : undefined,
-      category: attributes.category?.data ? {
-        id: attributes.category.data.id,
-        name: attributes.category.data.attributes.name_cat,
-        slug: attributes.category.data.attributes.name_cat.toLowerCase().replace(/[^a-z0-9]/g, '-'),
-        description: '', // Description je nyní v category_i18n
-        color: attributes.category.data.attributes.color,
-      } : undefined,
-      tags: attributes.tags,
-      seoTitle: attributes.seo_title,
-      seoDescription: attributes.seo_description,
-      readingTime: attributes.reading_time,
-      featured: attributes.featured,
-      publishedAt: attributes.publishedAt,
-      createdAt: attributes.createdAt,
-      updatedAt: attributes.updatedAt,
+      name,
+      authors: transformedAuthors,
+      categories: transformedCategories,
+      i18n,
+      publishedAt,
+      createdAt,
+      updatedAt,
     };
   }
 
@@ -153,7 +188,7 @@ class StrapiAPI {
     pageSize = 10,
     sort = 'publishedAt:desc',
     filters = {},
-    populate = ['author', 'category', 'featured_image']
+    populate = ['authors', 'categories', 'article_i_18_ns']
   }: {
     page?: number;
     pageSize?: number;
@@ -161,37 +196,44 @@ class StrapiAPI {
     filters?: Record<string, any>;
     populate?: string[];
   } = {}): Promise<{ articles: Article[]; pagination: any }> {
-    // Použijeme jednodušší formát jako v testovacím skriptu
-    const response = await this.request<any>(
-      '/articles'
+    const params = new URLSearchParams({
+      'pagination[page]': page.toString(),
+      'pagination[pageSize]': pageSize.toString(),
+      'sort': sort,
+    });
+
+    // Add populate parameters
+    populate.forEach(field => {
+      params.append('populate', field);
+    });
+
+    // Add filters
+    Object.entries(filters).forEach(([key, value]) => {
+      params.append(`filters[${key}]`, value);
+    });
+
+    const response = await this.request<StrapiResponse<StrapiEntity<StrapiArticle>[]>>(
+      `/articles?${params.toString()}`
     );
 
-    // Strapi vrací data v jednoduchém formátu
-    const articles = response.data.map((article: any) => ({
-      id: article.id,
-      title: article.title,
-      slug: article.slug,
-      content: article.content,
-      excerpt: article.excerpt,
-      publishedAt: article.publishedAt,
-      createdAt: article.createdAt,
-      updatedAt: article.updatedAt,
-      featured_image: article.featured_image,
-      author: article.author,
-      category: article.category,
-    }));
+    console.log('Debug - Strapi response:', {
+      dataLength: response.data?.length || 0,
+      hasData: !!response.data,
+      firstArticle: response.data?.[0] ? Object.keys(response.data[0]) : 'no articles'
+    });
 
     return {
-      articles,
-      pagination: response.meta || { page: 1, pageSize: articles.length, total: articles.length },
+      articles: response.data.map(article => this.transformArticle(article)),
+      pagination: response.meta.pagination,
     };
   }
 
   // Get single article by slug
   async getArticleBySlug(slug: string): Promise<Article | null> {
+    // Hľadáme článok podľa slug v article_i_18_ns tabuľke
     const params = new URLSearchParams({
-      'filters[slug][$eq]': slug,
-      'populate': 'author,category,featured_image',
+      'filters[article_i_18_ns][slug][$eq]': slug,
+      'populate': 'authors,categories,article_i_18_ns',
     });
 
     const response = await this.request<StrapiResponse<StrapiEntity<StrapiArticle>[]>>(
@@ -209,7 +251,7 @@ class StrapiAPI {
   async getArticleById(id: number): Promise<Article | null> {
     try {
       const params = new URLSearchParams({
-        'populate': 'author,category,featured_image',
+        'populate': 'authors,categories,article_i_18_ns',
       });
 
       const response = await this.request<StrapiSingleResponse<StrapiEntity<StrapiArticle>>>(

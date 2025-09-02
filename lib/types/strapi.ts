@@ -103,30 +103,49 @@ export interface StrapiMediaFormat {
 }
 
 export interface StrapiArticle extends StrapiAttributes {
-  title: string;
-  slug: string;
-  content: string;
-  excerpt?: string;
-  featured_image?: {
-    data: StrapiMedia | null;
-  };
-  author: {
+  name: string;
+  authors: {
     data: {
       id: number;
       attributes: StrapiAuthor;
-    } | null;
+    }[] | null;
   };
-  category: {
+  article_i_18_ns: {
+    data: {
+      id: number;
+      attributes: StrapiArticleI18n;
+    }[] | null;
+  };
+  categories: {
     data: {
       id: number;
       attributes: StrapiCategory;
+    }[] | null;
+  };
+}
+
+export interface StrapiArticleI18n extends StrapiAttributes {
+  lang: 'cs' | 'en';
+  title: string;
+  slug: string;
+  excerpt?: string;
+  content: string;
+  cover_image?: {
+    data: StrapiMedia | null;
+  };
+  meta_title?: string;
+  meta_description?: string;
+  og_title?: string;
+  og_description?: string;
+  og_image?: {
+    data: StrapiMedia | null;
+  };
+  article: {
+    data: {
+      id: number;
+      attributes: StrapiArticle;
     } | null;
   };
-  tags?: string[];
-  seo_title?: string;
-  seo_description?: string;
-  reading_time?: number;
-  featured?: boolean;
 }
 
 export interface StrapiEntity<T> {
@@ -137,35 +156,45 @@ export interface StrapiEntity<T> {
 // Transformed types for our application
 export interface Article {
   id: number;
-  title: string;
-  slug: string;
-  content: string;
-  excerpt?: string;
-  featuredImage?: {
-    url: string;
-    alt?: string;
-    width: number;
-    height: number;
-  };
-  author?: {
+  name: string;
+  authors: {
     id: number;
     name: string;
     email: string;
     bio?: string;
     avatar?: string;
-  };
-  category?: {
+  }[];
+  categories: {
     id: number;
     name: string;
     slug: string;
     description?: string;
     color?: string;
+  }[];
+  i18n: {
+    [key in 'cs' | 'en']: {
+      title: string;
+      slug: string;
+      excerpt?: string;
+      content: string;
+      coverImage?: {
+        url: string;
+        alt?: string;
+        width: number;
+        height: number;
+      };
+      metaTitle?: string;
+      metaDescription?: string;
+      ogTitle?: string;
+      ogDescription?: string;
+      ogImage?: {
+        url: string;
+        alt?: string;
+        width: number;
+        height: number;
+      };
+    };
   };
-  tags?: string[];
-  seoTitle?: string;
-  seoDescription?: string;
-  readingTime?: number;
-  featured?: boolean;
   publishedAt: string;
   createdAt: string;
   updatedAt: string;
