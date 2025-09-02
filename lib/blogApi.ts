@@ -27,40 +27,80 @@ export interface BlogArticle {
 
 // API funkce pro kategorie
 export async function getBlogCategories(): Promise<BlogCategory[]> {
-  // Fallback kategorie pro případ chyby
-  const fallbackCategories: BlogCategory[] = [
-    {
-      id: '1',
-      slug: 'news',
-      name: { cs: 'Novinky', en: 'News' },
-      description: { cs: 'Nejnovější trendy a novinky', en: 'Latest trends and news' },
-      icon: 'newspaper',
-      order: 1,
-      isActive: true
-    },
-    {
-      id: '2', 
-      slug: 'case-studies',
-      name: { cs: 'Case Studies', en: 'Case Studies' },
-      description: { cs: 'Úspěšné projekty a jejich výsledky', en: 'Successful projects and results' },
-      icon: 'file-text',
-      order: 2,
-      isActive: true
-    },
-    {
-      id: '3',
-      slug: 'guide',
-      name: { cs: 'Návody', en: 'Guide' },
-      description: { cs: 'Praktické návody krok za krokem', en: 'Step-by-step practical guides' },
-      icon: 'book-open',
-      order: 3,
-      isActive: true
-    }
-  ];
+  // Žádné fallback kategorie - načítáme pouze z CMS
+  const fallbackCategories: BlogCategory[] = [];
 
-  // Pro nyní vrátíme fallback kategorie, protože Strapi API nefunguje správně
-  console.warn('Using fallback categories due to Strapi API issues');
-  return fallbackCategories;
+  try {
+    console.log('Načítám kategorie ze Strapi CMS...');
+    const strapiCategories = await strapiApi.getCategories();
+    console.log('Strapi kategorie:', strapiCategories);
+    
+    if (!strapiCategories || !Array.isArray(strapiCategories)) {
+      console.warn('Neplatná data kategorií ze Strapi, používám fallback');
+      return fallbackCategories;
+    }
+
+    if (strapiCategories.length === 0) {
+      console.warn('Žádné kategorie ze Strapi, používám fallback');
+      return fallbackCategories;
+    }
+
+    // Žádné hardcoded mapování - používáme pouze data z CMS
+
+    // Filtrujeme a mapujeme kategorie
+    const mappedCategories = strapiCategories
+      .filter(category => {
+        if (!category || !category.slug) {
+          console.warn('Neplatná kategorie:', category);
+          return false;
+        }
+        return true;
+      })
+      .map((category, index) => {
+        console.log(`Zpracovávám kategorii: ${category.slug}`);
+        
+        // Vytvoříme mapování přímo z dat CMS
+        const categoryData = {
+          name: { 
+            cs: category.name || category.slug, 
+            en: category.name || category.slug 
+          },
+          description: { 
+            cs: category.description || 'Popis kategorie', 
+            en: category.description || 'Category description' 
+          },
+          icon: 'file-text'
+        };
+        
+        if (!categoryData.name || !categoryData.description) {
+          console.error('Neplatná data pro kategorii:', category.slug, categoryData);
+          return null;
+        }
+        
+        return {
+          id: category.id.toString(),
+          slug: category.slug,
+          name: categoryData.name,
+          description: categoryData.description,
+          icon: categoryData.icon,
+          order: index + 1,
+          isActive: true
+        };
+      })
+      .filter(Boolean) as BlogCategory[];
+
+    if (mappedCategories.length === 0) {
+      console.warn('Žádné validní kategorie po mapování, používám fallback');
+      return fallbackCategories;
+    }
+
+    console.log('Úspěšně načteno kategorií ze Strapi:', mappedCategories.length);
+    return mappedCategories.sort((a, b) => a.order - b.order);
+    
+  } catch (error) {
+    console.error('Chyba při načítání kategorií ze Strapi:', error);
+    return fallbackCategories;
+  }
 }
 
 // API funkce pro články
@@ -102,8 +142,8 @@ export async function getBlogArticles(categorySlug?: string): Promise<BlogArticl
         en: article.title
       },
       excerpt: {
-        cs: article.excerpt || article.content.substring(0, 200) + '...',
-        en: article.excerpt || article.content.substring(0, 200) + '...'
+        cs: article.excerpt || (article.content ? article.content.substring(0, 200) + '...' : 'Bez popisu'),
+        en: article.excerpt || (article.content ? article.content.substring(0, 200) + '...' : 'No description')
       },
       content: {
         cs: article.content,
@@ -114,7 +154,7 @@ export async function getBlogArticles(categorySlug?: string): Promise<BlogArticl
       author: article.author?.name || 'Expand Matrix',
       publishedAt: article.publishedAt,
       featuredImage: article.featuredImage?.url || '/images/default-blog.jpg',
-      readTime: article.readingTime || Math.ceil(article.content.length / 1000) // Odhad času čtení
+      readTime: article.readingTime || Math.ceil((article.content?.length || 0) / 1000) // Odhad času čtení
     }));
   } catch (error) {
     console.error('Chyba při načítání článků ze Strapi:', error);
