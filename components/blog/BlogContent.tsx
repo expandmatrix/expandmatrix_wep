@@ -39,7 +39,7 @@ export default function BlogContent({
     return articles.filter(article => 
       article.title[lang].toLowerCase().includes(query) ||
       article.excerpt[lang].toLowerCase().includes(query) ||
-      article.tags.some(tag => tag.toLowerCase().includes(query))
+      article.authors.some(author => author.toLowerCase().includes(query))
     );
   }, [articles, searchQuery, lang]);
 

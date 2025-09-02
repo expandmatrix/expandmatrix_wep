@@ -13,16 +13,18 @@ import { strapiApi } from './strapiApi';
 
 export interface BlogArticle {
   id: string;
-  slug: string;
+  name: string;
+  slug: { cs: string; en: string };
   title: { cs: string; en: string };
   excerpt: { cs: string; en: string };
   content: { cs: string; en: string };
   category: 'news' | 'case-studies' | 'guide';
-  tags: string[];
-  author: string;
+  authors: string[];
   publishedAt: string;
-  featuredImage: string;
+  featuredImage: { cs: string; en: string };
   readTime: number;
+  metaTitle: { cs: string; en: string };
+  metaDescription: { cs: string; en: string };
 }
 
 // API funkce pro kategorie s novou i18n strukturou
@@ -95,6 +97,9 @@ export async function getBlogCategories(locale: string = 'en'): Promise<BlogCate
 // API funkce pro články
 export async function getBlogArticles(categorySlug?: string): Promise<BlogArticle[]> {
   try {
+    console.log('🔍 Načítávám články ze Strapi...');
+    console.log('Debug - getBlogArticles called with categorySlug:', categorySlug);
+    
     const options: any = {
       page: 1,
       pageSize: 100, // Načteme více článků
@@ -122,39 +127,50 @@ export async function getBlogArticles(categorySlug?: string): Promise<BlogArticl
     
     // Transformace článků ze Strapi na blog články s dvoujazyčnou podporou
     return articles
-      .filter(article => article && article.id && article.slug) // Filtrujeme pouze validní články
+      .filter(article => {
+        console.log('Debug - filtering article:', JSON.stringify(article, null, 2));
+        return article && article.id && article.i18n;
+      }) // Filtrujeme pouze validní články
       .map(article => ({
       id: article.id.toString(),
-      slug: article.slug,
+      name: article.name,
+      slug: {
+        cs: article.i18n.cs?.slug || '',
+        en: article.i18n.en?.slug || ''
+      },
       title: {
-        cs: article.title, // V budoucnu můžeme přidat lokalizaci
-        en: article.title
+        cs: article.i18n.cs?.title || '',
+        en: article.i18n.en?.title || ''
       },
       excerpt: {
-        cs: article.excerpt || (article.content ? article.content.substring(0, 200) + '...' : 'Bez popisu'),
-        en: article.excerpt || (article.content ? article.content.substring(0, 200) + '...' : 'No description')
+        cs: article.i18n.cs?.excerpt || (article.i18n.cs?.content ? article.i18n.cs.content.substring(0, 200) + '...' : 'Bez popisu'),
+        en: article.i18n.en?.excerpt || (article.i18n.en?.content ? article.i18n.en.content.substring(0, 200) + '...' : 'No description')
       },
       content: {
-        cs: article.content,
-        en: article.content
+        cs: article.i18n.cs?.content || '',
+        en: article.i18n.en?.content || ''
       },
-      category: article.category?.slug as 'news' | 'case-studies' | 'guide' || 'news',
-      tags: article.tags || [],
-      author: article.author?.name || 'Expand Matrix',
+      category: article.categories?.[0]?.slug as 'news' | 'case-studies' | 'guide' || 'news',
+      authors: article.authors?.map(author => author.name) || ['Expand Matrix'],
       publishedAt: article.publishedAt,
-      featuredImage: article.featuredImage?.url || '/images/default-blog.jpg',
-      readTime: article.readingTime || Math.ceil((article.content?.length || 0) / 1000) // Odhad času čtení
+      featuredImage: {
+        cs: article.i18n.cs?.coverImage?.url || '/images/default-blog.jpg',
+        en: article.i18n.en?.coverImage?.url || '/images/default-blog.jpg'
+      },
+      readTime: Math.ceil((article.i18n.cs?.content?.length || article.i18n.en?.content?.length || 0) / 1000),
+      metaTitle: {
+        cs: article.i18n.cs?.metaTitle || '',
+        en: article.i18n.en?.metaTitle || ''
+      },
+      metaDescription: {
+        cs: article.i18n.cs?.metaDescription || '',
+        en: article.i18n.en?.metaDescription || ''
+      }
     }));
   } catch (error) {
     console.error('Chyba při načítání článků ze Strapi:', error);
-    // Fallback na původní hardcoded články v případě chyby
-    const allArticles = blogArticles;
-    
-    if (categorySlug) {
-      return allArticles.filter(article => article.category === categorySlug);
-    }
-    
-    return allArticles;
+    // Fallback - vrátime prázdny zoznam, pretože blogData má starú štruktúru
+    return [];
   }
 }
 
@@ -169,31 +185,44 @@ export async function getArticleBySlug(slug: string): Promise<BlogArticle | null
     // Transformace článku ze Strapi na blog článek
     return {
       id: strapiArticle.id.toString(),
-      slug: strapiArticle.slug,
+      name: strapiArticle.name,
+      slug: {
+        cs: strapiArticle.i18n.cs?.slug || '',
+        en: strapiArticle.i18n.en?.slug || ''
+      },
       title: {
-        cs: strapiArticle.title,
-        en: strapiArticle.title
+        cs: strapiArticle.i18n.cs?.title || '',
+        en: strapiArticle.i18n.en?.title || ''
       },
       excerpt: {
-        cs: strapiArticle.excerpt || strapiArticle.content.substring(0, 200) + '...',
-        en: strapiArticle.excerpt || strapiArticle.content.substring(0, 200) + '...'
+        cs: strapiArticle.i18n.cs?.excerpt || (strapiArticle.i18n.cs?.content ? strapiArticle.i18n.cs.content.substring(0, 200) + '...' : 'Bez popisu'),
+        en: strapiArticle.i18n.en?.excerpt || (strapiArticle.i18n.en?.content ? strapiArticle.i18n.en.content.substring(0, 200) + '...' : 'No description')
       },
       content: {
-        cs: strapiArticle.content,
-        en: strapiArticle.content
+        cs: strapiArticle.i18n.cs?.content || '',
+        en: strapiArticle.i18n.en?.content || ''
       },
-      category: strapiArticle.category?.slug as 'news' | 'case-studies' | 'guide' || 'news',
-      tags: strapiArticle.tags || [],
-      author: strapiArticle.author?.name || 'Expand Matrix',
+      category: strapiArticle.categories?.[0]?.slug as 'news' | 'case-studies' | 'guide' || 'news',
+      authors: strapiArticle.authors?.map(author => author.name) || ['Expand Matrix'],
       publishedAt: strapiArticle.publishedAt,
-      featuredImage: strapiArticle.featuredImage?.url || '/images/default-blog.jpg',
-      readTime: strapiArticle.readingTime || Math.ceil(strapiArticle.content.length / 1000)
+      featuredImage: {
+        cs: strapiArticle.i18n.cs?.coverImage?.url || '/images/default-blog.jpg',
+        en: strapiArticle.i18n.en?.coverImage?.url || '/images/default-blog.jpg'
+      },
+      readTime: Math.ceil((strapiArticle.i18n.cs?.content?.length || strapiArticle.i18n.en?.content?.length || 0) / 1000),
+      metaTitle: {
+        cs: strapiArticle.i18n.cs?.metaTitle || '',
+        en: strapiArticle.i18n.en?.metaTitle || ''
+      },
+      metaDescription: {
+        cs: strapiArticle.i18n.cs?.metaDescription || '',
+        en: strapiArticle.i18n.en?.metaDescription || ''
+      }
     };
   } catch (error) {
     console.error('Chyba při načítání článku ze Strapi:', error);
-    // Fallback na původní hardcoded články
-    const articles = blogArticles;
-    return articles.find(article => article.slug === slug) || null;
+    // Fallback - vrátime null, pretože blogData má starú štruktúru
+    return null;
   }
 }
 

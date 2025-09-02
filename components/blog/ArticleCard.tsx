@@ -36,7 +36,7 @@ export default function ArticleCard({ article, lang, index }: ArticleCardProps) 
       viewport={{ once: true, margin: "-50px" }}
       className="h-full"
     >
-      <Link href={`/${lang}/blog/${article.slug}`}>
+      <Link href={`/${lang}/blog/${article.slug[lang]}`}>
         <motion.div
           whileHover={{ 
             scale: 1.02,
@@ -48,7 +48,7 @@ export default function ArticleCard({ article, lang, index }: ArticleCardProps) 
           {/* Featured Image */}
           <div className="relative h-48 overflow-hidden">
             <Image
-              src={article.featuredImage}
+              src={article.featuredImage[lang]}
               alt={article.title[lang]}
               fill
               className="object-cover transition-transform duration-500 group-hover:scale-110"
@@ -75,14 +75,14 @@ export default function ArticleCard({ article, lang, index }: ArticleCardProps) 
               {article.excerpt[lang]}
             </p>
 
-            {/* Tags */}
+            {/* Authors */}
             <div className="flex flex-wrap gap-2 mb-4">
-              {article.tags.slice(0, 3).map((tag) => (
+              {article.authors.slice(0, 2).map((author) => (
                 <span
-                  key={tag}
+                  key={author}
                   className="px-2 py-1 bg-bg-tertiary/50 text-text-secondary text-xs rounded-lg"
                 >
-                  {tag}
+                  {author}
                 </span>
               ))}
             </div>
@@ -102,7 +102,7 @@ export default function ArticleCard({ article, lang, index }: ArticleCardProps) 
               
               <div className="flex items-center">
                 <User className="w-4 h-4 mr-1" />
-                <span>{article.author}</span>
+                <span>{article.authors[0] || 'Expand Matrix'}</span>
               </div>
             </div>
 

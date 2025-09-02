@@ -32,11 +32,11 @@ export default function BlogSidebar({ lang, latestArticles, popularTags }: BlogS
 
         <div className="space-y-4">
           {latestArticles.slice(0, 4).map((article) => (
-            <Link key={article.id} href={`/${lang}/blog/${article.slug}`}>
+            <Link key={article.id} href={`/${lang}/blog/${article.slug[lang]}`}>
               <div className="flex items-start space-x-3 p-3 rounded-xl hover:bg-bg-tertiary/30 transition-colors duration-300 group">
                 <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
                   <Image
-                    src={article.featuredImage}
+                    src={article.featuredImage[lang]}
                     alt={article.title[lang]}
                     fill
                     className="object-cover"
