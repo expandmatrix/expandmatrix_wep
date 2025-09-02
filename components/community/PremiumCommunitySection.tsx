@@ -10,8 +10,10 @@ interface PremiumCommunityProps {
 
 export default function PremiumCommunitySection({ dict }: PremiumCommunityProps) {
   return (
+    // Zakomentováno na žádost uživatele - kompletní premium sekce
+    <div style={{ display: 'none' }}>
+    {/*
     <section className="py-20 px-4 bg-bg-primary relative overflow-hidden">
-      {/* Premium background effects */}
       <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/5 via-transparent to-orange-500/5" />
       <div className="absolute top-20 left-20 w-64 h-64 bg-yellow-400/10 rounded-full blur-3xl animate-float" />
       <div className="absolute bottom-20 right-20 w-64 h-64 bg-orange-400/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
@@ -32,7 +34,6 @@ export default function PremiumCommunitySection({ dict }: PremiumCommunityProps)
           </p>
         </motion.div>
 
-        {/* Premium Discord Card */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -41,15 +42,12 @@ export default function PremiumCommunitySection({ dict }: PremiumCommunityProps)
           className="max-w-4xl mx-auto mb-16"
         >
           <div className="relative overflow-hidden rounded-3xl p-8 bg-gradient-to-br from-bg-secondary via-bg-secondary to-bg-primary border border-yellow-400/30 shadow-2xl shadow-yellow-400/10">
-            {/* Premium glow effect */}
             <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/5 via-orange-400/5 to-yellow-400/5 rounded-3xl" />
             
-            {/* Animated background pattern */}
             <div className="absolute top-4 right-4 opacity-10">
               <FaGem className="text-8xl text-yellow-400 animate-pulse" />
             </div>
             
-            {/* Premium badge */}
             <div className="absolute top-6 right-6 z-10">
               <div className="bg-gradient-to-r from-yellow-400 to-orange-500 text-bg-primary px-6 py-3 rounded-full flex items-center gap-3 font-bold shadow-lg shadow-yellow-400/30 animate-pulse-glow">
                 <FaCrown className="text-lg" />
@@ -84,7 +82,6 @@ export default function PremiumCommunitySection({ dict }: PremiumCommunityProps)
           </div>
         </motion.div>
 
-        {/* Premium Benefits */}
         <div className="grid md:grid-cols-2 gap-12">
           <BenefitList
             title={dict.community.premium.benefits.title}
@@ -101,5 +98,7 @@ export default function PremiumCommunitySection({ dict }: PremiumCommunityProps)
         </div>
       </div>
     </section>
+    */}
+    </div>
   );
 }

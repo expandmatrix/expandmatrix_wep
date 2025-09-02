@@ -35,11 +35,11 @@ export default function AboutStory({ dict, lang }: AboutStoryProps) {
 
   const milestones = [
     {
-      year: '2020',
-      title: lang === 'cs' ? 'Založení společnosti' : 'Company Founded',
+      year: '2022',
+      title: lang === 'cs' ? 'Začátek éry AI' : 'AI Era Begins',
       description: lang === 'cs' 
-        ? 'Začali jsme s vizí automatizovat business procesy pomocí nejmodernějších AI technologií a machine learning algoritmů.'
-        : 'We started with a vision to automate business processes using cutting-edge AI technologies and machine learning algorithms.',
+        ? 'Objevili jsme ChatGPT 3.5 a okamžitě nás to pohltilo. V tu dobu jsme se poznali se svým parťákem a hned jsme věděli, že nás spojuje stejná vize. Od prvního dne jsme cítili, že AI technologie budou klíčovou součástí naší budoucnosti.'
+        : 'We discovered ChatGPT 3.5 and were instantly fascinated. Around the same time, I met my partner, and we immediately clicked, sharing the same vision for the future. From day one, we knew that AI would play a key role in shaping what was coming next.',
       achievement: lang === 'cs' ? 'První AI řešení' : 'First AI Solution',
       icon: Rocket,
       color: 'from-blue-500 via-blue-600 to-cyan-500',
@@ -47,11 +47,11 @@ export default function AboutStory({ dict, lang }: AboutStoryProps) {
       progress: 25
     },
     {
-      year: '2021',
-      title: lang === 'cs' ? 'Růst týmu a technologií' : 'Team & Technology Growth',
+      year: '2023',
+      title: lang === 'cs' ? 'První automatizace' : 'First Automation Solution',
       description: lang === 'cs'
-        ? 'Rozšířili jsme tým o experty v oblasti AI, machine learning a vyvinuli jsme proprietární algoritmy pro automatizaci.'
-        : 'We expanded our team with AI and machine learning experts and developed proprietary algorithms for automation.',
+        ? 'Začali jsme experimentovat s platformou Make.com (Integromat) a vytvářeli první jednoduché automatizace. Nejdříve pro sebe, potom pro známé. Byly to malé kroky, ale otevřely nám dveře k větším příležitostem.'
+        : 'We started experimenting with Make.com (formerly Integromat) and built our first simple automations. At first, we created solutions for ourselves, then for our friends and close network. These small steps opened the door to much bigger opportunities.',
       achievement: lang === 'cs' ? '15+ projektů dokončeno' : '15+ Projects Completed',
       icon: Brain,
       color: 'from-green-500 via-emerald-600 to-teal-500',
@@ -59,23 +59,23 @@ export default function AboutStory({ dict, lang }: AboutStoryProps) {
       progress: 50
     },
     {
-      year: '2022',
-      title: lang === 'cs' ? 'Průlom v AI automatizaci' : 'AI Automation Breakthrough',
+      year: '2024',
+      title: lang === 'cs' ? 'n8n a první velké projekty' : 'n8n and First Large Projects',
       description: lang === 'cs'
-        ? 'Dosáhli jsme významného průlomu ve vývoji custom AI systémů a začali jsme nabízet komplexní automatizační řešení.'
-        : 'We achieved a significant breakthrough in custom AI systems development and started offering comprehensive automation solutions.',
-      achievement: lang === 'cs' ? '50+ spokojených klientů' : '50+ Happy Clients',
+        ? 'Objevili jsme n8n a začali naplno využívat jeho potenciál. Vytvářeli jsme komplexní workflow, propojovali systémy a začali stavět první custom AI agenty. Spolupráce s prvními velkými klienty nám potvrdila, že jdeme správným směrem.'
+        : 'We discovered n8n and went all-in on its capabilities. We started building complex workflows, integrating multiple systems, and developing our first custom AI agents. Working with our first major clients confirmed that we were on the right path.',
+      achievement: lang === 'cs' ? '30+ spokojených klientů' : '30+ Happy Clients',
       icon: Cpu,
       color: 'from-purple-500 via-violet-600 to-indigo-500',
       glowColor: 'shadow-purple-500/50',
       progress: 75
     },
     {
-      year: '2023',
-      title: lang === 'cs' ? 'Expanze a inovace' : 'Expansion & Innovation',
+      year: '2025',
+      title: lang === 'cs' ? 'Přepisujeme pravidla hry' : 'Redefining the Game',
       description: lang === 'cs'
-        ? 'Rozšířili jsme naše služby o AI školení, VPS hosting a stali jsme se předním poskytovatelem AI řešení v regionu.'
-        : 'We expanded our services to include AI training, VPS hosting, and became a leading AI solutions provider in the region.',
+        ? 'Expand Matrix se mění v hybridní AI laboratoř. Propojujeme open-source technologie, AI agenty a vlastní architekturu do systémů, které mění způsob, jak firmy fungují. Naše platforma není jen o automatizaci. Je o rychlosti, škálování a inteligentním růstu. Tam, kde ostatní teprve experimentují, my už nasazujeme řešení, která mění celé odvětví.'
+        : 'Expand Matrix is evolving into a hybrid AI laboratory. We connect open-source technologies, AI agents, and our own architectures to create systems that redefine how businesses operate. Our platform is no longer just about automation. It is about speed, scalability, and intelligent growth. Where others are still experimenting, we are already deploying solutions that transform entire industries.',
       achievement: lang === 'cs' ? '100+ úspěšných projektů' : '100+ Successful Projects',
       icon: Network,
       color: 'from-accent-primary via-green-400 to-cyan-400',

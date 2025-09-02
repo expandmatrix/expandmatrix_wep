@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { CheckIcon } from '@heroicons/react/24/outline';
+import { FaCheck } from 'react-icons/fa';
 
 interface Package {
   id: string;
@@ -83,7 +83,7 @@ const AISolutionPackages: React.FC<AISolutionPackagesProps> = ({ dictionary }) =
                 <ul className="space-y-4 mb-8">
                   {pkg.features.map((feature, index) => (
                     <li key={index} className="flex items-start">
-                      <CheckIcon className="h-5 w-5 text-green-500 mt-0.5 mr-3 flex-shrink-0" />
+                      <FaCheck className="h-5 w-5 text-green-500 mt-0.5 mr-3 flex-shrink-0" />
                       <span className="text-gray-700">{feature}</span>
                     </li>
                   ))}
@@ -123,7 +123,7 @@ const AISolutionPackages: React.FC<AISolutionPackagesProps> = ({ dictionary }) =
             <ul className="space-y-3 mb-8">
               {aiPackages.packages.premium.features.map((feature, index) => (
                 <li key={index} className="flex items-start">
-                  <CheckIcon className="h-5 w-5 text-purple-500 mt-0.5 mr-3 flex-shrink-0" />
+                  <FaCheck className="h-5 w-5 text-purple-500 mt-0.5 mr-3 flex-shrink-0" />
                   <span className="text-gray-700">{feature}</span>
                 </li>
               ))}
@@ -152,7 +152,7 @@ const AISolutionPackages: React.FC<AISolutionPackagesProps> = ({ dictionary }) =
             <ul className="space-y-3 mb-8">
               {aiPackages.packages.community.features.map((feature, index) => (
                 <li key={index} className="flex items-start">
-                  <CheckIcon className="h-5 w-5 text-green-500 mt-0.5 mr-3 flex-shrink-0" />
+                  <FaCheck className="h-5 w-5 text-green-500 mt-0.5 mr-3 flex-shrink-0" />
                   <span className="text-gray-700">{feature}</span>
                 </li>
               ))}
