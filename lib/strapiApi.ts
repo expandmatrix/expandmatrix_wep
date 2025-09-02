@@ -5,9 +5,11 @@ import {
   StrapiArticle,
   StrapiAuthor,
   StrapiCategory,
+  StrapiCategoryI18n,
   Article,
   Author,
   Category,
+  CategoryI18n,
 } from './types/strapi';
 
 class StrapiAPI {
@@ -80,9 +82,9 @@ class StrapiAPI {
       } : undefined,
       category: attributes.category?.data ? {
         id: attributes.category.data.id,
-        name: attributes.category.data.attributes.name,
-        slug: attributes.category.data.attributes.slug,
-        description: attributes.category.data.attributes.description,
+        name: attributes.category.data.attributes.name_cat,
+        slug: attributes.category.data.attributes.name_cat.toLowerCase().replace(/[^a-z0-9]/g, '-'),
+        description: '', // Description je nyní v category_i18n
         color: attributes.category.data.attributes.color,
       } : undefined,
       tags: attributes.tags,
@@ -112,17 +114,36 @@ class StrapiAPI {
   }
 
   // Transform Strapi category to our Category type
-  private transformCategory(strapiCategory: StrapiEntity<StrapiCategory>): Category {
-    const { id, attributes } = strapiCategory;
+  private transformCategory(strapiCategory: any, locale: string): Category | null {
+    const { id, attributes, category_i_18_ns } = strapiCategory;
+    
+    // Check if we have the required data structure
+    if (!id) {
+      console.warn(`Category has no id, skipping`);
+      return null;
+    }
+    
+    // Find localization for the current locale from the populated data
+    const localization = category_i_18_ns?.find((i18n: any) => i18n.lang === locale);
+    
+    // Fallback to English if current locale not found
+    const fallbackLocalization = category_i_18_ns?.find((i18n: any) => i18n.lang === 'en');
+    
+    const finalLocalization = localization || fallbackLocalization;
+    
+    if (!finalLocalization) {
+      console.warn(`No localization found for category ${id}`);
+      return null;
+    }
     
     return {
       id,
-      name: attributes.name,
-      slug: attributes.slug,
-      description: attributes.description,
-      color: attributes.color,
-      createdAt: attributes.createdAt,
-      updatedAt: attributes.updatedAt,
+      name: finalLocalization.name || 'Unnamed Category',
+      slug: finalLocalization.slug || 'unnamed-category',
+      description: finalLocalization.description || '',
+      color: attributes?.color || '#000000',
+      createdAt: finalLocalization.createdAt || new Date().toISOString(),
+      updatedAt: finalLocalization.updatedAt || new Date().toISOString(),
     };
   }
 
@@ -204,23 +225,66 @@ class StrapiAPI {
     }
   }
 
-  // Get all categories
-  async getCategories(locale: string = 'en'): Promise<Category[]> {
-    // Určíme endpoint podle jazyka
-    const endpoint = locale === 'cs' ? '/kategories?sort=name:asc' : '/categories?sort=name:asc';
-    
-    const response = await this.request<any>(endpoint);
+  // Get all categories with i18n support
+  async getCategories(locale: string = 'cs'): Promise<Category[]> {
+    try {
+      // Fetch categories with their localizations
+      const params = new URLSearchParams({
+        'populate': 'category_i_18_ns',
+        'sort': 'sort_order:asc'
+      });
+      
+      const response = await this.request<any>(
+        `/categories?${params.toString()}`
+      );
 
-    // Strapi vrací data v jednoduchém formátu, ne ve vnořené struktuře
-    return response.data.map((category: any) => ({
-      id: category.id,
-      name: category.name,
-      slug: category.slug,
-      description: category.description,
-      color: category.color,
-      createdAt: category.createdAt,
-      updatedAt: category.updatedAt,
-    }));
+      const filteredCategories = response.data
+        .filter((strapiCategory: any) => {
+          // Filter out categories without proper structure
+          return strapiCategory && strapiCategory.id && strapiCategory.category_i_18_ns;
+        });
+      
+      const transformedCategories = filteredCategories
+        .map((category: any) => this.transformCategory(category, locale))
+        .filter((category: any): category is Category => category !== null);
+      
+      return transformedCategories;
+    } catch (error) {
+      console.error('Error loading categories:', error);
+      return [];
+    }
+  }
+
+  // Get category localizations for specific locale
+  async getCategoryI18n(locale: string = 'en'): Promise<CategoryI18n[]> {
+    try {
+      const params = new URLSearchParams({
+        'populate': 'category',
+        'filters[locale][$eq]': locale,
+        'filters[category][is_active][$eq]': 'true',
+        'sort': 'category.sort_order:asc'
+      });
+      
+      const response = await this.request<StrapiResponse<StrapiEntity<StrapiCategoryI18n>[]>>(
+        `/category-i18ns?${params.toString()}`
+      );
+
+      return response.data.map(item => ({
+        id: item.id,
+        name: item.attributes.name,
+        slug: item.attributes.slug,
+        description: item.attributes.description,
+        locale: item.attributes.locale,
+        seo_title: item.attributes.seo_title,
+        seo_description: item.attributes.seo_description,
+        meta_keywords: item.attributes.meta_keywords,
+        createdAt: item.attributes.createdAt,
+        updatedAt: item.attributes.updatedAt,
+      }));
+    } catch (error) {
+      console.error('Error loading category i18n:', error);
+      return [];
+    }
   }
 
   // Get all authors

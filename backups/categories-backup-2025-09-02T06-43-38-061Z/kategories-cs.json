@@ -1,0 +1,29 @@
+{
+  "data": [
+    {
+      "id": 2,
+      "documentId": "sss0nv9pn8c65o11ybgbsjf0",
+      "name": "Test",
+      "slug": "test",
+      "createdAt": "2025-09-02T06:00:39.674Z",
+      "updatedAt": "2025-09-02T06:00:39.674Z",
+      "publishedAt": "2025-09-02T06:00:39.690Z"
+    },
+    {
+      "id": 4,
+      "documentId": "qk9vtz7b73bjw2uw9rygweml",
+      "name": "automatizace",
+      "slug": "automatizace",
+      "createdAt": "2025-09-02T06:00:58.713Z",
+      "updatedAt": "2025-09-02T06:00:58.713Z",
+      "publishedAt": "2025-09-02T06:00:58.727Z"
+    }
+  ],
+  "meta": {
+    "pagination": {
+      "start": 0,
+      "limit": 100,
+      "total": 2
+    }
+  }
+}

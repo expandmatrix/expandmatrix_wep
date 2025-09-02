@@ -1,0 +1,58 @@
+{
+  "kind": "collectionType",
+  "collectionName": "categories",
+  "info": {
+    "singularName": "category",
+    "pluralName": "categories",
+    "displayName": "Category",
+    "description": "Main category collection with i18n support"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "maxLength": 255
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "articles": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::article.article",
+      "mappedBy": "categories"
+    },
+    "localizations": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::category-i18n.category-i18n",
+      "mappedBy": "category"
+    },
+    "is_featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "sort_order": {
+      "type": "integer",
+      "default": 0
+    },
+    "color": {
+      "type": "string",
+      "maxLength": 7,
+      "regex": "^#[0-9A-Fa-f]{6}$"
+    },
+    "icon": {
+      "type": "string",
+      "maxLength": 50
+    }
+  }
+}

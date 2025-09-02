@@ -1,0 +1,11 @@
+{
+  "timestamp": "2025-09-02T06:43:38.212Z",
+  "englishCategories": 4,
+  "czechCategories": 2,
+  "backupLocation": "/Users/matty/Documents/GitHub/expandmatrix/backups/categories-backup-2025-09-02T06-43-38-061Z",
+  "endpoints": {
+    "english": "/api/categories",
+    "czech": "/api/kategories"
+  },
+  "suspectedUID": "api::kategorie.kategorie"
+}
