@@ -1,0 +1,51 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "documentId": "spetr8wejtwqmb7hs5z6nmdp",
+      "name": "news",
+      "slug": "news",
+      "description": "Novinky ze světa AI",
+      "createdAt": "2025-09-01T19:17:35.071Z",
+      "updatedAt": "2025-09-01T19:17:35.071Z",
+      "publishedAt": "2025-09-01T19:17:35.056Z"
+    },
+    {
+      "id": 2,
+      "documentId": "i3n9hyzw4305xj6ftf249rsl",
+      "name": "Case Studies",
+      "slug": "Case-Studies",
+      "description": null,
+      "createdAt": "2025-09-01T19:18:04.402Z",
+      "updatedAt": "2025-09-01T19:18:04.402Z",
+      "publishedAt": "2025-09-01T19:18:04.396Z"
+    },
+    {
+      "id": 3,
+      "documentId": "k6kw9b2fsdffg4aih7ta76cd",
+      "name": "guíde",
+      "slug": "guide",
+      "description": null,
+      "createdAt": "2025-09-01T19:18:28.377Z",
+      "updatedAt": "2025-09-01T19:18:28.377Z",
+      "publishedAt": "2025-09-01T19:18:28.373Z"
+    },
+    {
+      "id": 11,
+      "documentId": "xufl7fag7xadjslo91jeoneh",
+      "name": "test",
+      "slug": "test",
+      "description": null,
+      "createdAt": "2025-09-02T05:35:42.409Z",
+      "updatedAt": "2025-09-02T05:35:42.409Z",
+      "publishedAt": "2025-09-02T05:35:42.405Z"
+    }
+  ],
+  "meta": {
+    "pagination": {
+      "start": 0,
+      "limit": 100,
+      "total": 4
+    }
+  }
+}

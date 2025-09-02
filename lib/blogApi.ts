@@ -25,30 +25,34 @@ export interface BlogArticle {
   readTime: number;
 }
 
-// API funkce pro kategorie
+// API funkce pro kategorie s novou i18n strukturou
 export async function getBlogCategories(locale: string = 'en'): Promise<BlogCategory[]> {
-  // Žádné fallback kategorie - načítáme pouze z CMS
   const fallbackCategories: BlogCategory[] = [];
 
   try {
     console.log(`Načítám kategorie ze Strapi CMS pro jazyk: ${locale}...`);
-    const strapiCategories = await strapiApi.getCategories(locale);
-    console.log('Strapi kategorie:', strapiCategories);
     
-    if (!strapiCategories || !Array.isArray(strapiCategories)) {
-      console.warn('Neplatná data kategorií ze Strapi, používám fallback');
+    // Načteme kategorie pro oba jazyky
+    const [csCategories, enCategories] = await Promise.all([
+      strapiApi.getCategories('cs'),
+      strapiApi.getCategories('en')
+    ]);
+    
+    console.log('České kategorie:', csCategories);
+    console.log('Anglické kategorie:', enCategories);
+    
+    if (!csCategories || !Array.isArray(csCategories)) {
+      console.warn('Neplatná data českých kategorií ze Strapi, používám fallback');
       return fallbackCategories;
     }
 
-    if (strapiCategories.length === 0) {
-      console.warn('Žádné kategorie ze Strapi, používám fallback');
+    if (csCategories.length === 0) {
+      console.warn('Žádné české kategorie ze Strapi, používám fallback');
       return fallbackCategories;
     }
 
-    // Žádné hardcoded mapování - používáme pouze data z CMS
-
-    // Filtrujeme a mapujeme kategorie
-    const mappedCategories = strapiCategories
+    // Mapujeme kategorie s bilingválními názvy
+    const mappedCategories = csCategories
       .filter(category => {
         if (!category || !category.slug) {
           console.warn('Neplatná kategorie:', category);
@@ -56,46 +60,31 @@ export async function getBlogCategories(locale: string = 'en'): Promise<BlogCate
         }
         return true;
       })
-      .map((category, index) => {
-        console.log(`Zpracovávám kategorii: ${category.slug}`);
+      .map((csCategory) => {
+        console.log(`Zpracovávám kategorii: ${csCategory.slug}`);
         
-        // Vytvoříme mapování přímo z dat CMS
-        const categoryData = {
-          name: { 
-            cs: category.name || category.slug, 
-            en: category.name || category.slug 
-          },
-          description: { 
-            cs: category.description || 'Popis kategorie', 
-            en: category.description || 'Category description' 
-          },
-          icon: 'file-text'
-        };
-        
-        if (!categoryData.name || !categoryData.description) {
-          console.error('Neplatná data pro kategorii:', category.slug, categoryData);
-          return null;
-        }
+        // Najdeme odpovídající anglickou kategorii podle ID
+        const enCategory = enCategories?.find(en => en.id === csCategory.id);
         
         return {
-          id: category.id.toString(),
-          slug: category.slug,
-          name: categoryData.name,
-          description: categoryData.description,
-          icon: categoryData.icon,
-          order: index + 1,
-          isActive: true
+          id: csCategory.id.toString(),
+          slug: locale === 'cs' ? csCategory.slug : (enCategory?.slug || csCategory.slug),
+          name: { 
+            cs: csCategory.name,
+            en: enCategory?.name || csCategory.name
+          },
+          description: { 
+            cs: csCategory.description || '',
+            en: enCategory?.description || csCategory.description || ''
+          },
+          order: 1, // sort_order není v transformované struktuře
+          isActive: true, // is_active je filtrováno v getCategories
+          icon: undefined
         };
-      })
-      .filter(Boolean) as BlogCategory[];
+      });
 
-    if (mappedCategories.length === 0) {
-      console.warn('Žádné validní kategorie po mapování, používám fallback');
-      return fallbackCategories;
-    }
-
-    console.log('Úspěšně načteno kategorií ze Strapi:', mappedCategories.length);
-    return mappedCategories.sort((a, b) => a.order - b.order);
+    console.log(`✅ Úspěšně načteno ${mappedCategories.length} kategorií`);
+    return mappedCategories;
     
   } catch (error) {
     console.error('Chyba při načítání kategorií ze Strapi:', error);

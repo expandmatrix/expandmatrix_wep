@@ -1,0 +1,52 @@
+{
+  "kind": "collectionType",
+  "collectionName": "category_i18ns",
+  "info": {
+    "singularName": "category-i18n",
+    "pluralName": "category-i18ns",
+    "displayName": "Category i18n",
+    "description": "Internationalization table for categories"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "maxLength": 255
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "locale": {
+      "type": "enumeration",
+      "enum": ["en", "cs"],
+      "required": true,
+      "default": "en"
+    },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::category.category",
+      "inversedBy": "localizations"
+    },
+    "seo_title": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "seo_description": {
+      "type": "text",
+      "maxLength": 160
+    },
+    "meta_keywords": {
+      "type": "string"
+    }
+  }
+}

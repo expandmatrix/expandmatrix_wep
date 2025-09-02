@@ -31,10 +31,37 @@ export interface StrapiAuthor extends StrapiAttributes {
 }
 
 export interface StrapiCategory extends StrapiAttributes {
+  name_cat: string;
+  is_active: boolean;
+  sort_order: number;
+  color?: string;
+  category_i_18_ns?: {
+    id: number;
+    locale: string;
+    name: string;
+    slug: string;
+    description?: string;
+    is_active: boolean;
+    meta_title?: string;
+    meta_description?: string;
+    og_title?: string;
+    og_description?: string;
+    createdAt: string;
+    updatedAt: string;
+  }[];
+}
+
+export interface StrapiCategoryI18n extends StrapiAttributes {
   name: string;
   slug: string;
   description?: string;
-  color?: string;
+  locale: string;
+  seo_title?: string;
+  seo_description?: string;
+  meta_keywords?: string;
+  category?: {
+    data: StrapiEntity<StrapiCategory> | null;
+  };
 }
 
 export interface StrapiMedia {
@@ -160,6 +187,19 @@ export interface Category {
   slug: string;
   description?: string;
   color?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CategoryI18n {
+  id: number;
+  name: string;
+  slug: string;
+  description?: string;
+  locale: string;
+  seo_title?: string;
+  seo_description?: string;
+  meta_keywords?: string;
   createdAt: string;
   updatedAt: string;
 }
