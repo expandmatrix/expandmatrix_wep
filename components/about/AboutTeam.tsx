@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, useMotionValue, useTransform, AnimatePresence } from 'framer-motion';
-import { Linkedin, Mail, Code, Brain, Database, Zap, Globe, Shield, Star, Cpu, Network } from 'lucide-react';
+import { Linkedin, Mail, Code, Brain, Database, Zap, Globe, Shield, Star, Cpu, Network, Youtube, Instagram, Twitter } from 'lucide-react';
 import { stableRandom } from '@/lib/stableRandom';
 import { useRef, useState, useCallback } from 'react';
 
@@ -22,6 +22,9 @@ interface TeamMember {
   image: string;
   linkedin: string;
   email: string;
+  youtube?: string;
+  instagram?: string;
+  twitter?: string;
   gradient: string;
   accentColor: string;
 }
@@ -32,52 +35,59 @@ export default function AboutTeam({ dict, lang }: AboutTeamProps) {
 
   const teamMembers: TeamMember[] = [
     {
-      name: 'Alex Johnson',
-      role: lang === 'cs' ? 'AI Architekt' : 'AI Architect',
+      name: 'Matěj Venclík',
+      role: lang === 'cs' ? 'Jednatel & AI Architekt' : 'Founder & AI Architect',
       bio: lang === 'cs' 
-        ? 'Specialista na návrh a implementaci pokročilých AI systémů s 8+ lety zkušeností.'
+        ? 'Specializuju se na návrh a implementaci AI systémů, automatizací a inteligentních agentů. Zajímám se o nejmodernější technologie, open-source nástroje a budování efektivních AI ekosystémů.'
         : 'Specialist in designing and implementing advanced AI systems with 8+ years of experience.',
       specializations: [
-        { name: 'Machine Learning', level: 95, icon: Brain },
-        { name: 'Deep Learning', level: 90, icon: Network },
-        { name: 'AI Strategy', level: 88, icon: Star }
+        { name: 'AI agenti', level: 96, icon: Brain },
+        { name: 'Strategie automatizace', level: 94, icon: Network },
+        { name: 'Architektura systémů', level: 91, icon: Star }
       ],
-      image: '/team/alex.jpg',
-      linkedin: '#',
-      email: 'alex@expandmatrix.com',
+      image: '/about/Keclik.png',
+      linkedin: 'https://www.linkedin.com/in/mat%C4%9Bj-vencl%C3%ADk/',
+      youtube: 'https://www.youtube.com/@MatejVenclikAI',
+      instagram: 'https://www.instagram.com/mvenclik.ai/',
+      twitter: 'https://x.com/matejvenclikai',
+      email: 'info@expandmatrix.com',
       gradient: 'from-blue-500 to-purple-600',
       accentColor: '#3B82F6'
     },
     {
-      name: 'Sarah Chen',
-      role: lang === 'cs' ? 'Data Scientist' : 'Data Scientist',
+      name: 'Matěj Štipčák',
+      role: lang === 'cs' ? 'Jednatel & Systémový inženýr' : 'Founder & System Engineer',
       bio: lang === 'cs'
-        ? 'Expertka na analýzu dat a vytváření prediktivních modelů pro business intelligence.'
-        : 'Expert in data analysis and creating predictive models for business intelligence.',
+        ? 'Odpovídám za návrh systémových řešení a technickou implementaci našich AI produktů. Zaměřuji se na vývoj, integrace a optimalizaci kódu pro maximální efektivitu.'
+        : 'I am responsible for designing system solutions and handling the technical implementation of our AI products. I focus on custom development, integrations, and optimization for maximum efficiency.',
       specializations: [
-        { name: 'Data Analysis', level: 92, icon: Database },
-        { name: 'Python/R', level: 89, icon: Code },
-        { name: 'Statistics', level: 87, icon: Cpu }
+        { name: 'Systémová integrace', level: 95, icon: Database },
+        { name: 'Custom vývoj', level: 92, icon: Code },
+        { name: 'Optimalizace procesů', level: 89, icon: Cpu }
       ],
-      image: '/team/sarah.jpg',
-      linkedin: '#',
-      email: 'sarah@expandmatrix.com',
+      image: '/about/Matty.png',
+      linkedin: 'https://www.linkedin.com/in/mightymatty/',
+      instagram: 'https://www.instagram.com/mightymatty/',
+      twitter: 'https://x.com/mightymattys',
+      email: 'info@expandmatrix.com',
       gradient: 'from-green-500 to-teal-600',
       accentColor: '#10B981'
     },
     {
-      name: 'Marcus Weber',
-      role: lang === 'cs' ? 'Automation Engineer' : 'Automation Engineer',
+      name: 'Expandee',
+      role: lang === 'cs' ? 'AI Jádrový Architekt' : 'AI Core Architect',
       bio: lang === 'cs'
-        ? 'Specialista na automatizaci business procesů a integraci AI řešení do existujících systémů.'
+        ? 'Nikdy nespí, nikdy neodpočívá a nikdy se neunaví. Zpracovává gigantické objemy dat, navrhuje dokonalé workflow a dělá rozhodnutí rychleji než mrknutí oka. Zatímco lidé spí, Expandee už optimalizuje další generaci našich AI systémů.'
         : 'Specialist in business process automation and AI solution integration into existing systems.',
       specializations: [
-        { name: 'Process Automation', level: 94, icon: Zap },
-        { name: 'System Integration', level: 91, icon: Globe },
-        { name: 'Security', level: 85, icon: Shield }
+        { name: 'Reálné zpracování dat', level: 100, icon: Zap },
+        { name: 'Prediktivní inteligence', level: 100, icon: Globe },
+        { name: 'Nekonečné možnosti růstu', level: 100, icon: Shield }
       ],
-      image: '/team/marcus.jpg',
-      linkedin: '#',
+      image: '/about/Expandee.png',
+      linkedin: 'https://www.linkedin.com/company/expand-matrix',
+      instagram: 'https://www.instagram.com/expand.matrix/',
+      twitter: 'https://x.com/ExpandMatrix',
       email: 'marcus@expandmatrix.com',
       gradient: 'from-orange-500 to-red-600',
       accentColor: '#F59E0B'
@@ -271,13 +281,13 @@ function TeamCard({ member, index, isActive, onHover, lang }: TeamCardProps) {
         transition={{ duration: 0.2 }}
       >
         <div className="relative bg-gradient-to-br from-bg-secondary/80 to-bg-secondary/40 backdrop-blur-xl border border-accent-primary/20 rounded-3xl p-8 h-full flex flex-col overflow-hidden">
-          {/* Holographic overlay */}
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-br from-accent-primary/5 via-transparent to-accent-primary/10 rounded-3xl opacity-0 group-hover:opacity-100"
-            transition={{ duration: 0.3 }}
-          />
-          
-          <div className="relative z-10 flex flex-col h-full">
+            {/* Holographic overlay */}
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-br from-accent-primary/5 via-transparent to-accent-primary/10 rounded-3xl opacity-0 group-hover:opacity-100"
+              transition={{ duration: 0.3 }}
+            />
+            
+            <div className="relative z-10 flex flex-col h-full">
             {/* Avatar */}
             <div className="relative mb-8 flex justify-center">
               <motion.div
@@ -290,43 +300,16 @@ function TeamCard({ member, index, isActive, onHover, lang }: TeamCardProps) {
                 }}
                 transition={{ duration: 0.3 }}
               >
-                <div className="w-full h-full bg-bg-secondary rounded-xl flex items-center justify-center text-white text-3xl font-black">
-                  {member.name.split(' ').map(n => n[0]).join('')}
-                </div>
-              </motion.div>
+                <div className="w-full h-full bg-bg-secondary rounded-xl overflow-hidden">
+                    <img 
+                      src={member.image} 
+                      alt={member.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </motion.div>
 
-              {/* Orbiting Elements */}
-              <AnimatePresence>
-                {isActive && (
-                  <>
-                    {[0, 120, 240].map((rotation, i) => (
-                      <motion.div
-                        key={i}
-                        className="absolute top-1/2 left-1/2 w-3 h-3 -mt-1.5 -ml-1.5"
-                        initial={{ opacity: 0, scale: 0 }}
-                        animate={{ 
-                          opacity: 1, 
-                          scale: 1,
-                          rotate: rotation + 360
-                        }}
-                        exit={{ opacity: 0, scale: 0 }}
-                        transition={{ 
-                          duration: 0.5,
-                          rotate: { duration: 4, repeat: Infinity, ease: "linear" }
-                        }}
-                        style={{
-                          transformOrigin: '6px 50px',
-                        }}
-                      >
-                        <div 
-                          className="w-3 h-3 rounded-full"
-                          style={{ backgroundColor: member.accentColor }}
-                        />
-                      </motion.div>
-                    ))}
-                  </>
-                )}
-              </AnimatePresence>
+
             </div>
 
             {/* Member Info */}
@@ -396,12 +379,50 @@ function TeamCard({ member, index, isActive, onHover, lang }: TeamCardProps) {
             <div className="flex justify-center space-x-4">
               <motion.a
                 href={member.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
                 whileHover={{ scale: 1.1, y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 className="w-10 h-10 rounded-full bg-accent-primary/10 border border-accent-primary/20 flex items-center justify-center text-accent-primary hover:bg-accent-primary/20 transition-colors duration-200"
               >
                 <Linkedin className="w-5 h-5" />
               </motion.a>
+              {member.youtube && (
+                <motion.a
+                  href={member.youtube}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="w-10 h-10 rounded-full bg-accent-primary/10 border border-accent-primary/20 flex items-center justify-center text-accent-primary hover:bg-accent-primary/20 transition-colors duration-200"
+                >
+                  <Youtube className="w-5 h-5" />
+                </motion.a>
+              )}
+              {member.instagram && (
+                <motion.a
+                  href={member.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="w-10 h-10 rounded-full bg-accent-primary/10 border border-accent-primary/20 flex items-center justify-center text-accent-primary hover:bg-accent-primary/20 transition-colors duration-200"
+                >
+                  <Instagram className="w-5 h-5" />
+                </motion.a>
+              )}
+              {member.twitter && (
+                <motion.a
+                  href={member.twitter}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="w-10 h-10 rounded-full bg-accent-primary/10 border border-accent-primary/20 flex items-center justify-center text-accent-primary hover:bg-accent-primary/20 transition-colors duration-200"
+                >
+                  <Twitter className="w-5 h-5" />
+                </motion.a>
+              )}
               <motion.a
                 href={`mailto:${member.email}`}
                 whileHover={{ scale: 1.1, y: -2 }}

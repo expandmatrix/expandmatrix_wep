@@ -13,13 +13,13 @@ export default function AboutHero({ dict, lang }: AboutHeroProps) {
   const stats = [
     {
       icon: Brain,
-      number: '50+',
+      number: '140+',
       label: lang === 'cs' ? 'Dokončených projektů' : 'Completed Projects',
       color: 'from-accent-primary to-blue-400'
     },
     {
       icon: Users,
-      number: '30+',
+      number: '60+',
       label: lang === 'cs' ? 'Spokojených klientů' : 'Happy Clients',
       color: 'from-blue-400 to-purple-400'
     },
@@ -31,7 +31,7 @@ export default function AboutHero({ dict, lang }: AboutHeroProps) {
     },
     {
       icon: Award,
-      number: '98%',
+      number: '95%',
       label: lang === 'cs' ? 'Spokojenost klientů' : 'Client Satisfaction',
       color: 'from-pink-400 to-accent-primary'
     }

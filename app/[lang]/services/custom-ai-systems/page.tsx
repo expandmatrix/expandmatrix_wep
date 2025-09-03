@@ -61,8 +61,8 @@ export default async function CustomAISystemsPage({
   return (
     <main className="min-h-screen bg-bg-primary">
       <CustomAIHero dict={dict} lang={locale} />
-      <TargetAudience dict={dict} lang={locale} />
       <WhyAutomation dict={dict} lang={locale} />
+      <TargetAudience dict={dict} lang={locale} />
       <OurApproach dict={dict} lang={locale} />
       <ServicesCTA dict={dict} lang={locale} />
     </main>

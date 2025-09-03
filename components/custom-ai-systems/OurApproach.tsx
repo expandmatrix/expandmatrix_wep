@@ -13,34 +13,34 @@ export default function OurApproach({ dict, lang }: OurApproachProps) {
   const steps = [
     {
       icon: <Search className="w-8 h-8" />,
-      title: lang === 'cs' ? 'Analýza & Porozumění' : 'Analysis & Understanding',
+      title: lang === 'cs' ? 'Úvodní konzultace' : 'Initial Consultation',
       description: lang === 'cs'
-        ? 'Důkladně analyzujeme vaše procesy, identifikujeme příležitosti a definujeme požadavky'
-        : 'We thoroughly analyze your processes, identify opportunities and define requirements',
-      duration: lang === 'cs' ? '1-2 týdny' : '1-2 weeks'
+        ? 'Začínáme úvodním callem, kde probereme vaše procesy, cíle a možnosti. Identifikujeme příležitosti pro AI automatizaci a návrh inteligentních agentů.'
+        : 'We start with an introductory call to discuss your processes, goals, and opportunities. We identify possibilities for AI automation and the design of intelligent agents.',
+      duration: lang === 'cs' ? '45 minut' : '45 minutes'
     },
     {
       icon: <Lightbulb className="w-8 h-8" />,
       title: lang === 'cs' ? 'Návrh řešení' : 'Solution Design',
       description: lang === 'cs'
-        ? 'Vytváříme detailní návrh AI systému optimalizovaného pro vaše specifické potřeby'
-        : 'We create a detailed design of an AI system optimized for your specific needs',
-      duration: lang === 'cs' ? '1-2 týdny' : '1-2 weeks'
+        ? 'Připravíme detailní návrh AI systému na míru vašim potřebám. Definujeme technologie, integrace, strategii a stanovíme časový rámec i rozpočet pro celý projekt.'
+        : 'We prepare a detailed AI system design tailored to your needs. We define technologies, integrations, and strategy, and set the project timeline and budget.',
+      duration: lang === 'cs' ? '3-5 dní' : '3-5 days'
     },
     {
       icon: <Code className="w-8 h-8" />,
-      title: lang === 'cs' ? 'Vývoj & Implementace' : 'Development & Implementation',
+      title: lang === 'cs' ? 'Vývoj & testování' : 'Development & Testing',
       description: lang === 'cs'
-        ? 'Vyvíjíme a implementujeme AI systém s průběžným testováním a optimalizací'
-        : 'We develop and implement the AI system with continuous testing and optimization',
-      duration: lang === 'cs' ? '4-8 týdnů' : '4-8 weeks'
+        ? 'Vyvíjíme a ladíme AI agenty a automatizační workflow. Používáme iterativní vývoj s průběžným testováním, takže vidíte výsledky v reálném čase.'
+        : 'We develop and fine-tune AI agents and automation workflows. Using an iterative approach with continuous testing, you see results in real-time.',
+      duration: lang === 'cs' ? '2-8 týdnů' : '2-8 weeks'
     },
     {
       icon: <Rocket className="w-8 h-8" />,
-      title: lang === 'cs' ? 'Nasazení & Podpora' : 'Deployment & Support',
+      title: lang === 'cs' ? 'Produkční nasazení' : 'Production Deployment',
       description: lang === 'cs'
-        ? 'Nasazujeme systém do provozu a poskytujeme kontinuální podporu a údržbu'
-        : 'We deploy the system into operation and provide continuous support and maintenance',
+        ? 'Nasazujeme řešení do produkce a předáváme kompletní dokumentaci i školení. Váš tým tak přesně ví, jak systém používat a spravovat.'
+        : 'We deploy the solution to production and provide complete documentation and training. Your team will know exactly how to use and manage the system.',
       duration: lang === 'cs' ? 'Průběžně' : 'Ongoing'
     }
   ];
@@ -70,8 +70,8 @@ export default function OurApproach({ dict, lang }: OurApproachProps) {
           </h2>
           <p className="text-xl text-text-secondary max-w-3xl mx-auto">
             {lang === 'cs'
-              ? 'Systematický proces od první konzultace po úspěšné nasazení a dlouhodobou podporu'
-              : 'Systematic process from initial consultation to successful deployment and long-term support'
+              ? 'Každý projekt stavíme na důkladné analýze, chytré strategii a precizní implementaci. Váš systém dodáme včas, kvalitně a připravený na škálování.'
+              : 'Every project starts with deep analysis, followed by smart strategy and precise implementation. Delivered on time, at the highest quality, and built for scalability.'
             }
           </p>
         </motion.div>
@@ -97,7 +97,7 @@ export default function OurApproach({ dict, lang }: OurApproachProps) {
                   </div>
                 </div>
 
-                <div className="p-8 bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-xl border border-white/[0.08] rounded-3xl hover:border-accent-primary/30 transition-all duration-700 hover:scale-[1.02] mt-6 lg:mt-0">
+                <div className="h-full p-8 bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-xl border border-white/[0.08] rounded-3xl hover:border-accent-primary/30 transition-all duration-700 hover:scale-[1.02] mt-6 lg:mt-0 flex flex-col">
                   <div className="text-accent-primary mb-4 group-hover:scale-110 transition-transform duration-300 flex justify-center lg:justify-start">
                     {step.icon}
                   </div>
@@ -106,11 +106,11 @@ export default function OurApproach({ dict, lang }: OurApproachProps) {
                     {step.title}
                   </h3>
                   
-                  <p className="text-text-secondary mb-4 leading-relaxed text-center lg:text-left">
+                  <p className="text-text-secondary mb-0 leading-relaxed text-center lg:text-left flex-grow">
                     {step.description}
                   </p>
                   
-                  <div className="flex items-center justify-center lg:justify-start">
+                  <div className="flex items-center justify-center lg:justify-start mt-auto">
                     <div className="inline-flex items-center px-3 py-1 bg-accent-primary/10 border border-accent-primary/20 rounded-full">
                       <span className="text-accent-primary text-sm font-semibold">
                         {step.duration}
@@ -129,25 +129,25 @@ export default function OurApproach({ dict, lang }: OurApproachProps) {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
           viewport={{ once: true }}
-          className="mt-16 p-8 bg-gradient-to-r from-white/[0.05] to-white/[0.02] backdrop-blur-xl border border-white/[0.08] rounded-2xl"
+          className="mt-32 p-8 bg-gradient-to-r from-white/[0.05] to-white/[0.02] backdrop-blur-xl border border-white/[0.08] rounded-2xl"
         >
-          <div className="grid md:grid-cols-3 gap-6 text-center">
-            <div className="flex items-center justify-center space-x-3">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 text-center">
+            <div className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-3">
               <CheckCircle className="w-6 h-6 text-accent-primary" />
               <span className="text-text-secondary">
-                {lang === 'cs' ? 'Transparentní komunikace' : 'Transparent communication'}
+                {lang === 'cs' ? 'Transparentní komunikace' : 'Transparent Communication'}
               </span>
             </div>
-            <div className="flex items-center justify-center space-x-3">
+            <div className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-3">
               <CheckCircle className="w-6 h-6 text-accent-primary" />
               <span className="text-text-secondary">
-                {lang === 'cs' ? 'Agile metodologie' : 'Agile methodology'}
+                {lang === 'cs' ? 'Agilní metodika' : 'Agile Methodology'}
               </span>
             </div>
-            <div className="flex items-center justify-center space-x-3">
+            <div className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-3">
               <CheckCircle className="w-6 h-6 text-accent-primary" />
               <span className="text-text-secondary">
-                {lang === 'cs' ? 'Dlouhodobá podpora' : 'Long-term support'}
+                {lang === 'cs' ? 'Dlouhodobá spolupráce' : 'Long-term Partnership'}
               </span>
             </div>
           </div>

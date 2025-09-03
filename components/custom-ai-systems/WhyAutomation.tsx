@@ -53,8 +53,8 @@ export default function WhyAutomation({ dict, lang }: WhyAutomationProps) {
       icon: <Zap className="w-12 h-12" />,
       title: lang === 'cs' ? 'Efektivita procesů' : 'Process Efficiency',
       description: lang === 'cs'
-        ? 'Automatizace opakujících se úkolů uvolní váš tým pro kreativnější a strategičtější práci'
-        : 'Automating repetitive tasks frees your team for more creative and strategic work',
+        ? 'Automatizujte opakující se úkoly a uvolněte svůj tým pro strategičtější práci. Naše AI systémy dokáží zkrátit rutinní procesy až o 80 %.'
+        : 'Automate repetitive tasks and free up your team for more strategic and creative work. Our AI systems streamline operations and reduce task time by up to 80%.',
       stat: { number: 80, suffix: '%' },
       statLabel: lang === 'cs' ? 'úspora času' : 'time saved'
     },
@@ -62,8 +62,8 @@ export default function WhyAutomation({ dict, lang }: WhyAutomationProps) {
       icon: <DollarSign className="w-12 h-12" />,
       title: lang === 'cs' ? 'Snížení nákladů' : 'Cost Reduction',
       description: lang === 'cs'
-        ? 'AI systémy pracují 24/7 bez přestávek a výrazně snižují provozní náklady'
-        : 'AI systems work 24/7 without breaks and significantly reduce operational costs',
+        ? 'Naše AI řešení pracují 24/7 bez přestávek, automatizují klíčové procesy a dokáží snížit provozní náklady až o 60 %, aniž by byla ohrožena kvalita služeb.'
+        : 'Our AI-powered solutions work 24/7 without breaks, automate critical workflows, and reduce operational costs by up to 60% without compromising quality.',
       stat: { number: 60, suffix: '%' },
       statLabel: lang === 'cs' ? 'snížení nákladů' : 'cost reduction'
     },
@@ -71,8 +71,8 @@ export default function WhyAutomation({ dict, lang }: WhyAutomationProps) {
       icon: <TrendingUp className="w-12 h-12" />,
       title: lang === 'cs' ? 'Konkurenční výhoda' : 'Competitive Advantage',
       description: lang === 'cs'
-        ? 'Buďte o krok napřed před konkurencí s nejmodernějšími AI technologiemi'
-        : 'Stay one step ahead of the competition with cutting-edge AI technologies',
+        ? 'Získejte náskok s nejmodernějšími AI technologiemi a automatizacemi na míru. Naši klienti dosahují až 3× rychlejšího růstu.'
+        : 'Gain an edge with cutting-edge AI technologies and custom automation solutions that help your business grow up to 3× faster than the competition.',
       stat: { number: 3, suffix: 'x' },
       statLabel: lang === 'cs' ? 'rychlejší růst' : 'faster growth'
     },
@@ -80,8 +80,8 @@ export default function WhyAutomation({ dict, lang }: WhyAutomationProps) {
       icon: <BarChart3 className="w-12 h-12" />,
       title: lang === 'cs' ? 'Škálovatelnost' : 'Scalability',
       description: lang === 'cs'
-        ? 'AI systémy rostou s vaším podnikáním bez nutnosti proporcionálního navýšení týmu'
-        : 'AI systems grow with your business without the need for proportional team expansion',
+        ? 'Naše AI systémy rostou společně s vaším podnikáním. Díky chytré architektuře zvládnete 10× větší výkon bez navyšování týmu.'
+        : 'Our AI systems scale seamlessly as your business grows, allowing you to handle up to 10× more operations without increasing your team size.',
       stat: { number: 10, suffix: 'x' },
       statLabel: lang === 'cs' ? 'škálovatelnost' : 'scalability'
     }
@@ -100,9 +100,9 @@ export default function WhyAutomation({ dict, lang }: WhyAutomationProps) {
           <h2 className="text-4xl md:text-6xl font-black mb-6 text-text-primary">
             {lang === 'cs' ? (
               <>
-                Proč{' '}
-                <span className="text-accent-primary">automatizace</span>{' '}
-                záleží
+                Proč je{' '}
+                <span className="text-accent-primary">AI automatizace</span>{' '}
+                klíčová pro růst vašeho byznysu
               </>
             ) : (
               <>
@@ -114,7 +114,7 @@ export default function WhyAutomation({ dict, lang }: WhyAutomationProps) {
           </h2>
           <p className="text-xl text-text-secondary max-w-3xl mx-auto">
             {lang === 'cs'
-              ? 'V dnešním rychle se měnícím světě je automatizace klíčem k udržení konkurenceschopnosti a růstu'
+              ? 'V dnešním rychlém světě rozhoduje rychlost, efektivita a škálovatelnost. Naše AI systémy a inteligentní agenti vám pomohou automatizovat klíčové procesy, snížit náklady a získat konkurenční náskok.'
               : 'In today\'s rapidly changing world, automation is key to maintaining competitiveness and growth'
             }
           </p>

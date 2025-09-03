@@ -15,8 +15,8 @@ export default function TargetAudience({ dict, lang }: TargetAudienceProps) {
       icon: <Building2 className="w-12 h-12" />,
       title: lang === 'cs' ? 'Velké podniky & Enterprise' : 'Large Businesses & Enterprise',
       description: lang === 'cs' 
-        ? 'Komplexní AI systémy pro automatizaci rozsáhlých procesů a optimalizaci celé organizace'
-        : 'Complex AI systems for automating extensive processes and optimizing entire organizations',
+        ? 'Komplexní AI systémy pro automatizaci rozsáhlých procesů a optimalizaci celé organizace. Pomáháme firmám zvýšit produktivitu, snížit náklady a posílit konkurenceschopnost.'
+        : 'Comprehensive AI solutions for automating complex processes and optimizing the entire organization. We help enterprises streamline workflows, reduce operational costs, and gain a competitive advantage.',
       features: lang === 'cs' 
         ? ['Škálovatelná architektura', 'Enterprise integrace', 'Pokročilá analytika']
         : ['Scalable architecture', 'Enterprise integration', 'Advanced analytics']
@@ -25,31 +25,31 @@ export default function TargetAudience({ dict, lang }: TargetAudienceProps) {
       icon: <User className="w-12 h-12" />,
       title: lang === 'cs' ? 'Podnikatelé & Freelanceři' : 'Entrepreneurs & Freelancers',
       description: lang === 'cs'
-        ? 'Personalizované AI asistenty a automatizační nástroje pro zvýšení produktivity'
-        : 'Personalized AI assistants and automation tools to boost productivity',
+        ? 'Personalizovaní AI asistenti a chytré automatizační nástroje pro zvýšení produktivity. Pomůžeme vám ušetřit čas, zjednodušit provoz a soustředit se na růst.'
+        : 'Personalized AI assistants and automation tools designed to boost productivity and simplify operations. We help you save time, automate repetitive tasks, and focus on growing your business effectively.',
       features: lang === 'cs'
-        ? ['Osobní AI asistent', 'Automatizace úkolů', 'Cenově dostupné']
-        : ['Personal AI assistant', 'Task automation', 'Cost-effective']
+        ? ['Vlastní AI asistent', 'Automatizace rutinních úkolů', 'Cenově dostupné řešení']
+        : ['Custom AI assistants', 'Workflow automation', 'Cost-effective solutions']
     },
     {
       icon: <Users className="w-12 h-12" />,
       title: lang === 'cs' ? 'Malé a střední firmy' : 'Small & Medium Businesses',
       description: lang === 'cs'
-        ? 'AI řešení šitá na míru pro optimalizaci procesů a růst vašeho podnikání'
-        : 'Tailored AI solutions for process optimization and business growth',
+        ? 'AI řešení na míru pro optimalizaci procesů, zefektivnění řízení a rychlejší růst. Naše systémy jsou navržené tak, aby byly rychle implementované a snadno použitelné.'
+        : 'Tailored AI solutions to optimize operations, automate processes, and accelerate business growth. Fast to implement, easy to use, and designed to deliver maximum ROI for your organization.',
       features: lang === 'cs'
-        ? ['Rychlá implementace', 'ROI zaměřené', 'Snadné používání']
-        : ['Quick implementation', 'ROI focused', 'Easy to use']
+        ? ['Rychlá implementace', 'ROI-orientovaný přístup', 'Uživatelsky přívětivé používání']
+        : ['Quick implementation', 'ROI-focused approach', 'User-friendly']
     },
     {
       icon: <Lightbulb className="w-12 h-12" />,
       title: lang === 'cs' ? 'Inovativní projekty' : 'Innovative Projects',
       description: lang === 'cs'
-        ? 'Experimentální AI systémy pro průlomové nápady a cutting-edge technologie'
-        : 'Experimental AI systems for breakthrough ideas and cutting-edge technology',
+        ? 'Experimentální AI systémy a custom vývoj pro průlomové nápady a nové technologie. Spolupracujeme na výzkumu, prototypování i vytváření MVP produktů.'
+        : 'Cutting-edge AI systems and custom development for groundbreaking products and new technologies. We work with you on research, prototyping, and creating MVPs to bring your vision to life faster.',
       features: lang === 'cs'
-        ? ['Výzkum & vývoj', 'Prototypování', 'Nejnovější technologie']
-        : ['Research & development', 'Prototyping', 'Latest technology']
+        ? ['Výzkum a vývoj', 'Prototypování a testování', 'Nejmodernější technologie']
+        : ['Research and development', 'Prototyping and testing', 'Latest technology']
     }
   ];
 
@@ -68,20 +68,20 @@ export default function TargetAudience({ dict, lang }: TargetAudienceProps) {
               <>
                 Pro{' '}
                 <span className="text-accent-primary">koho</span>{' '}
-                vytváříme
+                vytváříme AI řešení
               </>
             ) : (
               <>
-                Who we{' '}
-                <span className="text-accent-primary">create</span>{' '}
-                for
+                Who We {' '}
+                <span className="text-accent-primary">Build</span>{' '}
+                AI Solutions For
               </>
             )}
           </h2>
           <p className="text-xl text-text-secondary max-w-3xl mx-auto">
             {lang === 'cs'
-              ? 'Naše AI systémy jsou určené pro každého, kdo chce využít sílu umělé inteligence ve svém podnikání'
-              : 'Our AI systems are designed for anyone who wants to harness the power of artificial intelligence in their business'
+              ? 'Naše AI systémy jsou navržené pro firmy, podnikatele i inovátory, kteří chtějí využít sílu AI automatizace a inteligentních agentů k růstu a vyšší efektivitě.'
+              : 'Our AI systems are designed for businesses, entrepreneurs, and innovators who want to leverage AI automation and intelligent agents to grow faster and work smarter.'
             }
           </p>
         </motion.div>

@@ -179,9 +179,9 @@ export default function CustomAIHero({ dict, lang }: CustomAIHeroProps) {
             <h1 className="text-5xl md:text-7xl lg:text-8xl 2xl:text-[9rem] 3xl:text-[11rem] font-black mb-6 leading-tight">
               {lang === 'cs' ? (
                 <>
-                  <span className="text-text-primary">Vytváříme AI </span>
+                  <span className="text-text-primary">Tvoříme AI systémy </span>
                   <span className="text-accent-primary relative">
-                    přesně
+                    na míru
                     <motion.div
                       initial={{ scaleX: 0 }}
                       animate={{ scaleX: 1 }}
@@ -189,13 +189,12 @@ export default function CustomAIHero({ dict, lang }: CustomAIHeroProps) {
                       className="absolute bottom-2 left-0 right-0 h-2 bg-accent-primary/20 -z-10"
                     />
                   </span>
-                  <span className="text-text-primary"> pro vás</span>
                 </>
               ) : (
                 <>
-                  <span className="text-text-primary">We create AI </span>
+                  <span className="text-text-primary">Building AI Systems </span>
                   <span className="text-accent-primary relative">
-                    exactly
+                    Tailored
                     <motion.div
                       initial={{ scaleX: 0 }}
                       animate={{ scaleX: 1 }}
@@ -203,15 +202,15 @@ export default function CustomAIHero({ dict, lang }: CustomAIHeroProps) {
                       className="absolute bottom-2 left-0 right-0 h-2 bg-accent-primary/20 -z-10"
                     />
                   </span>
-                  <span className="text-text-primary"> for you</span>
+                  <span className="text-text-primary"> to you</span>
                 </>
               )}
             </h1>
             
             <p className="text-xl md:text-2xl 2xl:text-3xl 3xl:text-4xl text-text-secondary max-w-4xl mx-auto leading-relaxed">
               {lang === 'cs'
-                ? 'Od analýzy vašich potřeb po kompletní implementaci. Vytváříme AI systémy, které skutečně vyřeší vaše obchodní výzvy a posunou vás před konkurenci.'
-                : 'From analyzing your needs to complete implementation. We create AI systems that truly solve your business challenges and put you ahead of the competition.'
+                ? 'Od analýzy procesů přes návrh řešení až po implementaci a školení. Pomáháme firmám využít sílu AI automatizace a inteligentních agentů, které zvýší produktivitu, sníží náklady a dají vám konkurenční výhodu.'
+                : 'From analysis and system design to full implementation and training, we create custom AI solutions and intelligent agents that automate processes, reduce costs, and give your business a competitive advantage.'
               }
             </p>
           </motion.div>
